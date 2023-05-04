@@ -19,7 +19,7 @@ public abstract class Instruction
 public abstract class HolderInstruction : Instruction
 {
     public List<Instruction> instructions;
-    public abstract void Add(Instruction instruction);
+    //public abstract void Add(Instruction instruction);
 }
 
 //sadece sayýyla dönen for loop. boolean olacaksa ayrý class oluþturulabilir.
@@ -27,7 +27,7 @@ public class For : HolderInstruction
 {
     private int iterationCount;
     //private List<Instruction> instructions;
-    
+
     public For(int iterationCount, int level)
     {
         this.iterationCount = iterationCount;
@@ -42,14 +42,14 @@ public class For : HolderInstruction
 
         for (int i = 0; i < iterationCount; i++)
         {
-            
+
             foreach (Instruction instruction in instructions)
             {
                 Debug.Log(instruction.ToString());
                 instruction.Run();
             }
         }
-        
+
     }
 
     //public void Add(Instruction instruction)
@@ -57,10 +57,7 @@ public class For : HolderInstruction
     //    instructions.Add(instruction);
     //}
 
-    public override void Add(Instruction instruction)
-    {
-        instructions.Add(instruction);
-    }
+
 
     public override string ToString()
     {
@@ -93,7 +90,7 @@ public class ConditionHolder : HolderInstruction
 
     public ConditionHolder(int level)
     {
-        this.level=level;
+        this.level = level;
     }
 
     public override void Run()
@@ -106,12 +103,7 @@ public class ConditionHolder : HolderInstruction
         }
     }
 
-    //public void Add(Condition condition)
-    //{
-    //    conditionals.Add(condition);
-    //}
-
-    public override void Add(Instruction condition)
+    public void Add(Instruction condition)
     {
         instructions.Add((Condition)condition);
     }
@@ -122,52 +114,124 @@ public class ConditionHolder : HolderInstruction
     }
 }
 
-public class Condition : HolderInstruction
+public abstract class Condition : HolderInstruction
 {
     //if bloðunun içindekiler eklencek.
     //public List<Instruction> instructions;
-    public string type;
+
+
     public bool boolean;
 
 
+
     //burada string olarak deðil, deðeri belirlenmiþ bool olarak da atanabilir. ekleme kýsmý ayarlanmalý.
-    public Condition(string type, string booleanString, int level)
-    {
-        this.type = type;
-        this.level = level;
+    //public Condition(string type, string booleanString, int level)
+    //{
+    //    this.type = type;
+    //    this.level = level;
 
-        if (booleanString != null)
-        {
-            //burada boolean deðeri belirlenecek. kontrol yapýlacak yani. 
-            //buraya eklenmeden mi burada mý boolean belirlense daha kolay olur? eklenmeden belki daha kolay olur çünkü diðer tarafta daha çok þeye eriþim var.
+    //    if (booleanString != null)
+    //    {
+    //        //burada boolean deðeri belirlenecek. kontrol yapýlacak yani. 
+    //        //buraya eklenmeden mi burada mý boolean belirlense daha kolay olur? eklenmeden belki daha kolay olur çünkü diðer tarafta daha çok þeye eriþim var.
 
-            //boolean = true;
+    //        //boolean = true;
 
-            //boolean = false;
-        }
-    }
+    //        //boolean = false;
+    //    }
+    //}
 
-    public override void Run()
-    {
-        foreach (Instruction instruction in instructions)
-        {
-            instruction.Run();
-        }
-    }
+
+
+    //public override void Run()
+    //{
+    //    foreach (Instruction instruction in instructions)
+    //    {
+    //        instruction.Run();
+    //    }
+    //}
 
     //public void Add(Instruction instruction)
     //{
     //    instructions.Add(instruction);
     //}
 
-    public override void Add(Instruction instruction)
-    {
-        instructions.Add(instruction);
-    }
+    //public override void Add(Instruction instruction)
+    //{
+    //    instructions.Add(instruction);
+    //}
 
     public override string ToString()
     {
         return "Condition Class";
+    }
+}
+
+
+public class If : Condition
+{
+    public string variable;
+    public string operatorType;
+    public string value;
+
+
+    public If(string variable, string operatorType, string value, int level)
+    {
+
+        this.variable = variable;
+        this.operatorType = operatorType;
+        this.value = value;
+        this.level = level;
+
+    }
+
+
+
+    public override void Run()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class Elif : Condition
+{
+    public string variable;
+    public string operatorType;
+    public string value;
+
+
+    public Elif(string variable, string operatorType, string value, int level)
+    {
+
+        this.variable = variable;
+        this.operatorType = operatorType;
+        this.value = value;
+        this.level = level;
+
+    }
+
+
+
+    public override void Run()
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public class Else : Condition
+{
+
+    public Else(int level)
+    {
+        this.level = level;
+
+    }
+
+
+
+    public override void Run()
+    {
+        throw new NotImplementedException();
     }
 }
 
@@ -714,7 +778,8 @@ public class RunCodeButton : MonoBehaviour
             //int rowIndentation = 0;
 
 
-            List<Condition> tempConditions = new List<Condition>();
+            //List<Condition> tempConditions = new List<Condition>();
+            ConditionHolder conditionHolder = null;
 
 
             int lastIndentation = 0;
@@ -724,7 +789,7 @@ public class RunCodeButton : MonoBehaviour
                 //ayrýca null kontrolü de gerekebilir.
                 if (String.IsNullOrEmpty(rows1[i]))
                     continue;
-                
+
                 int rowIndentation;
                 //Debug.Log(rows2[i]);
                 //bos satirlar yok sayiliyor.
@@ -792,17 +857,17 @@ public class RunCodeButton : MonoBehaviour
                         }
 
 
-                        Debug.Log("rowindentaiton "+rowIndentation);
-                        Debug.Log("indentaion "+indentation);
+                        Debug.Log("rowindentaiton " + rowIndentation);
+                        Debug.Log("indentaion " + indentation);
 
 
-                        instructionLevel = ((rowIndentation - indentation)/n) + 1;
+                        instructionLevel = ((rowIndentation - indentation) / n) + 1;
 
 
 
                         if (lastInstructionType == "holder")
                         {
-                            if(rowIndentation != lastIndentation + n) 
+                            if (rowIndentation != lastIndentation + n)
                             {
                                 Debug.Log("indentation hatasý2");
                             }
@@ -811,67 +876,75 @@ public class RunCodeButton : MonoBehaviour
 
                         string leftTrimmedRow = rows1[i].Substring(rowIndentation);
                         Debug.Log(leftTrimmedRow + " " + leftTrimmedRow.Length);
-                        
 
-                        
 
+
+                        //BU length kontrolleri DEÐÝÞECEK!!!!!!!!!!!!
                         if (leftTrimmedRow.Length >= 2)
                         {
                             if (leftTrimmedRow.Substring(0, 2) == "if")
                             {
-                                if (leftTrimmedRow[leftTrimmedRow.IndexOf("if")+2] != ' ')
+                                if (leftTrimmedRow[leftTrimmedRow.IndexOf("if") + 2] != ' ')
                                 {
                                     Debug.Log("boþluk olmalý hata");
                                 }
                                 else
                                 {
+                                    string operatorType = null;
+
                                     if (leftTrimmedRow.Contains("=="))
-                                    {
-                                        string var = leftTrimmedRow.Substring(2, leftTrimmedRow.IndexOf("==")-2).Trim();
-                                        //burasý VariableCheck(var) ile deðiþtirilebilir
-
-                                        if (VariableCheck(var))
-                                        {
-                                            string value = leftTrimmedRow.Substring(leftTrimmedRow.IndexOf("==") + 2).Trim();
-
-                                            if (value.Length < 4)  // "x":
-                                            {
-                                                Debug.Log("Hata");
-                                            }
-                                            else if (value[0] != '"' || value[value.Length - 2] != '"')
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else if (value[value.Length - 1] != ':')
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else
-                                            {
-                                                value = value.Substring(1, value.Length - 2);
-
-                                                //burada var ve value elde ettik. If classýný oluþturabiliriz.
-                                                //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
-                                            }
-                                        }
-                                        
-
-                                    }
+                                        operatorType = "==";
                                     else if (leftTrimmedRow.Contains("!="))
-                                    {
-
-                                    }
-                                    else if (leftTrimmedRow.Contains('=') || leftTrimmedRow.Contains('>') || leftTrimmedRow.Contains('<'))
-                                    {
-
-                                    }
+                                        operatorType = "!=";
+                                    else if (leftTrimmedRow.Contains("<"))
+                                        operatorType = "<";
+                                    else if (leftTrimmedRow.Contains(">"))
+                                        operatorType = ">";
+                                    else if (leftTrimmedRow.Contains("="))
+                                        operatorType = "=";
                                     else
-                                    {
+                                        Debug.Log("Hata");
 
+
+
+                                    //if (leftTrimmedRow.Contains(operatorType))
+                                    //{
+                                    string var = leftTrimmedRow.Substring(2, leftTrimmedRow.IndexOf(operatorType) - 2).Trim();
+                                    //burasý VariableCheck(var) ile deðiþtirilebilir
+
+                                    if (VariableCheck(var))
+                                    {
+                                        string value = leftTrimmedRow.Substring(leftTrimmedRow.IndexOf(operatorType) + 2).Trim();
+
+                                        if (value.Length < 4)  // "x":
+                                        {
+                                            Debug.Log("Hata");
+                                        }
+                                        else if (value[0] != '"' || value[value.Length - 2] != '"')
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else if (value[value.Length - 1] != ':')
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else
+                                        {
+                                            value = value.Substring(1, value.Length - 2);
+
+                                            //burada var ve value elde ettik. If classýný oluþturabiliriz.
+                                            //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
+                                            //ama burasý sadece if
+
+                                            conditionHolder = new ConditionHolder(instructionLevel);
+                                            If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
+                                            conditionHolder.Add(ifCondition);
+                                            AddInstruction(conditionHolder);
+
+                                        }
                                     }
-                                } 
-                                
-                            
+                                    //}
+                                }
 
                             }
 
@@ -888,7 +961,7 @@ public class RunCodeButton : MonoBehaviour
                                 //string[] rowWords = rows1[i].Split(' ');
                                 //Debug.Log(rowWords[1]);
 
-                                if (leftTrimmedRow[3]!=' ')
+                                if (leftTrimmedRow[3] != ' ')
                                 {
                                     Debug.Log("hata");
 
@@ -896,7 +969,8 @@ public class RunCodeButton : MonoBehaviour
                                 else if (!leftTrimmedRow.Contains("in"))
                                 {
                                     Debug.Log("hata");
-                                }else if (leftTrimmedRow[leftTrimmedRow.IndexOf("in") - 1] != ' ')
+                                }
+                                else if (leftTrimmedRow[leftTrimmedRow.IndexOf("in") - 1] != ' ')
                                 {
                                     Debug.Log("hata");
                                 }
@@ -908,13 +982,14 @@ public class RunCodeButton : MonoBehaviour
                                 else
                                 {
                                     //burada sanýrým trim kullanmak gerekiyor ve sonrasýnda kelimenin içinde boþluk var mý diye bakmak gerekiyor
-                                    string var = leftTrimmedRow.Substring(3, leftTrimmedRow.IndexOf("in")-3).Trim();
+                                    string var = leftTrimmedRow.Substring(3, leftTrimmedRow.IndexOf("in") - 3).Trim();
                                     Debug.Log("var = " + var);
                                     //
                                     if (pythonReservedWords.Contains(var))
                                     {
                                         Debug.Log("hata");
-                                    }else if (!leftTrimmedRow.Contains("range"))
+                                    }
+                                    else if (!leftTrimmedRow.Contains("range"))
                                     {
                                         Debug.Log("hata");
                                     }
@@ -925,7 +1000,7 @@ public class RunCodeButton : MonoBehaviour
 
                                         if (rangeParameter[0] != '(')
                                             Debug.Log("hata");
-                                        else if (rangeParameter[rangeParameter.Length-2] != ')')
+                                        else if (rangeParameter[rangeParameter.Length - 2] != ')')
                                         {
                                             Debug.Log("hata");
                                         }
@@ -945,12 +1020,12 @@ public class RunCodeButton : MonoBehaviour
 
                                                 //Bunu doðru yere eklemek gerekiyor.
                                                 For forLoop = new For(parameter, instructionLevel);
-                                                
-                                                
+
+
                                                 //indentation kontrol lazým.
                                                 if (instructionList.Count == 0)
                                                 {
-                                                    
+
                                                     instructionList.Add(forLoop);
                                                 }
                                                 else
@@ -962,8 +1037,8 @@ public class RunCodeButton : MonoBehaviour
                                                             if (instructionList[j].level == instructionLevel - 1)
                                                             {
                                                                 //burada holder olduklarýndan emin olmak lazým. Yani üsttekinden emin olmak lazým. 
-                                                                ((HolderInstruction)instructionList[j]).Add(forLoop);
-
+                                                                //((HolderInstruction)instructionList[j]).Add(forLoop);
+                                                                AddInstruction(forLoop);
                                                             }
                                                         }
                                                     }
@@ -991,29 +1066,31 @@ public class RunCodeButton : MonoBehaviour
                         if (leftTrimmedRow.Length >= 4)
                         {
                             Debug.Log("Moveeee");
-                            if(leftTrimmedRow.Substring(0,4) == "move")
+                            if (leftTrimmedRow.Substring(0, 4) == "move")
                             {
                                 if (!leftTrimmedRow.Contains('('))
                                 {
                                     Debug.Log("hata");
-                                }else if (!leftTrimmedRow.Contains(')'))
+                                }
+                                else if (!leftTrimmedRow.Contains(')'))
                                 {
                                     Debug.Log("hata2");
                                 }
-                                
-                                string[] instructionParts = leftTrimmedRow.Split('(',2);
 
-                                instructionParts[0]= instructionParts[0].Trim();
+                                string[] instructionParts = leftTrimmedRow.Split('(', 2);
+
+                                instructionParts[0] = instructionParts[0].Trim();
                                 int length = instructionParts[0].Length;
                                 //if (instructionParts[0].Length<6 || instructionParts[0].Length > 9)
                                 //{
                                 //    Debug.Log("hata");
                                 //}else if()
 
-                                if (length<6 || length > 9)
+                                if (length < 6 || length > 9)
                                 {
                                     Debug.Log("hata");
-                                }else if (length==6)
+                                }
+                                else if (length == 6)
                                 {
                                     if (instructionParts[0] == "moveUp")
                                     {
@@ -1046,7 +1123,7 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     if (instructionParts[0] == "moveRight")
                                     {
-                                        
+
                                         Move move = new Move(characterMovement, "right", instructionLevel);
                                         AddInstruction(move);
                                     }
@@ -1055,6 +1132,99 @@ public class RunCodeButton : MonoBehaviour
                                         Debug.Log("hata");
                                     }
                                 }
+
+                            }
+                            else if (leftTrimmedRow.Substring(0, 4) == "elif")
+                            {
+                                if (leftTrimmedRow[leftTrimmedRow.IndexOf("elif") + 4] != ' ')
+                                {
+                                    Debug.Log("boþluk olmalý hata");
+                                }
+                                else
+                                {
+                                    string operatorType = null;
+
+                                    if (leftTrimmedRow.Contains("=="))
+                                        operatorType = "==";
+                                    else if (leftTrimmedRow.Contains("!="))
+                                        operatorType = "!=";
+                                    else if (leftTrimmedRow.Contains("<"))
+                                        operatorType = "<";
+                                    else if (leftTrimmedRow.Contains(">"))
+                                        operatorType = ">";
+                                    else if (leftTrimmedRow.Contains("="))
+                                        operatorType = "=";
+                                    else
+                                        Debug.Log("Hata");
+
+
+
+                                    //if (leftTrimmedRow.Contains(operatorType))
+                                    //{
+                                    string var = leftTrimmedRow.Substring(4, leftTrimmedRow.IndexOf(operatorType) - 4).Trim();
+                                    //burasý VariableCheck(var) ile deðiþtirilebilir
+
+                                    if (VariableCheck(var))
+                                    {
+                                        string value = leftTrimmedRow.Substring(leftTrimmedRow.IndexOf(operatorType) + 4).Trim();
+
+                                        if (value.Length < 4)  // "x":
+                                        {
+                                            Debug.Log("Hata");
+                                        }
+                                        else if (value[0] != '"' || value[value.Length - 2] != '"')
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else if (value[value.Length - 1] != ':')
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else
+                                        {
+                                            value = value.Substring(1, value.Length - 2);
+
+                                            //burada var ve value elde ettik. If classýný oluþturabiliriz.
+                                            //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
+                                            //ama burasý sadece if
+
+                                            //conditionHolder = new ConditionHolder(instructionLevel);
+
+                                            //+1 diyerek conditionHolder'ýn içine girmesi saðlandý gibi. Ama bir yerde conditionHolder'ýn içinde olup olmadýðý kontrol edilmeli.
+                                            Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
+
+                                            AddInstruction(elifCondition);
+
+
+                                            //Oldu mu bilmiyorum. Büyük ihtimal olmadý çünkü iften sonra araya baþka þeyler girmiþ olabilir. Bundan dolayý AddInstruction'da yapmak zorundayým.
+                                            //if (conditionHolder == null)
+                                            //    Debug.Log("hata");
+                                            //else if (instructionLevel == conditionHolder.level)
+                                            //    conditionHolder.Add(elifCondition);
+
+
+
+                                            //conditionHolder.Add(ifCondition);
+                                            //AddInstruction(conditionHolder);
+
+                                        }
+                                    }
+                                    //}
+                                }
+                            }
+                            else if (leftTrimmedRow.Substring(0, 4) == "else")
+                            {
+                                leftTrimmedRow = leftTrimmedRow.Replace(" ", "");
+                                if (leftTrimmedRow.Length != 4)
+                                    Debug.Log("hata");
+                                else if (leftTrimmedRow[4] != ':')
+                                    Debug.Log("hata");
+                                else
+                                {
+                                    //AddInstruction() içinde bunun üstüdneki ConditionHolder mý diye kontrol etmek gerek.
+                                    Else elseCondition = new Else(instructionLevel + 1);
+                                }
+
 
                             }
                         }
@@ -1067,11 +1237,11 @@ public class RunCodeButton : MonoBehaviour
             }
 
             Debug.Log(instructionList.Count);
-            foreach(Instruction v in instructionList)
+            foreach (Instruction v in instructionList)
                 Debug.Log(v.ToString());
 
 
-            foreach(Instruction instruction in instructionList)
+            foreach (Instruction instruction in instructionList)
             {
                 Debug.Log(instruction.ToString());
                 if (instruction != null)
@@ -1082,59 +1252,71 @@ public class RunCodeButton : MonoBehaviour
         }
     }
 
-    
-    
+
+
 
     //SORUN BURADA HERHALDE. Forun içine eklemiyor moveu.
     public void AddInstruction(Instruction instruction)
     {
-        
+
 
         List<Instruction> instructionList = this.instructionList;
         Debug.Log(instruction.ToString());
-       
-            for (int i = 1; true; i++)
+
+        for (int i = 1; true; i++)
+        {
+            Debug.Log("level " + instruction.level);
+
+            //if (instruction.GetType() == typeof(Condition))
+            //{
+
+            //}
+
+            if (i == instruction.level)
             {
-                Debug.Log("level " + instruction.level);
-                if (i == instruction.level)
+                //if (instruction.ToString() == "Move: up Class")
+                //    Debug.Log("Burasý 2:" + instruction.level);
+
+                instructionList.Add(instruction);
+
+
+                return;
+            }
+            else
+            {
+                //if (instructionList.Count > 0)
+                //{
+                //burada is instance olacak sanýrým
+                //instructionList[instructionList.Count - 1].GetType() == typeof(HolderInstruction)
+                //Uzun runtime buradan kaynaklanýyor.
+                //instructionList[instructionList.Count - 1] is HolderInstruction
+                Debug.Log(instructionList.Count);
+                Debug.Log(instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)));
+                if (instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)))
                 {
-                    //if (instruction.ToString() == "Move: up Class")
-                    //    Debug.Log("Burasý 2:" + instruction.level);
-                    instructionList.Add(instruction);
-                    return;
+                    Debug.Log("holderxxxx");
+                    //burada son listin sonundaki instructionýn listi alýnýyor
+                    instructionList = ((HolderInstruction)instructionList[instructionList.Count - 1]).instructions;
+                    Debug.Log(instructionList.Count);
+                    //instruction = instructionList[instructionList.Count - 1];
+
                 }
+                //}
                 else
                 {
-                    //if (instructionList.Count > 0)
-                    //{
-                        //burada is instance olacak sanýrým
-                        //instructionList[instructionList.Count - 1].GetType() == typeof(HolderInstruction)
-                        //Uzun runtime buradan kaynaklanýyor.
-                        //instructionList[instructionList.Count - 1] is HolderInstruction
-                        Debug.Log(instructionList.Count);
-                        Debug.Log(instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)));
-                        if (instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)))
-                        {
-                            Debug.Log("holderxxxx");
-                            //burada son listin sonundaki instructionýn listi alýnýyor
-                            instructionList = ((HolderInstruction)instructionList[instructionList.Count - 1]).instructions;
-                            Debug.Log(instructionList.Count);
-                            //instruction = instructionList[instructionList.Count - 1];
-                            
-                        }
-                    //}
-                        else
-                        {
-                            Debug.Log("hata???");
-                            return;
-                        }
+                    Debug.Log("hata???");
+                    return;
                 }
-
             }
-        
+
+        }
+
+
+
+
         //Son geldiðimiz instructionList boþ olabilir. null error verebilir.
 
-        
+
 
 
 
@@ -1189,6 +1371,6 @@ public class RunCodeButton : MonoBehaviour
         }
         return true;
     }
-        
+
 }
 
