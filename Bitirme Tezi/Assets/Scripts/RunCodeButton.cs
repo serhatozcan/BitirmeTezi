@@ -235,6 +235,28 @@ public class Else : Condition
     }
 }
 
+public class ChangeColor : Instruction
+{
+    private CharacterColorChanger characterColorChanger;
+    private string color;
+
+    public ChangeColor(CharacterColorChanger characterColorChanger, string color)
+    {
+        this.characterColorChanger = characterColorChanger;
+        this.color = color;
+    }
+
+    public override void Run()
+    {
+        if (color == "blue")
+            characterColorChanger.ChangeColorToBlue();
+        else if (color == "red")
+            characterColorChanger.ChangeColorToRed();
+        else
+            Debug.Log("hata");
+    }
+}
+
 public class Move : Instruction
 {
     private CharacterMovementController characterMovement;
@@ -373,6 +395,7 @@ public class RunCodeButton : MonoBehaviour
     [SerializeField]
     public GameObject character;
     private CharacterMovementController characterMovement;
+    private CharacterColorChanger characterColorChanger;
 
     private string[] initParameters = null;
 
@@ -386,10 +409,12 @@ public class RunCodeButton : MonoBehaviour
         instructionList = new List<Instruction>();
         //ReadInputPage1(inputPage1);
         characterMovement = character.GetComponent<CharacterMovementController>();
+        characterColorChanger = character.GetComponent<CharacterColorChanger>();
         pythonReservedWords = new string[] { "def", "if", "else", "elif", "for", "while", "False", "True", "and", "as", "assert", "break", "class", "continue",
                                             "del",   "except", "finally",  "form", "global", "import", "in", "is", "lambda",
                                             "nonlocal", "not", "or", "pass", "raise", "return", "try",  "with", "yeld"};
-
+        //characterColorChanger.ChangeColorToBlue();
+        //characterColorChanger.ChangeColorToRed();
     }
 
     // Update is called once per frame
