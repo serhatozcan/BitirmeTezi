@@ -121,8 +121,8 @@ public abstract class Condition : HolderInstruction
 
 
     public bool boolean;
-
-
+    public int id;
+    public List<bool> conditionRunList;
 
     //burada string olarak deðil, deðeri belirlenmiþ bool olarak da atanabilir. ekleme kýsmý ayarlanmalý.
     //public Condition(string type, string booleanString, int level)
@@ -175,21 +175,36 @@ public class If : Condition
     public string value;
 
 
-    public If(string variable, string operatorType, string value, int level)
+    public If(string variable, string operatorType, string value, int id, List<bool> conditionRunList, int level)
     {
 
         this.variable = variable;
         this.operatorType = operatorType;
         this.value = value;
+        this.id = id;
+        this.conditionRunList = conditionRunList;
         this.level = level;
-
+        
     }
 
 
 
     public override void Run()
     {
-        throw new NotImplementedException();
+        //burada önce diðerlerinde baðýmsýz olarak bool deðerine göre çalýþacak mý diye kontrol edeceðiz.
+        //sonra çalýþacaksa conditionRunListte id'ye karþýlýk gelen indexi true yapýcaz.
+        //SIKINTI ÞU: true yaptýktan sonra for loop içerisinde ayný if'e tekrar gelince ne olacak???
+        
+        //if(conditionRunList == null) 
+        //{ 
+            
+        //}
+
+        foreach (Instruction instruction in instructions)
+        {
+            Debug.Log(instruction.ToString());
+            instruction.Run();
+        }
     }
 }
 
@@ -200,12 +215,14 @@ public class Elif : Condition
     public string value;
 
 
-    public Elif(string variable, string operatorType, string value, int level)
+    public Elif(string variable, string operatorType, string value, int id, List<bool> conditionRunList, int level)
     {
 
         this.variable = variable;
         this.operatorType = operatorType;
         this.value = value;
+        this.id = id;
+        this.conditionRunList = conditionRunList;
         this.level = level;
 
     }
@@ -221,8 +238,10 @@ public class Elif : Condition
 public class Else : Condition
 {
 
-    public Else(int level)
+    public Else(int id, List<bool> conditionRunList,  int level)
     {
+        this.id = id;
+        this.conditionRunList = conditionRunList;
         this.level = level;
 
     }
@@ -402,6 +421,7 @@ public class RunCodeButton : MonoBehaviour
     private string[] pythonReservedWords;
     //public CharacterMovementController characterMovementController;
 
+    public List<bool> conditionRunList;
 
     // Start is called before the first frame update
     void Start()
@@ -413,6 +433,8 @@ public class RunCodeButton : MonoBehaviour
         pythonReservedWords = new string[] { "def", "if", "else", "elif", "for", "while", "False", "True", "and", "as", "assert", "break", "class", "continue",
                                             "del",   "except", "finally",  "form", "global", "import", "in", "is", "lambda",
                                             "nonlocal", "not", "or", "pass", "raise", "return", "try",  "with", "yeld"};
+
+        conditionRunList = new List<bool>();
         //characterColorChanger.ChangeColorToBlue();
         //characterColorChanger.ChangeColorToRed();
     }
@@ -806,7 +828,7 @@ public class RunCodeButton : MonoBehaviour
             //List<Condition> tempConditions = new List<Condition>();
             ConditionHolder conditionHolder = null;
 
-
+            int conditionId = -1;
             int lastIndentation = 0;
             //Baþka class varsa burasý kullanýlacak. Yoksa bazý kýsýmlarý kullanýlmayacak.
             for (int i = 0; i < rows1.Length; i++)
@@ -963,7 +985,7 @@ public class RunCodeButton : MonoBehaviour
 
                                             //conditionHolder = new ConditionHolder(instructionLevel);
                                             //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
-                                            If ifCondition = new If(var, operatorType, value, instructionLevel);
+                                            If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
                                             //conditionHolder.Add(ifCondition);
                                             //AddInstruction(conditionHolder);
                                             AddInstruction(ifCondition);
@@ -1219,7 +1241,7 @@ public class RunCodeButton : MonoBehaviour
 
                                             //+1 diyerek conditionHolder'ýn içine girmesi saðlandý gibi. Ama bir yerde conditionHolder'ýn içinde olup olmadýðý kontrol edilmeli.
                                             //Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
-                                            Elif elifCondition = new Elif(var, operatorType, value, instructionLevel);
+                                            Elif elifCondition = new Elif(var, operatorType, value, conditionId, conditionRunList, instructionLevel);
                                             AddInstruction(elifCondition);
 
 
@@ -1250,7 +1272,8 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     //AddInstruction() içinde bunun üstüdneki ConditionHolder mý diye kontrol etmek gerek.
                                     //Else elseCondition = new Else(instructionLevel + 1);
-                                    Else elseCondition = new Else(instructionLevel);
+                                    Else elseCondition = new Else(conditionId, conditionRunList, instructionLevel);
+                                    AddInstruction(elseCondition);
                                 }
 
 
