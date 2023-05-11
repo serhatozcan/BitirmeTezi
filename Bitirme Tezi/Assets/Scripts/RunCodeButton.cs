@@ -961,10 +961,12 @@ public class RunCodeButton : MonoBehaviour
                                             //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
                                             //ama burasý sadece if
 
-                                            conditionHolder = new ConditionHolder(instructionLevel);
-                                            If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
-                                            conditionHolder.Add(ifCondition);
-                                            AddInstruction(conditionHolder);
+                                            //conditionHolder = new ConditionHolder(instructionLevel);
+                                            //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
+                                            If ifCondition = new If(var, operatorType, value, instructionLevel);
+                                            //conditionHolder.Add(ifCondition);
+                                            //AddInstruction(conditionHolder);
+                                            AddInstruction(ifCondition);
 
                                         }
                                     }
@@ -1216,8 +1218,8 @@ public class RunCodeButton : MonoBehaviour
                                             //conditionHolder = new ConditionHolder(instructionLevel);
 
                                             //+1 diyerek conditionHolder'ýn içine girmesi saðlandý gibi. Ama bir yerde conditionHolder'ýn içinde olup olmadýðý kontrol edilmeli.
-                                            Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
-
+                                            //Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
+                                            Elif elifCondition = new Elif(var, operatorType, value, instructionLevel);
                                             AddInstruction(elifCondition);
 
 
@@ -1247,7 +1249,8 @@ public class RunCodeButton : MonoBehaviour
                                 else
                                 {
                                     //AddInstruction() içinde bunun üstüdneki ConditionHolder mý diye kontrol etmek gerek.
-                                    Else elseCondition = new Else(instructionLevel + 1);
+                                    //Else elseCondition = new Else(instructionLevel + 1);
+                                    Else elseCondition = new Else(instructionLevel);
                                 }
 
 
