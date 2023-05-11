@@ -121,8 +121,8 @@ public abstract class Condition : HolderInstruction
 
 
     public bool boolean;
-    public int id;
-    public List<bool> conditionRunList;
+    //public int id;
+    //public List<bool> conditionRunList;
 
     //burada string olarak deðil, deðeri belirlenmiþ bool olarak da atanabilir. ekleme kýsmý ayarlanmalý.
     //public Condition(string type, string booleanString, int level)
@@ -175,14 +175,14 @@ public class If : Condition
     public string value;
 
 
-    public If(string variable, string operatorType, string value, int id, List<bool> conditionRunList, int level)
+    public If(string variable, string operatorType, string value, int level)
     {
 
         this.variable = variable;
         this.operatorType = operatorType;
         this.value = value;
-        this.id = id;
-        this.conditionRunList = conditionRunList;
+        //this.id = id;
+        //this.conditionRunList = conditionRunList;
         this.level = level;
         
     }
@@ -215,14 +215,14 @@ public class Elif : Condition
     public string value;
 
 
-    public Elif(string variable, string operatorType, string value, int id, List<bool> conditionRunList, int level)
+    public Elif(string variable, string operatorType, string value, int level)
     {
 
         this.variable = variable;
         this.operatorType = operatorType;
         this.value = value;
-        this.id = id;
-        this.conditionRunList = conditionRunList;
+        //this.id = id;
+        //this.conditionRunList = conditionRunList;
         this.level = level;
 
     }
@@ -238,10 +238,10 @@ public class Elif : Condition
 public class Else : Condition
 {
 
-    public Else(int id, List<bool> conditionRunList,  int level)
+    public Else (int level)
     {
-        this.id = id;
-        this.conditionRunList = conditionRunList;
+        //this.id = id;
+        //this.conditionRunList = conditionRunList;
         this.level = level;
 
     }
@@ -985,7 +985,8 @@ public class RunCodeButton : MonoBehaviour
 
                                             //conditionHolder = new ConditionHolder(instructionLevel);
                                             //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
-                                            If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
+                                            //If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
+                                            If ifCondition = new If(var, operatorType, value, instructionLevel);
                                             //conditionHolder.Add(ifCondition);
                                             //AddInstruction(conditionHolder);
                                             AddInstruction(ifCondition);
@@ -1241,7 +1242,8 @@ public class RunCodeButton : MonoBehaviour
 
                                             //+1 diyerek conditionHolder'ýn içine girmesi saðlandý gibi. Ama bir yerde conditionHolder'ýn içinde olup olmadýðý kontrol edilmeli.
                                             //Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
-                                            Elif elifCondition = new Elif(var, operatorType, value, conditionId, conditionRunList, instructionLevel);
+                                            //Elif elifCondition = new Elif(var, operatorType, value, conditionId, conditionRunList, instructionLevel);
+                                            Elif elifCondition = new Elif(var, operatorType, value, instructionLevel);
                                             AddInstruction(elifCondition);
 
 
@@ -1272,7 +1274,8 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     //AddInstruction() içinde bunun üstüdneki ConditionHolder mý diye kontrol etmek gerek.
                                     //Else elseCondition = new Else(instructionLevel + 1);
-                                    Else elseCondition = new Else(conditionId, conditionRunList, instructionLevel);
+                                    //Else elseCondition = new Else(conditionId, conditionRunList, instructionLevel);
+                                    Else elseCondition = new Else(instructionLevel);
                                     AddInstruction(elseCondition);
                                 }
 
