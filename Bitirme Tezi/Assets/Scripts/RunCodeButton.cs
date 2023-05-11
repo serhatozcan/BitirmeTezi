@@ -121,6 +121,7 @@ public abstract class Condition : HolderInstruction
 
 
     public bool boolean;
+    public bool didRun;
     //public int id;
     //public List<bool> conditionRunList;
 
@@ -185,6 +186,8 @@ public class If : Condition
         //this.conditionRunList = conditionRunList;
         this.level = level;
         
+
+        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
 
 
@@ -1298,8 +1301,30 @@ public class RunCodeButton : MonoBehaviour
             foreach (Instruction instruction in instructionList)
             {
                 Debug.Log(instruction.ToString());
+                bool didRun = false;
                 if (instruction != null)
                 {
+                    if(instruction.GetType().IsSubclassOf(typeof(Condition))) 
+                    {
+                        if(instruction.GetType() == typeof(If))
+                        {
+                            //Buralarda boolean deðerleri hesaplanarak kullanýlabilir.
+                            
+
+                            if (((If)instruction).boolean == true)
+                            {
+                                instruction.Run();
+                            }
+                        }else if(instruction.GetType() == typeof(Elif))
+                        {
+
+                        }
+                        //direkt else de denebilir.
+                        else if (instruction.GetType() == typeof(Else))
+                        {
+
+                        }
+                    }
                     instruction.Run();
                 }
             }
