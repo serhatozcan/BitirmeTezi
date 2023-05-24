@@ -185,7 +185,7 @@ public class If : Condition
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
-        
+
 
         //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
@@ -197,10 +197,10 @@ public class If : Condition
         //burada önce diðerlerinde baðýmsýz olarak bool deðerine göre çalýþacak mý diye kontrol edeceðiz.
         //sonra çalýþacaksa conditionRunListte id'ye karþýlýk gelen indexi true yapýcaz.
         //SIKINTI ÞU: true yaptýktan sonra for loop içerisinde ayný if'e tekrar gelince ne olacak???
-        
+
         //if(conditionRunList == null) 
         //{ 
-            
+
         //}
 
         foreach (Instruction instruction in instructions)
@@ -241,7 +241,7 @@ public class Elif : Condition
 public class Else : Condition
 {
 
-    public Else (int level)
+    public Else(int level)
     {
         //this.id = id;
         //this.conditionRunList = conditionRunList;
@@ -927,10 +927,7 @@ public class RunCodeButton : MonoBehaviour
                         string leftTrimmedRow = rows1[i].Substring(rowIndentation);
                         Debug.Log(leftTrimmedRow + " " + leftTrimmedRow.Length);
 
-
-
-                        //BU length kontrolleri DEÐÝÞECEK!!!!!!!!!!!!
-                        if (leftTrimmedRow.Length >= 2)
+                        try
                         {
                             if (leftTrimmedRow.Substring(0, 2) == "if")
                             {
@@ -1000,15 +997,7 @@ public class RunCodeButton : MonoBehaviour
                                 }
 
                             }
-
-
-                        }
-
-                        //BOÞLUK VAR MI DÝYE KONTROL ETMEK LAZIM. GEREKLÝ BOÞLUKLAR YOKSA HATA VAR DEMEK LAZIM.
-                        if (leftTrimmedRow.Length >= 3)
-                        {
-                            Debug.Log("é");
-                            if (leftTrimmedRow.Substring(0, 3) == "for")
+                            else if (leftTrimmedRow.Substring(0, 3) == "for")
                             {
 
                                 //string[] rowWords = rows1[i].Split(' ');
@@ -1109,17 +1098,8 @@ public class RunCodeButton : MonoBehaviour
 
                                 }
 
-
-
-
-
                             }
-
-                        }
-                        if (leftTrimmedRow.Length >= 4)
-                        {
-                            Debug.Log("Moveeee");
-                            if (leftTrimmedRow.Substring(0, 4) == "move")
+                            else if (leftTrimmedRow.Substring(0, 4) == "move")
                             {
                                 if (!leftTrimmedRow.Contains('('))
                                 {
@@ -1285,10 +1265,13 @@ public class RunCodeButton : MonoBehaviour
 
                             }
                         }
+                        catch (Exception e)
+                        {
+                            Debug.Log(e.Message);
+                        }
 
                     }
                 }
-
 
 
             }
@@ -1304,18 +1287,19 @@ public class RunCodeButton : MonoBehaviour
                 bool didRun = false;
                 if (instruction != null)
                 {
-                    if(instruction.GetType().IsSubclassOf(typeof(Condition))) 
+                    if (instruction.GetType().IsSubclassOf(typeof(Condition)))
                     {
-                        if(instruction.GetType() == typeof(If))
+                        if (instruction.GetType() == typeof(If))
                         {
                             //Buralarda boolean deðerleri hesaplanarak kullanýlabilir.
-                            
+
 
                             if (((If)instruction).boolean == true)
                             {
                                 instruction.Run();
                             }
-                        }else if(instruction.GetType() == typeof(Elif))
+                        }
+                        else if (instruction.GetType() == typeof(Elif))
                         {
 
                         }
@@ -1332,12 +1316,9 @@ public class RunCodeButton : MonoBehaviour
     }
 
 
-
-
     //SORUN BURADA HERHALDE. Forun içine eklemiyor moveu.
     public void AddInstruction(Instruction instruction)
     {
-
 
         List<Instruction> instructionList = this.instructionList;
         Debug.Log(instruction.ToString());
