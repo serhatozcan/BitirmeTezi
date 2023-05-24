@@ -947,10 +947,11 @@ public class RunCodeButton : MonoBehaviour
                                         operatorType = "<";
                                     else if (leftTrimmedRow.Contains(">"))
                                         operatorType = ">";
-                                    else if (leftTrimmedRow.Contains("="))
-                                        operatorType = "=";
                                     else
-                                        Debug.Log("Hata");
+                                    {
+                                        //burada operator olmayan tur icin ayarlama yapilacak. .Contains(), .IsSomething() gibi
+                                    }
+                                        
 
 
 
