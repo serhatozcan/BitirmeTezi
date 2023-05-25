@@ -966,21 +966,25 @@ public class RunCodeButton : MonoBehaviour
                                                 try
                                                 {
                                                     string methodName = ifParts[1].Substring(0, ifParts[1].IndexOf("("));
-                                                    if(methodName != "Contains")
+                                                    if(methodName == "IsBlue")
                                                     {
-                                                        Debug.Log("hata");
+                                                        //If ifInstruction = new If()
+                                                    }
+                                                    else if(methodName == "IsRed")
+                                                    {
+
                                                     }
                                                     else
                                                     {
-                                                        string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
-                                                        if(methodParameter == "apple")
-                                                        {
-
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
+                                                        Debug.Log("hata");
+                                                        //if(methodParameter == "apple")
+                                                        //{
+                                                        //    If ifInstruction = new If()
+                                                        //}
+                                                        //else
+                                                        //{
+                                                        //    Debug.Log("hata");
+                                                        //}
                                                     }
 
                                                 }catch(Exception ex)
@@ -988,7 +992,10 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log(ex.Message);
                                                 }
                                             }
-                                        }else if(ifParts.Length == 3)
+
+                                            //string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
+                                        }
+                                        else if(ifParts.Length == 3)
                                         {
                                             if (ifParts[0] != className)
                                             {
