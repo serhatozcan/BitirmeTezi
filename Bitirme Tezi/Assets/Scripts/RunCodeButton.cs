@@ -586,7 +586,8 @@ public class RunCodeButton : MonoBehaviour
 
 
 
-                    string leftTrimmedRow = rows2[i].Substring(rowIndentation);
+                    //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
+                    string trimmedRow = rows2[i].Trim();
                     Debug.Log(rows2[i]);
                     string[] rowWords;
                     //string[] rowWords = leftTrimmedRow.Split(" ");
@@ -594,18 +595,18 @@ public class RunCodeButton : MonoBehaviour
 
                     //en az gerekli karakter sayýsý = 16
                     //BUNLARI DEÐÝÞTÝREBÝLÝRÝM. DÝREKT HATALI DEMEK SAÇMA.
-                    if (leftTrimmedRow.Length < 16)
+                    if (trimmedRow.Length < 16)
                     {
                         Debug.Log("hata");
                     }
-                    else if (leftTrimmedRow.Substring(0, 3) != "def")
+                    else if (trimmedRow.Substring(0, 3) != "def")
                     {
                         Debug.Log("Hata");
 
                     }
                     else
                     {
-                        rowWords = leftTrimmedRow.Split(" ", 2);
+                        rowWords = trimmedRow.Split(" ", 2);
 
 
                         // burada class mý, sonu ':' mý vs. kontrol edilecek.
@@ -924,14 +925,15 @@ public class RunCodeButton : MonoBehaviour
                         }
 
 
-                        string leftTrimmedRow = rows1[i].Substring(rowIndentation);
-                        Debug.Log(leftTrimmedRow + " " + leftTrimmedRow.Length);
+                        //string leftTrimmedRow = rows1[i].Substring(rowIndentation);
+                        string trimmedRow = rows1[i].Trim();
+                        Debug.Log(trimmedRow + " " + trimmedRow.Length);
 
                         try
                         {
-                            if (leftTrimmedRow.Substring(0, 2) == "if")
+                            if (trimmedRow.Substring(0, 2) == "if")
                             {
-                                if (leftTrimmedRow[leftTrimmedRow.IndexOf("if") + 2] != ' ')
+                                if (trimmedRow[trimmedRow.IndexOf("if") + 2] != ' ')
                                 {
                                     Debug.Log("boþluk olmalý hata");
                                 }
@@ -939,85 +941,154 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     string operatorType = null;
 
-                                    if (leftTrimmedRow.Contains("=="))
+                                    if (trimmedRow.Contains("=="))
                                         operatorType = "==";
-                                    else if (leftTrimmedRow.Contains("!="))
+                                    else if (trimmedRow.Contains("!="))
                                         operatorType = "!=";
-                                    else if (leftTrimmedRow.Contains("<"))
+                                    else if (trimmedRow.Contains("<"))
                                         operatorType = "<";
-                                    else if (leftTrimmedRow.Contains(">"))
+                                    else if (trimmedRow.Contains(">"))
                                         operatorType = ">";
-                                    else
-                                    {
-                                        //burada operator olmayan tur icin ayarlama yapilacak. .Contains(), .IsSomething() gibi
-                                    }
+                                    
                                         
-
-
-
-                                    //if (leftTrimmedRow.Contains(operatorType))
-                                    //{
-                                    string var = leftTrimmedRow.Substring(2, leftTrimmedRow.IndexOf(operatorType) - 2).Trim();
-                                    //burasý VariableCheck(var) ile deðiþtirilebilir
-
-                                    if (VariableCheck(var))
+                                    if(operatorType == null)
                                     {
-                                        string value = leftTrimmedRow.Substring(leftTrimmedRow.IndexOf(operatorType) + 2).Trim();
+                                        string[] ifParts = trimmedRow.Split('.');
 
-                                        if (value.Length < 4)  // "x":
+                                        if(ifParts.Length == 2)
                                         {
-                                            Debug.Log("Hata");
-                                        }
-                                        else if (value[0] != '"' || value[value.Length - 2] != '"')
+                                            if (ifParts[0] != className)
+                                            {
+                                                Debug.Log("hata");
+                                            }
+                                            else
+                                            {
+                                                try
+                                                {
+                                                    string methodName = ifParts[1].Substring(0, ifParts[1].IndexOf("("));
+                                                    if(methodName != "Contains")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
+                                                        if(methodParameter == "apple")
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                    }
+
+                                                }catch(Exception ex)
+                                                {
+                                                    Debug.Log(ex.Message);
+                                                }
+                                            }
+                                        }else if(ifParts.Length == 3)
                                         {
-                                            Debug.Log("hata");
-                                        }
-                                        else if (value[value.Length - 1] != ':')
-                                        {
-                                            Debug.Log("hata");
+                                            if (ifParts[0] != className)
+                                            {
+                                                Debug.Log("hata");
+                                            }
+                                            else if (ifParts[1] == "UpTile")
+                                            {
+
+                                            }
+                                            else if (ifParts[1] == "DownTile")
+                                            {
+
+                                            }
+                                            else if (ifParts[1] == "RightTile")
+                                            {
+
+                                            }
+                                            else if (ifParts[1] == "LeftTile")
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                Debug.Log("hata");
+                                            }
                                         }
                                         else
                                         {
-                                            value = value.Substring(1, value.Length - 2);
-
-                                            //burada var ve value elde ettik. If classýný oluþturabiliriz.
-                                            //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
-                                            //ama burasý sadece if
-
-                                            //conditionHolder = new ConditionHolder(instructionLevel);
-                                            //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
-                                            //If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
-                                            If ifCondition = new If(var, operatorType, value, instructionLevel);
-                                            //conditionHolder.Add(ifCondition);
-                                            //AddInstruction(conditionHolder);
-                                            AddInstruction(ifCondition);
 
                                         }
                                     }
-                                    //}
+                                    else
+                                    {
+                                        //if (leftTrimmedRow.Contains(operatorType))
+                                        //{
+                                        string var = trimmedRow.Substring(2, trimmedRow.IndexOf(operatorType) - 2).Trim();
+                                        //burasý VariableCheck(var) ile deðiþtirilebilir
+
+                                        if (VariableCheck(var))
+                                        {
+                                            string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
+
+                                            if (value.Length < 4)  // "x":
+                                            {
+                                                Debug.Log("Hata");
+                                            }
+                                            else if (value[0] != '"' || value[value.Length - 2] != '"')
+                                            {
+                                                Debug.Log("hata");
+                                            }
+                                            else if (value[value.Length - 1] != ':')
+                                            {
+                                                Debug.Log("hata");
+                                            }
+                                            else
+                                            {
+                                                value = value.Substring(1, value.Length - 2);
+
+                                                //burada var ve value elde ettik. If classýný oluþturabiliriz.
+                                                //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
+                                                //ama burasý sadece if
+
+                                                //conditionHolder = new ConditionHolder(instructionLevel);
+                                                //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
+                                                //If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
+                                                If ifCondition = new If(var, operatorType, value, instructionLevel);
+                                                //conditionHolder.Add(ifCondition);
+                                                //AddInstruction(conditionHolder);
+                                                AddInstruction(ifCondition);
+
+                                            }
+                                        }
+                                        //}
+                                    }
+
+
+
                                 }
 
                             }
-                            else if (leftTrimmedRow.Substring(0, 3) == "for")
+                            else if (trimmedRow.Substring(0, 3) == "for")
                             {
 
                                 //string[] rowWords = rows1[i].Split(' ');
                                 //Debug.Log(rowWords[1]);
 
-                                if (leftTrimmedRow[3] != ' ')
+                                if (trimmedRow[3] != ' ')
                                 {
                                     Debug.Log("hata");
 
                                 }
-                                else if (!leftTrimmedRow.Contains("in"))
+                                else if (!trimmedRow.Contains("in"))
                                 {
                                     Debug.Log("hata");
                                 }
-                                else if (leftTrimmedRow[leftTrimmedRow.IndexOf("in") - 1] != ' ')
+                                else if (trimmedRow[trimmedRow.IndexOf("in") - 1] != ' ')
                                 {
                                     Debug.Log("hata");
                                 }
-                                else if (leftTrimmedRow[leftTrimmedRow.IndexOf("in") + 2] != ' ')
+                                else if (trimmedRow[trimmedRow.IndexOf("in") + 2] != ' ')
                                 {
                                     Debug.Log("hata");
                                 }
@@ -1025,20 +1096,20 @@ public class RunCodeButton : MonoBehaviour
                                 else
                                 {
                                     //burada sanýrým trim kullanmak gerekiyor ve sonrasýnda kelimenin içinde boþluk var mý diye bakmak gerekiyor
-                                    string var = leftTrimmedRow.Substring(3, leftTrimmedRow.IndexOf("in") - 3).Trim();
+                                    string var = trimmedRow.Substring(3, trimmedRow.IndexOf("in") - 3).Trim();
                                     Debug.Log("var = " + var);
                                     //
                                     if (pythonReservedWords.Contains(var))
                                     {
                                         Debug.Log("hata");
                                     }
-                                    else if (!leftTrimmedRow.Contains("range"))
+                                    else if (!trimmedRow.Contains("range"))
                                     {
                                         Debug.Log("hata");
                                     }
                                     else
                                     {
-                                        string rangeParameter = leftTrimmedRow.Substring(leftTrimmedRow.IndexOf("range") + 5).Replace(" ", "");
+                                        string rangeParameter = trimmedRow.Substring(trimmedRow.IndexOf("range") + 5).Replace(" ", "");
                                         Debug.Log("rangeParameter1 = " + rangeParameter);
 
                                         if (rangeParameter[0] != '(')
@@ -1100,18 +1171,18 @@ public class RunCodeButton : MonoBehaviour
                                 }
 
                             }
-                            else if (leftTrimmedRow.Substring(0, 4) == "move")
+                            else if (trimmedRow.Substring(0, 4) == "move")
                             {
-                                if (!leftTrimmedRow.Contains('('))
+                                if (!trimmedRow.Contains('('))
                                 {
                                     Debug.Log("hata");
                                 }
-                                else if (!leftTrimmedRow.Contains(')'))
+                                else if (!trimmedRow.Contains(')'))
                                 {
                                     Debug.Log("hata2");
                                 }
 
-                                string[] instructionParts = leftTrimmedRow.Split('(', 2);
+                                string[] instructionParts = trimmedRow.Split('(', 2);
 
                                 instructionParts[0] = instructionParts[0].Trim();
                                 int length = instructionParts[0].Length;
@@ -1168,9 +1239,9 @@ public class RunCodeButton : MonoBehaviour
                                 }
 
                             }
-                            else if (leftTrimmedRow.Substring(0, 4) == "elif")
+                            else if (trimmedRow.Substring(0, 4) == "elif")
                             {
-                                if (leftTrimmedRow[leftTrimmedRow.IndexOf("elif") + 4] != ' ')
+                                if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
                                 {
                                     Debug.Log("boþluk olmalý hata");
                                 }
@@ -1178,15 +1249,15 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     string operatorType = null;
 
-                                    if (leftTrimmedRow.Contains("=="))
+                                    if (trimmedRow.Contains("=="))
                                         operatorType = "==";
-                                    else if (leftTrimmedRow.Contains("!="))
+                                    else if (trimmedRow.Contains("!="))
                                         operatorType = "!=";
-                                    else if (leftTrimmedRow.Contains("<"))
+                                    else if (trimmedRow.Contains("<"))
                                         operatorType = "<";
-                                    else if (leftTrimmedRow.Contains(">"))
+                                    else if (trimmedRow.Contains(">"))
                                         operatorType = ">";
-                                    else if (leftTrimmedRow.Contains("="))
+                                    else if (trimmedRow.Contains("="))
                                         operatorType = "=";
                                     else
                                         Debug.Log("Hata");
@@ -1195,12 +1266,12 @@ public class RunCodeButton : MonoBehaviour
 
                                     //if (leftTrimmedRow.Contains(operatorType))
                                     //{
-                                    string var = leftTrimmedRow.Substring(4, leftTrimmedRow.IndexOf(operatorType) - 4).Trim();
+                                    string var = trimmedRow.Substring(4, trimmedRow.IndexOf(operatorType) - 4).Trim();
                                     //burasý VariableCheck(var) ile deðiþtirilebilir
 
                                     if (VariableCheck(var))
                                     {
-                                        string value = leftTrimmedRow.Substring(leftTrimmedRow.IndexOf(operatorType) + 4).Trim();
+                                        string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 4).Trim();
 
                                         if (value.Length < 4)  // "x":
                                         {
@@ -1247,12 +1318,12 @@ public class RunCodeButton : MonoBehaviour
                                     //}
                                 }
                             }
-                            else if (leftTrimmedRow.Substring(0, 4) == "else")
+                            else if (trimmedRow.Substring(0, 4) == "else")
                             {
-                                leftTrimmedRow = leftTrimmedRow.Replace(" ", "");
-                                if (leftTrimmedRow.Length != 4)
+                                trimmedRow = trimmedRow.Replace(" ", "");
+                                if (trimmedRow.Length != 4)
                                     Debug.Log("hata");
-                                else if (leftTrimmedRow[4] != ':')
+                                else if (trimmedRow[4] != ':')
                                     Debug.Log("hata");
                                 else
                                 {
