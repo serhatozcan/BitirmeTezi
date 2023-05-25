@@ -933,147 +933,172 @@ public class RunCodeButton : MonoBehaviour
                         {
                             if (trimmedRow.Substring(0, 2) == "if")
                             {
-                                if (trimmedRow[trimmedRow.IndexOf("if") + 2] != ' ')
+                                if (trimmedRow[trimmedRow.Length - 1] != ':') 
                                 {
-                                    Debug.Log("boþluk olmalý hata");
+                                    Debug.Log("hata");
                                 }
                                 else
                                 {
-                                    string operatorType = null;
-
-                                    if (trimmedRow.Contains("=="))
-                                        operatorType = "==";
-                                    else if (trimmedRow.Contains("!="))
-                                        operatorType = "!=";
-                                    else if (trimmedRow.Contains("<"))
-                                        operatorType = "<";
-                                    else if (trimmedRow.Contains(">"))
-                                        operatorType = ">";
-                                    
-                                        
-                                    if(operatorType == null)
+                                    if (trimmedRow[trimmedRow.IndexOf("if") + 2] != ' ')
                                     {
-                                        string[] ifParts = trimmedRow.Split('.');
+                                        Debug.Log("boþluk olmalý hata");
+                                    }
+                                    else
+                                    {
+                                        string operatorType = null;
 
-                                        if(ifParts.Length == 2)
+                                        if (trimmedRow.Contains("=="))
+                                            operatorType = "==";
+                                        else if (trimmedRow.Contains("!="))
+                                            operatorType = "!=";
+                                        else if (trimmedRow.Contains("<"))
+                                            operatorType = "<";
+                                        else if (trimmedRow.Contains(">"))
+                                            operatorType = ">";
+
+
+                                        if (operatorType == null)
                                         {
-                                            if (ifParts[0] != className)
+                                            string[] ifParts = trimmedRow.Split('.');
+
+                                            if (ifParts.Length == 2)
                                             {
-                                                Debug.Log("hata");
+                                                if (ifParts[0] != className)
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else
+                                                {
+                                                    //try gerekli mi??? nasýl kullanýlabilir?
+                                                    try
+                                                    {
+                                                        string methodName = ifParts[1].Substring(0, ifParts[1].IndexOf("("));
+                                                        string parameterPart = ifParts[1].Substring(ifParts[1].IndexOf("(")).Replace(" ", "");
+                                                        //emin degilim 2 olabilir ): seklinde ama bakmak lazim
+                                                        if (parameterPart.Length != 3)
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else if (parameterPart[1] != ')')
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        
+
+                                                        else if (methodName == "IsBlue")
+                                                        {
+                                                            //If ifInstruction = new If()
+                                                        }
+                                                        else if (methodName == "IsRed")
+                                                        {
+
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.Log("hata");
+                                                            //if(methodParameter == "apple")
+                                                            //{
+                                                            //    If ifInstruction = new If()
+                                                            //}
+                                                            //else
+                                                            //{
+                                                            //    Debug.Log("hata");
+                                                            //}
+                                                        }
+
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        Debug.Log(ex.Message);
+                                                    }
+                                                }
+
+                                                //string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
                                             }
-                                            else
+                                            else if (ifParts.Length == 3)
                                             {
-                                                try
+                                                if (ifParts[0] != className)
                                                 {
-                                                    string methodName = ifParts[1].Substring(0, ifParts[1].IndexOf("("));
-                                                    if(methodName == "IsBlue")
-                                                    {
-                                                        //If ifInstruction = new If()
-                                                    }
-                                                    else if(methodName == "IsRed")
-                                                    {
+                                                    Debug.Log("hata");
+                                                }
 
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.Log("hata");
-                                                        //if(methodParameter == "apple")
-                                                        //{
-                                                        //    If ifInstruction = new If()
-                                                        //}
-                                                        //else
-                                                        //{
-                                                        //    Debug.Log("hata");
-                                                        //}
-                                                    }
 
-                                                }catch(Exception ex)
+                                                else if (ifParts[1] == "UpTile")
                                                 {
-                                                    Debug.Log(ex.Message);
+                                                    
+                                            }
+                                                else if (ifParts[1] == "DownTile")
+                                                {
+
+                                                }
+                                                else if (ifParts[1] == "RightTile")
+                                                {
+
+                                                }
+                                                else if (ifParts[1] == "LeftTile")
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    Debug.Log("hata");
                                                 }
                                             }
-
-                                            //string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
-                                        }
-                                        else if(ifParts.Length == 3)
-                                        {
-                                            if (ifParts[0] != className)
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else if (ifParts[1] == "UpTile")
-                                            {
-
-                                            }
-                                            else if (ifParts[1] == "DownTile")
-                                            {
-
-                                            }
-                                            else if (ifParts[1] == "RightTile")
-                                            {
-
-                                            }
-                                            else if (ifParts[1] == "LeftTile")
-                                            {
-
-                                            }
                                             else
                                             {
-                                                Debug.Log("hata");
+
                                             }
                                         }
                                         else
                                         {
+                                            //if (leftTrimmedRow.Contains(operatorType))
+                                            //{
+                                            string var = trimmedRow.Substring(2, trimmedRow.IndexOf(operatorType) - 2).Trim();
+                                            //burasý VariableCheck(var) ile deðiþtirilebilir
 
+                                            if (VariableCheck(var))
+                                            {
+                                                string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
+
+                                                if (value.Length < 4)  // "x":
+                                                {
+                                                    Debug.Log("Hata");
+                                                }
+                                                else if (value[0] != '"' || value[value.Length - 2] != '"')
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else if (value[value.Length - 1] != ':')
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else
+                                                {
+                                                    value = value.Substring(1, value.Length - 2);
+
+                                                    //burada var ve value elde ettik. If classýný oluþturabiliriz.
+                                                    //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
+                                                    //ama burasý sadece if
+
+                                                    //conditionHolder = new ConditionHolder(instructionLevel);
+                                                    //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
+                                                    //If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
+                                                    If ifCondition = new If(var, operatorType, value, instructionLevel);
+                                                    //conditionHolder.Add(ifCondition);
+                                                    //AddInstruction(conditionHolder);
+                                                    AddInstruction(ifCondition);
+
+                                                }
+                                            }
+                                            //}
                                         }
+
+
+
                                     }
-                                    else
-                                    {
-                                        //if (leftTrimmedRow.Contains(operatorType))
-                                        //{
-                                        string var = trimmedRow.Substring(2, trimmedRow.IndexOf(operatorType) - 2).Trim();
-                                        //burasý VariableCheck(var) ile deðiþtirilebilir
-
-                                        if (VariableCheck(var))
-                                        {
-                                            string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
-
-                                            if (value.Length < 4)  // "x":
-                                            {
-                                                Debug.Log("Hata");
-                                            }
-                                            else if (value[0] != '"' || value[value.Length - 2] != '"')
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else if (value[value.Length - 1] != ':')
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else
-                                            {
-                                                value = value.Substring(1, value.Length - 2);
-
-                                                //burada var ve value elde ettik. If classýný oluþturabiliriz.
-                                                //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
-                                                //ama burasý sadece if
-
-                                                //conditionHolder = new ConditionHolder(instructionLevel);
-                                                //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
-                                                //If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
-                                                If ifCondition = new If(var, operatorType, value, instructionLevel);
-                                                //conditionHolder.Add(ifCondition);
-                                                //AddInstruction(conditionHolder);
-                                                AddInstruction(ifCondition);
-
-                                            }
-                                        }
-                                        //}
-                                    }
-
-
-
                                 }
+
+                                
 
                             }
                             else if (trimmedRow.Substring(0, 3) == "for")
