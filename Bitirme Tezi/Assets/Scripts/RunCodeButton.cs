@@ -1158,7 +1158,6 @@ public class RunCodeButton : MonoBehaviour
 
 
 
-                                                    string
                                                     //bu kontrole gerek yok aslinda. hata ciktiginda program duracak zaten.
                                                     //if (firstMethod != null)
                                                     //{
@@ -1195,54 +1194,17 @@ public class RunCodeButton : MonoBehaviour
                                                 //Burasi ve diger if'ler icin uyumlu if class'i lazim.
                                                 //If ifCondition = new If(var, operatorType, value, instructionLevel);
 
+                                                //ÖNEMLÝ: operatorType == mi diye kontrol etmek lazim.
+
                                                 //AddInstruction(ifCondition);
 
                                             }
 
-                                            //burada var direkt "character" mi diye kontrol edilebilir.
-                                            //if (VariableCheck(var))
-                                            //{
-                                            //    string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
-
-                                            //    if (value.Length < 4)  // "x":
-                                            //    {
-                                            //        Debug.Log("Hata");
-                                            //    }
-                                            //    else if (value[0] != '"' || value[value.Length - 2] != '"')
-                                            //    {
-                                            //        Debug.Log("hata");
-                                            //    }
-                                            //    else if (value[value.Length - 1] != ':')
-                                            //    {
-                                            //        Debug.Log("hata");
-                                            //    }
-                                            //    else
-                                            //    {
-                                            //        value = value.Substring(1, value.Length - 2);
-
-                                            //        //burada var ve value elde ettik. If classýný oluþturabiliriz.
-                                            //        //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
-                                            //        //ama burasý sadece if
-
-                                            //        //conditionHolder = new ConditionHolder(instructionLevel);
-                                            //        //If ifCondition = new If(var, operatorType, value, instructionLevel + 1);
-                                            //        //If ifCondition = new If(var, operatorType, value, ++conditionId, conditionRunList, instructionLevel);
-                                            //        If ifCondition = new If(var, operatorType, value, instructionLevel);
-                                            //        //conditionHolder.Add(ifCondition);
-                                            //        //AddInstruction(conditionHolder);
-                                            //        AddInstruction(ifCondition);
-
-                                            //    }
-                                            //}
-                                            //}
+                                           
                                         }
-
-
 
                                     }
                                 }
-
-
 
                             }
                             else if (trimmedRow.Substring(0, 3) == "for")
