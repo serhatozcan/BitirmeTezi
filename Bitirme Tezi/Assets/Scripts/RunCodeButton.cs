@@ -1042,41 +1042,107 @@ public class RunCodeButton : MonoBehaviour
                                                 {
                                                     Debug.Log("hata");
                                                 }
-
-                                                else if (ifParts[1] == "up_tile")
+                                                string firstMethod = null;
+                                                if (ifParts[1].Substring(0, 7) == "up_tile")
                                                 {
-                                                    //try
-                                                    //{
-                                                    string methodName = ifParts[2].Substring(0, ifParts[2].IndexOf("("));
-                                                    //}
-                                                    //catch (Exception ex)
-                                                    //{
-                                                    //    Debug.Log(ex.Message);
-                                                    //}
-                                                }
-                                                else if (ifParts[1] == "down_tile")
-                                                {
+                                                    string s = ifParts[1].Substring(7).Replace(" ", "");
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "up_tile";
+                                                    }
 
                                                 }
-                                                else if (ifParts[1] == "right_tile")
+                                                else if (ifParts[1].Substring(0, 9) == "down_tile")
                                                 {
-
+                                                    string s = ifParts[1].Substring(9).Replace(" ", "");
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "down_tile";
+                                                    }
                                                 }
-                                                else if (ifParts[1] == "left_tile")
+                                                else if (ifParts[1].Substring(0, 10) == "right_tile")
                                                 {
-
+                                                    string s = ifParts[1].Substring(10).Replace(" ", "");
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "right_tile";
+                                                    }
+                                                }
+                                                else if (ifParts[1].Substring(0, 9) == "left_tile")
+                                                {
+                                                    string s = ifParts[1].Substring(9).Replace(" ", "");
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "left_tile";
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    Debug.Log("hata");
+                                                    Debug.Log("simdilik hata");
                                                 }
-                                            }
-                                            else
-                                            {
+
+                                                string secondMethod = null;
+                                                if (ifParts[2].Substring(0, 9) == "is_ground")
+                                                {
+                                                    string s = ifParts[2].Substring(9).Replace(" ", "");
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_ground";
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 8) == "is_water")
+                                                {
+                                                    string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_water";
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 8) == "contains")
+                                                {
+                                                    string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                    //burasi degisecek. ()'in ici dolu olacak.
+                                                    if (s != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_water";
+                                                    }
+
+                                                }
+
 
                                             }
-                                        }
                                         // == varsa
+                                        //buraya farkli bir sey koymak lazim. 
                                         else
                                         {
 
