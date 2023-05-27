@@ -1043,26 +1043,26 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log("hata");
                                                 }
 
-                                                else if (ifParts[1] == "UpTile")
+                                                else if (ifParts[1] == "up_tile")
                                                 {
-                                                    try
-                                                    {
-                                                        string methodName = ifParts[2].Substring(0, ifParts[2].IndexOf("("));
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        Debug.Log(ex.Message);
-                                                    }
+                                                    //try
+                                                    //{
+                                                    string methodName = ifParts[2].Substring(0, ifParts[2].IndexOf("("));
+                                                    //}
+                                                    //catch (Exception ex)
+                                                    //{
+                                                    //    Debug.Log(ex.Message);
+                                                    //}
                                                 }
-                                                else if (ifParts[1] == "DownTile")
-                                                {
-
-                                                }
-                                                else if (ifParts[1] == "RightTile")
+                                                else if (ifParts[1] == "down_tile")
                                                 {
 
                                                 }
-                                                else if (ifParts[1] == "LeftTile")
+                                                else if (ifParts[1] == "right_tile")
+                                                {
+
+                                                }
+                                                else if (ifParts[1] == "left_tile")
                                                 {
 
                                                 }
@@ -1076,23 +1076,20 @@ public class RunCodeButton : MonoBehaviour
 
                                             }
                                         }
+                                        // == varsa
                                         else
                                         {
-                                            //if (leftTrimmedRow.Contains(operatorType))
-                                            //{
+
                                             string leftPart = trimmedRow.Substring(2, trimmedRow.IndexOf(operatorType) - 2).Trim();
                                             //burasý VariableCheck(var) ile deðiþtirilebilir
 
                                             string[] leftPartArray = leftPart.Split(".");
 
-                                            if (leftPartArray.Length == 0)
+                                            if (leftPartArray.Length != 2)
                                             {
                                                 Debug.Log("hata");
                                             }
-                                            else if (leftPartArray.Length == 1)
-                                            {
 
-                                            }
                                             else if (leftPartArray.Length == 2)
                                             {
                                                 string firstMethod = null;
@@ -1158,6 +1155,39 @@ public class RunCodeButton : MonoBehaviour
 
 
 
+                                                    string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
+
+                                                    //if'li kisim <2 olarak bir ihtimal eklenebilir.
+
+                                                    //if (value.Length < 4)  // "x":
+                                                    //{
+                                                    //    Debug.Log("Hata");
+                                                    //}
+                                                    // else if (value[0] != '"' || value[value.Length - 2] != '"')
+                                                    //{
+                                                    //    Debug.Log("hata");
+                                                    //}
+                                                    if (value[value.Length - 1] != ':')
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        //value = value.Substring(1, value.Length - 2);
+                                                        value = value.Substring(0, value.Length - 1);
+
+                                                        //burada If class'i olusturulacak.
+
+
+                                                        //Burasi ve diger if'ler icin uyumlu if class'i lazim.
+                                                        //If ifCondition = new If(var, operatorType, value, instructionLevel);
+
+                                                        //ÖNEMLÝ: operatorType == mi diye kontrol etmek lazim.
+
+                                                        //AddInstruction(ifCondition);
+
+                                                    }
+
                                                     //bu kontrole gerek yok aslinda. hata ciktiginda program duracak zaten.
                                                     //if (firstMethod != null)
                                                     //{
@@ -1173,34 +1203,9 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                             }
 
-                                            string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
 
-                                            if (value.Length < 4)  // "x":
-                                            {
-                                                Debug.Log("Hata");
-                                            }
-                                            else if (value[0] != '"' || value[value.Length - 2] != '"')
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else if (value[value.Length - 1] != ':')
-                                            {
-                                                Debug.Log("hata");
-                                            }
-                                            else
-                                            {
-                                                value = value.Substring(1, value.Length - 2);
 
-                                                //Burasi ve diger if'ler icin uyumlu if class'i lazim.
-                                                //If ifCondition = new If(var, operatorType, value, instructionLevel);
 
-                                                //ÖNEMLÝ: operatorType == mi diye kontrol etmek lazim.
-
-                                                //AddInstruction(ifCondition);
-
-                                            }
-
-                                           
                                         }
 
                                     }
