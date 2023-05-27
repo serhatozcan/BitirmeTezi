@@ -171,16 +171,21 @@ public abstract class Condition : HolderInstruction
 
 public class If : Condition
 {
-    public List<string> leftPart;
-    public string operatorType;
-    public List<string> rightPart;
+    //public List<string> leftPart;
+    //public string operatorType;
+    //public List<string> rightPart;
+    public string firstMethod;
+    public string secondMethod;
+    public string secondMethodParameter;
 
-
-    public If(List<string> leftPart, int level)
+    public If(string firstMethod, int level)
     {
 
-        this.leftPart = leftPart;
-
+        this.firstMethod = firstMethod;
+        this.secondMethod = null;
+        this.secondMethodParameter = null;
+        //this.operatorType = operatorType;
+        //this.rightPart = rightPart;
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
@@ -188,13 +193,14 @@ public class If : Condition
 
         //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
-
-    public If(List<string> leftPart, string operatorType, List<string> rightPart, int level)
+    public If(string firstMethod, string secondMethod, string secondMethodParameter, int level)
     {
 
-        this.leftPart = leftPart;
-        this.operatorType = operatorType;
-        this.rightPart = rightPart;
+        this.firstMethod = firstMethod;
+        this.secondMethod = secondMethod;
+        this.secondMethodParameter = secondMethodParameter;
+        //this.operatorType = operatorType;
+        //this.rightPart = rightPart;
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
@@ -215,9 +221,13 @@ public class If : Condition
         //{ 
 
         //}
-        if (operatorType != null)
+        //if (operatorType != null)
+        //{
+        //    //buralarda calisip calismadigini dondurmek gerekebilir. ya da run metodunda sadece calistirma yapilacak. run metodu cagrilmadan once if'in calisip calismadigi disarida kontrol edilecek.
+        //}
+        if (secondMethod == null)
         {
-            //buralarda calisip calismadigini dondurmek gerekebilir. ya da run metodunda sadece calistirma yapilacak. run metodu cagrilmadan once if'in calisip calismadigi disarida kontrol edilecek.
+
         }
         else
         {
@@ -981,61 +991,8 @@ public class RunCodeButton : MonoBehaviour
                                         {
                                             string[] ifParts = trimmedRow.Split('.');
                                             string parameterPart = null;
-                                            if (ifParts.Length == 2)
-                                            {
-                                                if (ifParts[0] != className)
-                                                {
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    //try gerekli mi??? nasýl kullanýlabilir?
-                                                    try
-                                                    {
-                                                        string methodName = ifParts[1].Substring(0, ifParts[1].IndexOf("("));
-                                                        parameterPart = ifParts[1].Substring(ifParts[1].IndexOf("(")).Replace(" ", "");
-                                                        //emin degilim 2 olabilir ): seklinde ama bakmak lazim
-                                                        if (parameterPart.Length != 3)
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else if (parameterPart[1] != ')')
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-
-
-                                                        else if (methodName == "is_blue")
-                                                        {
-                                                            //If ifInstruction = new If()
-                                                        }
-                                                        else if (methodName == "is_red")
-                                                        {
-
-                                                        }
-                                                        else
-                                                        {
-                                                            Debug.Log("hata");
-                                                            //if(methodParameter == "apple")
-                                                            //{
-                                                            //    If ifInstruction = new If()
-                                                            //}
-                                                            //else
-                                                            //{
-                                                            //    Debug.Log("hata");
-                                                            //}
-                                                        }
-
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        Debug.Log(ex.Message);
-                                                    }
-                                                }
-
-                                                //string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
-                                            }
-                                            else if (ifParts.Length == 2 || ifParts.Length == 3)
+                                           
+                                            if (ifParts.Length == 2 || ifParts.Length == 3)
                                             {
 
                                                 if (ifParts[0] != className)
@@ -1054,6 +1011,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
+                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        AddInstruction(ifInstruction);
                                                     }
 
                                                 }
@@ -1067,6 +1026,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
+                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        AddInstruction(ifInstruction);
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 10) == "right_tile")
@@ -1079,6 +1040,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
+                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        AddInstruction(ifInstruction);
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 9) == "left_tile")
@@ -1091,6 +1054,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
+                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        AddInstruction(ifInstruction);
                                                     }
                                                 }
                                                 else
@@ -1104,7 +1069,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }else if(ifParts.Length == 3)
                                                 {
                                                     //kaldirilabilir ??
-                                                    parameterPart = null;
+                                                    //parameterPart = null;
                                                     string secondMethod = null;
                                                     //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
 
@@ -1119,6 +1084,8 @@ public class RunCodeButton : MonoBehaviour
                                                         else
                                                         {
                                                             secondMethod = "is_ground";
+                                                            If ifInstruction = new If(firstMethod, secondMethod, null, instructionLevel);
+                                                            AddInstruction(ifInstruction);
                                                         }
 
                                                     }
@@ -1132,6 +1099,8 @@ public class RunCodeButton : MonoBehaviour
                                                         else
                                                         {
                                                             secondMethod = "is_water";
+                                                            If ifInstruction = new If(firstMethod, secondMethod, null, instructionLevel);
+                                                            AddInstruction(ifInstruction);
                                                         }
 
                                                     }
@@ -1153,7 +1122,8 @@ public class RunCodeButton : MonoBehaviour
                                                         else
                                                         {
                                                             secondMethod = "contains";
-
+                                                            If ifInstruction = new If(firstMethod, secondMethod, parameterPart, instructionLevel);
+                                                            AddInstruction(ifInstruction);
                                                         }
 
                                                     }
