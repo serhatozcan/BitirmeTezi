@@ -980,7 +980,7 @@ public class RunCodeButton : MonoBehaviour
                                         if (operatorType == null)
                                         {
                                             string[] ifParts = trimmedRow.Split('.');
-
+                                            string parameterPart = null;
                                             if (ifParts.Length == 2)
                                             {
                                                 if (ifParts[0] != className)
@@ -993,7 +993,7 @@ public class RunCodeButton : MonoBehaviour
                                                     try
                                                     {
                                                         string methodName = ifParts[1].Substring(0, ifParts[1].IndexOf("("));
-                                                        string parameterPart = ifParts[1].Substring(ifParts[1].IndexOf("(")).Replace(" ", "");
+                                                        parameterPart = ifParts[1].Substring(ifParts[1].IndexOf("(")).Replace(" ", "");
                                                         //emin degilim 2 olabilir ): seklinde ama bakmak lazim
                                                         if (parameterPart.Length != 3)
                                                         {
@@ -1035,7 +1035,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                 //string methodParameter = ifParts[1].Substring(ifParts[1].IndexOf("("), ifParts[1].IndexOf(")"));
                                             }
-                                            else if (ifParts.Length == 3)
+                                            else if (ifParts.Length == 2 || ifParts.Length == 3)
                                             {
 
                                                 if (ifParts[0] != className)
@@ -1043,10 +1043,11 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log("hata");
                                                 }
                                                 string firstMethod = null;
+                                                
                                                 if (ifParts[1].Substring(0, 7) == "up_tile")
                                                 {
-                                                    string s = ifParts[1].Substring(7).Replace(" ", "");
-                                                    if (s != "()")
+                                                    parameterPart = ifParts[1].Substring(7).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
                                                         Debug.Log("hata");
                                                     }
@@ -1058,8 +1059,8 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (ifParts[1].Substring(0, 9) == "down_tile")
                                                 {
-                                                    string s = ifParts[1].Substring(9).Replace(" ", "");
-                                                    if (s != "()")
+                                                    parameterPart = ifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
                                                         Debug.Log("hata");
                                                     }
@@ -1070,8 +1071,8 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (ifParts[1].Substring(0, 10) == "right_tile")
                                                 {
-                                                    string s = ifParts[1].Substring(10).Replace(" ", "");
-                                                    if (s != "()")
+                                                    parameterPart = ifParts[1].Substring(10).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
                                                         Debug.Log("hata");
                                                     }
@@ -1082,8 +1083,8 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (ifParts[1].Substring(0, 9) == "left_tile")
                                                 {
-                                                    string s = ifParts[1].Substring(9).Replace(" ", "");
-                                                    if (s != "()")
+                                                    parameterPart = ifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
                                                         Debug.Log("hata");
                                                     }
@@ -1097,186 +1098,86 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log("simdilik hata");
                                                 }
 
-                                                string secondMethod = null;
-                                                if (ifParts[2].Substring(0, 9) == "is_ground")
+                                                if(ifParts.Length == 2)
                                                 {
-                                                    string s = ifParts[2].Substring(9).Replace(" ", "");
-                                                    if (s != "()")
+                                                    //burada 2 parcali if listeye eklenecek.
+                                                }else if(ifParts.Length == 3)
+                                                {
+                                                    //kaldirilabilir ??
+                                                    parameterPart = null;
+                                                    string secondMethod = null;
+                                                    //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
+
+
+                                                    if (ifParts[2].Substring(0, 9) == "is_ground")
                                                     {
-                                                        Debug.Log("hata");
+                                                        parameterPart = ifParts[2].Substring(9).Replace(" ", "");
+                                                        if (parameterPart != "()")
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_ground";
+                                                        }
+
                                                     }
-                                                    else
+                                                    else if (ifParts[2].Substring(0, 8) == "is_water")
                                                     {
-                                                        secondMethod = "is_ground";
+                                                        parameterPart = ifParts[2].Substring(8).Replace(" ", "");
+                                                        if (parameterPart != "()")
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_water";
+                                                        }
+
+                                                    }
+                                                    else if (ifParts[2].Substring(0, 8) == "contains")
+                                                    {
+                                                        //string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                        parameterPart = ifParts[2].Substring(8).Trim();
+                                                        //burasi degisecek. ()'in ici dolu olacak.
+                                                        if (parameterPart[parameterPart.Length - 1] != ':')
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
+                                                        //hata cikarsa zaten program duracak
+                                                        if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "contains";
+
+                                                        }
+
                                                     }
 
-                                                }
-                                                else if (ifParts[2].Substring(0, 8) == "is_water")
-                                                {
-                                                    string s = ifParts[2].Substring(8).Replace(" ", "");
-                                                    if (s != "()")
-                                                    {
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        secondMethod = "is_water";
-                                                    }
-
-                                                }
-                                                else if (ifParts[2].Substring(0, 8) == "contains")
-                                                {
-                                                    string s = ifParts[2].Substring(8).Replace(" ", "");
-                                                    //burasi degisecek. ()'in ici dolu olacak.
-                                                    if (s != "()")
-                                                    {
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        secondMethod = "is_water";
-                                                    }
-
+                                                    //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
                                                 }
 
 
                                             }
-                                        // == varsa
-                                        //buraya farkli bir sey koymak lazim. 
-                                        else
-                                        {
-
-                                            string leftPart = trimmedRow.Substring(2, trimmedRow.IndexOf(operatorType) - 2).Trim();
-                                            //burasý VariableCheck(var) ile deðiþtirilebilir
-
-                                            string[] leftPartArray = leftPart.Split(".");
-
-                                            if (leftPartArray.Length != 2)
+                                            // == varsa
+                                            //buraya farkli bir sey koymak lazim. 
+                                            else
                                             {
-                                                Debug.Log("hata");
+
+
+
+
+
                                             }
-
-                                            else if (leftPartArray.Length == 2)
-                                            {
-                                                string firstMethod = null;
-                                                if (leftPartArray[0] != "character")
-                                                {
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    if (leftPartArray[1].Substring(0, 7) == "up_tile")
-                                                    {
-                                                        string s = leftPartArray[1].Substring(7).Replace(" ", "");
-                                                        if (s != "()")
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else
-                                                        {
-                                                            firstMethod = "up_tile";
-                                                        }
-
-                                                    }
-                                                    else if (leftPartArray[1].Substring(0, 9) == "down_tile")
-                                                    {
-                                                        string s = leftPartArray[1].Substring(9).Replace(" ", "");
-                                                        if (s != "()")
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else
-                                                        {
-                                                            firstMethod = "down_tile";
-                                                        }
-                                                    }
-                                                    else if (leftPartArray[1].Substring(0, 10) == "right_tile")
-                                                    {
-                                                        string s = leftPartArray[1].Substring(10).Replace(" ", "");
-                                                        if (s != "()")
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else
-                                                        {
-                                                            firstMethod = "right_tile";
-                                                        }
-                                                    }
-                                                    else if (leftPartArray[1].Substring(0, 9) == "left_tile")
-                                                    {
-                                                        string s = leftPartArray[1].Substring(9).Replace(" ", "");
-                                                        if (s != "()")
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else
-                                                        {
-                                                            firstMethod = "left_tile";
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.Log("simdilik hata");
-                                                    }
-
-
-
-                                                    string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 2).Trim();
-
-                                                    //if'li kisim <2 olarak bir ihtimal eklenebilir.
-
-                                                    //if (value.Length < 4)  // "x":
-                                                    //{
-                                                    //    Debug.Log("Hata");
-                                                    //}
-                                                    // else if (value[0] != '"' || value[value.Length - 2] != '"')
-                                                    //{
-                                                    //    Debug.Log("hata");
-                                                    //}
-                                                    if (value[value.Length - 1] != ':')
-                                                    {
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        //value = value.Substring(1, value.Length - 2);
-                                                        value = value.Substring(0, value.Length - 1);
-
-                                                        //burada If class'i olusturulacak.
-
-
-                                                        //Burasi ve diger if'ler icin uyumlu if class'i lazim.
-                                                        //If ifCondition = new If(var, operatorType, value, instructionLevel);
-
-                                                        //ÖNEMLÝ: operatorType == mi diye kontrol etmek lazim.
-
-                                                        //AddInstruction(ifCondition);
-
-                                                    }
-
-                                                    //bu kontrole gerek yok aslinda. hata ciktiginda program duracak zaten.
-                                                    //if (firstMethod != null)
-                                                    //{
-                                                    //if (leftPartArray[2] == null)
-                                                    //{
-
-                                                    //}
-                                                    //else
-                                                    //{
-
-                                                    //}
-                                                    //}
-                                                }
-                                            }
-
-
-
 
                                         }
-
                                     }
-                                }
 
+                                }
                             }
                             else if (trimmedRow.Substring(0, 3) == "for")
                             {
