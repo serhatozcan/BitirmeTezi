@@ -243,30 +243,102 @@ public class If : Condition
 
 public class Elif : Condition
 {
-    public string variable;
-    public string operatorType;
-    public string value;
+    //public List<string> leftPart;
+    //public string operatorType;
+    //public List<string> rightPart;
+    public string firstMethod;
+    public string secondMethod;
+    public string secondMethodParameter;
 
-
-    public Elif(string variable, string operatorType, string value, int level)
+    public Elif(string firstMethod, int level)
     {
 
-        this.variable = variable;
-        this.operatorType = operatorType;
-        this.value = value;
+        this.firstMethod = firstMethod;
+        this.secondMethod = null;
+        this.secondMethodParameter = null;
+        //this.operatorType = operatorType;
+        //this.rightPart = rightPart;
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
 
+
+        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
+    }
+    public Elif(string firstMethod, string secondMethod, string secondMethodParameter, int level)
+    {
+
+        this.firstMethod = firstMethod;
+        this.secondMethod = secondMethod;
+        this.secondMethodParameter = secondMethodParameter;
+        //this.operatorType = operatorType;
+        //this.rightPart = rightPart;
+        //this.id = id;
+        //this.conditionRunList = conditionRunList;
+        this.level = level;
+
+
+        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
 
 
-
+    //rightpart ve operator type olup olmamasýna gore iki sekilde calisacak
     public override void Run()
     {
-        throw new NotImplementedException();
+        //burada önce diðerlerinde baðýmsýz olarak bool deðerine göre çalýþacak mý diye kontrol edeceðiz.
+        //sonra çalýþacaksa conditionRunListte id'ye karþýlýk gelen indexi true yapýcaz.
+        //SIKINTI ÞU: true yaptýktan sonra for loop içerisinde ayný if'e tekrar gelince ne olacak???
+
+        //if(conditionRunList == null) 
+        //{ 
+
+        //}
+        //if (operatorType != null)
+        //{
+        //    //buralarda calisip calismadigini dondurmek gerekebilir. ya da run metodunda sadece calistirma yapilacak. run metodu cagrilmadan once if'in calisip calismadigi disarida kontrol edilecek.
+        //}
+        if (secondMethod == null)
+        {
+
+        }
+        else
+        {
+
+        }
+        foreach (Instruction instruction in instructions)
+        {
+            Debug.Log(instruction.ToString());
+            instruction.Run();
+        }
     }
 }
+
+//public class Elif : Condition
+//{
+//    public string variable;
+//    public string operatorType;
+//    public string value;
+
+
+//    public Elif(string variable, string operatorType, string value, int level)
+//    {
+
+//        this.variable = variable;
+//        this.operatorType = operatorType;
+//        this.value = value;
+//        //this.id = id;
+//        //this.conditionRunList = conditionRunList;
+//        this.level = level;
+
+//    }
+
+
+
+//    public override void Run()
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
 
 public class Else : Condition
 {
@@ -1271,133 +1343,330 @@ public class RunCodeButton : MonoBehaviour
                                 //    Debug.Log("hata");
                                 //}else if()
 
-                                if (length < 6 || length > 9)
+                                //if (length < 6 || length > 9)
+                                //{
+                                //    Debug.Log("hata");
+                                //}
+                                //else if (length == 6)
+                                //{
+                                try
                                 {
-                                    Debug.Log("hata");
-                                }
-                                else if (length == 6)
-                                {
-                                    if (instructionParts[0] == "moveUp")
+                                    if (instructionParts[0] == "move_up")
                                     {
-                                        Move move = new Move(characterMovement, "up", instructionLevel);
-                                        AddInstruction(move);
+                                        Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                        AddInstruction(move_up);
                                     }
                                     else
                                     {
                                         Debug.Log("hata");
                                     }
-                                }
-                                else if (length == 8)
-                                {
-                                    if (instructionParts[0] == "moveLeft")
+                                    //}
+                                    //else if (length == 8)
+                                    //{
+                                    if (instructionParts[0] == "move_left")
                                     {
-                                        Move move = new Move(characterMovement, "left", instructionLevel);
-                                        AddInstruction(move);
+                                        Move move_left = new Move(characterMovement, "left", instructionLevel);
+                                        AddInstruction(move_left);
                                     }
-                                    else if (instructionParts[0] == "moveDown")
+                                    else if (instructionParts[0] == "move_down")
                                     {
-                                        Move move = new Move(characterMovement, "down", instructionLevel);
-                                        AddInstruction(move);
+                                        Move move_down = new Move(characterMovement, "down", instructionLevel);
+                                        AddInstruction(move_down);
                                     }
                                     else
                                     {
                                         Debug.Log("hata");
                                     }
-                                }
-                                else if (length == 9)
-                                {
-                                    if (instructionParts[0] == "moveRight")
+                                    //}
+                                    //else if (length == 9)
+                                    //{
+                                    if (instructionParts[0] == "move_right")
                                     {
 
-                                        Move move = new Move(characterMovement, "right", instructionLevel);
-                                        AddInstruction(move);
+                                        Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                        AddInstruction(move_right);
                                     }
                                     else
                                     {
                                         Debug.Log("hata");
                                     }
+                                    //}
                                 }
+                                catch (Exception ex)
+                                {
+                                    Debug.Log(ex.Message);
+                                }
+                                    
 
                             }
                             else if (trimmedRow.Substring(0, 4) == "elif")
                             {
-                                if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
+                                if (trimmedRow[trimmedRow.Length - 1] != ':')
                                 {
-                                    Debug.Log("boþluk olmalý hata");
+                                    Debug.Log("hata");
                                 }
                                 else
                                 {
-                                    string operatorType = null;
-
-                                    if (trimmedRow.Contains("=="))
-                                        operatorType = "==";
-                                    else if (trimmedRow.Contains("!="))
-                                        operatorType = "!=";
-                                    else if (trimmedRow.Contains("<"))
-                                        operatorType = "<";
-                                    else if (trimmedRow.Contains(">"))
-                                        operatorType = ">";
-                                    else if (trimmedRow.Contains("="))
-                                        operatorType = "=";
-                                    else
-                                        Debug.Log("Hata");
-
-
-
-                                    //if (leftTrimmedRow.Contains(operatorType))
-                                    //{
-                                    string var = trimmedRow.Substring(4, trimmedRow.IndexOf(operatorType) - 4).Trim();
-                                    //burasý VariableCheck(var) ile deðiþtirilebilir
-
-                                    if (VariableCheck(var))
+                                    if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
                                     {
-                                        string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 4).Trim();
+                                        Debug.Log("boþluk olmalý hata");
+                                    }
+                                    else
+                                    {
+                                        string operatorType = null;
 
-                                        if (value.Length < 4)  // "x":
+                                        if (trimmedRow.Contains("=="))
+                                            operatorType = "==";
+                                        else if (trimmedRow.Contains("!="))
+                                            operatorType = "!=";
+                                        else if (trimmedRow.Contains("<"))
+                                            operatorType = "<";
+                                        else if (trimmedRow.Contains(">"))
+                                            operatorType = ">";
+
+
+                                        if (operatorType == null)
                                         {
-                                            Debug.Log("Hata");
-                                        }
-                                        else if (value[0] != '"' || value[value.Length - 2] != '"')
-                                        {
-                                            Debug.Log("hata");
-                                        }
-                                        else if (value[value.Length - 1] != ':')
-                                        {
-                                            Debug.Log("hata");
-                                        }
-                                        else
-                                        {
-                                            value = value.Substring(1, value.Length - 2);
+                                            string[] elifParts = trimmedRow.Split('.');
+                                            string parameterPart = null;
 
-                                            //burada var ve value elde ettik. If classýný oluþturabiliriz.
-                                            //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
-                                            //ama burasý sadece if
+                                            if (elifParts.Length == 2 || elifParts.Length == 3)
+                                            {
 
-                                            //conditionHolder = new ConditionHolder(instructionLevel);
+                                                if (elifParts[0] != className)
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                string firstMethod = null;
 
-                                            //+1 diyerek conditionHolder'ýn içine girmesi saðlandý gibi. Ama bir yerde conditionHolder'ýn içinde olup olmadýðý kontrol edilmeli.
-                                            //Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
-                                            //Elif elifCondition = new Elif(var, operatorType, value, conditionId, conditionRunList, instructionLevel);
-                                            Elif elifCondition = new Elif(var, operatorType, value, instructionLevel);
-                                            AddInstruction(elifCondition);
+                                                if (elifParts[1].Substring(0, 7) == "up_tile")
+                                                {
+                                                    parameterPart = elifParts[1].Substring(7).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "up_tile";
+                                                        Elif elifInstruction = new Elif(firstMethod, instructionLevel);
+                                                        AddInstruction(elifInstruction);
+                                                    }
+
+                                                }
+                                                else if (elifParts[1].Substring(0, 9) == "down_tile")
+                                                {
+                                                    parameterPart = elifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "down_tile";
+                                                        Elif elifInstruction = new Elif(firstMethod, instructionLevel);
+                                                        AddInstruction(elifInstruction);
+                                                    }
+                                                }
+                                                else if (elifParts[1].Substring(0, 10) == "right_tile")
+                                                {
+                                                    parameterPart = elifParts[1].Substring(10).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "right_tile";
+                                                        Elif elifInstruction = new Elif(firstMethod, instructionLevel);
+                                                        AddInstruction(elifInstruction);
+                                                    }
+                                                }
+                                                else if (elifParts[1].Substring(0, 9) == "left_tile")
+                                                {
+                                                    parameterPart = elifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "left_tile";
+                                                        Elif elifInstruction = new Elif(firstMethod, instructionLevel);
+                                                        AddInstruction(elifInstruction);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    Debug.Log("simdilik hata");
+                                                }
+
+                                                if (elifParts.Length == 2)
+                                                {
+                                                    //burada 2 parcali if listeye eklenecek.
+                                                }
+                                                else if (elifParts.Length == 3)
+                                                {
+                                                    //kaldirilabilir ??
+                                                    //parameterPart = null;
+                                                    string secondMethod = null;
+                                                    //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
 
 
-                                            //Oldu mu bilmiyorum. Büyük ihtimal olmadý çünkü iften sonra araya baþka þeyler girmiþ olabilir. Bundan dolayý AddInstruction'da yapmak zorundayým.
-                                            //if (conditionHolder == null)
-                                            //    Debug.Log("hata");
-                                            //else if (instructionLevel == conditionHolder.level)
-                                            //    conditionHolder.Add(elifCondition);
+                                                    if (elifParts[2].Substring(0, 9) == "is_ground")
+                                                    {
+                                                        parameterPart = elifParts[2].Substring(9).Replace(" ", "");
+                                                        if (parameterPart != "()")
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_ground";
+                                                            Elif elifInstruction = new Elif(firstMethod, secondMethod, null, instructionLevel);
+                                                            AddInstruction(elifInstruction);
+                                                        }
+
+                                                    }
+                                                    else if (elifParts[2].Substring(0, 8) == "is_water")
+                                                    {
+                                                        parameterPart = elifParts[2].Substring(8).Replace(" ", "");
+                                                        if (parameterPart != "()")
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_water";
+                                                            Elif elifInstruction = new Elif(firstMethod, secondMethod, null, instructionLevel);
+                                                            AddInstruction(elifInstruction);
+                                                        }
+
+                                                    }
+                                                    else if (elifParts[2].Substring(0, 8) == "contains")
+                                                    {
+                                                        //string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                        parameterPart = elifParts[2].Substring(8).Trim();
+                                                        //burasi degisecek. ()'in ici dolu olacak.
+                                                        if (parameterPart[parameterPart.Length - 1] != ':')
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
+                                                        //hata cikarsa zaten program duracak
+                                                        if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
+                                                        {
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "contains";
+                                                            Elif elifInstruction = new Elif(firstMethod, secondMethod, parameterPart, instructionLevel);
+                                                            AddInstruction(elifInstruction);
+                                                        }
+
+                                                    }
+
+                                                    //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
+                                                }
+
+
+                                            }
+                                            // == varsa
+                                            //buraya farkli bir sey koymak lazim. 
+                                            else
+                                            {
 
 
 
-                                            //conditionHolder.Add(ifCondition);
-                                            //AddInstruction(conditionHolder);
+
+
+                                            }
 
                                         }
                                     }
-                                    //}
+
                                 }
                             }
+                            //else if (trimmedRow.Substring(0, 4) == "elif")
+                            //{
+                            //    if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
+                            //    {
+                            //        Debug.Log("boþluk olmalý hata");
+                            //    }
+                            //    else
+                            //    {
+                            //        string operatorType = null;
+
+                            //        if (trimmedRow.Contains("=="))
+                            //            operatorType = "==";
+                            //        else if (trimmedRow.Contains("!="))
+                            //            operatorType = "!=";
+                            //        else if (trimmedRow.Contains("<"))
+                            //            operatorType = "<";
+                            //        else if (trimmedRow.Contains(">"))
+                            //            operatorType = ">";
+                            //        else if (trimmedRow.Contains("="))
+                            //            operatorType = "=";
+                            //        else
+                            //            Debug.Log("Hata");
+
+
+
+                            //        //if (leftTrimmedRow.Contains(operatorType))
+                            //        //{
+                            //        string var = trimmedRow.Substring(4, trimmedRow.IndexOf(operatorType) - 4).Trim();
+                            //        //burasý VariableCheck(var) ile deðiþtirilebilir
+
+                            //        if (VariableCheck(var))
+                            //        {
+                            //            string value = trimmedRow.Substring(trimmedRow.IndexOf(operatorType) + 4).Trim();
+
+                            //            if (value.Length < 4)  // "x":
+                            //            {
+                            //                Debug.Log("Hata");
+                            //            }
+                            //            else if (value[0] != '"' || value[value.Length - 2] != '"')
+                            //            {
+                            //                Debug.Log("hata");
+                            //            }
+                            //            else if (value[value.Length - 1] != ':')
+                            //            {
+                            //                Debug.Log("hata");
+                            //            }
+                            //            else
+                            //            {
+                            //                value = value.Substring(1, value.Length - 2);
+
+                            //                //burada var ve value elde ettik. If classýný oluþturabiliriz.
+                            //                //level ve tipine göre atama yapmak gerekiyor. if'se baþka elif'se baþka 
+                            //                //ama burasý sadece if
+
+                            //                //conditionHolder = new ConditionHolder(instructionLevel);
+
+                            //                //+1 diyerek conditionHolder'ýn içine girmesi saðlandý gibi. Ama bir yerde conditionHolder'ýn içinde olup olmadýðý kontrol edilmeli.
+                            //                //Elif elifCondition = new Elif(var, operatorType, value, instructionLevel + 1);
+                            //                //Elif elifCondition = new Elif(var, operatorType, value, conditionId, conditionRunList, instructionLevel);
+                            //                Elif elifCondition = new Elif(var, operatorType, value, instructionLevel);
+                            //                AddInstruction(elifCondition);
+
+
+                            //                //Oldu mu bilmiyorum. Büyük ihtimal olmadý çünkü iften sonra araya baþka þeyler girmiþ olabilir. Bundan dolayý AddInstruction'da yapmak zorundayým.
+                            //                //if (conditionHolder == null)
+                            //                //    Debug.Log("hata");
+                            //                //else if (instructionLevel == conditionHolder.level)
+                            //                //    conditionHolder.Add(elifCondition);
+
+
+
+                            //                //conditionHolder.Add(ifCondition);
+                            //                //AddInstruction(conditionHolder);
+
+                            //            }
+                            //        }
+                            //        //}
+                            //    }
+                            //}
                             else if (trimmedRow.Substring(0, 4) == "else")
                             {
                                 trimmedRow = trimmedRow.Replace(" ", "");
