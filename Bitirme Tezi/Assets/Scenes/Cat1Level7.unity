@@ -1837,7 +1837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "from Character import asd\n\nfor x in range (3):\n  moveRight()"
+  m_text: "from Character import asd\n\nfor x in range (3):\n  move_right()"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2088,6 +2088,7 @@ MonoBehaviour:
   inputField1: {fileID: 0}
   inputField2: {fileID: 0}
   character: {fileID: 1568619289}
+  conditionRunList: 
 --- !u!1 &1102573213
 GameObject:
   m_ObjectHideFlags: 0
@@ -3219,8 +3220,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "from Character import asd\n\nfor x in range (3):\n  moveRight()\n  for
-    y in range(2):\n    moveUp()"
+  m_text: "from Character import asd\n\nfor x in range (3):\n  move_right()\n  for
+    y in range(2):\n    move_up()"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
