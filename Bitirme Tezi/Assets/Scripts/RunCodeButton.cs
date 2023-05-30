@@ -194,7 +194,11 @@ public class For : HolderInstruction
 
 
                 }
-                else if (isThereIf)
+                else if (!isThereIf)
+                {
+                    Debug.Log("hata");
+                }
+                else
                 {
                     if (!didPreviousConditionsRun)
                     {
