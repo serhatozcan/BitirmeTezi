@@ -194,161 +194,192 @@ public class For : HolderInstruction
 
 
                 }
-                else if (!isThereIf)
+                //else if (!isThereIf)
+                //{
+                //    Debug.Log("hata");
+                //}
+                else if (instruction.GetType() == typeof(Elif))
                 {
-                    Debug.Log("hata");
+                    if (!isThereIf)
+                    {
+                        Debug.Log("hata");
+
+                    }
+                    else if (!didPreviousConditionsRun)
+                    {
+                        if (((Elif)instruction).type == 1)
+                        {
+                            //if(((If)instruction).firstMethod) == "";
+                        }
+                        else if (((Elif)instruction).type == 2)
+                        {
+                            if (((Elif)instruction).firstMethod == "up_tile")
+                            {
+                                if (((Elif)instruction).secondMethod == "is_ground")
+                                {
+                                    //burada ground mu diye kontrol etmek gerekiyor
+                                    Vector2 direction = new Vector2(0, 1);
+                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                    //Oldu mu???
+                                    if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                                    {
+                                        didPreviousConditionsRun = true;
+                                        instruction.Run();
+                                    }
+                                }
+                                else if (((Elif)instruction).secondMethod == "is_water")
+                                {
+                                    //burada ground mu diye kontrol etmek gerekiyor
+                                    Vector2 direction = new Vector2(0, 1);
+                                    //groundTilemap vs waterTilemap ???
+                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                    //Oldu mu???
+                                    if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                                    {
+                                        didPreviousConditionsRun = true;
+                                        instruction.Run();
+                                    }
+                                }
+                                else if (((Elif)instruction).secondMethod == "contains")
+                                {
+                                    //burada direkt parameterPart diye yazilabilir mi??
+                                    if (((Elif)instruction).secondMethodParameter == "apple")
+                                    {
+
+                                    }
+                                    else if (((Elif)instruction).secondMethodParameter == "banana")
+                                    {
+
+                                    }
+                                    else if (((Elif)instruction).secondMethodParameter == "kiwi")
+                                    {
+
+                                    }
+                                }
+                            }
+                        }
+                        //HEPSINE CONTAINS EKLENECEK.
+                        else if (((Elif)instruction).firstMethod == "down_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, -1);
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((If)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, -1);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+
+                        }
+                        else if (((Elif)instruction).firstMethod == "right_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(1, 0);
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(1, 0);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                        }
+                        else if (((Elif)instruction).firstMethod == "left_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(-1, 0);
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(-1, 0);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                        }
+
+                    }
+
+                }else if(instruction.GetType() == typeof(Else))
+                {
+                    if (!isThereIf)
+                    {
+                        Debug.Log("hata");
+                    }else if (!didPreviousConditionsRun)
+                    {
+                        instruction.Run();
+                    }
                 }
                 else
                 {
-                    if (!didPreviousConditionsRun)
-                    {
-                        if (instruction.GetType() == typeof(Elif))
-                        {
-                            if (((Elif)instruction).type == 1)
-                            {
-                                //if(((If)instruction).firstMethod) == "";
-                            }
-                            else if (((Elif)instruction).type == 2)
-                            {
-                                if (((Elif)instruction).firstMethod == "up_tile")
-                                {
-                                    if (((Elif)instruction).secondMethod == "is_ground")
-                                    {
-                                        //burada ground mu diye kontrol etmek gerekiyor
-                                        Vector2 direction = new Vector2(0, 1);
-                                        Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                        //Oldu mu???
-                                        if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
-                                        {
-                                            didPreviousConditionsRun = true;
-                                            instruction.Run();
-                                        }
-                                    }
-                                    else if (((Elif)instruction).secondMethod == "is_water")
-                                    {
-                                        //burada ground mu diye kontrol etmek gerekiyor
-                                        Vector2 direction = new Vector2(0, 1);
-                                        //groundTilemap vs waterTilemap ???
-                                        Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                        //Oldu mu???
-                                        if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
-                                        {
-                                            didPreviousConditionsRun = true;
-                                            instruction.Run();
-                                        }
-                                    }
-                                    else if (((Elif)instruction).secondMethod == "contains")
-                                    {
-                                        //burada direkt parameterPart diye yazilabilir mi??
-                                        if (((Elif)instruction).secondMethodParameter == "apple")
-                                        {
-
-                                        }
-                                        else if (((Elif)instruction).secondMethodParameter == "banana")
-                                        {
-
-                                        }
-                                        else if (((Elif)instruction).secondMethodParameter == "kiwi")
-                                        {
-
-                                        }
-                                    }
-                                }
-                            }
-                            //HEPSINE CONTAINS EKLENECEK.
-                            else if (((Elif)instruction).firstMethod == "down_tile")
-                            {
-                                if (((Elif)instruction).secondMethod == "is_ground")
-                                {
-                                    //burada ground mu diye kontrol etmek gerekiyor
-                                    Vector2 direction = new Vector2(0, -1);
-                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                    //Oldu mu???
-                                    if (((If)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
-                                    {
-                                        didPreviousConditionsRun = true;
-                                        instruction.Run();
-                                    }
-                                }
-                                else if (((Elif)instruction).secondMethod == "is_water")
-                                {
-                                    //burada ground mu diye kontrol etmek gerekiyor
-                                    Vector2 direction = new Vector2(0, -1);
-                                    //groundTilemap vs waterTilemap ???
-                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                    //Oldu mu???
-                                    if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
-                                    {
-                                        didPreviousConditionsRun = true;
-                                        instruction.Run();
-                                    }
-                                }
-
-                            }
-                            else if (((Elif)instruction).firstMethod == "right_tile")
-                            {
-                                if (((Elif)instruction).secondMethod == "is_ground")
-                                {
-                                    //burada ground mu diye kontrol etmek gerekiyor
-                                    Vector2 direction = new Vector2(1, 0);
-                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                    //Oldu mu???
-                                    if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
-                                    {
-                                        didPreviousConditionsRun = true;
-                                        instruction.Run();
-                                    }
-                                }
-                                else if (((Elif)instruction).secondMethod == "is_water")
-                                {
-                                    //burada ground mu diye kontrol etmek gerekiyor
-                                    Vector2 direction = new Vector2(1, 0);
-                                    //groundTilemap vs waterTilemap ???
-                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                    //Oldu mu???
-                                    if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
-                                    {
-                                        didPreviousConditionsRun = true;
-                                        instruction.Run();
-                                    }
-                                }
-                            }
-                            else if (((Elif)instruction).firstMethod == "left_tile")
-                            {
-                                if (((Elif)instruction).secondMethod == "is_ground")
-                                {
-                                    //burada ground mu diye kontrol etmek gerekiyor
-                                    Vector2 direction = new Vector2(-1, 0);
-                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                    //Oldu mu???
-                                    if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
-                                    {
-                                        didPreviousConditionsRun = true;
-                                        instruction.Run();
-                                    }
-                                }
-                                else if (((Elif)instruction).secondMethod == "is_water")
-                                {
-                                    //burada ground mu diye kontrol etmek gerekiyor
-                                    Vector2 direction = new Vector2(-1, 0);
-                                    //groundTilemap vs waterTilemap ???
-                                    Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
-                                    //Oldu mu???
-                                    if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
-                                    {
-                                        didPreviousConditionsRun = true;
-                                        instruction.Run();
-                                    }
-                                }
-                            }
-                        }
-                        else if (instruction.GetType() == typeof(Else))
-                        {
-                            Debug.Log(instruction.ToString());
-                            instruction.Run();
-                        }
-                    }
+                    isThereIf = false;
+                    instruction.Run();
                 }
+
+
+                //else if (!isThereIf)
+                //{
+                //    if (!didPreviousConditionsRun)
+                //    {
+                //        if (instruction.GetType() == typeof(Elif))
+                //        {
+
+                //        }
+                //        else if (instruction.GetType() == typeof(Else))
+                //        {
+                //            Debug.Log(instruction.ToString());
+                //            instruction.Run();
+                //        }
+                //    }
+
+                //}
 
 
 
