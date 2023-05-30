@@ -425,7 +425,7 @@ public class If : HolderInstruction
         this.firstMethod = firstMethod;
         this.secondMethod = null;
         this.secondMethodParameter = null;
-
+        instructions = new List<Instruction>();
         this.level = level;
         type = 1;
 
@@ -437,7 +437,7 @@ public class If : HolderInstruction
         this.firstMethod = firstMethod;
         this.secondMethod = secondMethod;
         this.secondMethodParameter = secondMethodParameter;
-
+        instructions = new List<Instruction>();
         this.level = level;
         type = 2;
 
@@ -781,6 +781,7 @@ public class Elif : HolderInstruction
     public string firstMethod;
     public string secondMethod;
     public string secondMethodParameter;
+
     public int type;
 
     public Elif(CharacterMovementController characterMovement, string firstMethod, int level)
@@ -793,6 +794,7 @@ public class Elif : HolderInstruction
         //this.rightPart = rightPart;
         //this.id = id;
         //this.conditionRunList = conditionRunList;
+        instructions = new List<Instruction>();
         this.level = level;
         type = 1;
 
@@ -808,6 +810,7 @@ public class Elif : HolderInstruction
         //this.rightPart = rightPart;
         //this.id = id;
         //this.conditionRunList = conditionRunList;
+        instructions = new List<Instruction>();
         this.level = level;
         type = 2;
 
@@ -1188,7 +1191,7 @@ public class Else : HolderInstruction
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
-
+        instructions = new List<Instruction>();
     }
 
 
@@ -1571,99 +1574,6 @@ public class Move : Instruction
     }
 
 }
-
-
-
-//class Node
-//{
-//    public string data;
-//    public List<Node> childNodes;
-//    public Node parent;
-//    public int level;
-
-//    public Node(string data, int level)
-//    {
-//        this.data = data;
-//        this.childNodes = new List<Node>();
-//        this.parent = null;
-//        this.level = level;
-//    }
-
-//}
-
-//class Tree
-//{
-//    public Node root;
-
-
-//    public Tree()
-//    {
-//        root = new Node(null, 0);
-
-//    }
-
-//    //public Tree(Node root)
-//    //{
-//    //    this.root = root;
-//    //}
-
-
-//    //kod level'ýna gore tree'ye ekleniyor
-//    public void Insert(Node node)
-//    {
-//        int level = node.level;
-//        //if (root == null)
-
-//        //else
-//        //{
-//        Node current = root;
-//        Node parent;
-
-//        while (true)
-//        {
-//            parent = current;
-//            //Kodlarýn okuma sýrasýna uymasý için tree'de surekli en sondaki node secilerek ilerleniyor. 
-//            //Node n = parent.childNodes[parent.childNodes.Count - 1];
-//            //if (parent.childNodes.Count == 0)
-
-
-
-//            if (parent.level == level - 1)
-//            {
-//                parent.childNodes.Add(node);
-//                node.parent = parent;
-//                return;
-//            }
-
-//            current = parent.childNodes[parent.childNodes.Count - 1];
-//        }
-//        //}
-
-//    }
-
-//    //eklemede sorun yok. dolaþmada daha düþük seviyeliyi okumuyor.
-//    public void Traverse(Node root)
-//    {
-
-//        if (root != null)
-//        {
-//            for (int i = 0; i < root.childNodes.Count; i++)
-//            {
-//                if (root.childNodes[i] != null)
-//                {
-//                    Node current = root.childNodes[i];
-//                    //Burada son geldiðimiz node okunuyor.
-//                    Debug.Log(current.data);
-
-//                    Traverse(current);
-//                }
-
-//            }
-//        }
-
-
-//    }
-//}
 
 
 
@@ -2553,6 +2463,7 @@ public class RunCodeButton : MonoBehaviour
                                     {
 
                                         Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                        Debug.Log("mr level "+instructionLevel);
                                         AddInstruction(move_right);
                                     }
                                     else
