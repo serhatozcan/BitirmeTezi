@@ -4625,6 +4625,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2432669637905812108, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
+      propertyPath: m_text
+      value: "from Character import character\n\nfor x in range (3):\n  move_right()"
+      objectReference: {fileID: 0}
     - target: {fileID: 2432669638323322094, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -4672,6 +4676,21 @@ PrefabInstance:
     - target: {fileID: 2432669638323322095, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_Name
       value: Debug Texts (+ReadMe)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432669638419263385, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
+      propertyPath: m_text
+      value: "from Character import character\n\nif character.right_tile().is_ground():\n 
+        move_right()"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432669638644757541, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
+      propertyPath: m_text
+      value: "class character : \n  def __init__ (self, bir, iki) :\n    self.bir
+        = bir\n    self.iki = iki"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432669639612140233, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
+      propertyPath: m_text
+      value: "from Character import character\n\nfor x in range (3):\n  move_right()\n 
+        for y in range(2):\n    move_up()"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9f7326a5ee54654f8e892981101705d, type: 3}

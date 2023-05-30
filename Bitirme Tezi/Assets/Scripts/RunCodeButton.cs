@@ -347,12 +347,14 @@ public class For : HolderInstruction
 
                     }
 
-                }else if(instruction.GetType() == typeof(Else))
+                }
+                else if (instruction.GetType() == typeof(Else))
                 {
                     if (!isThereIf)
                     {
                         Debug.Log("hata");
-                    }else if (!didPreviousConditionsRun)
+                    }
+                    else if (!didPreviousConditionsRun)
                     {
                         instruction.Run();
                     }
@@ -401,62 +403,10 @@ public class For : HolderInstruction
 
 
 
-public abstract class Condition : HolderInstruction
-{
-    //if bloðunun içindekiler eklencek.
-    //public List<Instruction> instructions;
-
-
-    public bool boolean;
-    public bool didRun;
-    //public int id;
-    //public List<bool> conditionRunList;
-
-    //burada string olarak deðil, deðeri belirlenmiþ bool olarak da atanabilir. ekleme kýsmý ayarlanmalý.
-    //public Condition(string type, string booleanString, int level)
-    //{
-    //    this.type = type;
-    //    this.level = level;
-
-    //    if (booleanString != null)
-    //    {
-    //        //burada boolean deðeri belirlenecek. kontrol yapýlacak yani. 
-    //        //buraya eklenmeden mi burada mý boolean belirlense daha kolay olur? eklenmeden belki daha kolay olur çünkü diðer tarafta daha çok þeye eriþim var.
-
-    //        //boolean = true;
-
-    //        //boolean = false;
-    //    }
-    //}
 
 
 
-    //public override void Run()
-    //{
-    //    foreach (Instruction instruction in instructions)
-    //    {
-    //        instruction.Run();
-    //    }
-    //}
-
-    //public void Add(Instruction instruction)
-    //{
-    //    instructions.Add(instruction);
-    //}
-
-    //public override void Add(Instruction instruction)
-    //{
-    //    instructions.Add(instruction);
-    //}
-
-    public override string ToString()
-    {
-        return "Condition Class";
-    }
-}
-
-
-public class If : Condition
+public class If : HolderInstruction
 {
     //public List<string> leftPart;
     //public string operatorType;
@@ -475,10 +425,7 @@ public class If : Condition
         this.firstMethod = firstMethod;
         this.secondMethod = null;
         this.secondMethodParameter = null;
-        //this.operatorType = operatorType;
-        //this.rightPart = rightPart;
-        //this.id = id;
-        //this.conditionRunList = conditionRunList;
+
         this.level = level;
         type = 1;
 
@@ -486,14 +433,11 @@ public class If : Condition
     }
     public If(CharacterMovementController characterMovement, string firstMethod, string secondMethod, string secondMethodParameter, int level)
     {
-
+        this.characterMovement = characterMovement;
         this.firstMethod = firstMethod;
         this.secondMethod = secondMethod;
         this.secondMethodParameter = secondMethodParameter;
-        //this.operatorType = operatorType;
-        //this.rightPart = rightPart;
-        //this.id = id;
-        //this.conditionRunList = conditionRunList;
+
         this.level = level;
         type = 2;
 
@@ -504,18 +448,7 @@ public class If : Condition
     //rightpart ve operator type olup olmamasýna gore iki sekilde calisacak
     public override void Run()
     {
-        //burada önce diðerlerinde baðýmsýz olarak bool deðerine göre çalýþacak mý diye kontrol edeceðiz.
-        //sonra çalýþacaksa conditionRunListte id'ye karþýlýk gelen indexi true yapýcaz.
-        //SIKINTI ÞU: true yaptýktan sonra for loop içerisinde ayný if'e tekrar gelince ne olacak???
 
-        //if(conditionRunList == null) 
-        //{ 
-
-        //}
-        //if (operatorType != null)
-        //{
-        //    //buralarda calisip calismadigini dondurmek gerekebilir. ya da run metodunda sadece calistirma yapilacak. run metodu cagrilmadan once if'in calisip calismadigi disarida kontrol edilecek.
-        //}
 
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
@@ -839,7 +772,7 @@ public class If : Condition
     }
 }
 
-public class Elif : Condition
+public class Elif : HolderInstruction
 {
     public CharacterMovementController characterMovement;
     //public List<string> leftPart;
@@ -1247,7 +1180,7 @@ public class Elif : Condition
 //    }
 //}
 
-public class Else : Condition
+public class Else : HolderInstruction
 {
 
     public Else(int level)
@@ -1889,6 +1822,7 @@ public class RunCodeButton : MonoBehaviour
                         else
                         {
                             className = word;
+                            Debug.Log("classname1=" + className);
                         }
                     }
 
@@ -2273,28 +2207,33 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
+                                        // if kismi atilacak.
+                                        string booleanPart = trimmedRow.Substring(2).Trim();
                                         string operatorType = null;
 
-                                        if (trimmedRow.Contains("=="))
+                                        if (booleanPart.Contains("=="))
                                             operatorType = "==";
-                                        else if (trimmedRow.Contains("!="))
+                                        else if (booleanPart.Contains("!="))
                                             operatorType = "!=";
-                                        else if (trimmedRow.Contains("<"))
+                                        else if (booleanPart.Contains("<"))
                                             operatorType = "<";
-                                        else if (trimmedRow.Contains(">"))
+                                        else if (booleanPart.Contains(">"))
                                             operatorType = ">";
 
 
                                         if (operatorType == null)
                                         {
-                                            string[] ifParts = trimmedRow.Split('.');
+                                            string[] ifParts = booleanPart.Split('.');
                                             string parameterPart = null;
 
-                                            if (ifParts.Length == 2 || ifParts.Length == 3)
+                                            //if (ifParts.Length == 2 || ifParts.Length == 3)
+                                            if (ifParts.Length == 3)
                                             {
 
                                                 if (ifParts[0] != className)
                                                 {
+                                                    Debug.Log(ifParts[0]);
+                                                    Debug.Log("classname2=" + className);
                                                     Debug.Log("hata");
                                                 }
                                                 string firstMethod = null;
@@ -2309,8 +2248,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        AddInstruction(ifInstruction);
+                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
+                                                        //AddInstruction(ifInstruction);
                                                     }
 
                                                 }
@@ -2324,8 +2263,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        AddInstruction(ifInstruction);
+                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
+                                                        //AddInstruction(ifInstruction);
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 10) == "right_tile")
@@ -2338,8 +2277,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        AddInstruction(ifInstruction);
+                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
+                                                        //AddInstruction(ifInstruction);
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 9) == "left_tile")
@@ -2352,8 +2291,8 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        AddInstruction(ifInstruction);
+                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
+                                                        //AddInstruction(ifInstruction);
                                                     }
                                                 }
                                                 else
@@ -2361,82 +2300,90 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log("simdilik hata");
                                                 }
 
-                                                if (ifParts.Length == 2)
-                                                {
-                                                    //burada 2 parcali if listeye eklenecek.
-                                                }
-                                                else if (ifParts.Length == 3)
-                                                {
-                                                    //kaldirilabilir ??
-                                                    //parameterPart = null;
-                                                    string secondMethod = null;
-                                                    //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
+                                                //if (ifParts.Length == 2)
+                                                //{
+                                                //    //burada 2 parcali if listeye eklenecek.
+                                                //}
+                                                //else if (ifParts.Length == 3)
+                                                //{
+                                                //kaldirilabilir ??
+                                                //parameterPart = null;
+                                                string secondMethod = null;
+                                                //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
 
 
-                                                    if (ifParts[2].Substring(0, 9) == "is_ground")
+                                                if (ifParts[2].Substring(0, 9) == "is_ground")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(9).Replace(" ", "");
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
                                                     {
-                                                        parameterPart = ifParts[2].Substring(9).Replace(" ", "");
-                                                        if (parameterPart != "()")
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else if (parameterPart != "():")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_ground";
+                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, instructionLevel);
+                                                        AddInstruction(ifInstruction);
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 8) == "is_water")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(8).Replace(" ", "");
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else if (parameterPart != "():")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_water";
+                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, instructionLevel);
+                                                        AddInstruction(ifInstruction);
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 8) == "contains")
+                                                {
+                                                    //string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                    parameterPart = ifParts[2].Substring(8).Trim();
+                                                    //burasi degisecek. ()'in ici dolu olacak.
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
+                                                    //hata cikarsa zaten program duracak
+                                                    if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+
+                                                        if (!fruits.Contains(parameterPart))
                                                         {
                                                             Debug.Log("hata");
                                                         }
                                                         else
                                                         {
-                                                            secondMethod = "is_ground";
-                                                            If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, instructionLevel);
+                                                            secondMethod = "contains";
+                                                            If ifInstruction = new If(characterMovement, firstMethod, secondMethod, parameterPart, instructionLevel);
                                                             AddInstruction(ifInstruction);
                                                         }
-
-                                                    }
-                                                    else if (ifParts[2].Substring(0, 8) == "is_water")
-                                                    {
-                                                        parameterPart = ifParts[2].Substring(8).Replace(" ", "");
-                                                        if (parameterPart != "()")
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else
-                                                        {
-                                                            secondMethod = "is_water";
-                                                            If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, instructionLevel);
-                                                            AddInstruction(ifInstruction);
-                                                        }
-
-                                                    }
-                                                    else if (ifParts[2].Substring(0, 8) == "contains")
-                                                    {
-                                                        //string s = ifParts[2].Substring(8).Replace(" ", "");
-                                                        parameterPart = ifParts[2].Substring(8).Trim();
-                                                        //burasi degisecek. ()'in ici dolu olacak.
-                                                        if (parameterPart[parameterPart.Length - 1] != ':')
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
-                                                        //hata cikarsa zaten program duracak
-                                                        if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
-                                                        {
-                                                            Debug.Log("hata");
-                                                        }
-                                                        else
-                                                        {
-
-                                                            if (!fruits.Contains(parameterPart))
-                                                            {
-                                                                Debug.Log("hata");
-                                                            }
-                                                            else
-                                                            {
-                                                                secondMethod = "contains";
-                                                                If ifInstruction = new If(characterMovement, firstMethod, secondMethod, parameterPart, instructionLevel);
-                                                                AddInstruction(ifInstruction);
-                                                            }
-                                                        }
-
                                                     }
 
-                                                    //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
                                                 }
+
+                                                //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
+                                                //}
 
 
                                             }
@@ -2584,6 +2531,7 @@ public class RunCodeButton : MonoBehaviour
                                 //}
                                 //else if (length == 6)
                                 //{
+                                Debug.Log(instructionParts[0]);
                                 try
                                 {
                                     if (instructionParts[0] == "move_up")
@@ -2591,14 +2539,7 @@ public class RunCodeButton : MonoBehaviour
                                         Move move_up = new Move(characterMovement, "up", instructionLevel);
                                         AddInstruction(move_up);
                                     }
-                                    else
-                                    {
-                                        Debug.Log("hata");
-                                    }
-                                    //}
-                                    //else if (length == 8)
-                                    //{
-                                    if (instructionParts[0] == "move_left")
+                                    else if (instructionParts[0] == "move_left")
                                     {
                                         Move move_left = new Move(characterMovement, "left", instructionLevel);
                                         AddInstruction(move_left);
@@ -2608,14 +2549,7 @@ public class RunCodeButton : MonoBehaviour
                                         Move move_down = new Move(characterMovement, "down", instructionLevel);
                                         AddInstruction(move_down);
                                     }
-                                    else
-                                    {
-                                        Debug.Log("hata");
-                                    }
-                                    //}
-                                    //else if (length == 9)
-                                    //{
-                                    if (instructionParts[0] == "move_right")
+                                    else if (instructionParts[0] == "move_right")
                                     {
 
                                         Move move_right = new Move(characterMovement, "right", instructionLevel);
@@ -2648,21 +2582,22 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
+                                        string booleanPart = trimmedRow.Substring(4).Trim();
                                         string operatorType = null;
 
-                                        if (trimmedRow.Contains("=="))
+                                        if (booleanPart.Contains("=="))
                                             operatorType = "==";
-                                        else if (trimmedRow.Contains("!="))
+                                        else if (booleanPart.Contains("!="))
                                             operatorType = "!=";
-                                        else if (trimmedRow.Contains("<"))
+                                        else if (booleanPart.Contains("<"))
                                             operatorType = "<";
-                                        else if (trimmedRow.Contains(">"))
+                                        else if (booleanPart.Contains(">"))
                                             operatorType = ">";
 
 
                                         if (operatorType == null)
                                         {
-                                            string[] elifParts = trimmedRow.Split('.');
+                                            string[] elifParts = booleanPart.Split('.');
                                             string parameterPart = null;
 
                                             if (elifParts.Length == 2 || elifParts.Length == 3)
@@ -2873,15 +2808,19 @@ public class RunCodeButton : MonoBehaviour
             {
                 if (instruction.GetType() == typeof(If))
                 {
+                    Debug.Log("Burasi");
                     isThereIf = true;
                     if (((If)instruction).type == 1)
                     {
+                        Debug.Log("?????????");
                         //if(((If)instruction).firstMethod) == "";
                     }
                     else if (((If)instruction).type == 2)
                     {
+                        Debug.Log("Burasi2");
                         if (((If)instruction).firstMethod == "up_tile")
                         {
+
                             if (((If)instruction).secondMethod == "is_ground")
                             {
                                 //burada ground mu diye kontrol etmek gerekiyor
@@ -2957,14 +2896,17 @@ public class RunCodeButton : MonoBehaviour
                     }
                     else if (((If)instruction).firstMethod == "right_tile")
                     {
+                        Debug.Log("Burasi3");
                         if (((If)instruction).secondMethod == "is_ground")
                         {
+                            Debug.Log("Burasi4");
                             //burada ground mu diye kontrol etmek gerekiyor
                             Vector2 direction = new Vector2(1, 0);
                             Vector3Int upTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                             //Oldu mu???
                             if (((If)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
                             {
+                                Debug.Log("Burasi5");
                                 didPreviousConditionsRun = true;
                                 instruction.Run();
                             }
