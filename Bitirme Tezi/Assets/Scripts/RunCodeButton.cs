@@ -42,14 +42,85 @@ public class For : HolderInstruction
 
         for (int i = 0; i < iterationCount; i++)
         {
+            bool boolValue = false;
 
             foreach (Instruction instruction in instructions)
             {
+                if (instruction.GetType() == typeof(If))
+                {
+                    if (((If)instruction).type == 1)
+                    {
+                        //if(((If)instruction).firstMethod) == "";
+                    }
+                    else if (((If)instruction).type == 2)
+                    {
+                        if (((If)instruction).firstMethod == "up_tile")
+                        {
+                            if (((If)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, 1);
+                                Vector3Int upTilePosition = ((If)instruction).characterMovement.waterTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((If)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                                {
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((If)instruction).secondMethod == "is_water")
+                            {
+                                //instruction.Run();
+                            }
+                            else if (((If)instruction).secondMethod == "contains")
+                            {
+                                //burada direkt parameterPart diye yazilabilir mi??
+                                if (((If)instruction).secondMethodParameter == "apple")
+                                {
+
+                                }
+                                else if (((If)instruction).secondMethodParameter == "banana")
+                                {
+
+                                }
+                                else if (((If)instruction).secondMethodParameter == "kiwi")
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                    else if (((If)instruction).firstMethod == "down_tile")
+                    {
+
+                    }
+                    else if (((If)instruction).firstMethod == "right_tile")
+                    {
+
+                    }
+                    else if (((If)instruction).firstMethod == "left_tile")
+                    {
+
+                    }
+
+
+                }
+                else if (instruction.GetType() == typeof(Elif))
+                {
+                    if (((Elif)instruction).type == 1)
+                    {
+
+                    }
+                    else if (((Elif)instruction).type == 2)
+                    {
+
+                    }
+                }
                 Debug.Log(instruction.ToString());
                 instruction.Run();
-            }
-        }
 
+            }
+
+        }
     }
 
     //public void Add(Instruction instruction)
@@ -174,13 +245,17 @@ public class If : Condition
     //public List<string> leftPart;
     //public string operatorType;
     //public List<string> rightPart;
+
+    public CharacterMovementController characterMovement;
     public string firstMethod;
     public string secondMethod;
     public string secondMethodParameter;
+    public int type;
 
-    public If(string firstMethod, int level)
+
+    public If(CharacterMovementController characterMovement, string firstMethod, int level)
     {
-
+        this.characterMovement = characterMovement;
         this.firstMethod = firstMethod;
         this.secondMethod = null;
         this.secondMethodParameter = null;
@@ -189,11 +264,11 @@ public class If : Condition
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
-
+        type = 1;
 
         //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
-    public If(string firstMethod, string secondMethod, string secondMethodParameter, int level)
+    public If(CharacterMovementController characterMovement, string firstMethod, string secondMethod, string secondMethodParameter, int level)
     {
 
         this.firstMethod = firstMethod;
@@ -204,7 +279,7 @@ public class If : Condition
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
-
+        type = 2;
 
         //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
@@ -249,6 +324,7 @@ public class Elif : Condition
     public string firstMethod;
     public string secondMethod;
     public string secondMethodParameter;
+    public int type;
 
     public Elif(string firstMethod, int level)
     {
@@ -261,7 +337,7 @@ public class Elif : Condition
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
-
+        type = 1;
 
         //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
@@ -276,7 +352,7 @@ public class Elif : Condition
         //this.id = id;
         //this.conditionRunList = conditionRunList;
         this.level = level;
-
+        type = 2;
 
         //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
     }
@@ -355,7 +431,11 @@ public class Else : Condition
 
     public override void Run()
     {
-        throw new NotImplementedException();
+        foreach (Instruction instruction in instructions)
+        {
+            Debug.Log(instruction.ToString());
+            instruction.Run();
+        }
     }
 }
 
@@ -524,6 +604,7 @@ public class RunCodeButton : MonoBehaviour
     private string[] initParameters = null;
 
     private string[] pythonReservedWords;
+    private string[] fruits;
     //public CharacterMovementController characterMovementController;
 
     public List<bool> conditionRunList;
@@ -538,7 +619,7 @@ public class RunCodeButton : MonoBehaviour
         pythonReservedWords = new string[] { "def", "if", "else", "elif", "for", "while", "False", "True", "and", "as", "assert", "break", "class", "continue",
                                             "del",   "except", "finally",  "form", "global", "import", "in", "is", "lambda",
                                             "nonlocal", "not", "or", "pass", "raise", "return", "try",  "with", "yeld"};
-
+        fruits = new string[] { "apple", "banana", "kiwi" };
         conditionRunList = new List<bool>();
         //characterColorChanger.ChangeColorToBlue();
         //characterColorChanger.ChangeColorToRed();
@@ -1063,7 +1144,7 @@ public class RunCodeButton : MonoBehaviour
                                         {
                                             string[] ifParts = trimmedRow.Split('.');
                                             string parameterPart = null;
-                                           
+
                                             if (ifParts.Length == 2 || ifParts.Length == 3)
                                             {
 
@@ -1072,7 +1153,7 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log("hata");
                                                 }
                                                 string firstMethod = null;
-                                                
+
                                                 if (ifParts[1].Substring(0, 7) == "up_tile")
                                                 {
                                                     parameterPart = ifParts[1].Substring(7).Replace(" ", "");
@@ -1083,7 +1164,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
                                                         AddInstruction(ifInstruction);
                                                     }
 
@@ -1098,7 +1179,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
                                                         AddInstruction(ifInstruction);
                                                     }
                                                 }
@@ -1112,7 +1193,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
                                                         AddInstruction(ifInstruction);
                                                     }
                                                 }
@@ -1126,7 +1207,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        If ifInstruction = new If(firstMethod, instructionLevel);
+                                                        If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
                                                         AddInstruction(ifInstruction);
                                                     }
                                                 }
@@ -1135,10 +1216,11 @@ public class RunCodeButton : MonoBehaviour
                                                     Debug.Log("simdilik hata");
                                                 }
 
-                                                if(ifParts.Length == 2)
+                                                if (ifParts.Length == 2)
                                                 {
                                                     //burada 2 parcali if listeye eklenecek.
-                                                }else if(ifParts.Length == 3)
+                                                }
+                                                else if (ifParts.Length == 3)
                                                 {
                                                     //kaldirilabilir ??
                                                     //parameterPart = null;
@@ -1156,7 +1238,7 @@ public class RunCodeButton : MonoBehaviour
                                                         else
                                                         {
                                                             secondMethod = "is_ground";
-                                                            If ifInstruction = new If(firstMethod, secondMethod, null, instructionLevel);
+                                                            If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, instructionLevel);
                                                             AddInstruction(ifInstruction);
                                                         }
 
@@ -1171,7 +1253,7 @@ public class RunCodeButton : MonoBehaviour
                                                         else
                                                         {
                                                             secondMethod = "is_water";
-                                                            If ifInstruction = new If(firstMethod, secondMethod, null, instructionLevel);
+                                                            If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, instructionLevel);
                                                             AddInstruction(ifInstruction);
                                                         }
 
@@ -1193,9 +1275,17 @@ public class RunCodeButton : MonoBehaviour
                                                         }
                                                         else
                                                         {
-                                                            secondMethod = "contains";
-                                                            If ifInstruction = new If(firstMethod, secondMethod, parameterPart, instructionLevel);
-                                                            AddInstruction(ifInstruction);
+
+                                                            if (!fruits.Contains(parameterPart))
+                                                            {
+                                                                Debug.Log("hata");
+                                                            }
+                                                            else
+                                                            {
+                                                                secondMethod = "contains";
+                                                                If ifInstruction = new If(characterMovement, firstMethod, secondMethod, parameterPart, instructionLevel);
+                                                                AddInstruction(ifInstruction);
+                                                            }
                                                         }
 
                                                     }
@@ -1396,7 +1486,7 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     Debug.Log(ex.Message);
                                 }
-                                    
+
 
                             }
                             else if (trimmedRow.Substring(0, 4) == "elif")
@@ -1560,9 +1650,17 @@ public class RunCodeButton : MonoBehaviour
                                                         }
                                                         else
                                                         {
-                                                            secondMethod = "contains";
-                                                            Elif elifInstruction = new Elif(firstMethod, secondMethod, parameterPart, instructionLevel);
-                                                            AddInstruction(elifInstruction);
+                                                            if (!fruits.Contains(parameterPart))
+                                                            {
+                                                                Debug.Log("hata");
+                                                            }
+                                                            else
+                                                            {
+                                                                secondMethod = "contains";
+                                                                Elif elifInstruction = new Elif(firstMethod, secondMethod, parameterPart, instructionLevel);
+                                                                AddInstruction(elifInstruction);
+                                                            }
+
                                                         }
 
                                                     }
