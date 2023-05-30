@@ -71,7 +71,8 @@ public class For : HolderInstruction
                             {
                                 //burada ground mu diye kontrol etmek gerekiyor
                                 Vector2 direction = new Vector2(0, 1);
-                                Vector3Int upTilePosition = ((If)instruction).characterMovement.waterTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int upTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                                 //Oldu mu???
                                 if (((If)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
                                 {
