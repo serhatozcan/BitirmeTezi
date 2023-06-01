@@ -383,28 +383,6 @@ public class For : HolderInstruction
     }
 }
 
-//public class Import : Instruction
-//{
-//    public string importClass;
-
-//    public Import(string importClass)
-//    {
-//        this.importClass = importClass;
-//    }
-
-//    public override void Run()
-//    {
-//        if(importClass != null)
-//        {
-
-//        }
-//    }
-//}
-
-
-
-
-
 
 public class If : HolderInstruction
 {
@@ -449,13 +427,16 @@ public class If : HolderInstruction
     public override void Run()
     {
 
-
+        Debug.Log("azxczxcxcc");
+        Debug.Log(instructions.Count);
+        Debug.Log(instructions[0].ToString());
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
         foreach (Instruction instruction in instructions)
         {
             if (instruction.GetType() == typeof(If))
             {
+                Debug.Log("asdasdsad");
                 isThereIf = true;
                 if (((If)instruction).type == 1)
                 {
@@ -603,6 +584,7 @@ public class If : HolderInstruction
             //}
             else if (instruction.GetType() == typeof(Elif))
             {
+                Debug.Log("deneme");
                 if (!isThereIf)
                 {
                     Debug.Log("hata");
@@ -753,6 +735,7 @@ public class If : HolderInstruction
             }
             else if (instruction.GetType() == typeof(Else))
             {
+                Debug.Log("deneme2");
                 if (!isThereIf)
                 {
                     Debug.Log("hata");
@@ -764,10 +747,11 @@ public class If : HolderInstruction
             }
             else
             {
+                Debug.Log("Geliyor");
                 isThereIf = false;
                 instruction.Run();
             }
-
+            Debug.Log("deneme3");
         }
     }
 }
@@ -1565,6 +1549,39 @@ public class Move : Instruction
             characterMovement.MoveUp();
         else if (direction == "down")
             characterMovement.MoveDown();
+
+    }
+
+    public override string ToString()
+    {
+        return "Move: " + direction + " Class";
+    }
+
+}
+
+public class Swim : Instruction
+{
+    private CharacterMovementController characterMovement;
+    private string direction;
+
+    public Swim(CharacterMovementController characterMovement, string direction, int level)
+    {
+        this.direction = direction;
+        this.characterMovement = characterMovement;
+        this.level = level;
+    }
+
+    public override void Run()
+    {
+        //burada direk Move(Vector2) kullanýlabilir. 
+        if (direction == "left")
+            characterMovement.SwimLeft();
+        else if (direction == "right")
+            characterMovement.SwimRight();
+        else if (direction == "up")
+            characterMovement.SwimUp();
+        else if (direction == "down")
+            characterMovement.SwimDown();
 
     }
 
@@ -2479,6 +2496,70 @@ public class RunCodeButton : MonoBehaviour
 
 
                             }
+                            else if (trimmedRow.Substring(0, 4) == "swim")
+                            {
+                                if (!trimmedRow.Contains('('))
+                                {
+                                    Debug.Log("hata");
+                                }
+                                else if (!trimmedRow.Contains(')'))
+                                {
+                                    Debug.Log("hata2");
+                                }
+
+                                string[] instructionParts = trimmedRow.Split('(', 2);
+
+                                instructionParts[0] = instructionParts[0].Trim();
+                                int length = instructionParts[0].Length;
+                                //if (instructionParts[0].Length<6 || instructionParts[0].Length > 9)
+                                //{
+                                //    Debug.Log("hata");
+                                //}else if()
+
+                                //if (length < 6 || length > 9)
+                                //{
+                                //    Debug.Log("hata");
+                                //}
+                                //else if (length == 6)
+                                //{
+                                Debug.Log(instructionParts[0]);
+                                try
+                                {
+                                    if (instructionParts[0] == "swim_up")
+                                    {
+                                        Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
+                                        AddInstruction(swim_up);
+                                    }
+                                    else if (instructionParts[0] == "swim_left")
+                                    {
+                                        Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
+                                        AddInstruction(swim_left);
+                                    }
+                                    else if (instructionParts[0] == "swim_down")
+                                    {
+                                        Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
+                                        AddInstruction(swim_down);
+                                    }
+                                    else if (instructionParts[0] == "swim_right")
+                                    {
+
+                                        Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
+                                        Debug.Log("mr level " + instructionLevel);
+                                        AddInstruction(swim_right);
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("hata");
+                                    }
+                                    //}
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.Log(ex.Message);
+                                }
+
+
+                            }
                             else if (trimmedRow.Substring(0, 4) == "elif")
                             {
                                 if (trimmedRow[trimmedRow.Length - 1] != ':')
@@ -2681,7 +2762,7 @@ public class RunCodeButton : MonoBehaviour
                             else if (trimmedRow.Substring(0, 4) == "else")
                             {
                                 trimmedRow = trimmedRow.Replace(" ", "");
-                                if (trimmedRow.Length != 4)
+                                if (trimmedRow.Length != 5)
                                     Debug.Log("hata");
                                 else if (trimmedRow[4] != ':')
                                     Debug.Log("hata");
@@ -2733,7 +2814,7 @@ public class RunCodeButton : MonoBehaviour
                         Debug.Log("+"+((If)instruction).secondMethod+ "+");
                         if (((If)instruction).firstMethod == "up_tile")
                         {
-
+                            Debug.Log("uP");
                             if (((If)instruction).secondMethod == "is_ground")
                             {
                                 //burada ground mu diye kontrol etmek gerekiyor
@@ -2748,6 +2829,7 @@ public class RunCodeButton : MonoBehaviour
                             }
                             else if (((If)instruction).secondMethod == "is_water")
                             {
+                                Debug.Log("wATER");
                                 //burada ground mu diye kontrol etmek gerekiyor
                                 Vector2 direction = new Vector2(0, 1);
                                 //groundTilemap vs waterTilemap ???
@@ -2755,6 +2837,7 @@ public class RunCodeButton : MonoBehaviour
                                 //Oldu mu???
                                 if (((If)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
                                 {
+                                    Debug.Log(":????????");
                                     didPreviousConditionsRun = true;
                                     instruction.Run();
                                 }
@@ -3102,34 +3185,6 @@ public class RunCodeButton : MonoBehaviour
 
         }
 
-
-
-
-        //Son geldiðimiz instructionList boþ olabilir. null error verebilir.
-
-
-
-
-
-        //if (instruction.level == listLevel)
-        //{
-        //    instructionList.Add(instruction);
-        //}
-        //else
-        //{
-        //    for (int j = instructionList.Count - 1; j >= 0; j--)
-        //    {
-        //        if (instructionList[j] != null)
-        //        {
-        //            if (instructionList[j].level == instruction.level - 1)
-        //            {
-        //                //burada holder olduklarýndan emin olmak lazým. Yani üsttekinden emin olmak lazým. 
-        //                ((HolderInstruction)instructionList[j]).Add(instruction);
-
-        //            }
-        //        }
-        //    }
-        //}
     }
 
     public bool VariableCheck(string var)

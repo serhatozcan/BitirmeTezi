@@ -45,6 +45,15 @@ public class CharacterMovementController : MonoBehaviour
         }
     }
 
+    public void Swim(Vector2 direction)
+    {
+        if (CanSwim(direction))
+        {
+            //character.transform.position += (Vector3)direction;
+            transform.position += (Vector3)direction;
+        }
+    }
+
 
     public void MoveUp()
     {
@@ -63,6 +72,23 @@ public class CharacterMovementController : MonoBehaviour
         Move(right);
     }
 
+    public void SwimUp()
+    {
+        Swim(up);
+    }
+    public void SwimDown()
+    {
+        Swim(down);
+    }
+    public void SwimLeft()
+    {
+        Swim(left);
+    }
+    public void SwimRight()
+    {
+        Swim(right);
+    }
+
     //direction degeri iki boyutlu vektör (0,1) veya (-1,0) gibi
     private bool CanMove(Vector2 direction)
     {
@@ -71,6 +97,18 @@ public class CharacterMovementController : MonoBehaviour
         if(!groundTilemap.HasTile(gridPosition) || obstaclesTilemap.HasTile(gridPosition))
         {
             Debug.Log("Cant move");
+            return false;
+        }
+        return true;
+    }
+
+    private bool CanSwim(Vector2 direction)
+    {
+        Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
+        //eger gridPosition'da tile yoksa veya bir obstacle varsa oraya gidilemez
+        if (!waterTilemap.HasTile(gridPosition) || obstaclesTilemap.HasTile(gridPosition))
+        {
+            Debug.Log("Cant swim");
             return false;
         }
         return true;
