@@ -11,6 +11,8 @@ public class CharacterMovementController : MonoBehaviour
     [SerializeField]
     public Tilemap waterTilemap;
     [SerializeField]
+    public Tilemap chestPositionTilemap;
+    [SerializeField]
     //public GameObject character;
     private Vector2 up;
     private Vector2 down;

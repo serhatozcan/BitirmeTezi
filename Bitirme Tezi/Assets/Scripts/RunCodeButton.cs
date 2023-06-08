@@ -3135,6 +3135,12 @@ public class RunCodeButton : MonoBehaviour
             //Buraya gelecek.
             //karakter sandigin ustundeyse 
             //chestAnimator.SetBool("opening", true);
+
+            Vector3Int characterFinalPosition = characterMovement.groundTilemap.WorldToCell(characterMovement.transform.position);
+            if (characterMovement.chestPositionTilemap.HasTile(characterFinalPosition))
+            {
+                chestAnimator.SetBool("opening", true);
+            } 
         }
     }
 
