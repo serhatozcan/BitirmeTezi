@@ -1603,8 +1603,11 @@ public class RunCodeButton : MonoBehaviour
     public TMP_InputField inputField2;
     [SerializeField]
     public GameObject character;
+    public GameObject chest;
     private CharacterMovementController characterMovement;
     private CharacterColorChanger characterColorChanger;
+
+    public Animator chestAnimator;
 
     private string[] initParameters = null;
 
@@ -1621,6 +1624,7 @@ public class RunCodeButton : MonoBehaviour
         //ReadInputPage1(inputPage1);
         characterMovement = character.GetComponent<CharacterMovementController>();
         characterColorChanger = character.GetComponent<CharacterColorChanger>();
+        chestAnimator = chest.GetComponent<Animator>();
         pythonReservedWords = new string[] { "def", "if", "else", "elif", "for", "while", "False", "True", "and", "as", "assert", "break", "class", "continue",
                                             "del",   "except", "finally",  "form", "global", "import", "in", "is", "lambda",
                                             "nonlocal", "not", "or", "pass", "raise", "return", "try",  "with", "yeld"};
@@ -1628,6 +1632,8 @@ public class RunCodeButton : MonoBehaviour
         conditionRunList = new List<bool>();
         //characterColorChanger.ChangeColorToBlue();
         //characterColorChanger.ChangeColorToRed();
+
+        //chestAnimator.SetBool("opening", true);
     }
 
     // Update is called once per frame
@@ -3127,7 +3133,8 @@ public class RunCodeButton : MonoBehaviour
 
             }
             //Buraya gelecek.
-
+            //karakter sandigin ustundeyse 
+            //chestAnimator.SetBool("opening", true);
         }
     }
 
