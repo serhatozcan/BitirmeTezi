@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using TMPro;
+
 
 public class FirebaseAuthManager : MonoBehaviour
 {
@@ -123,8 +124,7 @@ public class FirebaseAuthManager : MonoBehaviour
 
             Debug.LogFormat("{0} You Are Successfully Logged In", user.DisplayName);
 
-            //References.userName = user.DisplayName;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("Subjects Menu");
         }
     }
 
@@ -229,7 +229,7 @@ public class FirebaseAuthManager : MonoBehaviour
                 else
                 {
                     Debug.Log("Registration Sucessful Welcome " + user.DisplayName);
-                    //UIManager.Instance.OpenLoginPanel();
+                    SceneManager.LoadScene("Login Menu");
                 }
             }
         }
