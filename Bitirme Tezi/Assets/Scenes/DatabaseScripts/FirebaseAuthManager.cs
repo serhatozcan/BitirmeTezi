@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using TMPro;
@@ -23,8 +24,10 @@ public class FirebaseAuthManager : MonoBehaviour
     // Registration Variables
     [Space]
     [Header("Registration")]
-    public TMP_InputField nameRegisterField;
+    public TMP_InputField firstNameRegisterField;
+    public TMP_InputField lastNameRegisterField;
     public TMP_InputField emailRegisterField;
+    public TMP_InputField phoneRegisterField;
     public TMP_InputField passwordRegisterField;
     public TMP_InputField confirmPasswordRegisterField;
 
@@ -64,14 +67,14 @@ public class FirebaseAuthManager : MonoBehaviour
 
             if (!signedIn && user != null)
             {
-                Debug.Log("Signed out " + user.UserId);
+                Debug.Log("Çıkış yapıldı " + user.UserId);
             }
 
             user = auth.CurrentUser;
 
             if (signedIn)
             {
-                Debug.Log("Signed in " + user.UserId);
+                Debug.Log("Giriş yapıldı " + user.UserId);
             }
         }
     }
@@ -95,24 +98,24 @@ public class FirebaseAuthManager : MonoBehaviour
             AuthError authError = (AuthError)firebaseException.ErrorCode;
 
 
-            string failedMessage = "Login Failed! Because ";
+            string failedMessage = "Giriş başarısız oldu: ";
 
             switch (authError)
             {
                 case AuthError.InvalidEmail:
-                    failedMessage += "Email is invalid";
+                    failedMessage += "E-posta geçersiz";
                     break;
                 case AuthError.WrongPassword:
-                    failedMessage += "Wrong Password";
+                    failedMessage += "Şifre yanlış";
                     break;
                 case AuthError.MissingEmail:
-                    failedMessage += "Email is missing";
+                    failedMessage += "E-posta bulunamadı";
                     break;
                 case AuthError.MissingPassword:
-                    failedMessage += "Password is missing";
+                    failedMessage += "Şifre bulunamadı";
                     break;
                 default:
-                    failedMessage = "Login Failed";
+                    failedMessage = "Giriş başarısız oldu";
                     break;
             }
 
@@ -122,30 +125,35 @@ public class FirebaseAuthManager : MonoBehaviour
         {
             user = loginTask.Result.User;
 
-            Debug.LogFormat("{0} You Are Successfully Logged In", user.DisplayName);
-
+            //Debug.LogFormat("{0} giriş yaptınız", user.DisplayName);
+            Debug.Log("Hoş geldiniz " + user.DisplayName);
             SceneManager.LoadScene("Subjects Menu");
         }
     }
 
     public void Register()
     {
-        StartCoroutine(RegisterAsync(nameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+
+        StartCoroutine(RegisterAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, phoneRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
     }
 
-    private IEnumerator RegisterAsync(string name, string email, string password, string confirmPassword)
+    private IEnumerator RegisterAsync(string firstName, string lastName, string email, string phone, string password, string confirmPassword)
     {
-        if (name == "")
+        if (firstName == "")
         {
-            Debug.LogError("User Name is empty");
+            Debug.LogError("Ad boş bırakılamaz");
+        }
+        else if (lastName == "")
+        {
+            Debug.LogError("Soyad boş bırakılamaz");
         }
         else if (email == "")
         {
-            Debug.LogError("email field is empty");
+            Debug.LogError("E-posta boş bırakılamaz");
         }
         else if (passwordRegisterField.text != confirmPasswordRegisterField.text)
         {
-            Debug.LogError("Password does not match");
+            Debug.LogError("Şifreler aynı değil");
         }
         else
         {
@@ -160,23 +168,23 @@ public class FirebaseAuthManager : MonoBehaviour
                 FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
 
-                string failedMessage = "Registration Failed! Becuase ";
+                string failedMessage = "Kayıt başarısız oldu: ";
                 switch (authError)
                 {
                     case AuthError.InvalidEmail:
-                        failedMessage += "Email is invalid";
+                        failedMessage += "E-posta geçersiz";
                         break;
                     case AuthError.WrongPassword:
-                        failedMessage += "Wrong Password";
+                        failedMessage += "Şifre yanlış";
                         break;
                     case AuthError.MissingEmail:
-                        failedMessage += "Email is missing";
+                        failedMessage += "E-posta bulunamadı";
                         break;
                     case AuthError.MissingPassword:
-                        failedMessage += "Password is missing";
+                        failedMessage += "Şifre bulunamadı";
                         break;
                     default:
-                        failedMessage = "Registration Failed";
+                        failedMessage = "Kayıt başarısız oldu";
                         break;
                 }
 
@@ -187,7 +195,7 @@ public class FirebaseAuthManager : MonoBehaviour
                 // Get The User After Registration Success
                 user = registerTask.Result.User;
 
-                UserProfile userProfile = new UserProfile { DisplayName = name };
+                UserProfile userProfile = new UserProfile { DisplayName = firstName + " " + lastName};
 
                 var updateProfileTask = user.UpdateUserProfileAsync(userProfile);
 
@@ -204,23 +212,23 @@ public class FirebaseAuthManager : MonoBehaviour
                     AuthError authError = (AuthError)firebaseException.ErrorCode;
 
 
-                    string failedMessage = "Profile update Failed! Becuase ";
+                    string failedMessage = "Profil güncelleştirilmesi başarısız oldu: ";
                     switch (authError)
                     {
                         case AuthError.InvalidEmail:
-                            failedMessage += "Email is invalid";
+                            failedMessage += "E-posta geçersiz";
                             break;
                         case AuthError.WrongPassword:
-                            failedMessage += "Wrong Password";
+                            failedMessage += "Şifre yanlış";
                             break;
                         case AuthError.MissingEmail:
-                            failedMessage += "Email is missing";
+                            failedMessage += "E-posta bulunamadı";
                             break;
                         case AuthError.MissingPassword:
-                            failedMessage += "Password is missing";
+                            failedMessage += "Şifre bulunamadı";
                             break;
                         default:
-                            failedMessage = "Profile update Failed";
+                            failedMessage = "Profil güncelleştirilmesi başarısız oldu";
                             break;
                     }
 
@@ -228,7 +236,7 @@ public class FirebaseAuthManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Registration Sucessful Welcome " + user.DisplayName);
+                    Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
                 }
             }
