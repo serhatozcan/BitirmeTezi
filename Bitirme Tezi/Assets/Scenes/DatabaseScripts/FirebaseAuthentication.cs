@@ -291,10 +291,10 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     //Oldu mu???
                     dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
-                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
+                    //dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
 
-                    dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
-                    dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
+                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
+                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
