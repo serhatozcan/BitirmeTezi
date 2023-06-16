@@ -27,6 +27,7 @@ public class FirebaseAuthManager : MonoBehaviour
     // Registration Variables
     [Space]
     [Header("Registration")]
+    public string parentId;
     public TMP_InputField firstNameRegisterField;
     public TMP_InputField lastNameRegisterField;
     public TMP_InputField emailRegisterField;
@@ -44,7 +45,7 @@ public class FirebaseAuthManager : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 InitializeFirebase();
-                
+
             }
             else
             {
@@ -56,6 +57,9 @@ public class FirebaseAuthManager : MonoBehaviour
 
     private void Start()
     {
+
+        parentId = null;
+        
         StartCoroutine(Initialization());
     }
 
@@ -88,7 +92,7 @@ public class FirebaseAuthManager : MonoBehaviour
 
     }
 
-  
+
 
     void InitializeFirebase()
     {
@@ -172,13 +176,13 @@ public class FirebaseAuthManager : MonoBehaviour
         }
     }
 
-    public void Register()
+    public void RegisterChild()
     {
 
-        StartCoroutine(RegisterAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, phoneRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterChildAsync(parentId, firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, phoneRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
     }
 
-    private IEnumerator RegisterAsync(string firstName, string lastName, string email, string phone, string password, string confirmPassword)
+    private IEnumerator RegisterChildAsync(string parentId, string firstName, string lastName, string email, string phone, string password, string confirmPassword)
     {
         if (firstName == "")
         {
@@ -192,9 +196,9 @@ public class FirebaseAuthManager : MonoBehaviour
         {
             Debug.LogError("E-posta boş bırakılamaz");
         }
-        else if (passwordRegisterField.text != confirmPasswordRegisterField.text)
+        else if (password != confirmPassword)
         {
-            Debug.LogError("Şifreler aynı değil");
+            Debug.LogError("Şifreler eşleşmiyor");
         }
         else
         {
@@ -236,7 +240,7 @@ public class FirebaseAuthManager : MonoBehaviour
                 // Get The User After Registration Success
                 user = registerTask.Result.User;
 
-                UserProfile userProfile = new UserProfile { DisplayName = firstName + " " + lastName};
+                UserProfile userProfile = new UserProfile { DisplayName = firstName + " " + lastName };
 
                 var updateProfileTask = user.UpdateUserProfileAsync(userProfile);
 
@@ -277,36 +281,148 @@ public class FirebaseAuthManager : MonoBehaviour
                 }
                 else
                 {
-                    //var saveUserDataTask = dataBaseReference.Child("users").Child(user.UserId).Child("firstName").SetValueAsync(firstName);
-
                     Dictionary<string, object> userData = new Dictionary<string, object>();
                     userData["firstName"] = firstName;
                     userData["lastName"] = lastName;
                     userData["phone"] = phone;
                     userData["e-mail"] = email;
 
+                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
+                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
+
+                    Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
+                    SceneManager.LoadScene("Login Menu");
+
+                }
+            }
+        }
+        parentId = null;
+    }
 
 
-                    Dictionary<string, object> childUpdates = new Dictionary<string, object>();
-                    string key = user.UserId;
-
-                    //childUpdates["/Users/" + key +"/firstName"] = firstName;
-                    //childUpdates["/user-scores/" + userId + "/" + key] = entryValues;
-
-                    //dataBaseReference.UpdateChildrenAsync(childUpdates);
-                    dataBaseReference.Child("Users").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
 
 
-                   
-                    //}
-                    //else
-                    //{
-                        Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
-                        SceneManager.LoadScene("Login Menu");
-                    //}
+
+    public void RegisterParent()
+    {
+
+        StartCoroutine(RegisterParentAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, phoneRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+    }
+
+    private IEnumerator RegisterParentAsync(string firstName, string lastName, string email, string phone, string password, string confirmPassword)
+    {
+        if (firstName == "")
+        {
+            Debug.LogError("Ad boş bırakılamaz");
+        }
+        else if (lastName == "")
+        {
+            Debug.LogError("Soyad boş bırakılamaz");
+        }
+        else if (email == "")
+        {
+            Debug.LogError("E-posta boş bırakılamaz");
+        }
+        else if (password != confirmPassword)
+        {
+            Debug.LogError("Şifreler eşleşmiyor");
+        }
+        else
+        {
+            var registerTask = auth.CreateUserWithEmailAndPasswordAsync(email, password);
+
+            yield return new WaitUntil(() => registerTask.IsCompleted);
+
+            if (registerTask.Exception != null)
+            {
+                Debug.LogError(registerTask.Exception);
+
+                FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
+                AuthError authError = (AuthError)firebaseException.ErrorCode;
+
+                string failedMessage = "Kayıt başarısız oldu: ";
+                switch (authError)
+                {
+                    case AuthError.InvalidEmail:
+                        failedMessage += "E-posta geçersiz";
+                        break;
+                    case AuthError.WrongPassword:
+                        failedMessage += "Şifre yanlış";
+                        break;
+                    case AuthError.MissingEmail:
+                        failedMessage += "E-posta bulunamadı";
+                        break;
+                    case AuthError.MissingPassword:
+                        failedMessage += "Şifre bulunamadı";
+                        break;
+                    default:
+                        failedMessage = "Kayıt başarısız oldu";
+                        break;
+                }
+
+                Debug.Log(failedMessage);
+            }
+            else
+            {
+                // Get The User After Registration Success
+                user = registerTask.Result.User;
+
+                UserProfile userProfile = new UserProfile { DisplayName = firstName + " " + lastName };
+
+                var updateProfileTask = user.UpdateUserProfileAsync(userProfile);
+
+                yield return new WaitUntil(() => updateProfileTask.IsCompleted);
+
+                if (updateProfileTask.Exception != null)
+                {
+                    // Delete the user if user update failed
+                    user.DeleteAsync();
+
+                    Debug.LogError(updateProfileTask.Exception);
+
+                    FirebaseException firebaseException = updateProfileTask.Exception.GetBaseException() as FirebaseException;
+                    AuthError authError = (AuthError)firebaseException.ErrorCode;
+
+
+                    string failedMessage = "Profil güncelleştirilmesi başarısız oldu: ";
+                    switch (authError)
+                    {
+                        case AuthError.InvalidEmail:
+                            failedMessage += "E-posta geçersiz";
+                            break;
+                        case AuthError.WrongPassword:
+                            failedMessage += "Şifre yanlış";
+                            break;
+                        case AuthError.MissingEmail:
+                            failedMessage += "E-posta bulunamadı";
+                            break;
+                        case AuthError.MissingPassword:
+                            failedMessage += "Şifre bulunamadı";
+                            break;
+                        default:
+                            failedMessage = "Profil güncelleştirilmesi başarısız oldu";
+                            break;
+                    }
+
+                    Debug.Log(failedMessage);
+                }
+                else
+                {
+                    Dictionary<string, object> userData = new Dictionary<string, object>();
+                    userData["firstName"] = firstName;
+                    userData["lastName"] = lastName;
+                    userData["phone"] = phone;
+                    userData["e-mail"] = email;
+
+                    dataBaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
+                    parentId = user.UserId;
+
+                    Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
+                    SceneManager.LoadScene("Register Child of a Parent Menu");
 
                 }
             }
         }
     }
+
 }
