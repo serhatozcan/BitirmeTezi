@@ -27,7 +27,6 @@ public class FirebaseAuthentication : MonoBehaviour
     // Registration Variables
     [Space]
     [Header("Registration")]
-    public string parentId;
     public TMP_InputField firstNameRegisterField;
     public TMP_InputField lastNameRegisterField;
     public TMP_InputField emailRegisterField;
@@ -56,7 +55,6 @@ public class FirebaseAuthentication : MonoBehaviour
 
     private void Start()
     {
-        
         StartCoroutine(Initialization());
     }
 
@@ -173,14 +171,13 @@ public class FirebaseAuthentication : MonoBehaviour
         }
     }
 
-
-    public void RegisterChild()
+    public void Register()
     {
 
-        StartCoroutine(RegisterChildAsync(parentId, firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
     }
 
-    private IEnumerator RegisterChildAsync(string parentId, string firstName, string lastName, string email, string password, string confirmPassword)
+    private IEnumerator RegisterAsync(string firstName, string lastName, string email, string password, string confirmPassword)
     {
         if (firstName == "")
         {
@@ -194,9 +191,9 @@ public class FirebaseAuthentication : MonoBehaviour
         {
             Debug.LogError("E-posta boş bırakılamaz");
         }
-        else if (password != confirmPassword)
+        else if (passwordRegisterField.text != confirmPasswordRegisterField.text)
         {
-            Debug.LogError("Şifreler eşleşmiyor");
+            Debug.LogError("Şifreler aynı değil");
         }
         else
         {
@@ -279,143 +276,24 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
                 else
                 {
+                    
+
                     Dictionary<string, object> userData = new Dictionary<string, object>();
                     userData["firstName"] = firstName;
                     userData["lastName"] = lastName;
-                    
                     userData["e-mail"] = email;
 
-                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
-                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
+
+
+                    Dictionary<string, object> childUpdates = new Dictionary<string, object>();
+                    string key = user.UserId;
+
+                    dataBaseReference.Child("Users").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
-
-                }
-            }
-        }
-        parentId = null;
-    }
-
-
-
-
-
-    public void RegisterParent()
-    {
-
-        StartCoroutine(RegisterParentAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
-    }
-
-    private IEnumerator RegisterParentAsync(string firstName, string lastName, string email, string password, string confirmPassword)
-    {
-        if (firstName == "")
-        {
-            Debug.LogError("Ad boş bırakılamaz");
-        }
-        else if (lastName == "")
-        {
-            Debug.LogError("Soyad boş bırakılamaz");
-        }
-        else if (email == "")
-        {
-            Debug.LogError("E-posta boş bırakılamaz");
-        }
-        else if (password != confirmPassword)
-        {
-            Debug.LogError("Şifreler eşleşmiyor");
-        }
-        else
-        {
-            var registerTask = auth.CreateUserWithEmailAndPasswordAsync(email, password);
-
-            yield return new WaitUntil(() => registerTask.IsCompleted);
-
-            if (registerTask.Exception != null)
-            {
-                Debug.LogError(registerTask.Exception);
-
-                FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
-                AuthError authError = (AuthError)firebaseException.ErrorCode;
-
-                string failedMessage = "Kayıt başarısız oldu: ";
-                switch (authError)
-                {
-                    case AuthError.InvalidEmail:
-                        failedMessage += "E-posta geçersiz";
-                        break;
-                    case AuthError.WrongPassword:
-                        failedMessage += "Şifre yanlış";
-                        break;
-                    case AuthError.MissingEmail:
-                        failedMessage += "E-posta bulunamadı";
-                        break;
-                    case AuthError.MissingPassword:
-                        failedMessage += "Şifre bulunamadı";
-                        break;
-                    default:
-                        failedMessage = "Kayıt başarısız oldu";
-                        break;
-                }
-
-                Debug.Log(failedMessage);
-            }
-            else
-            {
-                // Get The User After Registration Success
-                user = registerTask.Result.User;
-
-                UserProfile userProfile = new UserProfile { DisplayName = firstName + " " + lastName };
-
-                var updateProfileTask = user.UpdateUserProfileAsync(userProfile);
-
-                yield return new WaitUntil(() => updateProfileTask.IsCompleted);
-
-                if (updateProfileTask.Exception != null)
-                {
-                    // Delete the user if user update failed
-                    user.DeleteAsync();
-
-                    Debug.LogError(updateProfileTask.Exception);
-
-                    FirebaseException firebaseException = updateProfileTask.Exception.GetBaseException() as FirebaseException;
-                    AuthError authError = (AuthError)firebaseException.ErrorCode;
-
-
-                    string failedMessage = "Profil güncelleştirilmesi başarısız oldu: ";
-                    switch (authError)
-                    {
-                        case AuthError.InvalidEmail:
-                            failedMessage += "E-posta geçersiz";
-                            break;
-                        case AuthError.WrongPassword:
-                            failedMessage += "Şifre yanlış";
-                            break;
-                        case AuthError.MissingEmail:
-                            failedMessage += "E-posta bulunamadı";
-                            break;
-                        case AuthError.MissingPassword:
-                            failedMessage += "Şifre bulunamadı";
-                            break;
-                        default:
-                            failedMessage = "Profil güncelleştirilmesi başarısız oldu";
-                            break;
-                    }
-
-                    Debug.Log(failedMessage);
-                }
-                else
-                {
-                    Dictionary<string, object> userData = new Dictionary<string, object>();
-                    userData["firstName"] = firstName;
-                    userData["lastName"] = lastName; 
-                    userData["e-mail"] = email;
-
-                    dataBaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
-                    parentId = user.UserId;
-
-                    Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
-                    SceneManager.LoadScene("Register Child of a Parent Menu");
+                    
 
                 }
             }
