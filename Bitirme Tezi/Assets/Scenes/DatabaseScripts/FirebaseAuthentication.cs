@@ -290,9 +290,12 @@ public class FirebaseAuthentication : MonoBehaviour
                     Dictionary<string, object> childUpdates = new Dictionary<string, object>();
                     //string key = user.UserId;
 
+                    //Oldu mu???
                     dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
                     dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
-                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").
+
+                    dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
+                    dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
