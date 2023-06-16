@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
 using TMPro;
 using System.Collections.Generic;
-using System.Globalization;
+
 
 public class FirebaseAuthentication : MonoBehaviour
 {
