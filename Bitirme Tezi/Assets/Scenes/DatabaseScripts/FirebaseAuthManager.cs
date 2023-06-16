@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
 using TMPro;
-
+using System.Collections.Generic;
+using System.Globalization;
 
 public class FirebaseAuthManager : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class FirebaseAuthManager : MonoBehaviour
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;
     public FirebaseUser user;
+    public DatabaseReference dataBaseReference;
 
     // Login Variables
     [Space]
@@ -41,6 +44,7 @@ public class FirebaseAuthManager : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 InitializeFirebase();
+                
             }
             else
             {
@@ -48,6 +52,43 @@ public class FirebaseAuthManager : MonoBehaviour
             }
         });
     }
+
+
+    private void Start()
+    {
+        StartCoroutine(Initialization());
+    }
+
+    private IEnumerator Initialization()
+    {
+        var task = FirebaseApp.CheckAndFixDependenciesAsync();
+
+        while (!task.IsCompleted)
+        {
+            yield return null;
+        }
+
+        if (task.IsCanceled || task.IsFaulted)
+        {
+            Debug.LogError("Database error: " + task.Exception);
+        }
+
+        var dependencyStatus = task.Result;
+
+        if (dependencyStatus == DependencyStatus.Available)
+        {
+            dataBaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        }
+        else
+        {
+            Debug.LogError("Database error");
+        }
+
+
+    }
+
+  
 
     void InitializeFirebase()
     {
@@ -236,8 +277,34 @@ public class FirebaseAuthManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
-                    SceneManager.LoadScene("Login Menu");
+                    //var saveUserDataTask = dataBaseReference.Child("users").Child(user.UserId).Child("firstName").SetValueAsync(firstName);
+
+                    Dictionary<string, object> userData = new Dictionary<string, object>();
+                    userData["firstName"] = firstName;
+                    userData["lastName"] = lastName;
+                    userData["phone"] = phone;
+                    userData["e-mail"] = email;
+
+
+
+                    Dictionary<string, object> childUpdates = new Dictionary<string, object>();
+                    string key = user.UserId;
+
+                    //childUpdates["/Users/" + key +"/firstName"] = firstName;
+                    //childUpdates["/user-scores/" + userId + "/" + key] = entryValues;
+
+                    //dataBaseReference.UpdateChildrenAsync(childUpdates);
+                    dataBaseReference.Child("Users").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+
+
+                   
+                    //}
+                    //else
+                    //{
+                        Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
+                        SceneManager.LoadScene("Login Menu");
+                    //}
+
                 }
             }
         }

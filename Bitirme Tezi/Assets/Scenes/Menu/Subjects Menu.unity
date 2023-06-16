@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 82943317}
   - component: {fileID: 82943316}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: Sign-out Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,7 +976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back
+  m_text: "\xC7\u0131k\u0131\u015F Yap"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

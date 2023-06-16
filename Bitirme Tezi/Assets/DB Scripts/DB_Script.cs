@@ -36,6 +36,7 @@ public class DB_Script : MonoBehaviour
         if (dependencyStatus == DependencyStatus.Available)
         {
             databaseReference = FirebaseDatabase.DefaultInstance.GetReference("Users");
+            
         }
         else
         {
