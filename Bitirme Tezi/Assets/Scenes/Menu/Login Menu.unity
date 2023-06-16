@@ -1591,12 +1591,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1537836764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef787bec83cf58448a0f55986fad5bd9, type: 3}
+  m_Script: {fileID: 11500000, guid: c2fb86b26d53cf942be23ac51f871a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dependencyStatus: 0
   emailLoginField: {fileID: 468815208}
   passwordLoginField: {fileID: 575686977}
+  firstNameRegisterField: {fileID: 0}
+  lastNameRegisterField: {fileID: 0}
+  emailRegisterField: {fileID: 0}
+  passwordRegisterField: {fileID: 0}
+  confirmPasswordRegisterField: {fileID: 0}
+  parentId: 
 --- !u!4 &1537836766
 Transform:
   m_ObjectHideFlags: 0

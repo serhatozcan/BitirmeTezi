@@ -54,39 +54,39 @@ public class FirebaseAuthentication : MonoBehaviour
     }
 
 
-    private void Start()
-    {
-        StartCoroutine(Initialization());
-    }
+    //private void Start()
+    //{
+    //    StartCoroutine(Initialization());
+    //}
 
-    private IEnumerator Initialization()
-    {
-        var task = FirebaseApp.CheckAndFixDependenciesAsync();
+    //private IEnumerator Initialization()
+    //{
+    //    var task = FirebaseApp.CheckAndFixDependenciesAsync();
 
-        while (!task.IsCompleted)
-        {
-            yield return null;
-        }
+    //    while (!task.IsCompleted)
+    //    {
+    //        yield return null;
+    //    }
 
-        if (task.IsCanceled || task.IsFaulted)
-        {
-            Debug.LogError("Database error: " + task.Exception);
-        }
+    //    if (task.IsCanceled || task.IsFaulted)
+    //    {
+    //        Debug.LogError("Database error: " + task.Exception);
+    //    }
 
-        var dependencyStatus = task.Result;
+    //    var dependencyStatus = task.Result;
 
-        if (dependencyStatus == DependencyStatus.Available)
-        {
-            dataBaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+    //    if (dependencyStatus == DependencyStatus.Available)
+    //    {
+    //        dataBaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        }
-        else
-        {
-            Debug.LogError("Database error");
-        }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Database error");
+    //    }
 
 
-    }
+    //}
 
 
 
@@ -279,18 +279,18 @@ public class FirebaseAuthentication : MonoBehaviour
                 {
                     
 
-                    Dictionary<string, object> userData = new Dictionary<string, object>();
-                    userData["firstName"] = firstName;
-                    userData["lastName"] = lastName;
-                    userData["e-mail"] = email;
+                    //Dictionary<string, object> userData = new Dictionary<string, object>();
+                    //userData["firstName"] = firstName;
+                    //userData["lastName"] = lastName;
+                    //userData["e-mail"] = email;
 
 
 
-                    Dictionary<string, object> childUpdates = new Dictionary<string, object>();
-                    //string key = user.UserId;
+                    //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
+                    ////string key = user.UserId;
 
-                    //Oldu mu???
-                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    ////Oldu mu???
+                    //dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
                     //dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
 
                     //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
@@ -303,7 +303,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             }
         }
-        parentId = null;
+        //parentId = null;
     }
 
 
@@ -417,18 +417,18 @@ public class FirebaseAuthentication : MonoBehaviour
                 {
 
 
-                    Dictionary<string, object> userData = new Dictionary<string, object>();
-                    userData["firstName"] = firstName;
-                    userData["lastName"] = lastName;
-                    userData["e-mail"] = email;
+                    //Dictionary<string, object> userData = new Dictionary<string, object>();
+                    //userData["firstName"] = firstName;
+                    //userData["lastName"] = lastName;
+                    //userData["e-mail"] = email;
 
 
 
-                    Dictionary<string, object> childUpdates = new Dictionary<string, object>();
-                    //string key = user.UserId;
+                    //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
+                    ////string key = user.UserId;
 
-                    dataBaseReference.Child("Users").Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
-                    parentId = user.UserId;
+                    //dataBaseReference.Child("Users").Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    //parentId = user.UserId;
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
