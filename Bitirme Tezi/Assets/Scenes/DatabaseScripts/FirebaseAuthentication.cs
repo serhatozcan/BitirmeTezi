@@ -31,7 +31,6 @@ public class FirebaseAuthentication : MonoBehaviour
     public TMP_InputField firstNameRegisterField;
     public TMP_InputField lastNameRegisterField;
     public TMP_InputField emailRegisterField;
-    public TMP_InputField phoneRegisterField;
     public TMP_InputField passwordRegisterField;
     public TMP_InputField confirmPasswordRegisterField;
 
@@ -178,10 +177,10 @@ public class FirebaseAuthentication : MonoBehaviour
     public void RegisterChild()
     {
 
-        StartCoroutine(RegisterChildAsync(parentId, firstNameRegisterField.text, lastNameRegisterField.text, phoneRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterChildAsync(parentId, firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
     }
 
-    private IEnumerator RegisterChildAsync(string parentId, string firstName, string lastName, string phone, string email, string password, string confirmPassword)
+    private IEnumerator RegisterChildAsync(string parentId, string firstName, string lastName, string email, string password, string confirmPassword)
     {
         if (firstName == "")
         {
@@ -283,7 +282,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     Dictionary<string, object> userData = new Dictionary<string, object>();
                     userData["firstName"] = firstName;
                     userData["lastName"] = lastName;
-                    userData["phone"] = phone;
+                    
                     userData["e-mail"] = email;
 
                     dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
@@ -305,10 +304,10 @@ public class FirebaseAuthentication : MonoBehaviour
     public void RegisterParent()
     {
 
-        StartCoroutine(RegisterParentAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, phoneRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterParentAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
     }
 
-    private IEnumerator RegisterParentAsync(string firstName, string lastName, string email, string phone, string password, string confirmPassword)
+    private IEnumerator RegisterParentAsync(string firstName, string lastName, string email, string password, string confirmPassword)
     {
         if (firstName == "")
         {
@@ -409,8 +408,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 {
                     Dictionary<string, object> userData = new Dictionary<string, object>();
                     userData["firstName"] = firstName;
-                    userData["lastName"] = lastName;
-                    userData["phone"] = phone;
+                    userData["lastName"] = lastName; 
                     userData["e-mail"] = email;
 
                     dataBaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
