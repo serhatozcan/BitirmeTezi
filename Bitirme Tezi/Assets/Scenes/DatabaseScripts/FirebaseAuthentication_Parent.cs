@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Globalization;
 
-public class FirebaseAuthManager : MonoBehaviour
+public class FirebaseAuthentication_Parent : MonoBehaviour
 {
     // Firebase variable
     [Header("Firebase")]
@@ -59,7 +59,7 @@ public class FirebaseAuthManager : MonoBehaviour
     {
 
         parentId = null;
-        
+
         StartCoroutine(Initialization());
     }
 
@@ -112,14 +112,14 @@ public class FirebaseAuthManager : MonoBehaviour
 
             if (!signedIn && user != null)
             {
-                Debug.Log("Ã‡Ä±kÄ±ÅŸ yapÄ±ldÄ± " + user.UserId);
+                Debug.Log("Çýkýþ yapýldý " + user.UserId);
             }
 
             user = auth.CurrentUser;
 
             if (signedIn)
             {
-                Debug.Log("GiriÅŸ yapÄ±ldÄ± " + user.UserId);
+                Debug.Log("Giriþ yapýldý " + user.UserId);
             }
         }
     }
@@ -143,24 +143,24 @@ public class FirebaseAuthManager : MonoBehaviour
             AuthError authError = (AuthError)firebaseException.ErrorCode;
 
 
-            string failedMessage = "GiriÅŸ baÅŸarÄ±sÄ±z oldu: ";
+            string failedMessage = "Giriþ baþarýsýz oldu: ";
 
             switch (authError)
             {
                 case AuthError.InvalidEmail:
-                    failedMessage += "E-posta geÃ§ersiz";
+                    failedMessage += "E-posta geçersiz";
                     break;
                 case AuthError.WrongPassword:
-                    failedMessage += "Åžifre yanlÄ±ÅŸ";
+                    failedMessage += "Þifre yanlýþ";
                     break;
                 case AuthError.MissingEmail:
-                    failedMessage += "E-posta bulunamadÄ±";
+                    failedMessage += "E-posta bulunamadý";
                     break;
                 case AuthError.MissingPassword:
-                    failedMessage += "Åžifre bulunamadÄ±";
+                    failedMessage += "Þifre bulunamadý";
                     break;
                 default:
-                    failedMessage = "GiriÅŸ baÅŸarÄ±sÄ±z oldu";
+                    failedMessage = "Giriþ baþarýsýz oldu";
                     break;
             }
 
@@ -170,8 +170,8 @@ public class FirebaseAuthManager : MonoBehaviour
         {
             user = loginTask.Result.User;
 
-            //Debug.LogFormat("{0} giriÅŸ yaptÄ±nÄ±z", user.DisplayName);
-            Debug.Log("HoÅŸ geldiniz " + user.DisplayName);
+            //Debug.LogFormat("{0} giriþ yaptýnýz", user.DisplayName);
+            Debug.Log("Hoþ geldiniz " + user.DisplayName);
             SceneManager.LoadScene("Subjects Menu");
         }
     }
@@ -179,26 +179,26 @@ public class FirebaseAuthManager : MonoBehaviour
     public void RegisterChild()
     {
 
-        StartCoroutine(RegisterChildAsync(parentId, firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, phoneRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterChildAsync(parentId, firstNameRegisterField.text, lastNameRegisterField.text, phoneRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
     }
 
-    private IEnumerator RegisterChildAsync(string parentId, string firstName, string lastName, string email, string phone, string password, string confirmPassword)
+    private IEnumerator RegisterChildAsync(string parentId, string firstName, string lastName, string phone, string email, string password, string confirmPassword)
     {
         if (firstName == "")
         {
-            Debug.LogError("Ad boÅŸ bÄ±rakÄ±lamaz");
+            Debug.LogError("Ad boþ býrakýlamaz");
         }
         else if (lastName == "")
         {
-            Debug.LogError("Soyad boÅŸ bÄ±rakÄ±lamaz");
+            Debug.LogError("Soyad boþ býrakýlamaz");
         }
         else if (email == "")
         {
-            Debug.LogError("E-posta boÅŸ bÄ±rakÄ±lamaz");
+            Debug.LogError("E-posta boþ býrakýlamaz");
         }
         else if (password != confirmPassword)
         {
-            Debug.LogError("Åžifreler eÅŸleÅŸmiyor");
+            Debug.LogError("Þifreler eþleþmiyor");
         }
         else
         {
@@ -213,23 +213,23 @@ public class FirebaseAuthManager : MonoBehaviour
                 FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
 
-                string failedMessage = "KayÄ±t baÅŸarÄ±sÄ±z oldu: ";
+                string failedMessage = "Kayýt baþarýsýz oldu: ";
                 switch (authError)
                 {
                     case AuthError.InvalidEmail:
-                        failedMessage += "E-posta geÃ§ersiz";
+                        failedMessage += "E-posta geçersiz";
                         break;
                     case AuthError.WrongPassword:
-                        failedMessage += "Åžifre yanlÄ±ÅŸ";
+                        failedMessage += "Þifre yanlýþ";
                         break;
                     case AuthError.MissingEmail:
-                        failedMessage += "E-posta bulunamadÄ±";
+                        failedMessage += "E-posta bulunamadý";
                         break;
                     case AuthError.MissingPassword:
-                        failedMessage += "Åžifre bulunamadÄ±";
+                        failedMessage += "Þifre bulunamadý";
                         break;
                     default:
-                        failedMessage = "KayÄ±t baÅŸarÄ±sÄ±z oldu";
+                        failedMessage = "Kayýt baþarýsýz oldu";
                         break;
                 }
 
@@ -257,23 +257,23 @@ public class FirebaseAuthManager : MonoBehaviour
                     AuthError authError = (AuthError)firebaseException.ErrorCode;
 
 
-                    string failedMessage = "Profil gÃ¼ncelleÅŸtirilmesi baÅŸarÄ±sÄ±z oldu: ";
+                    string failedMessage = "Profil güncelleþtirilmesi baþarýsýz oldu: ";
                     switch (authError)
                     {
                         case AuthError.InvalidEmail:
-                            failedMessage += "E-posta geÃ§ersiz";
+                            failedMessage += "E-posta geçersiz";
                             break;
                         case AuthError.WrongPassword:
-                            failedMessage += "Åžifre yanlÄ±ÅŸ";
+                            failedMessage += "Þifre yanlýþ";
                             break;
                         case AuthError.MissingEmail:
-                            failedMessage += "E-posta bulunamadÄ±";
+                            failedMessage += "E-posta bulunamadý";
                             break;
                         case AuthError.MissingPassword:
-                            failedMessage += "Åžifre bulunamadÄ±";
+                            failedMessage += "Þifre bulunamadý";
                             break;
                         default:
-                            failedMessage = "Profil gÃ¼ncelleÅŸtirilmesi baÅŸarÄ±sÄ±z oldu";
+                            failedMessage = "Profil güncelleþtirilmesi baþarýsýz oldu";
                             break;
                     }
 
@@ -290,7 +290,7 @@ public class FirebaseAuthManager : MonoBehaviour
                     dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
                     dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
 
-                    Debug.Log("KayÄ±t baÅŸarÄ±yla tamamlandÄ±. HoÅŸgeldiniz " + user.DisplayName);
+                    Debug.Log("Kayýt baþarýyla tamamlandý. Hoþgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
 
                 }
@@ -313,19 +313,19 @@ public class FirebaseAuthManager : MonoBehaviour
     {
         if (firstName == "")
         {
-            Debug.LogError("Ad boÅŸ bÄ±rakÄ±lamaz");
+            Debug.LogError("Ad boþ býrakýlamaz");
         }
         else if (lastName == "")
         {
-            Debug.LogError("Soyad boÅŸ bÄ±rakÄ±lamaz");
+            Debug.LogError("Soyad boþ býrakýlamaz");
         }
         else if (email == "")
         {
-            Debug.LogError("E-posta boÅŸ bÄ±rakÄ±lamaz");
+            Debug.LogError("E-posta boþ býrakýlamaz");
         }
         else if (password != confirmPassword)
         {
-            Debug.LogError("Åžifreler eÅŸleÅŸmiyor");
+            Debug.LogError("Þifreler eþleþmiyor");
         }
         else
         {
@@ -340,23 +340,23 @@ public class FirebaseAuthManager : MonoBehaviour
                 FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
 
-                string failedMessage = "KayÄ±t baÅŸarÄ±sÄ±z oldu: ";
+                string failedMessage = "Kayýt baþarýsýz oldu: ";
                 switch (authError)
                 {
                     case AuthError.InvalidEmail:
-                        failedMessage += "E-posta geÃ§ersiz";
+                        failedMessage += "E-posta geçersiz";
                         break;
                     case AuthError.WrongPassword:
-                        failedMessage += "Åžifre yanlÄ±ÅŸ";
+                        failedMessage += "Þifre yanlýþ";
                         break;
                     case AuthError.MissingEmail:
-                        failedMessage += "E-posta bulunamadÄ±";
+                        failedMessage += "E-posta bulunamadý";
                         break;
                     case AuthError.MissingPassword:
-                        failedMessage += "Åžifre bulunamadÄ±";
+                        failedMessage += "Þifre bulunamadý";
                         break;
                     default:
-                        failedMessage = "KayÄ±t baÅŸarÄ±sÄ±z oldu";
+                        failedMessage = "Kayýt baþarýsýz oldu";
                         break;
                 }
 
@@ -384,23 +384,23 @@ public class FirebaseAuthManager : MonoBehaviour
                     AuthError authError = (AuthError)firebaseException.ErrorCode;
 
 
-                    string failedMessage = "Profil gÃ¼ncelleÅŸtirilmesi baÅŸarÄ±sÄ±z oldu: ";
+                    string failedMessage = "Profil güncelleþtirilmesi baþarýsýz oldu: ";
                     switch (authError)
                     {
                         case AuthError.InvalidEmail:
-                            failedMessage += "E-posta geÃ§ersiz";
+                            failedMessage += "E-posta geçersiz";
                             break;
                         case AuthError.WrongPassword:
-                            failedMessage += "Åžifre yanlÄ±ÅŸ";
+                            failedMessage += "Þifre yanlýþ";
                             break;
                         case AuthError.MissingEmail:
-                            failedMessage += "E-posta bulunamadÄ±";
+                            failedMessage += "E-posta bulunamadý";
                             break;
                         case AuthError.MissingPassword:
-                            failedMessage += "Åžifre bulunamadÄ±";
+                            failedMessage += "Þifre bulunamadý";
                             break;
                         default:
-                            failedMessage = "Profil gÃ¼ncelleÅŸtirilmesi baÅŸarÄ±sÄ±z oldu";
+                            failedMessage = "Profil güncelleþtirilmesi baþarýsýz oldu";
                             break;
                     }
 
@@ -417,7 +417,7 @@ public class FirebaseAuthManager : MonoBehaviour
                     dataBaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("UserData").UpdateChildrenAsync(userData);
                     parentId = user.UserId;
 
-                    Debug.Log("KayÄ±t baÅŸarÄ±yla tamamlandÄ±. HoÅŸgeldiniz " + user.DisplayName);
+                    Debug.Log("Kayýt baþarýyla tamamlandý. Hoþgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Register Child of a Parent Menu");
 
                 }
