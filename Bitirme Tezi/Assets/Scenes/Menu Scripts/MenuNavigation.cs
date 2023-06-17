@@ -10,11 +10,6 @@ public class MenuNavigation : MonoBehaviour
     {
         SceneManager.LoadScene("Login Menu");
     }
-
-    public void OpenRegisterPage()
-    {
-        SceneManager.LoadScene("Register Menu");
-    }
     
     public void Quit()
     {
@@ -31,14 +26,16 @@ public class MenuNavigation : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
     
-    public void OpenRegisterChildMenu()
+    public void OpenRegisterSingleChildMenu()
     {
-        SceneManager.LoadScene("Register Child Menu");
+        SceneManager.LoadScene("Register Single Child Menu");
     }
 
     public void OpenRegisterParentMenu()
     {
-        SceneManager.LoadScene("Register Parent Menu");
+        SceneManager.LoadScene("Register Parent with Child Menu");
     }
+
+    
 
 }
