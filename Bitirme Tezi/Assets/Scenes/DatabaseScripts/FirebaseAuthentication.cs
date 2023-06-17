@@ -521,15 +521,18 @@ public class FirebaseAuthentication : MonoBehaviour
                 else
                 {
 
-
-                    Dictionary<string, object> userData = new Dictionary<string, object>();
-                    userData["firstName"] = firstName;
-                    userData["lastName"] = lastName;
-                    userData["e-mail"] = email;
-
                     string userId = user.UserId;
+                    
+
+                    
                     if (parentId != null)
                     {
+                        Dictionary<string, object> userData = new Dictionary<string, object>();
+                        userData["firstName"] = firstName;
+                        userData["lastName"] = lastName;
+                        userData["e-mail"] = email;
+                        databaseReference.Child("Users").Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
+
                         Debug.Log(parentId);
                         //Debug.Log("not null");
 
@@ -542,13 +545,12 @@ public class FirebaseAuthentication : MonoBehaviour
                         //deneme amacli silinecek.
                         //db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
-
                     }
-
-
-                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
-                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
-
+                    else
+                    {
+                        //Hata oldu anlamina geliyor.
+                        //Burada hem parent hem child auth silinecek. Parent database verileri de silinecek.
+                    }
 
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
