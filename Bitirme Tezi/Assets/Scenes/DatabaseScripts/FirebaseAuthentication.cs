@@ -274,28 +274,6 @@ public class FirebaseAuthentication : MonoBehaviour
                     //Oldu mu???
                     db_Users_Reference.Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
 
-                    
-                    if (parentId != null) 
-                    {
-                        Debug.Log(parentId);
-                        //Debug.Log("not null");
-                        
-                        db_Users_Reference.Child("Children").Child(userId).Child("Parent").SetValueAsync(parentId);
-                        
-                        Dictionary<string, object> childRef = new Dictionary<string, object>();
-                        childRef["Id"] = userId;
-                        db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
-
-                        //deneme amacli silinecek.
-                        //db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
-
-
-                    }
-                    
-
-                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
-                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
-
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
                     
@@ -303,7 +281,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             }
         }
-        parentId = null;
+        
     }
 
 
@@ -549,6 +527,28 @@ public class FirebaseAuthentication : MonoBehaviour
                     userData["lastName"] = lastName;
                     userData["e-mail"] = email;
 
+                    string userId = user.UserId;
+                    if (parentId != null)
+                    {
+                        Debug.Log(parentId);
+                        //Debug.Log("not null");
+
+                        db_Users_Reference.Child("Children").Child(userId).Child("Parent").SetValueAsync(parentId);
+
+                        Dictionary<string, object> childRef = new Dictionary<string, object>();
+                        childRef["Id"] = userId;
+                        db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+
+                        //deneme amacli silinecek.
+                        //db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+
+
+                    }
+
+
+                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
+                    //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
+
 
 
                     db_Users_Reference.Child("Parents").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
@@ -561,6 +561,8 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             }
         }
+        //Gerek var mi?
+        parentId = null;
     }
 
     public void GoBackToRegisterParentMenu()
