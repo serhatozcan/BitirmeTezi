@@ -15,7 +15,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;
     public FirebaseUser user;
-    public DatabaseReference dataBaseReference;
+    public DatabaseReference db_Users_Reference;
 
     // Login Variables
     [Space]
@@ -44,7 +44,7 @@ public class FirebaseAuthentication : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 InitializeFirebase();
-                dataBaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+                db_Users_Reference = FirebaseDatabase.DefaultInstance.GetReference("Users");
             }
             else
             {
@@ -287,21 +287,23 @@ public class FirebaseAuthentication : MonoBehaviour
 
 
                     //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
-                    //string key = user.UserId;
+                    string userId = user.UserId;
 
                     //Oldu mu???
-                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    db_Users_Reference.Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
 
                     if(parentId != null) 
                     {
-                        dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
+                        Dictionary<string, object> parentRef = new Dictionary<string, object>();
+                        parentRef["Id"] = parentId;
+                        db_Users_Reference.Child("Children").Child(userId).Child("Parent").UpdateChildrenAsync(parentRef);
                         
                         Dictionary<string, object> childRef = new Dictionary<string, object>();
-                        childRef["Id"] = user.UserId;
-                        dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+                        childRef["Id"] = userId;
+                        db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
                         //deneme amacli silinecek.
-                        dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+                        db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
 
                     }
@@ -438,7 +440,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
 
 
-                    dataBaseReference.Child("Users").Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    db_Users_Reference.Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
                     parentId = user.UserId;
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
