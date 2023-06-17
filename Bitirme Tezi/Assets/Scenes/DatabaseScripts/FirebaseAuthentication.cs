@@ -15,7 +15,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;
     public FirebaseUser user;
-    public DatabaseReference db_Users_Reference;
+    public DatabaseReference databaseReference;
 
     // Login Variables
     [Space]
@@ -62,7 +62,7 @@ public class FirebaseAuthentication : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 InitializeFirebase();
-                db_Users_Reference = FirebaseDatabase.DefaultInstance.GetReference("Users");
+                databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
             }
             else
             {
@@ -272,7 +272,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     string userId = user.UserId;
 
                     //Oldu mu???
-                    db_Users_Reference.Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
+                    databaseReference.Child("Users").Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
@@ -402,7 +402,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
 
 
-                    db_Users_Reference.Child("Parents").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    databaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
                     parentId = user.UserId;
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
@@ -533,11 +533,11 @@ public class FirebaseAuthentication : MonoBehaviour
                         Debug.Log(parentId);
                         //Debug.Log("not null");
 
-                        db_Users_Reference.Child("Children").Child(userId).Child("Parent").SetValueAsync(parentId);
+                        databaseReference.Child("Users").Child("Children").Child(userId).Child("Parent").SetValueAsync(parentId);
 
                         Dictionary<string, object> childRef = new Dictionary<string, object>();
                         childRef["Id"] = userId;
-                        db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+                        databaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
                         //deneme amacli silinecek.
                         //db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
@@ -550,9 +550,6 @@ public class FirebaseAuthentication : MonoBehaviour
                     //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
 
 
-
-                    db_Users_Reference.Child("Parents").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
-                    parentId = user.UserId;
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
                     SceneManager.LoadScene("Login Menu");
