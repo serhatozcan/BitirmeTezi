@@ -44,7 +44,7 @@ public class FirebaseAuthentication : MonoBehaviour
             if (dependencyStatus == DependencyStatus.Available)
             {
                 InitializeFirebase();
-
+                dataBaseReference = FirebaseDatabase.DefaultInstance.RootReference;
             }
             else
             {
@@ -277,21 +277,35 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
                 else
                 {
-                    
 
-                    //Dictionary<string, object> userData = new Dictionary<string, object>();
-                    //userData["firstName"] = firstName;
-                    //userData["lastName"] = lastName;
-                    //userData["e-mail"] = email;
+
+                    Dictionary<string, object> userData = new Dictionary<string, object>();
+                    userData["firstName"] = firstName;
+                    userData["lastName"] = lastName;
+                    userData["e-mail"] = email;
 
 
 
                     //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
-                    ////string key = user.UserId;
+                    //string key = user.UserId;
 
-                    ////Oldu mu???
-                    //dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
-                    //dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
+                    //Oldu mu???
+                    dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+
+                    if(parentId != null) 
+                    {
+                        dataBaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Parent").SetValueAsync(parentId);
+                        
+                        Dictionary<string, object> childRef = new Dictionary<string, object>();
+                        childRef["Id"] = user.UserId;
+                        dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+
+                        //deneme amacli silinecek.
+                        dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+
+
+                    }
+                    
 
                     //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
                     //dataBaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").SetValueAsync(user.UserId);
@@ -303,7 +317,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             }
         }
-        //parentId = null;
+        parentId = null;
     }
 
 
@@ -417,21 +431,18 @@ public class FirebaseAuthentication : MonoBehaviour
                 {
 
 
-                    //Dictionary<string, object> userData = new Dictionary<string, object>();
-                    //userData["firstName"] = firstName;
-                    //userData["lastName"] = lastName;
-                    //userData["e-mail"] = email;
+                    Dictionary<string, object> userData = new Dictionary<string, object>();
+                    userData["firstName"] = firstName;
+                    userData["lastName"] = lastName;
+                    userData["e-mail"] = email;
 
 
 
-                    //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
-                    ////string key = user.UserId;
-
-                    //dataBaseReference.Child("Users").Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
-                    //parentId = user.UserId;
+                    dataBaseReference.Child("Users").Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    parentId = user.UserId;
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
-                    SceneManager.LoadScene("Login Menu");
+                    SceneManager.LoadScene("Register Child of a Parent Menu");
 
 
                 }
