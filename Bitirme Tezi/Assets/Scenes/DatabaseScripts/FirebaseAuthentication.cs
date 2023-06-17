@@ -292,18 +292,20 @@ public class FirebaseAuthentication : MonoBehaviour
                     //Oldu mu???
                     db_Users_Reference.Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
 
-                    if(parentId != null) 
+                    
+                    if (parentId != null) 
                     {
-                        Dictionary<string, object> parentRef = new Dictionary<string, object>();
-                        parentRef["Id"] = parentId;
-                        db_Users_Reference.Child("Children").Child(userId).Child("Parent").UpdateChildrenAsync(parentRef);
+                        Debug.Log(parentId);
+                        //Debug.Log("not null");
+                        
+                        db_Users_Reference.Child("Children").Child(userId).Child("Parent").SetValueAsync(parentId);
                         
                         Dictionary<string, object> childRef = new Dictionary<string, object>();
                         childRef["Id"] = userId;
                         db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
                         //deneme amacli silinecek.
-                        db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+                        //db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
 
                     }
@@ -440,7 +442,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
 
 
-                    db_Users_Reference.Child("Parent").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
+                    db_Users_Reference.Child("Parents").Child(user.UserId).Child("User Data").UpdateChildrenAsync(userData);
                     parentId = user.UserId;
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
