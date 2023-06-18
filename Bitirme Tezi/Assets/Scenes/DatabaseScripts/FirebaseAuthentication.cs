@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
+using Firebase.Extensions;
 using TMPro;
 using System.Collections.Generic;
 
@@ -48,9 +49,10 @@ public class FirebaseAuthentication : MonoBehaviour
     public TMP_InputField childConfirmPasswordRegisterField;
 
 
-    
 
+    [Space]
     private string parentId;
+    private string userId;
 
     private void Awake()
     {
@@ -102,6 +104,57 @@ public class FirebaseAuthentication : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        auth.StateChanged -= AuthStateChanged;
+        auth = null;
+    }
+
+    //-----------------------------------------------------------------------------
+
+    public void GetUserData()
+    {
+        FirebaseUser user = auth.CurrentUser;
+        if (user != null)
+        {
+            //string name = user.DisplayName;
+            //string email = user.Email;
+            //System.Uri photo_url = user.PhotoUrl;
+            // The user's Id, unique to the Firebase project.
+            // Do NOT use this value to authenticate with your backend server, if you
+            // have one; use User.TokenAsync() instead.
+            //string uid = user.UserId;
+            userId = user.UserId;   
+        }
+    }
+
+    public void ReadData()
+    {
+        databaseReference.Child("Users").Child(userId).Child("Progression").Child("Subject_1").Child("Level_1").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                // Do something with snapshot...
+                Debug.Log(snapshot.Value.ToString());
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+    //-----------------------------------------------------------------------------
     public void Login()
     {
         StartCoroutine(LoginAsync(emailLoginField.text, passwordLoginField.text));
@@ -154,6 +207,8 @@ public class FirebaseAuthentication : MonoBehaviour
         }
     }
 
+
+    //-----------------------------------------------------------------------------
     public void RegisterChild()
     {
 
@@ -284,10 +339,7 @@ public class FirebaseAuthentication : MonoBehaviour
         
     }
 
-
-
-
-
+    //-----------------------------------------------------------------------------
     public void RegisterParent()
     {
 
@@ -413,9 +465,7 @@ public class FirebaseAuthentication : MonoBehaviour
         }
     }
 
-    
-
-
+    //-----------------------------------------------------------------------------
     public void RegisterChildOfParent()
     {
         StartCoroutine(RegisterChildOfParentAsync(childFirstNameRegisterField.text, childLastNameRegisterField.text, childEmailRegisterField.text, childPasswordRegisterField.text, childConfirmPasswordRegisterField.text));
@@ -563,7 +613,7 @@ public class FirebaseAuthentication : MonoBehaviour
         //Gerek var mi?
         parentId = null;
     }
-
+    //-----------------------------------------------------------------------------
     public void GoBackToRegisterParentMenu()
     {
         registerChildMenu.SetActive(false);
@@ -575,4 +625,5 @@ public class FirebaseAuthentication : MonoBehaviour
         registerParentMenu.SetActive(false);
         registerChildMenu.SetActive(true);
     }
+    //-----------------------------------------------------------------------------
 }
