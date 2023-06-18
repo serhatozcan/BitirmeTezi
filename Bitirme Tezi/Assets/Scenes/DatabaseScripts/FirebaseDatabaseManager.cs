@@ -109,7 +109,9 @@ public class FirebaseDatabaseManager : MonoBehaviour
     public void ReadData(string catNumber)
     {
         Debug.Log("1");
-        databaseReference.Child("Users").Child(user.UserId).Child("Progression").Child("Subject_"+ catNumber).Child("Level_"+ catNumber).GetValueAsync().ContinueWithOnMainThread(task =>
+        //databaseReference.Child("Users").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
@@ -121,8 +123,17 @@ public class FirebaseDatabaseManager : MonoBehaviour
                 Debug.Log("3");
                 DataSnapshot snapshot = task.Result;
                 // Do something with snapshot...
-                
-                Debug.Log(snapshot.Value.ToString());
+                foreach(DataSnapshot user in  snapshot.Children)
+                {
+                    if(user.Key == "firstName")
+                    {
+                        Debug.Log(user.Value.ToString());
+                    }
+
+                }
+
+
+                //Debug.Log(snapshot.Value.ToString());
             }
         });
     }
