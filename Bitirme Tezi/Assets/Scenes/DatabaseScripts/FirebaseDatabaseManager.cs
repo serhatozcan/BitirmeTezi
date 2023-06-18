@@ -142,20 +142,23 @@ public class FirebaseDatabaseManager : MonoBehaviour
                 //    }
 
                 //}
+
+
+
+                //Sayfa degistirince veya yeni kullanici gelince hepsi resetlenecek mi? Kontrol etmek lazim.
                 if (snapshot.HasChild("Level_1"))
                     Level1Button.GetComponentInChildren<Toggle>().isOn=true;
                 if (snapshot.HasChild("Level_2"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_2"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                    Level2Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_3"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                    Level3Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_4"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                    Level4Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_5"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                    Level5Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_6"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                    Level6Button.GetComponentInChildren<Toggle>().isOn = true;
+                
 
 
                 //Debug.Log(snapshot.Value.ToString());
