@@ -70,10 +70,23 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
     public void Start()
     {
+        
+        ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
+
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         ReadData(categoryNumber);
         
+    }
+
+    public void ResetLevelCheckmarks()
+    {
+        Level1Button.GetComponentInChildren<Toggle>().isOn = false;
+        Level2Button.GetComponentInChildren<Toggle>().isOn = false;
+        Level3Button.GetComponentInChildren<Toggle>().isOn = false;
+        Level4Button.GetComponentInChildren<Toggle>().isOn = false;
+        Level5Button.GetComponentInChildren<Toggle>().isOn = false;
+        Level6Button.GetComponentInChildren<Toggle>().isOn = false;
     }
 
 
