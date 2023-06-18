@@ -5,6 +5,8 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
+using UnityEngine.UI;
+using TMPro;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
 public class FirebaseDatabaseManager : MonoBehaviour
@@ -56,14 +58,22 @@ public class FirebaseDatabaseManager : MonoBehaviour
     FirebaseUser user;
     DatabaseReference databaseReference;
 
+    
     public string categoryNumber;
-
+    [Space]
+    public GameObject Level1Button;
+    public GameObject Level2Button;
+    public GameObject Level3Button;
+    public GameObject Level4Button;
+    public GameObject Level5Button;
+    public GameObject Level6Button;
 
     public void Start()
     {
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         ReadData(categoryNumber);
+        
     }
 
 
@@ -133,13 +143,21 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
                 //}
                 if (snapshot.HasChild("Level_1"))
-                {
-                    Debug.Log("YES");
-                }
-                else
-                {
-                    Debug.Log("NO");
-                }
+                    Level1Button.GetComponentInChildren<Toggle>().isOn=true;
+                if (snapshot.HasChild("Level_2"))
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                if (snapshot.HasChild("Level_2"))
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                if (snapshot.HasChild("Level_3"))
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                if (snapshot.HasChild("Level_4"))
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                if (snapshot.HasChild("Level_5"))
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                if (snapshot.HasChild("Level_6"))
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+
+
                 //Debug.Log(snapshot.Value.ToString());
 
                 //Debug.Log(snapshot.Value.ToString());

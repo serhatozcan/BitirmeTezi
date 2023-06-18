@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 309013691}
   - component: {fileID: 309013690}
   m_Layer: 5
-  m_Name: Problem6
+  m_Name: Level6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 652475133}
   - component: {fileID: 652475132}
   m_Layer: 5
-  m_Name: Problem5
+  m_Name: Level5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -933,7 +933,7 @@ GameObject:
   - component: {fileID: 668825912}
   - component: {fileID: 668825911}
   m_Layer: 5
-  m_Name: Problem3
+  m_Name: Level3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1653,7 +1653,7 @@ GameObject:
   - component: {fileID: 932850805}
   - component: {fileID: 932850804}
   m_Layer: 5
-  m_Name: Problem2
+  m_Name: Level2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2259,6 +2259,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   categoryNumber: 1
+  Level1Button: {fileID: 2054157068}
+  Level2Button: {fileID: 932850802}
+  Level3Button: {fileID: 668825909}
+  Level4Button: {fileID: 1619745970}
+  Level5Button: {fileID: 652475130}
+  Level6Button: {fileID: 309013688}
 --- !u!1 &1334219254
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,7 +3383,7 @@ GameObject:
   - component: {fileID: 1619745973}
   - component: {fileID: 1619745972}
   m_Layer: 5
-  m_Name: Problem4
+  m_Name: Level4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3944,7 +3950,7 @@ GameObject:
   - component: {fileID: 2054157071}
   - component: {fileID: 2054157070}
   m_Layer: 5
-  m_Name: Problem1
+  m_Name: Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
