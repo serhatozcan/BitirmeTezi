@@ -109,9 +109,9 @@ public class FirebaseDatabaseManager : MonoBehaviour
     public void ReadData(string catNumber)
     {
         Debug.Log("1");
-        //databaseReference.Child("Users").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
-        
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data").GetValueAsync().ContinueWithOnMainThread(task =>
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
@@ -123,15 +123,24 @@ public class FirebaseDatabaseManager : MonoBehaviour
                 Debug.Log("3");
                 DataSnapshot snapshot = task.Result;
                 // Do something with snapshot...
-                foreach(DataSnapshot user in  snapshot.Children)
+                //foreach(DataSnapshot user in  snapshot.Children)
+                //{
+                //    if(user.Key == "firstName")
+                //    {
+                //        //Debug.Log(user.Value.ToString()); 
+
+                //    }
+
+                //}
+                if (snapshot.HasChild("Level_1"))
                 {
-                    if(user.Key == "firstName")
-                    {
-                        Debug.Log(user.Value.ToString());
-                    }
-
+                    Debug.Log("YES");
                 }
-
+                else
+                {
+                    Debug.Log("NO");
+                }
+                //Debug.Log(snapshot.Value.ToString());
 
                 //Debug.Log(snapshot.Value.ToString());
             }
