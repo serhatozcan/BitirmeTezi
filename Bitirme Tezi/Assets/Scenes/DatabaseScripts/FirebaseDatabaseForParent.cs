@@ -207,5 +207,6 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     void OnClick()
     {
         Debug.Log("clicked!");
+
     }
 }
