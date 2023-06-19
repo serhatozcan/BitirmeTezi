@@ -7,6 +7,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
 public class FirebaseDatabaseForParent : MonoBehaviour
@@ -207,6 +208,6 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     void OnClick()
     {
         Debug.Log("clicked!");
-
+        
     }
 }
