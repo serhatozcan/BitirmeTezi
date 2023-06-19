@@ -1597,12 +1597,18 @@ MonoBehaviour:
   dependencyStatus: 0
   emailLoginField: {fileID: 468815208}
   passwordLoginField: {fileID: 575686977}
+  registerParentMenu: {fileID: 0}
+  registerChildMenu: {fileID: 0}
   firstNameRegisterField: {fileID: 0}
   lastNameRegisterField: {fileID: 0}
   emailRegisterField: {fileID: 0}
   passwordRegisterField: {fileID: 0}
   confirmPasswordRegisterField: {fileID: 0}
-  parentId: 
+  childFirstNameRegisterField: {fileID: 0}
+  childLastNameRegisterField: {fileID: 0}
+  childEmailRegisterField: {fileID: 0}
+  childPasswordRegisterField: {fileID: 0}
+  childConfirmPasswordRegisterField: {fileID: 0}
 --- !u!4 &1537836766
 Transform:
   m_ObjectHideFlags: 0

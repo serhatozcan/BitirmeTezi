@@ -9,13 +9,17 @@ using UnityEngine.UI;
 using TMPro;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
-public class FirebaseDatabaseManager : MonoBehaviour
+public class FirebaseDatabaseForParent : MonoBehaviour
 {
-  
 
     FirebaseAuth auth;
     FirebaseUser user;
     DatabaseReference databaseReference;
+
+    [Space]
+    [Header("Children of a Parent")]
+    public GameObject childButtonPrefab;
+    public GameObject childrenButtonsPanel;
 
 
     [Space]
@@ -30,13 +34,13 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
     public void Start()
     {
-        
-        ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
+
+        //ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
 
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        ReadProgressionData(categoryNumber);
-        //ReadChildrenOfParentData();
+        //ReadProgressionData(categoryNumber);
+        ReadChildrenOfParentData();
     }
 
     public void ResetLevelCheckmarks()
@@ -105,13 +109,13 @@ public class FirebaseDatabaseManager : MonoBehaviour
             {
                 Debug.Log("3");
                 DataSnapshot snapshot = task.Result;
-               
+
 
 
 
                 //Sayfa degistirince veya yeni kullanici gelince hepsi resetlenecek mi? Kontrol etmek lazim.
                 if (snapshot.HasChild("Level_1"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn=true;
+                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_2"))
                     Level2Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_3"))
@@ -122,11 +126,86 @@ public class FirebaseDatabaseManager : MonoBehaviour
                     Level5Button.GetComponentInChildren<Toggle>().isOn = true;
                 if (snapshot.HasChild("Level_6"))
                     Level6Button.GetComponentInChildren<Toggle>().isOn = true;
-                
+
             }
         });
     }
 
 
-   
+    public void ReadChildrenOfParentData()
+    {
+        Debug.Log("1");
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        databaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.Log("3");
+                DataSnapshot snapshot = task.Result;
+
+
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    //bu sekilde her bir cocugun key'ine ulasiliyor
+                    Debug.Log(child.Key);
+
+                    databaseReference.Child("Users").Child("Children").Child(child.Key).Child("User Data").GetValueAsync().ContinueWithOnMainThread(task2 =>
+                    {
+                        if (task2.IsFaulted)
+                        {
+                            Debug.Log("2");
+                            // Handle the error...
+                        }
+                        else if (task2.IsCompleted)
+                        {
+                            DataSnapshot dataSnapshot = task2.Result;
+
+                            string firstName = null;
+                            string lastName = null;
+
+                            foreach (DataSnapshot userData in dataSnapshot.Children)
+                            {
+                                Debug.Log(userData.Key);
+                                //if (userData.Key != "firstName" || userData.Key != "lastName")
+                                //    continue;
+                                if (userData.Key == "firstName")
+                                    firstName = userData.Value.ToString();
+                                if (userData.Key == "lastName")
+                                    lastName = userData.Value.ToString();
+                                
+                            }
+
+                            Debug.Log(firstName);
+                            Debug.Log(lastName);
+                            //burada buton olusturulacak panele eklenecek
+                            GameObject button = (GameObject)Instantiate(childButtonPrefab);
+                            button.transform.SetParent(childrenButtonsPanel.transform);//Setting button parent
+                            button.GetComponent<RectTransform>().localScale = Vector3.one;
+                            //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
+                            //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
+
+                            button.GetComponent<Button>().onClick.AddListener(OnClick);//Setting what button does when clicked
+                                                                                       //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
+                            button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
+
+
+                        }
+                    });
+                }
+
+
+
+            }
+        });
+    }
+    void OnClick()
+    {
+        Debug.Log("clicked!");
+    }
 }
