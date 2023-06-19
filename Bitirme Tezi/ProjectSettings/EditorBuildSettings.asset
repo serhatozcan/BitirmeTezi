@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/Cat1.unity
     guid: a67aacb426098af4c920e7155fe1eb80
+  - enabled: 1
+    path: Assets/Scenes/Menu/Children of a Parent Menu.unity
+    guid: 1e48b7398c06e0d4f9a83455d434a3da
   m_configObjects: {}

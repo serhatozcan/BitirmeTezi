@@ -71,12 +71,12 @@ public class FirebaseDatabaseManager : MonoBehaviour
     public void Start()
     {
         
-        ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
+        //ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
 
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        ReadData(categoryNumber);
-        
+        //ReadProgressionData(categoryNumber);
+        ReadChildrenOfParentData();
     }
 
     public void ResetLevelCheckmarks()
@@ -129,7 +129,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
 
 
-    public void ReadData(string catNumber)
+    public void ReadProgressionData(string catNumber)
     {
         Debug.Log("1");
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
@@ -145,16 +145,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
             {
                 Debug.Log("3");
                 DataSnapshot snapshot = task.Result;
-                // Do something with snapshot...
-                //foreach(DataSnapshot user in  snapshot.Children)
-                //{
-                //    if(user.Key == "firstName")
-                //    {
-                //        //Debug.Log(user.Value.ToString()); 
-
-                //    }
-
-                //}
+               
 
 
 
@@ -172,11 +163,45 @@ public class FirebaseDatabaseManager : MonoBehaviour
                 if (snapshot.HasChild("Level_6"))
                     Level6Button.GetComponentInChildren<Toggle>().isOn = true;
                 
+            }
+        });
+    }
 
 
-                //Debug.Log(snapshot.Value.ToString());
+    public void ReadChildrenOfParentData()
+    {
+        Debug.Log("1");
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        databaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.Log("3");
+                DataSnapshot snapshot = task.Result;
+                
 
-                //Debug.Log(snapshot.Value.ToString());
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    Debug.Log(child.Key);
+                }
+                //List<string> childKeys = new List<string>();
+                //foreach (DataSnapshot childRef in snapshot.Children)
+                //{
+                //    childKeys.Add(childRef.Key);
+
+
+                //    //Debug.Log(childRef.Key);
+                //    //DataSnapshot child = databaseReference.Child("Users").Child("Children").Child(childRef.Key).Child("User Data");
+                //}
+
+
+
             }
         });
     }

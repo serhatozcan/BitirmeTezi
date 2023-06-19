@@ -203,7 +203,45 @@ public class FirebaseAuthentication : MonoBehaviour
 
             //Debug.LogFormat("{0} giriş yaptınız", user.DisplayName);
             Debug.Log("Hoş geldiniz " + user.DisplayName);
-            SceneManager.LoadScene("Subjects Menu");
+
+            databaseReference.Child("Users").Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("2");
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+
+                    if (snapshot.HasChild(user.UserId))
+                    {
+                        SceneManager.LoadScene("Subjects Menu");
+                    }
+                }
+            });
+
+            databaseReference.Child("Users").Child("Parents").GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("2");
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+
+                    if (snapshot.HasChild(user.UserId))
+                    {
+                        SceneManager.LoadScene("Children of a Parent Menu");
+                    }
+                }
+            });
+
+            //if()
+
         }
     }
 
