@@ -188,7 +188,8 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
                 foreach (DataSnapshot child in snapshot.Children)
                 {
-                    Debug.Log(child.Key);
+                    Debug.Log(child.Value);
+                    
                 }
                 //List<string> childKeys = new List<string>();
                 //foreach (DataSnapshot childRef in snapshot.Children)

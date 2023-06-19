@@ -240,7 +240,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             });
 
-            //if()
+            
 
         }
     }
@@ -626,10 +626,14 @@ public class FirebaseAuthentication : MonoBehaviour
 
                         databaseReference.Child("Users").Child("Children").Child(userId).Child("Parent").SetValueAsync(parentId);
 
+
+                        //databaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push();
                         Dictionary<string, object> childRef = new Dictionary<string, object>();
                         childRef["Id"] = userId;
-                        databaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
+                        //databaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Push().UpdateChildrenAsync(childRef);
 
+                        //Cok garip bir yontem oldu ama calisabilir.
+                        databaseReference.Child("Users").Child("Parents").Child(parentId).Child("Children").Child(userId).UpdateChildrenAsync(childRef);
                         //deneme amacli silinecek.
                         //db_Users_Reference.Child("Parents").Child(parentId).Child("Children").UpdateChildrenAsync(childRef);
 
