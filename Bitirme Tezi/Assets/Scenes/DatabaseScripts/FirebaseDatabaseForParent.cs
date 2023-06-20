@@ -7,6 +7,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
 public class FirebaseDatabaseForParent : MonoBehaviour
@@ -16,6 +17,13 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     FirebaseUser user;
     DatabaseReference databaseReference;
 
+
+    [Space]
+    [Header("Panels")]
+    public GameObject childrenOfParentCanvas;
+    public GameObject progressionOfChildCanvas;
+
+
     [Space]
     [Header("Children of a Parent")]
     public GameObject childButtonPrefab;
@@ -23,14 +31,72 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
 
     [Space]
+    [Header("Categories")]
+    public GameObject Category1;
+    public GameObject Category2;
+    public GameObject Category3;
+    public GameObject Category4;
+    public GameObject Category5;
+    public GameObject Category6;
+
+    [Space]
     [Header("Levels")]
-    public string categoryNumber;
-    public GameObject Level1Button;
-    public GameObject Level2Button;
-    public GameObject Level3Button;
-    public GameObject Level4Button;
-    public GameObject Level5Button;
-    public GameObject Level6Button;
+    //public string categoryNumber;
+
+    //Direkt Category ler burada atanabilir sanirim. ÖNEMLÝ ÖNEMLÝ  ÖNEMLÝ
+
+    //[Header("Category 1")]
+    //public GameObject Cat1_Level1_Button;
+    //public GameObject Cat1_Level2_Button;
+    //public GameObject Cat1_Level3_Button;
+    //public GameObject Cat1_Level4_Button;
+    //public GameObject Cat1_Level5_Button;
+    //public GameObject Cat1_Level6_Button;
+    //[Header("Category 2")]
+    //public GameObject Cat2_Level1_Button;
+    //public GameObject Cat2_Level2_Button;
+    //public GameObject Cat2_Level3_Button;
+    //public GameObject Cat2_Level4_Button;
+    //public GameObject Cat2_Level5_Button;
+    //public GameObject Cat2_Level6_Button;
+    //[Header("Category 3")]
+    //public GameObject Cat3_Level1_Button;
+    //public GameObject Cat3_Level2_Button;
+    //public GameObject Cat3_Level3_Button;
+    //public GameObject Cat3_Level4_Button;
+    //public GameObject Cat3_Level5_Button;
+    //public GameObject Cat3_Level6_Button;
+    //[Header("Category 4")]
+    //public GameObject Cat4_Level1_Button;
+    //public GameObject Cat4_Level2_Button;
+    //public GameObject Cat4_Level3_Button;
+    //public GameObject Cat4_Level4_Button;
+    //public GameObject Cat4_Level5_Button;
+    //public GameObject Cat4_Level6_Button;
+    //[Header("Category 5")]
+    //public GameObject Cat5_Level1_Button;
+    //public GameObject Cat5_Level2_Button;
+    //public GameObject Cat5_Level3_Button;
+    //public GameObject Cat5_Level4_Button;
+    //public GameObject Cat5_Level5_Button;
+    //public GameObject Cat5_Level6_Button;
+    //[Header("Category ")]
+    //public GameObject Cat6_Level1_Button;
+    //public GameObject Cat6_Level2_Button;
+    //public GameObject Cat6_Level3_Button;
+    //public GameObject Cat6_Level4_Button;
+    //public GameObject Cat6_Level5_Button;
+    //public GameObject Cat6_Level6_Button;
+
+
+    private List<GameObject> categories;
+    private List<GameObject> Cat1Levels;
+    private List<GameObject> Cat2Levels;
+    private List<GameObject> Cat3Levels;
+    private List<GameObject> Cat4Levels;
+    private List<GameObject> Cat5Levels;
+    private List<GameObject> Cat6Levels;
+    
 
     public void Start()
     {
@@ -39,18 +105,31 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        
+
+
+        //categories = new List<GameObject>();
+        //Cat1Levels = new List<GameObject>();
+        //Cat2Levels = new List<GameObject>();
+        //Cat3Levels = new List<GameObject>();
+        //Cat4Levels = new List<GameObject>();
+        //Cat5Levels = new List<GameObject>();
+        //Cat6Levels = new List<GameObject>();
+
+        //AddButtonsToList();
         //ReadProgressionData(categoryNumber);
         ReadChildrenOfParentData();
     }
 
     public void ResetLevelCheckmarks()
     {
-        Level1Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level2Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level3Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level4Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level5Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level6Button.GetComponentInChildren<Toggle>().isOn = false;
+        //Level1Button.GetComponentInChildren<Toggle>().isOn = false;
+        //Level2Button.GetComponentInChildren<Toggle>().isOn = false;
+        //Level3Button.GetComponentInChildren<Toggle>().isOn = false;
+        //Level4Button.GetComponentInChildren<Toggle>().isOn = false;
+        //Level5Button.GetComponentInChildren<Toggle>().isOn = false;
+        //Level6Button.GetComponentInChildren<Toggle>().isOn = false;
     }
 
 
@@ -92,45 +171,205 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     }
 
 
-
-    public void ReadProgressionData(string catNumber)
+    public void AddButtonsToList()
     {
-        Debug.Log("1");
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).GetValueAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsFaulted)
-            {
-                Debug.Log("2");
-                // Handle the error...
-            }
-            else if (task.IsCompleted)
-            {
-                Debug.Log("3");
-                DataSnapshot snapshot = task.Result;
+        //Category1.Find("Level 1").GetComponentInChildren<Button>().onClick.AddListener(() => OnClickOpenLevel("1","1"));
+        GameObject.Find("Category1/Level 1/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel("1", "1"));
 
+        //Cat1Levels.Add(Cat1_Level1_Button);
+        //Cat1Levels.Add(Cat1_Level2_Button);
+        //Cat1Levels.Add(Cat1_Level3_Button);
+        //Cat1Levels.Add(Cat1_Level4_Button);
+        //Cat1Levels.Add(Cat1_Level5_Button);
+        //Cat1Levels.Add(Cat1_Level6_Button);
 
+        //Cat2Levels.Add(Cat2_Level1_Button);
+        //Cat2Levels.Add(Cat2_Level2_Button);
+        //Cat2Levels.Add(Cat2_Level3_Button);
+        //Cat2Levels.Add(Cat2_Level4_Button);
+        //Cat2Levels.Add(Cat2_Level5_Button);
+        //Cat2Levels.Add(Cat2_Level6_Button);
 
+        //Cat3Levels.Add(Cat3_Level1_Button);
+        //Cat3Levels.Add(Cat3_Level2_Button);
+        //Cat3Levels.Add(Cat3_Level3_Button);
+        //Cat3Levels.Add(Cat3_Level4_Button);
+        //Cat3Levels.Add(Cat3_Level5_Button);
+        //Cat3Levels.Add(Cat3_Level6_Button);
 
-                //Sayfa degistirince veya yeni kullanici gelince hepsi resetlenecek mi? Kontrol etmek lazim.
-                if (snapshot.HasChild("Level_1"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_2"))
-                    Level2Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_3"))
-                    Level3Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_4"))
-                    Level4Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_5"))
-                    Level5Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_6"))
-                    Level6Button.GetComponentInChildren<Toggle>().isOn = true;
+        //Cat4Levels.Add(Cat4_Level1_Button);
+        //Cat4Levels.Add(Cat4_Level2_Button);
+        //Cat4Levels.Add(Cat4_Level3_Button);
+        //Cat4Levels.Add(Cat4_Level4_Button);
+        //Cat4Levels.Add(Cat4_Level5_Button);
+        //Cat4Levels.Add(Cat4_Level6_Button);
 
-            }
-        });
+        //Cat5Levels.Add(Cat5_Level1_Button);
+        //Cat5Levels.Add(Cat5_Level2_Button);
+        //Cat5Levels.Add(Cat5_Level3_Button);
+        //Cat5Levels.Add(Cat5_Level4_Button);
+        //Cat5Levels.Add(Cat5_Level5_Button);
+        //Cat5Levels.Add(Cat5_Level6_Button);
+
+        //Cat6Levels.Add(Cat6_Level1_Button);
+        //Cat6Levels.Add(Cat6_Level2_Button);
+        //Cat6Levels.Add(Cat6_Level3_Button);
+        //Cat6Levels.Add(Cat6_Level4_Button);
+        //Cat6Levels.Add(Cat6_Level5_Button);
+        //Cat6Levels.Add(Cat6_Level6_Button);
     }
 
+    void OnClickOpenLevel(string catNumber, string levelNumber)
+    {
+        //burada bolum acilacak ama bolumu gecme olmayacak
+    }
+
+
+    //void AssignOnClicksToButtons()
+    //{
+    //    for()
+    //    GameObject.Find("Category" + catNumber + "/Level " + levelNumber + "/Button").GetComponent<Button>().onClick()
+    //}
+
+    public void ReadProgressionData(string childKey)
+    {
+        Debug.Log("1");
+        DatabaseReference progressionDatabaseRef = databaseReference.Child("Users").Child("Children").Child(childKey).Child("Progression");
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        //databaseReference.Child("Users").Child("Children").Child(childKey).Child("Progression").Child("Subject_" + catNumber).GetValueAsync().ContinueWithOnMainThread(task =>
+
+
+        //burada listleri dolasmam lazim
+
+        //kategori sayisi ve level sayilarini bir yerden cekmem lazim
+        for (int i = 1; i < 7; i++)
+        {
+            progressionDatabaseRef.Child("Subject_"+i).GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("2");
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    Debug.Log("3");
+                    DataSnapshot snapshot = task.Result;
+
+
+                    //GameObject.Find("Category1/Level 1/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel("1", "1"));
+                    for(int j=1; j < 7; j++)
+                    {
+                        if (snapshot.HasChild("Level_" + j))
+                        {
+                            GameObject.Find("Category" + i + "/Level " + j + "/Toggle").GetComponent<Toggle>().isOn = true;
+                        }
+                        
+                        //Bu sekilde sorun olursa bunu ayri metodla cagiririm.
+                        GameObject.Find("Category" + i + "/Level " + j + "/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel(i.ToString(), j.ToString())); 
+                    }
+
+
+                }
+
+            });
+        }
+
+      
+    }
+
+    //public void ProgressionOfSubject1(DataSnapshot snapshot)
+    //{
+    //    if (snapshot.HasChild("Level_1"))
+    //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_2"))
+    //        Cat1_Level2_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_3"))
+    //        Cat1_Level3_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_4"))
+    //        Cat1_Level4_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_5"))
+    //        Cat1_Level5_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_6"))
+    //        Cat1_Level6_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //}
+    //public void ProgressionOfSubject2(DataSnapshot snapshot)
+    //{
+        
+    //    if (snapshot.HasChild("Level_1"))
+    //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_2"))
+    //        Cat1_Level2_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_3"))
+    //        Cat1_Level3_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_4"))
+    //        Cat1_Level4_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_5"))
+    //        Cat1_Level5_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_6"))
+    //        Cat1_Level6_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //}
+    //public void ProgressionOfSubject3(DataSnapshot snapshot)
+    //{
+    //    if (snapshot.HasChild("Level_1"))
+    //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_2"))
+    //        Cat1_Level2_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_3"))
+    //        Cat1_Level3_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_4"))
+    //        Cat1_Level4_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_5"))
+    //        Cat1_Level5_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_6"))
+    //        Cat1_Level6_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //}
+    //public void ProgressionOfSubject4(DataSnapshot snapshot)
+    //{
+    //    if (snapshot.HasChild("Level_1"))
+    //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_2"))
+    //        Cat1_Level2_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_3"))
+    //        Cat1_Level3_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_4"))
+    //        Cat1_Level4_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_5"))
+    //        Cat1_Level5_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_6"))
+    //        Cat1_Level6_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //}
+    //public void ProgressionOfSubject5(DataSnapshot snapshot)
+    //{
+    //    if (snapshot.HasChild("Level_1"))
+    //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_2"))
+    //        Cat1_Level2_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_3"))
+    //        Cat1_Level3_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_4"))
+    //        Cat1_Level4_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_5"))
+    //        Cat1_Level5_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_6"))
+    //        Cat1_Level6_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //}
+    //public void ProgressionOfSubject6(DataSnapshot snapshot)
+    //{
+    //    if (snapshot.HasChild("Level_1"))
+    //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_2"))
+    //        Cat1_Level2_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_3"))
+    //        Cat1_Level3_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_4"))
+    //        Cat1_Level4_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_5"))
+    //        Cat1_Level5_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //    if (snapshot.HasChild("Level_6"))
+    //        Cat1_Level6_Button.GetComponentInChildren<Toggle>().isOn = true;
+    //}
 
     public void ReadChildrenOfParentData()
     {
@@ -190,7 +429,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
                             //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
                             //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
 
-                            button.GetComponent<Button>().onClick.AddListener(OnClick);//Setting what button does when clicked
+                            button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
                                                                                        //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
                             button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
 
@@ -204,9 +443,24 @@ public class FirebaseDatabaseForParent : MonoBehaviour
             }
         });
     }
-    void OnClick()
+    void OnClick(string childKey)
     {
-        Debug.Log("clicked!");
+        OpenProgressionOfChildCanvas();
+        ReadProgressionData(childKey);
+    }
+
+
+    public void OpenChildrenCanvas()
+    {
+        progressionOfChildCanvas.SetActive(false);
+        childrenOfParentCanvas.SetActive(true);
+    }
+
+    public void OpenProgressionOfChildCanvas()
+    {
+        childrenOfParentCanvas.SetActive(false);
+        progressionOfChildCanvas.SetActive(true);
+
 
     }
 }
