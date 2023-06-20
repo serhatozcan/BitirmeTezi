@@ -8,6 +8,7 @@ using Firebase.Extensions;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEditor.Animations;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
 public class FirebaseDatabaseForParent : MonoBehaviour
@@ -96,7 +97,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     private List<GameObject> Cat4Levels;
     private List<GameObject> Cat5Levels;
     private List<GameObject> Cat6Levels;
-    
+
 
     public void Start()
     {
@@ -106,7 +107,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        
+
 
 
         //categories = new List<GameObject>();
@@ -233,6 +234,9 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
     public void ReadProgressionData(string childKey)
     {
+        Category1.GetComponentInChildren<Toggle>().isOn = true;
+
+
         Debug.Log("1");
         DatabaseReference progressionDatabaseRef = databaseReference.Child("Users").Child("Children").Child(childKey).Child("Progression");
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
@@ -245,7 +249,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         //kategori sayisi ve level sayilarini bir yerden cekmem lazim
         for (int i = 1; i < 7; i++)
         {
-            progressionDatabaseRef.Child("Subject_"+i).GetValueAsync().ContinueWithOnMainThread(task =>
+            progressionDatabaseRef.Child("Subject_" + i).GetValueAsync().ContinueWithOnMainThread(task =>
             {
                 if (task.IsFaulted)
                 {
@@ -257,17 +261,21 @@ public class FirebaseDatabaseForParent : MonoBehaviour
                     Debug.Log("3");
                     DataSnapshot snapshot = task.Result;
 
-
+                    if (snapshot.HasChild("Level_1"))
+                    {
+                        Debug.Log("level1..");
+                    }
                     //GameObject.Find("Category1/Level 1/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel("1", "1"));
-                    for(int j=1; j < 7; j++)
+                    for (int j = 1; j < 7; j++)
                     {
                         if (snapshot.HasChild("Level_" + j))
                         {
+                            Debug.Log("evet");
                             GameObject.Find("Category" + i + "/Level " + j + "/Toggle").GetComponent<Toggle>().isOn = true;
                         }
-                        
+
                         //Bu sekilde sorun olursa bunu ayri metodla cagiririm.
-                        GameObject.Find("Category" + i + "/Level " + j + "/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel(i.ToString(), j.ToString())); 
+                        GameObject.Find("Category" + i + "/Level " + j + "/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel(i.ToString(), j.ToString()));
                     }
 
 
@@ -276,7 +284,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
             });
         }
 
-      
+
     }
 
     //public void ProgressionOfSubject1(DataSnapshot snapshot)
@@ -296,7 +304,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     //}
     //public void ProgressionOfSubject2(DataSnapshot snapshot)
     //{
-        
+
     //    if (snapshot.HasChild("Level_1"))
     //        Cat1_Level1_Button.GetComponentInChildren<Toggle>().isOn = true;
     //    if (snapshot.HasChild("Level_2"))
@@ -417,7 +425,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
                                     firstName = userData.Value.ToString();
                                 if (userData.Key == "lastName")
                                     lastName = userData.Value.ToString();
-                                
+
                             }
 
                             Debug.Log(firstName);
@@ -430,7 +438,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
                             //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
 
                             button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
-                                                                                       //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
+                                                                                                        //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
                             button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
 
 
@@ -450,7 +458,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     }
 
 
-    public void OpenChildrenCanvas()
+    public void GoBackToChildrenCanvas()
     {
         progressionOfChildCanvas.SetActive(false);
         childrenOfParentCanvas.SetActive(true);
