@@ -7,6 +7,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
 public class FirebaseDatabaseManager : MonoBehaviour
@@ -127,6 +128,9 @@ public class FirebaseDatabaseManager : MonoBehaviour
         });
     }
 
-
+    public void OpenCat1Level5()
+    {
+        SceneManager.LoadScene("Cat1Level5");
+    }
    
 }

@@ -1,4 +1,7 @@
 
+using Firebase.Auth;
+using Firebase.Database;
+using Firebase.Extensions;
 using System;
 using System.Collections.Generic;
 
@@ -1595,6 +1598,13 @@ public class Swim : Instruction
 
 public class RunCodeButton : MonoBehaviour
 {
+    FirebaseAuth auth;
+    FirebaseUser user;
+    DatabaseReference databaseReference;
+
+
+    public int catNumber;
+    public int levelNumber;
 
     public List<Instruction> instructionList;
 
@@ -1629,17 +1639,54 @@ public class RunCodeButton : MonoBehaviour
                                             "nonlocal", "not", "or", "pass", "raise", "return", "try",  "with", "yeld"};
         fruits = new string[] { "apple", "banana", "kiwi" };
         conditionRunList = new List<bool>();
+        //simdilik burada. sonradan unity uzerinden verilecek.
+        catNumber = 1;
+        levelNumber = 7;
+
+
+        InitializeFirebase();
         //characterColorChanger.ChangeColorToBlue();
         //characterColorChanger.ChangeColorToRed();
 
         //chestAnimator.SetBool("opening", true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+
+    void InitializeFirebase()
+    {
+        Debug.Log("Setting up Firebase Auth");
+        auth = FirebaseAuth.DefaultInstance;
+        auth.StateChanged += AuthStateChanged;
+        AuthStateChanged(this, null);
     }
+
+    // Track state changes of the auth object.
+    void AuthStateChanged(object sender, System.EventArgs eventArgs)
+    {
+        if (auth.CurrentUser != user)
+        {
+            bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
+            if (!signedIn && user != null)
+            {
+                Debug.Log("Signed out " + user.UserId);
+            }
+            user = auth.CurrentUser;
+            if (signedIn)
+            {
+                Debug.Log("Signed in " + user.UserId);
+            }
+        }
+    }
+
+    // Handle removing subscription and reference to the Auth instance.
+    // Automatically called by a Monobehaviour after Destroy is called on it.
+    void OnDestroy()
+    {
+        auth.StateChanged -= AuthStateChanged;
+        auth = null;
+    }
+
 
     public void ReadInputPage1(TMP_InputField inputField1)
     {
@@ -2485,7 +2532,7 @@ public class RunCodeButton : MonoBehaviour
                                     {
 
                                         Move move_right = new Move(characterMovement, "right", instructionLevel);
-                                        Debug.Log("mr level "+instructionLevel);
+                                        Debug.Log("mr level " + instructionLevel);
                                         AddInstruction(move_right);
                                     }
                                     else
@@ -2815,8 +2862,8 @@ public class RunCodeButton : MonoBehaviour
                     else if (((If)instruction).type == 2)
                     {
                         Debug.Log("Burasi2");
-                        Debug.Log("+"+((If)instruction).firstMethod+"+");
-                        Debug.Log("+"+((If)instruction).secondMethod+ "+");
+                        Debug.Log("+" + ((If)instruction).firstMethod + "+");
+                        Debug.Log("+" + ((If)instruction).secondMethod + "+");
                         if (((If)instruction).firstMethod == "up_tile")
                         {
                             Debug.Log("uP");
@@ -2954,7 +3001,7 @@ public class RunCodeButton : MonoBehaviour
                             }
                         }
                     }
-                   
+
 
 
                 }
@@ -3108,7 +3155,7 @@ public class RunCodeButton : MonoBehaviour
                                 }
                             }
                         }
-                        
+
 
                     }
 
@@ -3139,8 +3186,84 @@ public class RunCodeButton : MonoBehaviour
             if (characterMovement.chestPositionTilemap.HasTile(characterFinalPosition))
             {
                 chestAnimator.SetBool("opening", true);
-            } 
+                //burada bolum gecilmis olacak.
+
+            }
         }
+    }
+
+    public void SubmitLevelAsPassed()
+    {
+        Dictionary<string, object> Level_5 = new Dictionary<string, object>();
+        Level_5["Passed"] = true;
+
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).UpdateChildrenAsync(Level_5);
+
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
+        //{
+        //    if (task.IsFaulted)
+        //    {
+        //        Debug.Log("2");
+        //        // Handle the error...
+        //    }
+        //    else if (task.IsCompleted)
+        //    {
+        //        //DataSnapshot snapshot = task.Result;
+
+        //        Dictionary<string, object> PassedLevel = new Dictionary<string, object>();
+        //        PassedLevel["Passed"] = true;
+
+        //        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(PassedLevel);
+        //    }
+        //});
+    }
+
+    public void ReadProgressionData(string catNumber)
+    {
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.Log("3");
+                DataSnapshot snapshot = task.Result;
+
+                Dictionary<string, object> Level_X = new Dictionary<string, object>();
+                Level_X["passed"] = true;
+                //userData["firstName"] = firstName;
+                //userData["lastName"] = lastName;
+                //userData["e-mail"] = email;
+
+
+
+                //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
+                string userId = user.UserId;
+
+                //Oldu mu???
+                databaseReference.Child("Users").Child("Children").Child(userId).Child("Progression").UpdateChildrenAsync(Level_X);
+
+                //Sayfa degistirince veya yeni kullanici gelince hepsi resetlenecek mi? Kontrol etmek lazim.
+                //if (snapshot.HasChild("Level_1"))
+                //    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
+                //if (snapshot.HasChild("Level_2"))
+                //    Level2Button.GetComponentInChildren<Toggle>().isOn = true;
+                //if (snapshot.HasChild("Level_3"))
+                //    Level3Button.GetComponentInChildren<Toggle>().isOn = true;
+                //if (snapshot.HasChild("Level_4"))
+                //    Level4Button.GetComponentInChildren<Toggle>().isOn = true;
+                //if (snapshot.HasChild("Level_5"))
+                //    Level5Button.GetComponentInChildren<Toggle>().isOn = true;
+                //if (snapshot.HasChild("Level_6"))
+                //    Level6Button.GetComponentInChildren<Toggle>().isOn = true;
+
+            }
+        });
     }
 
 
