@@ -2684,7 +2684,7 @@ GameObject:
   - component: {fileID: 490580662}
   - component: {fileID: 490580661}
   m_Layer: 5
-  m_Name: RegisterPwithC2
+  m_Name: RegisterParentMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13133,7 +13133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1543864248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13155,11 +13155,16 @@ MonoBehaviour:
   registerSingleChildMenu: {fileID: 0}
   emailLoginField: {fileID: 0}
   passwordLoginField: {fileID: 0}
-  firstNameRegisterField: {fileID: 0}
-  lastNameRegisterField: {fileID: 0}
-  emailRegisterField: {fileID: 0}
-  passwordRegisterField: {fileID: 0}
-  confirmPasswordRegisterField: {fileID: 0}
+  parentFirstNameRegisterField: {fileID: 0}
+  parentLastNameRegisterField: {fileID: 0}
+  parentEmailRegisterField: {fileID: 0}
+  parentPasswordRegisterField: {fileID: 0}
+  parentConfirmPasswordRegisterField: {fileID: 0}
+  singleChildFirstNameRegisterField: {fileID: 0}
+  singleChildLastNameRegisterField: {fileID: 0}
+  singleChildEmailRegisterField: {fileID: 0}
+  singleChildPasswordRegisterField: {fileID: 0}
+  singleChildConfirmPasswordRegisterField: {fileID: 0}
   childFirstNameRegisterField: {fileID: 0}
   childLastNameRegisterField: {fileID: 0}
   childEmailRegisterField: {fileID: 0}
@@ -15817,21 +15822,26 @@ MonoBehaviour:
   mainMenu: {fileID: 1543864247}
   loginMenu: {fileID: 1863726937}
   userTypeSelectionMenu: {fileID: 1886287092}
-  registerParentMenu: {fileID: 0}
-  registerChildOfParentMenu: {fileID: 0}
+  registerParentMenu: {fileID: 490580660}
+  registerChildOfParentMenu: {fileID: 2034123222}
   registerSingleChildMenu: {fileID: 2100311463}
   emailLoginField: {fileID: 1864323391}
   passwordLoginField: {fileID: 2011691262}
-  firstNameRegisterField: {fileID: 0}
-  lastNameRegisterField: {fileID: 0}
-  emailRegisterField: {fileID: 0}
-  passwordRegisterField: {fileID: 0}
-  confirmPasswordRegisterField: {fileID: 0}
-  childFirstNameRegisterField: {fileID: 0}
-  childLastNameRegisterField: {fileID: 0}
-  childEmailRegisterField: {fileID: 0}
-  childPasswordRegisterField: {fileID: 0}
-  childConfirmPasswordRegisterField: {fileID: 0}
+  parentFirstNameRegisterField: {fileID: 1555556531}
+  parentLastNameRegisterField: {fileID: 1845194245}
+  parentEmailRegisterField: {fileID: 726916761}
+  parentPasswordRegisterField: {fileID: 1150198365}
+  parentConfirmPasswordRegisterField: {fileID: 887615082}
+  singleChildFirstNameRegisterField: {fileID: 632359211}
+  singleChildLastNameRegisterField: {fileID: 1923637015}
+  singleChildEmailRegisterField: {fileID: 813367519}
+  singleChildPasswordRegisterField: {fileID: 615802728}
+  singleChildConfirmPasswordRegisterField: {fileID: 1213094738}
+  childFirstNameRegisterField: {fileID: 1977633138}
+  childLastNameRegisterField: {fileID: 391097595}
+  childEmailRegisterField: {fileID: 1010514439}
+  childPasswordRegisterField: {fileID: 1332771940}
+  childConfirmPasswordRegisterField: {fileID: 1468445795}
 --- !u!1 &1845194243
 GameObject:
   m_ObjectHideFlags: 0
@@ -18370,7 +18380,7 @@ GameObject:
   - component: {fileID: 2034123224}
   - component: {fileID: 2034123223}
   m_Layer: 5
-  m_Name: RegisterCwithParent
+  m_Name: RegisterChildOfParentMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18928,7 +18938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2100311464
 MonoBehaviour:
   m_ObjectHideFlags: 0

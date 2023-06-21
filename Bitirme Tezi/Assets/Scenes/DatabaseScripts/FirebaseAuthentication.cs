@@ -46,13 +46,22 @@ public class FirebaseAuthentication : MonoBehaviour
 
     // Registration Variables
     [Space]
-    [Header("Registration of a Single Child or a Parent")]
-    public TMP_InputField firstNameRegisterField;
-    public TMP_InputField lastNameRegisterField;
-    public TMP_InputField emailRegisterField;
-    public TMP_InputField passwordRegisterField;
-    public TMP_InputField confirmPasswordRegisterField;
+    [Header("Registration of a Parent")]
+    public TMP_InputField parentFirstNameRegisterField;
+    public TMP_InputField parentLastNameRegisterField;
+    public TMP_InputField parentEmailRegisterField;
+    public TMP_InputField parentPasswordRegisterField;
+    public TMP_InputField parentConfirmPasswordRegisterField;
 
+
+    // Registration Variables
+    [Space]
+    [Header("Registration of a Single Child")]
+    public TMP_InputField singleChildFirstNameRegisterField;
+    public TMP_InputField singleChildLastNameRegisterField;
+    public TMP_InputField singleChildEmailRegisterField;
+    public TMP_InputField singleChildPasswordRegisterField;
+    public TMP_InputField singleChildConfirmPasswordRegisterField;
 
     // Registration Variables
     [Space]
@@ -364,7 +373,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public void RegisterChild()
     {
 
-        StartCoroutine(RegisterChildAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterChildAsync(childFirstNameRegisterField.text, childLastNameRegisterField.text, childEmailRegisterField.text, childPasswordRegisterField.text, childConfirmPasswordRegisterField.text));
     }
 
     private IEnumerator RegisterChildAsync(string firstName, string lastName, string email, string password, string confirmPassword)
@@ -495,7 +504,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public void RegisterParent()
     {
 
-        StartCoroutine(RegisterParentAsync(firstNameRegisterField.text, lastNameRegisterField.text, emailRegisterField.text, passwordRegisterField.text, confirmPasswordRegisterField.text));
+        StartCoroutine(RegisterParentAsync(parentFirstNameRegisterField.text, parentLastNameRegisterField.text, parentEmailRegisterField.text, parentPasswordRegisterField.text, parentConfirmPasswordRegisterField.text));
     }
 
     private IEnumerator RegisterParentAsync(string firstName, string lastName, string email, string password, string confirmPassword)
