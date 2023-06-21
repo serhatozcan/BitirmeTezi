@@ -794,6 +794,12 @@ public class FirebaseAuthentication : MonoBehaviour
         parentId = null;
     }
     //-----------------------------------------------------------------------------
+    public void OpenMainMenu()
+    {
+        TurnOffAllPages();
+        mainMenu.SetActive(true);
+    }
+
     public void OpenRegisterParentMenu()
     {
         TurnOffAllPages();

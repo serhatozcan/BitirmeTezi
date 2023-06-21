@@ -359,7 +359,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1832571344}
         m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: RegisterParent
         m_Mode: 1
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1832571344}
         m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: RegisterChildOfParent
         m_Mode: 1
@@ -3307,9 +3307,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1543864249}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: OpenLoginPage
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: OpenLoginMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5040,9 +5040,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1543864249}
-        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
-        m_MethodName: OpenUserTypeSelection
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: OpenUserTypeSelectionMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5579,9 +5579,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1863726938}
-        m_TargetAssemblyTypeName: LoginMenu, Assembly-CSharp
-        m_MethodName: GoBackToMainMenu
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: OpenMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5889,9 +5889,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
-        m_MethodName: OpenUserTypeSelection
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: OpenUserTypeSelectionMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7382,8 +7382,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FirebaseAuthManager, Assembly-CSharp
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: Login
         m_Mode: 1
         m_Arguments:
@@ -8165,7 +8165,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1543864248}
+      - m_Target: {fileID: 1832571344}
         m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -12567,9 +12567,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1832571344}
         m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
-        m_MethodName: GoBackToRegisterParentMenu
+        m_MethodName: OpenRegisterParentMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13795,9 +13795,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1886287093}
-        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
-        m_MethodName: OpenToMainMenu
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: OpenMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14307,8 +14307,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1886287093}
-        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: OpenRegisterSingleChildMenu
         m_Mode: 1
         m_Arguments:
@@ -15336,7 +15336,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1763182844}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: OpenUserTypeSelectionMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1763182844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17302,8 +17314,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: FirebaseAuthManager, Assembly-CSharp
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: RegisterChild
         m_Mode: 1
         m_Arguments:
@@ -18870,8 +18882,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1886287093}
-        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
         m_MethodName: OpenRegisterParentMenu
         m_Mode: 1
         m_Arguments:
