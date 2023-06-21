@@ -8,7 +8,7 @@ using Firebase.Extensions;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
-
+using UnityEngine.UI;
 
 public class FirebaseAuthentication : MonoBehaviour
 {
@@ -18,6 +18,12 @@ public class FirebaseAuthentication : MonoBehaviour
     public FirebaseAuth auth;
     public FirebaseUser user;
     public DatabaseReference databaseReference;
+
+    [Space]
+    [Header("Children of a Parent")]
+    public GameObject childButtonPrefab;
+    public GameObject childrenOfParent;
+
 
     [Space]
     [Header("Pages")]
@@ -261,13 +267,14 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
                 else if (task.IsCompleted)
                 {
+                    
                     DataSnapshot snapshot = task.Result;
 
                     if (snapshot.HasChild(user.UserId))
                     {
                         emailOfParent = email;
                         passwordOfParent = password;
-                        SceneManager.LoadScene("Children of a Parent Menu");
+                        OpenChildrenOfaParentMenu();
                     }
                 }
             });
@@ -279,6 +286,8 @@ public class FirebaseAuthentication : MonoBehaviour
     //--------------------------+++++++++++++++++++++++++++++++++++++++++++
     public void LoginAgain()
     {
+        Debug.Log(emailOfParent);
+        Debug.Log(passwordOfParent);
         StartCoroutine(LoginAgainAsync(emailOfParent, passwordOfParent));
     }
 
@@ -357,7 +366,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     if (snapshot.HasChild(user.UserId))
                     {
-                        SceneManager.LoadScene("Children of a Parent Menu");
+                        OpenChildrenOfaParentMenu();
                     }
                 }
             });
@@ -846,19 +855,23 @@ public class FirebaseAuthentication : MonoBehaviour
     //public GameObject registerSingleChildMenu;
     public void OpenChildrenOfaParentMenu()
     {
-        SceneManager.LoadScene("Children of a Parent Menu");
-    }
+        //SceneManager.LoadScene("Children of a Parent Menu");
+        TurnOffAllPages();
+        childrenOfParent.SetActive(true);
+        ReadChildrenOfParentData();
+}
 
 
 
     public void TurnOffAllPages()
     {
         mainMenu.SetActive(false);
-        //loginMenu.SetActive(false);
+        loginMenu.SetActive(false);
         userTypeSelectionMenu.SetActive(false);
         registerParentMenu.SetActive(false);
         registerChildOfParentMenu.SetActive(false);
         registerSingleChildMenu.SetActive(false);
+        childrenOfParent.SetActive(false);
     }
 
     public void Quit()
@@ -867,4 +880,86 @@ public class FirebaseAuthentication : MonoBehaviour
         Application.Quit();
     }
 
+
+    //--------------------------
+
+   
+
+    public void ReadChildrenOfParentData()
+    {
+        Debug.Log("1");
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        databaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                Debug.Log("3");
+                DataSnapshot snapshot = task.Result;
+
+
+                foreach (DataSnapshot child in snapshot.Children)
+                {
+                    //bu sekilde her bir cocugun key'ine ulasiliyor
+                    Debug.Log(child.Key);
+
+                    databaseReference.Child("Users").Child("Children").Child(child.Key).Child("User Data").GetValueAsync().ContinueWithOnMainThread(task2 =>
+                    {
+                        if (task2.IsFaulted)
+                        {
+                            Debug.Log("2");
+                            // Handle the error...
+                        }
+                        else if (task2.IsCompleted)
+                        {
+                            DataSnapshot dataSnapshot = task2.Result;
+
+                            string firstName = null;
+                            string lastName = null;
+
+                            foreach (DataSnapshot userData in dataSnapshot.Children)
+                            {
+                                Debug.Log(userData.Key);
+                                //if (userData.Key != "firstName" || userData.Key != "lastName")
+                                //    continue;
+                                if (userData.Key == "firstName")
+                                    firstName = userData.Value.ToString();
+                                if (userData.Key == "lastName")
+                                    lastName = userData.Value.ToString();
+
+                            }
+
+                            Debug.Log(firstName);
+                            Debug.Log(lastName);
+                            //burada buton olusturulacak panele eklenecek
+                            GameObject button = (GameObject)Instantiate(childButtonPrefab);
+                            button.transform.SetParent(childrenOfParent.transform);//Setting button parent
+                            button.GetComponent<RectTransform>().localScale = Vector3.one;
+                            //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
+                            //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
+
+                            button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
+                                                                                                        //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
+                            button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
+
+
+                        }
+                    });
+                }
+
+
+
+            }
+        });
+    }
+    void OnClick(string childKey)
+    {
+        //OpenProgressionOfChildCanvas();
+        //ReadProgressionData(childKey);
+    }
 }
