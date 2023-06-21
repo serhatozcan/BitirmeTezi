@@ -3429,6 +3429,8 @@ MonoBehaviour:
   dependencyStatus: 0
   emailLoginField: {fileID: 0}
   passwordLoginField: {fileID: 0}
+  registerParentMenu: {fileID: 0}
+  registerChildMenu: {fileID: 0}
   firstNameRegisterField: {fileID: 0}
   lastNameRegisterField: {fileID: 0}
   emailRegisterField: {fileID: 0}
@@ -3439,7 +3441,6 @@ MonoBehaviour:
   childEmailRegisterField: {fileID: 1573204921}
   childPasswordRegisterField: {fileID: 922874426}
   childConfirmPasswordRegisterField: {fileID: 184283419}
-  parentId: 
 --- !u!4 &1334470094
 Transform:
   m_ObjectHideFlags: 0
@@ -5299,7 +5300,7 @@ GameObject:
   - component: {fileID: 1959640761}
   - component: {fileID: 1959640760}
   m_Layer: 5
-  m_Name: RegisterMenu
+  m_Name: RegisterSingleChildMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/User Type Selection.unity
     guid: 8b8fe7bb1ec9d4f4bbc7ab8c5f717560
   - enabled: 1
-    path: Assets/Scenes/Menu/Register Parent with Child Menu.unity
+    path: Assets/Scenes/Menu/Real Main Menu.unity
     guid: a9c853ef04a673245a78f4ed8098a9f0
   - enabled: 1
     path: Assets/Scenes/Menu/Register Child of a Parent Menu.unity

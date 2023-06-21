@@ -19,16 +19,30 @@ public class FirebaseAuthentication : MonoBehaviour
     public FirebaseUser user;
     public DatabaseReference databaseReference;
 
+    [Space]
+    [Header("Pages")]
+    [Space]
+    [Header("Main Menu")]
+    public GameObject mainMenu;
+    [Header("Login Menu")]
+    public GameObject loginMenu;
+    [Header("User Type Selection Menu")]
+    public GameObject userTypeSelectionMenu;
+    [Space]
+    [Header("Registration Pages of Child with Parent")]
+    public GameObject registerParentMenu;
+    public GameObject registerChildOfParentMenu;
+    [Space]
+    [Header("Registration Page of a Child without Parent")]
+    public GameObject registerSingleChildMenu;
+
+
     // Login Variables
     [Space]
     [Header("Login")]
     public TMP_InputField emailLoginField;
     public TMP_InputField passwordLoginField;
 
-    [Space]
-    [Header("Registration Pages of Child with Parent")]
-    public GameObject registerParentMenu;
-    public GameObject registerChildMenu;
 
     // Registration Variables
     [Space]
@@ -771,28 +785,65 @@ public class FirebaseAuthentication : MonoBehaviour
         parentId = null;
     }
     //-----------------------------------------------------------------------------
-    public void GoBackToRegisterParentMenu()
+    public void OpenRegisterParentMenu()
     {
-        registerChildMenu.SetActive(false);
+        TurnOffAllPages();
         registerParentMenu.SetActive(true);
     }
 
     public void OpenRegisterChildWithParentMenu()
     {
-        registerParentMenu.SetActive(false);
-        registerChildMenu.SetActive(true);
+        TurnOffAllPages();
+        registerChildOfParentMenu.SetActive(true);
     }
-    //-----------------------------------------------------------------------------
+    public void SignOut()
+    {
+        auth.SignOut();
+        TurnOffAllPages();
+        mainMenu.SetActive(true);
+    }
+    public void OpenRegisterSingleChildMenu()
+    {
+        TurnOffAllPages();
+        registerSingleChildMenu.SetActive(true);
+    }
 
-    public void GoBackToChildrenOfaParentMenu()
+    public void OpenLoginMenu()
+    {
+        TurnOffAllPages();
+        loginMenu.SetActive(true);
+    }
+    public void OpenUserTypeSelectionMenu()
+    {
+        TurnOffAllPages();
+        userTypeSelectionMenu.SetActive(true);
+    }
+
+    //public GameObject mainMenu;
+    //[Header("User Type Selection Menu")]
+    //public GameObject userTypeSelection;
+    //[Space]
+    //[Header("Registration Pages of Child with Parent")]
+    //public GameObject registerParentMenu;
+    //public GameObject registerChildOfParentMenu;
+    //[Space]
+    //[Header("Registration Page of a Child without Parent")]
+    //public GameObject registerSingleChildMenu;
+    public void OpenChildrenOfaParentMenu()
     {
         SceneManager.LoadScene("Children of a Parent Menu");
     }
 
-    public void SignOut()
+
+
+    public void TurnOffAllPages()
     {
-        auth.SignOut();
-        SceneManager.LoadScene("Login Menu");
+        mainMenu.SetActive(false);
+        //loginMenu.SetActive(false);
+        userTypeSelectionMenu.SetActive(false);
+        registerParentMenu.SetActive(false);
+        registerChildOfParentMenu.SetActive(false);
+        registerSingleChildMenu.SetActive(false);
     }
 
     public void Quit()
