@@ -857,8 +857,9 @@ public class FirebaseAuthentication : MonoBehaviour
     {
         //SceneManager.LoadScene("Children of a Parent Menu");
         TurnOffAllPages();
-        childrenOfParent.SetActive(true);
         ReadChildrenOfParentData();
+        childrenOfParent.SetActive(true);
+        
 }
 
 
