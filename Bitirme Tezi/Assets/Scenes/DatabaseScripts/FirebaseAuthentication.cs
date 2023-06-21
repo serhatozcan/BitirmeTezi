@@ -7,6 +7,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 
 
 public class FirebaseAuthentication : MonoBehaviour
@@ -53,6 +54,12 @@ public class FirebaseAuthentication : MonoBehaviour
     [Space]
     private string parentId;
     private string userId;
+
+    //Firebase kullanirken yeni kullanici kaydoldugunda onceki kullanici hesabindan otomatik olarak cikiliyor ve yeni kullanicinin hesabina giris yapiliyor.
+    //Bundan dolayı parent bir child kaydettiginde parent'in hesabina tekrar giris yapmak icin kullanilacaklar.
+    private string emailOfParent;
+    private string passwordOfParent;
+
 
     private void Awake()
     {
@@ -244,6 +251,97 @@ public class FirebaseAuthentication : MonoBehaviour
 
         }
     }
+    //--------------------------+++++++++++++++++++++++++++++++++++++++++++
+    public void LoginAgain()
+    {
+        StartCoroutine(LoginAgainAsync(emailOfParent, passwordOfParent));
+    }
+
+    private IEnumerator LoginAgainAsync(string email, string password)
+    {
+        var loginTask = auth.SignInWithEmailAndPasswordAsync(email, password);
+
+        yield return new WaitUntil(() => loginTask.IsCompleted);
+
+        if (loginTask.Exception != null)
+        {
+            Debug.LogError(loginTask.Exception);
+
+            FirebaseException firebaseException = loginTask.Exception.GetBaseException() as FirebaseException;
+            AuthError authError = (AuthError)firebaseException.ErrorCode;
+
+
+            string failedMessage = "Giriş başarısız oldu: ";
+
+            switch (authError)
+            {
+                case AuthError.InvalidEmail:
+                    failedMessage += "E-posta geçersiz";
+                    break;
+                case AuthError.WrongPassword:
+                    failedMessage += "Şifre yanlış";
+                    break;
+                case AuthError.MissingEmail:
+                    failedMessage += "E-posta bulunamadı";
+                    break;
+                case AuthError.MissingPassword:
+                    failedMessage += "Şifre bulunamadı";
+                    break;
+                default:
+                    failedMessage = "Giriş başarısız oldu";
+                    break;
+            }
+
+            Debug.Log(failedMessage);
+        }
+        else
+        {
+            user = loginTask.Result.User;
+
+            //Debug.LogFormat("{0} giriş yaptınız", user.DisplayName);
+            Debug.Log("Hoş geldiniz " + user.DisplayName);
+
+            databaseReference.Child("Users").Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("2");
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+
+                    if (snapshot.HasChild(user.UserId))
+                    {
+                        SceneManager.LoadScene("Subjects Menu");
+                    }
+                }
+            });
+
+            databaseReference.Child("Users").Child("Parents").GetValueAsync().ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    Debug.Log("2");
+                    // Handle the error...
+                }
+                else if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+
+                    if (snapshot.HasChild(user.UserId))
+                    {
+                        SceneManager.LoadScene("Children of a Parent Menu");
+                    }
+                }
+            });
+
+
+
+        }
+    }
+
 
 
     //-----------------------------------------------------------------------------
@@ -267,7 +365,7 @@ public class FirebaseAuthentication : MonoBehaviour
         {
             Debug.LogError("E-posta boş bırakılamaz");
         }
-        else if (passwordRegisterField.text != confirmPasswordRegisterField.text)
+        else if (password != confirmPassword)
         {
             Debug.LogError("Şifreler aynı değil");
         }
@@ -398,7 +496,7 @@ public class FirebaseAuthentication : MonoBehaviour
         {
             Debug.LogError("E-posta boş bırakılamaz");
         }
-        else if (passwordRegisterField.text != confirmPasswordRegisterField.text)
+        else if (password != confirmPassword)
         {
             Debug.LogError("Şifreler aynı değil");
         }
@@ -483,7 +581,8 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
                 else
                 {
-
+                    emailOfParent = email;
+                    passwordOfParent = password;
 
                     Dictionary<string, object> userData = new Dictionary<string, object>();
                     userData["firstName"] = firstName;
@@ -523,7 +622,7 @@ public class FirebaseAuthentication : MonoBehaviour
         {
             Debug.LogError("E-posta boş bırakılamaz");
         }
-        else if (passwordRegisterField.text != confirmPasswordRegisterField.text)
+        else if (password != confirmPassword)
         {
             Debug.LogError("Şifreler aynı değil");
         }
@@ -646,7 +745,21 @@ public class FirebaseAuthentication : MonoBehaviour
 
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
-                    SceneManager.LoadScene("Login Menu");
+
+                    //Firebase otomatik hesap degistirdigi icin gerekli
+                    LoginAgain();
+                        
+
+                    //bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
+                    //if (signedIn)
+                    //{
+                    //    SceneManager.LoadScene("Children of a Parent Menu");
+                    //}
+                    //else
+                    //{
+                    //    SceneManager.LoadScene("Login Menu");
+                    //}
+
 
 
                 }
@@ -668,4 +781,22 @@ public class FirebaseAuthentication : MonoBehaviour
         registerChildMenu.SetActive(true);
     }
     //-----------------------------------------------------------------------------
+
+    public void GoBackToChildrenOfaParentMenu()
+    {
+        SceneManager.LoadScene("Children of a Parent Menu");
+    }
+
+    public void SignOut()
+    {
+        auth.SignOut();
+        SceneManager.LoadScene("Login Menu");
+    }
+
+    public void Quit()
+    {
+        auth.SignOut();
+        Application.Quit();
+    }
+
 }

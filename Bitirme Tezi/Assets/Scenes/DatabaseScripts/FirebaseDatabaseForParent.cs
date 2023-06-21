@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor.Animations;
+using UnityEngine.SceneManagement;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
 public class FirebaseDatabaseForParent : MonoBehaviour
@@ -90,13 +91,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     public GameObject Cat6_Level6;
 
 
-    private List<List<GameObject>> categories;
-    private List<GameObject> Cat1Levels;
-    private List<GameObject> Cat2Levels;
-    private List<GameObject> Cat3Levels;
-    private List<GameObject> Cat4Levels;
-    private List<GameObject> Cat5Levels;
-    private List<GameObject> Cat6Levels;
+   
 
 
     public void Start()
@@ -107,15 +102,9 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-        categories = new List<List<GameObject>>();
-        Cat1Levels = new List<GameObject>();
-        Cat2Levels = new List<GameObject>();
-        Cat3Levels = new List<GameObject>();
-        Cat4Levels = new List<GameObject>();
-        Cat5Levels = new List<GameObject>();
-        Cat6Levels = new List<GameObject>();
+        
 
-        AddLevelsToList();
+        
         //ReadProgressionData(categoryNumber);
         ReadChildrenOfParentData();
     }
@@ -169,66 +158,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     }
 
 
-    public void AddLevelsToList()
-    {
-        //Category1.Find("Level 1").GetComponentInChildren<Button>().onClick.AddListener(() => OnClickOpenLevel("1","1"));
-        //GameObject.Find("Category1/Level 1/Button").GetComponent<Button>().onClick.AddListener(() => OnClickOpenLevel("1", "1"));
-
-
-        categories.Add(Cat1Levels);
-        categories.Add(Cat2Levels);
-        categories.Add(Cat3Levels);
-        categories.Add(Cat4Levels);
-        categories.Add(Cat5Levels);
-        categories.Add(Cat6Levels);
-
-
-        Cat1Levels.Add(Cat1_Level1);
-        Cat1Levels.Add(Cat1_Level2);
-        Cat1Levels.Add(Cat1_Level3);
-        Cat1Levels.Add(Cat1_Level4);
-        Cat1Levels.Add(Cat1_Level5);
-        Cat1Levels.Add(Cat1_Level6);
-
-        Cat2Levels.Add(Cat2_Level1);
-        Cat2Levels.Add(Cat2_Level2);
-        Cat2Levels.Add(Cat2_Level3);
-        Cat2Levels.Add(Cat2_Level4);
-        Cat2Levels.Add(Cat2_Level5);
-        Cat2Levels.Add(Cat2_Level6);
-
-        Cat3Levels.Add(Cat3_Level1);
-        Cat3Levels.Add(Cat3_Level2);
-        Cat3Levels.Add(Cat3_Level3);
-        Cat3Levels.Add(Cat3_Level4);
-        Cat3Levels.Add(Cat3_Level5);
-        Cat3Levels.Add(Cat3_Level6);
-
-        Cat4Levels.Add(Cat4_Level1);
-        Cat4Levels.Add(Cat4_Level2);
-        Cat4Levels.Add(Cat4_Level3);
-        Cat4Levels.Add(Cat4_Level4);
-        Cat4Levels.Add(Cat4_Level5);
-        Cat4Levels.Add(Cat4_Level6);
-
-        Cat5Levels.Add(Cat5_Level1);
-        Cat5Levels.Add(Cat5_Level2);
-        Cat5Levels.Add(Cat5_Level3);
-        Cat5Levels.Add(Cat5_Level4);
-        Cat5Levels.Add(Cat5_Level5);
-        Cat5Levels.Add(Cat5_Level6);
-
-        Cat6Levels.Add(Cat6_Level1);
-        Cat6Levels.Add(Cat6_Level2);
-        Cat6Levels.Add(Cat6_Level3);
-        Cat6Levels.Add(Cat6_Level4);
-        Cat6Levels.Add(Cat6_Level5);
-        Cat6Levels.Add(Cat6_Level6);
-
-
-
-        //Debug.Log("cat1 " +Cat1Levels.Count);
-    }
+   
 
     void OnClickOpenLevel(string catNumber, string levelNumber)
     {
@@ -253,8 +183,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         //burada listleri dolasmam lazim
 
         //kategori sayisi ve level sayilarini bir yerden cekmem lazim
-        Debug.Log(categories.Count);
-        Debug.Log(categories[0].Count);
+        
 
 
         progressionDatabaseRef.GetValueAsync().ContinueWithOnMainThread(task =>
@@ -466,6 +395,34 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         childrenOfParentCanvas.SetActive(false);
         progressionOfChildCanvas.SetActive(true);
 
+    }
 
+
+    //-------------------------------------------
+    
+    public void SignOut()
+    {
+        auth.SignOut();
+        SceneManager.LoadScene("Login Menu");
+    }
+
+    public void OpenUserDataPage()
+    {
+        
+    }
+
+    public void OpenAddChildPage()
+    {
+        SceneManager.LoadScene("Add New Child of a Parent Menu");
+    }
+
+    public void DropDownMenu(int val)
+    {
+        //if (val == 1)
+        //    OpenManageChildrenPage();
+        //else if (val == 2)
+        //    OpenUserDataPage();
+        //else if (val == 3)
+            
     }
 }

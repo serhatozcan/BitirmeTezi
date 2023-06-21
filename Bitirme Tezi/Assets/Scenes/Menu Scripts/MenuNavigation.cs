@@ -13,6 +13,7 @@ public class MenuNavigation : MonoBehaviour
     
     public void Quit()
     {
+        
         Application.Quit();
     }
 

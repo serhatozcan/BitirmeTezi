@@ -344,7 +344,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1959640764}
         m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
-        m_MethodName: OpenRegisterChildMenu
+        m_MethodName: OpenRegisterSingleChildMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
