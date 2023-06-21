@@ -33607,6 +33607,43 @@ MonoBehaviour:
   childEmailRegisterField: {fileID: 0}
   childPasswordRegisterField: {fileID: 0}
   childConfirmPasswordRegisterField: {fileID: 0}
+  progressionOfChildCanvas: {fileID: 0}
+  Cat1_Level1: {fileID: 0}
+  Cat1_Level2: {fileID: 0}
+  Cat1_Level3: {fileID: 0}
+  Cat1_Level4: {fileID: 0}
+  Cat1_Level5: {fileID: 0}
+  Cat1_Level6: {fileID: 0}
+  Cat2_Level1: {fileID: 0}
+  Cat2_Level2: {fileID: 0}
+  Cat2_Level3: {fileID: 0}
+  Cat2_Level4: {fileID: 0}
+  Cat2_Level5: {fileID: 0}
+  Cat2_Level6: {fileID: 0}
+  Cat3_Level1: {fileID: 0}
+  Cat3_Level2: {fileID: 0}
+  Cat3_Level3: {fileID: 0}
+  Cat3_Level4: {fileID: 0}
+  Cat3_Level5: {fileID: 0}
+  Cat3_Level6: {fileID: 0}
+  Cat4_Level1: {fileID: 0}
+  Cat4_Level2: {fileID: 0}
+  Cat4_Level3: {fileID: 0}
+  Cat4_Level4: {fileID: 0}
+  Cat4_Level5: {fileID: 0}
+  Cat4_Level6: {fileID: 0}
+  Cat5_Level1: {fileID: 0}
+  Cat5_Level2: {fileID: 0}
+  Cat5_Level3: {fileID: 0}
+  Cat5_Level4: {fileID: 0}
+  Cat5_Level5: {fileID: 0}
+  Cat5_Level6: {fileID: 0}
+  Cat6_Level1: {fileID: 0}
+  Cat6_Level2: {fileID: 0}
+  Cat6_Level3: {fileID: 0}
+  Cat6_Level4: {fileID: 0}
+  Cat6_Level5: {fileID: 0}
+  Cat6_Level6: {fileID: 0}
 --- !u!114 &1543864249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40581,6 +40618,43 @@ MonoBehaviour:
   childEmailRegisterField: {fileID: 1010514439}
   childPasswordRegisterField: {fileID: 1332771940}
   childConfirmPasswordRegisterField: {fileID: 1468445795}
+  progressionOfChildCanvas: {fileID: 232957999}
+  Cat1_Level1: {fileID: 19768581}
+  Cat1_Level2: {fileID: 1469023023}
+  Cat1_Level3: {fileID: 1305920112}
+  Cat1_Level4: {fileID: 88595668}
+  Cat1_Level5: {fileID: 354140429}
+  Cat1_Level6: {fileID: 1210247789}
+  Cat2_Level1: {fileID: 254348734}
+  Cat2_Level2: {fileID: 509144884}
+  Cat2_Level3: {fileID: 275806212}
+  Cat2_Level4: {fileID: 941590144}
+  Cat2_Level5: {fileID: 1497518601}
+  Cat2_Level6: {fileID: 233719765}
+  Cat3_Level1: {fileID: 907299993}
+  Cat3_Level2: {fileID: 210318311}
+  Cat3_Level3: {fileID: 764631453}
+  Cat3_Level4: {fileID: 713408909}
+  Cat3_Level5: {fileID: 218813211}
+  Cat3_Level6: {fileID: 1595067851}
+  Cat4_Level1: {fileID: 666374117}
+  Cat4_Level2: {fileID: 36447251}
+  Cat4_Level3: {fileID: 1567356919}
+  Cat4_Level4: {fileID: 905515915}
+  Cat4_Level5: {fileID: 237298604}
+  Cat4_Level6: {fileID: 467218258}
+  Cat5_Level1: {fileID: 25943064}
+  Cat5_Level2: {fileID: 217678386}
+  Cat5_Level3: {fileID: 648132443}
+  Cat5_Level4: {fileID: 1401057281}
+  Cat5_Level5: {fileID: 327407537}
+  Cat5_Level6: {fileID: 773640435}
+  Cat6_Level1: {fileID: 1949331963}
+  Cat6_Level2: {fileID: 1673928372}
+  Cat6_Level3: {fileID: 1874605432}
+  Cat6_Level4: {fileID: 2074356085}
+  Cat6_Level5: {fileID: 1090892193}
+  Cat6_Level6: {fileID: 868867745}
 --- !u!1 &1833581735
 GameObject:
   m_ObjectHideFlags: 0
