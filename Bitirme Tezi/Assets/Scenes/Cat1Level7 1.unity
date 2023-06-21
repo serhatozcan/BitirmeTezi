@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 739124559}
+      - m_Target: {fileID: 739124558}
         m_TargetAssemblyTypeName: TabStructure, Assembly-CSharp
         m_MethodName: ShowPage2
         m_Mode: 1
@@ -2620,7 +2620,6 @@ GameObject:
   - component: {fileID: 739124555}
   - component: {fileID: 739124554}
   - component: {fileID: 739124558}
-  - component: {fileID: 739124559}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2724,25 +2723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 739124553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a4663f37cc44d4e92fbc65435c40a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputField1: {fileID: 675919796}
-  inputField2: {fileID: 1350694834}
-  character: {fileID: 1568619289}
-  chest: {fileID: 243447495}
-  chestAnimator: {fileID: 0}
-  conditionRunList: 
---- !u!114 &739124559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739124553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d6a5a99325987a48adf98c729f2dfd4, type: 3}
+  m_Script: {fileID: 11500000, guid: d02ae492d283f7d4384af1e0aa4ec3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tabButton1: {fileID: 1374722629}
@@ -3040,19 +3021,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 739124558}
-        m_TargetAssemblyTypeName: RunCodeButton, Assembly-CSharp
-        m_MethodName: ReadInputPage2
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1350694834}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 739124558}
+      - m_Target: {fileID: 1047875594}
         m_TargetAssemblyTypeName: RunCodeButton, Assembly-CSharp
         m_MethodName: ReadInputPage1
         m_Mode: 2
@@ -3064,7 +3033,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 739124558}
+      - m_Target: {fileID: 1047875594}
+        m_TargetAssemblyTypeName: RunCodeButton, Assembly-CSharp
+        m_MethodName: ReadInputPage2
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1350694834}
+          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1047875594}
         m_TargetAssemblyTypeName: RunCodeButton, Assembly-CSharp
         m_MethodName: RunCode
         m_Mode: 1
@@ -3126,6 +3107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c305bbed806ae498c7e1a53411dfb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputField1: {fileID: 0}
+  inputField2: {fileID: 0}
+  character: {fileID: 1568619289}
+  chest: {fileID: 243447495}
+  chestAnimator: {fileID: 0}
+  conditionRunList: 
 --- !u!1 &1102573213
 GameObject:
   m_ObjectHideFlags: 0
@@ -4844,7 +4831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1350694833
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5086,7 +5073,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 739124559}
+      - m_Target: {fileID: 739124558}
         m_TargetAssemblyTypeName: TabStructure, Assembly-CSharp
         m_MethodName: ShowPage1
         m_Mode: 1
@@ -5510,7 +5497,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1568619289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9e242ab476ae3f49817b46d5b80befc, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a2e3450059ecac4fbafd2b66ae4e027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 1102573216}
@@ -5527,7 +5514,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1568619289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdcf1f86e458a2045acb036e394ff71a, type: 3}
+  m_Script: {fileID: 11500000, guid: d0b38e44d40ede249a7ede6779debaea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
