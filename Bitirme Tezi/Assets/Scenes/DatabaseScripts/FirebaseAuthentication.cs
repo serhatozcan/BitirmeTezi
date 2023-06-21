@@ -242,6 +242,8 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     if (snapshot.HasChild(user.UserId))
                     {
+                        emailOfParent = email;
+                        passwordOfParent = password;
                         SceneManager.LoadScene("Children of a Parent Menu");
                     }
                 }
