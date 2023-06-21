@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/Add New Child of a Parent Menu.unity
     guid: 9a92312fac73b904ab5d87f83bc22b20
+  - enabled: 1
+    path: Assets/Scenes/Cat1Level5.unity
+    guid: f671c073369adf2439d1f914c86d8350
   m_configObjects: {}

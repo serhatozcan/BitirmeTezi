@@ -896,16 +896,7 @@ public class FirebaseAuthentication : MonoBehaviour
         userTypeSelectionMenu.SetActive(true);
     }
 
-    //public GameObject mainMenu;
-    //[Header("User Type Selection Menu")]
-    //public GameObject userTypeSelection;
-    //[Space]
-    //[Header("Registration Pages of Child with Parent")]
-    //public GameObject registerParentMenu;
-    //public GameObject registerChildOfParentMenu;
-    //[Space]
-    //[Header("Registration Page of a Child without Parent")]
-    //public GameObject registerSingleChildMenu;
+   
     public void OpenChildrenOfaParentMenu()
     {
         //SceneManager.LoadScene("Children of a Parent Menu");
