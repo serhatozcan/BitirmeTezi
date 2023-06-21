@@ -1640,8 +1640,9 @@ public class RunCodeButton : MonoBehaviour
         fruits = new string[] { "apple", "banana", "kiwi" };
         conditionRunList = new List<bool>();
         //simdilik burada. sonradan unity uzerinden verilecek.
+        databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         catNumber = 1;
-        levelNumber = 7;
+        levelNumber = 5;
 
 
         InitializeFirebase();
@@ -3187,7 +3188,7 @@ public class RunCodeButton : MonoBehaviour
             {
                 chestAnimator.SetBool("opening", true);
                 //burada bolum gecilmis olacak.
-
+                SubmitLevelAsPassed();
             }
         }
     }
@@ -3197,8 +3198,8 @@ public class RunCodeButton : MonoBehaviour
         Dictionary<string, object> Level_5 = new Dictionary<string, object>();
         Level_5["Passed"] = true;
 
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).UpdateChildrenAsync(Level_5);
-
+        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).UpdateChildrenAsync(Level_5);
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_"+catNumber).Child("Level_"+levelNumber).UpdateChildrenAsync(Level_5);
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
         //{
         //    if (task.IsFaulted)
