@@ -1602,12 +1602,14 @@ public class RunCodeButton : MonoBehaviour
     FirebaseUser user;
     DatabaseReference databaseReference;
 
-
+    [Header("Category and Level")]
     public int catNumber;
     public int levelNumber;
 
-    public List<Instruction> instructionList;
-
+    
+    private List<Instruction> instructionList;
+    [Space]
+    [Header("GameObjects")]
     public TMP_InputField inputField1;
     public TMP_InputField inputField2;
     [SerializeField]
@@ -1641,8 +1643,8 @@ public class RunCodeButton : MonoBehaviour
         conditionRunList = new List<bool>();
         //simdilik burada. sonradan unity uzerinden verilecek.
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        catNumber = 1;
-        levelNumber = 5;
+        //catNumber = 1;
+        //levelNumber = 7;
 
 
         InitializeFirebase();
@@ -2847,6 +2849,18 @@ public class RunCodeButton : MonoBehaviour
                 Debug.Log(v.ToString());
 
 
+            //Burada bolum ozel kontrolleri yapilabilir.
+
+            //CheckCat1Level7Conditions(instructionList);
+            CheckLevelConditions(catNumber, levelNumber, instructionList);
+            //if(instructionList.Count > 0)
+            //{
+            //if (instructionList[0].GetType() != typeof(For))
+            //{
+            //    Debug.Log("Ýlk komutun bir for olmasý gerekiyor.");
+            //}
+            //}
+
             bool isThereIf = false;
             bool didPreviousConditionsRun = false;
             foreach (Instruction instruction in instructionList)
@@ -3183,6 +3197,7 @@ public class RunCodeButton : MonoBehaviour
             //karakter sandigin ustundeyse 
             //chestAnimator.SetBool("opening", true);
 
+            //BOLUM GECME KISMI
             Vector3Int characterFinalPosition = characterMovement.groundTilemap.WorldToCell(characterMovement.transform.position);
             if (characterMovement.chestPositionTilemap.HasTile(characterFinalPosition))
             {
@@ -3192,7 +3207,76 @@ public class RunCodeButton : MonoBehaviour
             }
         }
     }
+    //----------------------------------------------------------------------
+    //Check Level Conditions
+    public void CheckCat1Level7Conditions(List<Instruction> instructionList)
+    {
+        if (instructionList[0].GetType() != typeof(For))
+        {
+            Debug.Log("Ýlk komutun bir for olmasý gerekiyor.");
+        }
+    }
 
+    public void CheckLevelConditions(int catNumber, int levelNumber, List<Instruction> instructionList)
+    {
+        if(catNumber == 1)
+        {
+            if(levelNumber == 1)
+            {
+
+            }
+            else if(levelNumber == 2)
+            {
+
+            }
+            else if (levelNumber == 3)
+            {
+
+            }
+            else if (levelNumber == 4)
+            {
+
+            }
+            else if (levelNumber == 5)
+            {
+
+            }
+            else if (levelNumber == 6)
+            {
+
+            }
+            else if (levelNumber == 7)
+            {
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("Ýlk komutun bir for olmasý gerekiyor.");
+                }
+            }
+        }
+        else if (catNumber == 2)
+        {
+
+        }
+        else if (catNumber == 3)
+        {
+
+        }
+        else if (catNumber == 4)
+        {
+
+        }
+        else if (catNumber == 5)
+        {
+
+        }
+        else if (catNumber == 6)
+        {
+
+        }
+        
+    }
+
+    //-----------------------------------------------------------------------
     public void SubmitLevelAsPassed()
     {
         Dictionary<string, object> Level_5 = new Dictionary<string, object>();

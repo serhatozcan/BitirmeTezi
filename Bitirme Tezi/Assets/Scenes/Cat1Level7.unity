@@ -2727,6 +2727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a4663f37cc44d4e92fbc65435c40a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  catNumber: 1
+  levelNumber: 7
   inputField1: {fileID: 675919796}
   inputField2: {fileID: 1350694834}
   character: {fileID: 1568619289}
