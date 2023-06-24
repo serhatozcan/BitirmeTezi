@@ -6104,7 +6104,7 @@ PrefabInstance:
     - target: {fileID: 2432669638419263385, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
       value: "from Character import character\n\nif character.up_tile().is_water():\n 
-        swim_up()\nelse:\n  move_right()"
+        swim_up()\nelif character.right_tile().is_ground():\n  move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638644757541, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
