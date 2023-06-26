@@ -833,8 +833,9 @@ public class RunCodeButton : MonoBehaviour
             {
                 initAssignments[i] = initAssignments[i].Trim();
                 //Aslinda variablecheck kullanimi yanlis. Ornek olarak integer deger verilebilir. BURADA DOGRUDAN GEREKLI KELIMELERI KONTROL EDEBILIRIM. Bunun icin bolume ozel metodlar kullanabilirim.
-                if (VariableCheck(initAssignments[i]))
-                    Debug.Log("hata");
+                
+                //if (VariableCheck(initAssignments[i]))
+                //    Debug.Log("hata");
             }
 
             if (initAssignments.Count != initParameters.Length - 1)
@@ -949,7 +950,7 @@ public class RunCodeButton : MonoBehaviour
                     {
 
                         int c = 0;
-                        while (rows2[i][c] == ' ')
+                        while (rows1[i][c] == ' ')
                         {
                             c++;
                         }
@@ -957,14 +958,14 @@ public class RunCodeButton : MonoBehaviour
 
 
                         //ilk satirin class oldugu varsayiliyor.
-                        if (rowIndentation != indentation + n)
+                        if (rowIndentation != indentation)
                         {
                             Debug.Log("Indentation hatasi");
                         }
 
 
                         //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
-                        string trimmedRow = rows2[i].Trim();
+                        string trimmedRow = rows1[i].Trim();
 
                         string[] classInstanceParts;
                         if (!trimmedRow.Contains("="))
@@ -980,6 +981,7 @@ public class RunCodeButton : MonoBehaviour
 
                             if (!VariableCheck(classInstanceName))
                             {
+                                Debug.Log("Class instance name:" + classInstanceName + "+");
                                 Debug.Log("hata");
                             }
                             //else if(classInstanceRightPart.Contains("="))
@@ -1001,7 +1003,8 @@ public class RunCodeButton : MonoBehaviour
                                 }
                                 else
                                 {
-                                    
+                                    //constructor part'larinda normalde string, integer veya double deger olabilir.
+                                    //ben buyuk ihtimalle sadece string olan classlar kullanacagim. yine de digerleri de implement edilebilir.
                                 }
                             }
                         }
