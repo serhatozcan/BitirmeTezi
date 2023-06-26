@@ -2,7 +2,9 @@
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
+using Mono.Cecil.Cil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using System.Linq;
@@ -12,7 +14,7 @@ using TMPro;
 
 using UnityEngine;
 
-public abstract class Instruction
+public abstract class Instruction : MonoBehaviour
 {
     public int level;
     public abstract void Run();
@@ -27,12 +29,14 @@ public abstract class HolderInstruction : Instruction
 //sadece sayýyla dönen for loop. boolean olacaksa ayrý class oluþturulabilir.
 public class For : HolderInstruction
 {
+    RunCodeButton runCodeButton;
     public CharacterMovementController characterMovement;
     private int iterationCount;
     //private List<Instruction> instructions;
 
-    public For(CharacterMovementController characterMovement, int iterationCount, int level)
+    public For(RunCodeButton runCodeButton, CharacterMovementController characterMovement, int iterationCount, int level)
     {
+        this.runCodeButton = runCodeButton;
         this.characterMovement = characterMovement;
         this.iterationCount = iterationCount;
         instructions = new List<Instruction>();
@@ -52,9 +56,16 @@ public class For : HolderInstruction
             bool isThereIf = false;
             bool didPreviousConditionsRun = false;
 
-            RunCodeButton.RunInstructions(instructions);
+            RunCodeButton runCodeButton = new RunCodeButton();
+            runCodeButton.RunInstructions(instructions);
 
+            //StartCoroutine(runCodeButton.WaitFor1SecondCoroutine(runCodeButton, instructions));
 
+            //StartCoroutine(runCodeButton.RunInstructions1Second(instructions));
+            //StartCoroutine(runCodeButton.RunInstructionsWithDelay(instructions));
+
+            //runCodeButton.RunInstructions(instructions);
+            //runCodeButton.WaitFor1Second(runCodeButton, instructions);
         }
     }
 
@@ -94,9 +105,11 @@ public class While : HolderInstruction
     public override void Run()
     {
 
-       // while()
-        RunCodeButton.RunInstructions(instructions);
-
+        // while()
+        //RunCodeButton.RunInstructions(instructions);
+        RunCodeButton runCodeButton = new RunCodeButton();
+        runCodeButton.RunInstructions(instructions);
+        //StartCoroutine(WaitFor1SecondCoroutine(runCodeButton, instructions));
     }
 }
 
@@ -148,13 +161,15 @@ public class If : HolderInstruction
         Debug.Log(instructions[0].ToString());
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
-        RunCodeButton.RunInstructions(instructions);
-
+        //RunCodeButton.RunInstructions(instructions);
+        RunCodeButton runCodeButton = new RunCodeButton();
+        runCodeButton.RunInstructions(instructions);
     }
 }
 
 public class Elif : HolderInstruction
 {
+    //public RunCodeButton runCodeButton;
     public CharacterMovementController characterMovement;
     //public List<string> leftPart;
     //public string operatorType;
@@ -221,7 +236,9 @@ public class Elif : HolderInstruction
         bool didPreviousConditionsRun = false;
         //Sýkýntýlý bir durum gibi.
         //RunCodeButton runCodeButton = new RunCodeButton();
-        RunCodeButton.RunInstructions(instructions);
+        //RunCodeButton.RunInstructions(instructions);
+        RunCodeButton runCodeButton = new RunCodeButton();
+        runCodeButton.RunInstructions(instructions);
     }
 }
 
@@ -244,8 +261,11 @@ public class Else : HolderInstruction
     {
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
-        RunCodeButton.RunInstructions(instructions);
-
+        //RunCodeButton.RunInstructions(instructions);
+        //RunCodeButton runCodeButton = new RunCodeButton();
+        //runCodeButton.RunInstructions(instructions);
+        RunCodeButton runCodeButton = new RunCodeButton();
+        runCodeButton.RunInstructions(instructions);
     }
 }
 
@@ -273,6 +293,7 @@ public class ChangeColor : Instruction
 
 public class Move : Instruction
 {
+
     private CharacterMovementController characterMovement;
     private string direction;
 
@@ -345,6 +366,8 @@ public class RunCodeButton : MonoBehaviour
     FirebaseUser user;
     DatabaseReference databaseReference;
 
+    public bool isWaitingInstruction;
+
     [Header("Category and Level")]
     public int catNumber;
     public int levelNumber;
@@ -372,8 +395,13 @@ public class RunCodeButton : MonoBehaviour
     public List<bool> conditionRunList;
 
     // Start is called before the first frame update
+
+
+
+
     void Start()
     {
+        isWaitingInstruction = false;
         instructionList = new List<Instruction>();
         //ReadInputPage1(inputPage1);
         characterMovement = character.GetComponent<CharacterMovementController>();
@@ -480,6 +508,8 @@ public class RunCodeButton : MonoBehaviour
         string className = null;
         string characterColor;
         string secondClassFileName = "Character";
+
+        //List<string> classInitParameters = new List<string>();
 
         if (!String.IsNullOrEmpty(inputText2))
         {
@@ -649,6 +679,14 @@ public class RunCodeButton : MonoBehaviour
                             {
                                 string initParametersString = initWord.Substring(9, initWord.Length - 11);
                                 initParameters = initParametersString.Split(",");
+                                for(int j = 0; j<initParameters.Length; j++)
+                                {
+                                    initParameters[j] = initParameters[j].Trim();
+                                    if (!VariableCheck(initParameters[j]))
+                                    {
+                                        Debug.Log("hata");
+                                    }
+                                }
                             }
 
 
@@ -769,7 +807,7 @@ public class RunCodeButton : MonoBehaviour
                                                 //burada kaydetmeye baþlanabilir
                                                 //init row dakilerle de ayrýca karþýlaþtýrmak gerekiyor.
                                                 Debug.Log(leftSide[1] + "," + rightSideWord);
-
+                                                
                                                 initAssignments.Add(leftSide[1]);
 
                                             }
@@ -791,9 +829,26 @@ public class RunCodeButton : MonoBehaviour
 
             }
 
+            for(int i = 0; i<initAssignments.Count; i++)
+            {
+                initAssignments[i] = initAssignments[i].Trim();
+                if (VariableCheck(initAssignments[i]))
+                    Debug.Log("hata");
+            }
+
             if (initAssignments.Count != initParameters.Length - 1)
             {
                 Debug.Log("atama sayýlarý yetersiz");
+            }
+            else
+            {
+                foreach(string parameter in initParameters)
+                {
+                    if (!initAssignments.Contains(parameter))
+                    {
+                        Debug.Log("hata");
+                    }
+                }
             }
 
         }
@@ -810,6 +865,7 @@ public class RunCodeButton : MonoBehaviour
 
             //bool isImportRow = true;
             bool isFirstRow = true;
+            bool isClassInstanceRow = false;
             int indentation = 0;
             //bool isBodyOfSomething = false;
             //Stack<int> indentationStack = new Stack<int>();
@@ -879,6 +935,78 @@ public class RunCodeButton : MonoBehaviour
                         }
 
                         isFirstRow = false;
+                        isClassInstanceRow = true;
+                    }
+                    //buraya eklenebilir.
+                    else if (isClassInstanceRow)
+                    {
+
+                        int c = 0;
+                        while (rows2[i][c] == ' ')
+                        {
+                            c++;
+                        }
+                        rowIndentation = c;
+
+
+                        //ilk satirin class oldugu varsayiliyor.
+                        if (rowIndentation != indentation + n)
+                        {
+                            Debug.Log("Indentation hatasi");
+                        }
+
+
+                        //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
+                        string trimmedRow = rows2[i].Trim();
+
+                        string[] classInstanceParts;
+                        if (!trimmedRow.Contains("="))
+                        {
+                            Debug.Log("Bir Character nesnesi oluþturmanýz gerekiyor.");
+                        }
+                        else
+                        {
+                            classInstanceParts = trimmedRow.Split('=');
+
+                            string classInstanceName = classInstanceParts[0].Trim();
+                            string classConstructor = classInstanceParts[1].Trim();
+
+                            if (!VariableCheck(classInstanceName))
+                            {
+                                Debug.Log("hata");
+                            }
+                            //else if(classInstanceRightPart.Contains("="))
+                            //{
+                            //    Debug.Log("Hata");
+                            //}
+                            else if (!classConstructor.Contains("(") || !classConstructor.Contains(")"))
+                            {
+                                Debug.Log("hata");
+                            }
+                            else
+                            {
+                                string[] classConstructorParts = classConstructor.Split("(");
+                                string classNamePart = classConstructorParts[0].Trim();
+
+                                if (!VariableCheck(classNamePart))
+                                {
+                                    Debug.Log("HATA");
+                                }//else if ()
+                            }
+                        }
+                        //try
+                        //{
+                        //    classInstanceParts = trimmedRow.Split("=");
+
+                        //}catch(Exception e)
+                        //{
+                        //    Debug.Log("Bir Character nesnesi oluþturmanýz gerekiyor.");
+                        //    //Debug.Log(e.Message);
+                        //}
+
+
+
+                        isClassInstanceRow = false;
                     }
                     else
                     {
@@ -1192,7 +1320,7 @@ public class RunCodeButton : MonoBehaviour
                                                 //range içindeki deðere ulaþabiliyorum artýk.
 
                                                 //Bunu doðru yere eklemek gerekiyor.
-                                                For forLoop = new For(characterMovement, parameter, instructionLevel);
+                                                For forLoop = new For(this, characterMovement, parameter, instructionLevel);
 
 
                                                 //indentation kontrol lazým.
@@ -1829,8 +1957,26 @@ public class RunCodeButton : MonoBehaviour
 
 
     //----------------------------------------------------------------------------------------------------------------
-    public static void RunInstructions(List<Instruction> instructionList)
+    public void RunInstructions(List<Instruction> instructionList)
     {
+
+
+
+
+
+        float delay = 1f;
+        float timer = Time.deltaTime;
+        //void Update()
+        //{
+        //    timer += Time.deltaTime;
+        //    //if (timer > delay)
+        //    //{
+        //    //    MyFunction();
+        //    //}
+        //}
+
+
+
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
         foreach (Instruction instruction in instructionList)
@@ -1861,7 +2007,13 @@ public class RunCodeButton : MonoBehaviour
                             if (((If)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
                             {
                                 didPreviousConditionsRun = true;
+
                                 instruction.Run();
+
+                                //Invoke("LaunchProjectile", 2.0f);
+                                //System.Threading.Thread.Sleep(1000);
+                                //WaitFor1Second();
+                                //StartCoroutine(WaitFor1SecondCoroutine());
                             }
                         }
                         else if (((If)instruction).secondMethod == "is_water")
@@ -2156,9 +2308,10 @@ public class RunCodeButton : MonoBehaviour
                     instruction.Run();
                 }
             }
-            else if(instruction.GetType() == typeof(While))
+            else if (instruction.GetType() == typeof(While))
             {
-                if(((While)instruction).firstMethod == "up_tile")
+                isThereIf = false;
+                if (((While)instruction).firstMethod == "up_tile")
                 {
                     if (((While)instruction).secondMethod == "is_ground")
                     {
@@ -2186,7 +2339,7 @@ public class RunCodeButton : MonoBehaviour
                         }
                     }
                 }
-                else if(((While)instruction).firstMethod == "right_tile")
+                else if (((While)instruction).firstMethod == "right_tile")
                 {
                     if (((While)instruction).secondMethod == "is_ground")
                     {
@@ -2274,10 +2427,533 @@ public class RunCodeButton : MonoBehaviour
             else
             {
                 isThereIf = false;
+
+
                 instruction.Run();
+                //System.Threading.Thread.Sleep(1000);
+                //timer += Time.deltaTime;
+                //if (timer > delay)
+                //StartCoroutine(WaitFor1SecondCoroutine(instruction));
+
+
+                //instruction.Invoke("Run", 2f);
+
             }
 
         }
+    }
+    public IEnumerator RunInstructionsWithDelay(List<Instruction> instructions)
+    {
+        Debug.Log("Hey");
+        foreach (Instruction instruction in instructions)
+        {
+            //Instantiate(gameObject, objectSpawn[i].transform.position, Quaternion.identity);
+            //StartCoroutine(WeaponsCooldown(6)); //or do what you want
+            instruction.Run();
+            //runCodeButton.RunInstructions(instructions);
+            //RunInstructions(instructions);
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public void RunInstructionsWithDelayMethod(List<Instruction> instructions)
+    {
+        StartCoroutine(RunInstructionsWithDelay(instructions));
+    }
+
+    //**************************************************************************
+
+    public IEnumerator RunInstructions1Second(List<Instruction> instructionList)
+    {
+
+
+        bool isThereIf = false;
+        bool didPreviousConditionsRun = false;
+        foreach (Instruction instruction in instructionList)
+        {
+            if (instruction.GetType() == typeof(If))
+            {
+                Debug.Log("Burasi");
+                isThereIf = true;
+                if (((If)instruction).type == 1)
+                {
+                    Debug.Log("?????????");
+                    //if(((If)instruction).firstMethod) == "";
+                }
+                else if (((If)instruction).type == 2)
+                {
+                    Debug.Log("Burasi2");
+                    Debug.Log("+" + ((If)instruction).firstMethod + "+");
+                    Debug.Log("+" + ((If)instruction).secondMethod + "+");
+                    if (((If)instruction).firstMethod == "up_tile")
+                    {
+                        Debug.Log("uP");
+                        if (((If)instruction).secondMethod == "is_ground")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(0, 1);
+                            Vector3Int upTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                            {
+                                didPreviousConditionsRun = true;
+
+                                instruction.Run();
+
+                                //Invoke("LaunchProjectile", 2.0f);
+                                //System.Threading.Thread.Sleep(1000);
+                                //WaitFor1Second();
+                                //StartCoroutine(WaitFor1SecondCoroutine());
+                            }
+                        }
+                        else if (((If)instruction).secondMethod == "is_water")
+                        {
+                            Debug.Log("wATER");
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(0, 1);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int upTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                            {
+                                Debug.Log(":????????");
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+
+                            }
+                        }
+                        else if (((If)instruction).secondMethod == "contains")
+                        {
+                            //burada direkt parameterPart diye yazilabilir mi??
+                            if (((If)instruction).secondMethodParameter == "apple")
+                            {
+
+                            }
+                            else if (((If)instruction).secondMethodParameter == "banana")
+                            {
+
+                            }
+                            else if (((If)instruction).secondMethodParameter == "kiwi")
+                            {
+
+                            }
+                        }
+                    }
+                    //HEPSINE CONTAINS EKLENECEK.
+                    else if (((If)instruction).firstMethod == "down_tile")
+                    {
+                        if (((If)instruction).secondMethod == "is_ground")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(0, -1);
+                            Vector3Int downTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.groundTilemap.HasTile(downTilePosition))
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+                        else if (((If)instruction).secondMethod == "is_water")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(0, -1);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int downTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.waterTilemap.HasTile(downTilePosition))
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+
+                    }
+                    else if (((If)instruction).firstMethod == "right_tile")
+                    {
+                        Debug.Log("Burasi3");
+                        if (((If)instruction).secondMethod == "is_ground")
+                        {
+                            Debug.Log("Burasi4");
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(1, 0);
+                            Vector3Int rightTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.groundTilemap.HasTile(rightTilePosition))
+                            {
+                                Debug.Log("Burasi5");
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+                        else if (((If)instruction).secondMethod == "is_water")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(1, 0);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int rightTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.waterTilemap.HasTile(rightTilePosition))
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+                    }
+                    else if (((If)instruction).firstMethod == "left_tile")
+                    {
+                        if (((If)instruction).secondMethod == "is_ground")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(-1, 0);
+                            Vector3Int leftTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.groundTilemap.HasTile(leftTilePosition))
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+                        else if (((If)instruction).secondMethod == "is_water")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(-1, 0);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int leftTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.waterTilemap.HasTile(leftTilePosition))
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+            //else if (!isThereIf)
+            //{
+            //    Debug.Log("hata");
+            //}
+            else if (instruction.GetType() == typeof(Elif))
+            {
+                if (!isThereIf)
+                {
+                    Debug.Log("hata");
+
+                }
+                else if (!didPreviousConditionsRun)
+                {
+                    if (((Elif)instruction).type == 1)
+                    {
+                        //if(((If)instruction).firstMethod) == "";
+                    }
+                    else if (((Elif)instruction).type == 2)
+                    {
+                        if (((Elif)instruction).firstMethod == "up_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, 1);
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, 1);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "contains")
+                            {
+                                //burada direkt parameterPart diye yazilabilir mi??
+                                if (((Elif)instruction).secondMethodParameter == "apple")
+                                {
+
+                                }
+                                else if (((Elif)instruction).secondMethodParameter == "banana")
+                                {
+
+                                }
+                                else if (((Elif)instruction).secondMethodParameter == "kiwi")
+                                {
+
+                                }
+                            }
+                        }
+                        //HEPSINE CONTAINS EKLENECEK.
+                        else if (((Elif)instruction).firstMethod == "down_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, -1);
+                                Vector3Int downTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((If)instruction).characterMovement.groundTilemap.HasTile(downTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, -1);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int downTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(downTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+
+                        }
+                        else if (((Elif)instruction).firstMethod == "right_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(1, 0);
+                                Vector3Int rightTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.groundTilemap.HasTile(rightTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(1, 0);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int rightTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(rightTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                        }
+                        else if (((Elif)instruction).firstMethod == "left_tile")
+                        {
+                            if (((Elif)instruction).secondMethod == "is_ground")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(-1, 0);
+                                Vector3Int leftTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.groundTilemap.HasTile(leftTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_water")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(-1, 0);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int leftTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.waterTilemap.HasTile(leftTilePosition))
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+            else if (instruction.GetType() == typeof(Else))
+            {
+                if (!isThereIf)
+                {
+                    Debug.Log("hata");
+                }
+                else if (!didPreviousConditionsRun)
+                {
+                    instruction.Run();
+                }
+            }
+            else if (instruction.GetType() == typeof(While))
+            {
+                isThereIf = false;
+                if (((While)instruction).firstMethod == "up_tile")
+                {
+                    if (((While)instruction).secondMethod == "is_ground")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(0, 1);
+                        Vector3Int upTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.groundTilemap.HasTile(upTilePosition))
+                        {
+                            instruction.Run();
+                            upTilePosition = upTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                    else if (((While)instruction).secondMethod == "is_water")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(0, 1);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int upTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.waterTilemap.HasTile(upTilePosition))
+                        {
+                            instruction.Run();
+                            upTilePosition = upTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                }
+                else if (((While)instruction).firstMethod == "right_tile")
+                {
+                    if (((While)instruction).secondMethod == "is_ground")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(1, 0);
+                        Vector3Int rightTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.groundTilemap.HasTile(rightTilePosition))
+                        {
+                            instruction.Run();
+                            rightTilePosition = rightTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                    else if (((While)instruction).secondMethod == "is_water")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(1, 0);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int rightTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.waterTilemap.HasTile(rightTilePosition))
+                        {
+                            instruction.Run();
+                            rightTilePosition = rightTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                }
+                else if (((While)instruction).firstMethod == "down_tile")
+                {
+                    if (((While)instruction).secondMethod == "is_ground")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(0, -1);
+                        Vector3Int downTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.groundTilemap.HasTile(downTilePosition))
+                        {
+                            instruction.Run();
+                            downTilePosition = downTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                    else if (((While)instruction).secondMethod == "is_water")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(0, -1);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int downTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.waterTilemap.HasTile(downTilePosition))
+                        {
+                            instruction.Run();
+                            downTilePosition = downTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                }
+                else if (((While)instruction).firstMethod == "left_tile")
+                {
+                    if (((While)instruction).secondMethod == "is_ground")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(-1, 0);
+                        Vector3Int leftTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.groundTilemap.HasTile(leftTilePosition))
+                        {
+                            instruction.Run();
+                            leftTilePosition = leftTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                    else if (((While)instruction).secondMethod == "is_water")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(-1, 0);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int leftTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.waterTilemap.HasTile(leftTilePosition))
+                        {
+                            instruction.Run();
+                            leftTilePosition = leftTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                isThereIf = false;
+
+
+                instruction.Run();
+                yield return new WaitForSeconds(1);
+                //timer += Time.deltaTime;
+                //if (timer > delay)
+
+                //StartCoroutine(WaitFor1SecondCoroutine(instruction));
+
+
+                //instruction.Invoke("Run", 2f);
+
+            }
+
+        }
+    }
+
+
+
+
+
+    //***************************************************************************
+    public IEnumerator WaitFor1SecondCoroutine(Instruction instruction)
+    {
+        yield return new WaitForSeconds(3);
+        instruction.Run();
+    }
+    public IEnumerator WaitFor1SecondCoroutine(RunCodeButton runCodeButton, List<Instruction> instructions)
+    {
+        yield return new WaitForSeconds(3);
+        runCodeButton.RunInstructions(instructions);
+    }
+    public void WaitFor1Second(RunCodeButton runCodeButton, List<Instruction> instructions)
+    {
+        StartCoroutine(WaitFor1SecondCoroutine(runCodeButton, instructions));
+
     }
 
     //----------------------------------------------------------------------
@@ -2481,6 +3157,15 @@ public class RunCodeButton : MonoBehaviour
         }
 
     }
+    //public static void METHOD_1(MonoBehaviour StartThisStatic)
+    //{
+    //    StartThisStatic.StartCoroutine(Test());
+    //}
+    //public static IEnumerator Test()
+    //{
+    //    yield return new WaitForSeconds(2f);
+    //}
+
 
     public bool VariableCheck(string var)
     {
