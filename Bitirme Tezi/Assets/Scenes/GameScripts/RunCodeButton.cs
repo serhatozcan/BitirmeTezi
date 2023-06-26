@@ -832,6 +832,7 @@ public class RunCodeButton : MonoBehaviour
             for(int i = 0; i<initAssignments.Count; i++)
             {
                 initAssignments[i] = initAssignments[i].Trim();
+                //Aslinda variablecheck kullanimi yanlis. Ornek olarak integer deger verilebilir. BURADA DOGRUDAN GEREKLI KELIMELERI KONTROL EDEBILIRIM. Bunun icin bolume ozel metodlar kullanabilirim.
                 if (VariableCheck(initAssignments[i]))
                     Debug.Log("hata");
             }
@@ -844,10 +845,15 @@ public class RunCodeButton : MonoBehaviour
             {
                 foreach(string parameter in initParameters)
                 {
-                    if (!initAssignments.Contains(parameter))
+                    if(parameter != "self")
                     {
-                        Debug.Log("hata");
+                        if (!initAssignments.Contains(parameter))
+                        {
+                            Debug.Log(parameter);
+                            Debug.Log("hata");
+                        }
                     }
+                        
                 }
             }
 
@@ -922,6 +928,7 @@ public class RunCodeButton : MonoBehaviour
                                 else if (row.Substring(4 + secondClassFileName.Length, 6) != "import")
                                 {
                                     Debug.Log("hata");
+                                    //Debug.Log("import:" + row.Substring(4 + secondClassFileName.Length, 6)+".");
                                 }
                                 else if (row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)) != className)
                                 {
@@ -991,18 +998,14 @@ public class RunCodeButton : MonoBehaviour
                                 if (!VariableCheck(classNamePart))
                                 {
                                     Debug.Log("HATA");
-                                }//else if ()
+                                }
+                                else
+                                {
+                                    
+                                }
                             }
                         }
-                        //try
-                        //{
-                        //    classInstanceParts = trimmedRow.Split("=");
-
-                        //}catch(Exception e)
-                        //{
-                        //    Debug.Log("Bir Character nesnesi oluþturmanýz gerekiyor.");
-                        //    //Debug.Log(e.Message);
-                        //}
+                        
 
 
 

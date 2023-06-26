@@ -3507,6 +3507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a4663f37cc44d4e92fbc65435c40a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWaitingInstruction: 0
   catNumber: 1
   levelNumber: 7
   inputField1: {fileID: 675919796}
@@ -7575,7 +7576,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2432669637905812108, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from Character import character\n\nfor x in range (8):\n  move_right()"
+      value: "from Character import Character\n\nx = Chracter(1,2)\nfor x in range
+        (8):\n  move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638323322094, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_RootOrder
@@ -7632,7 +7634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638644757541, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "class character : \n  def __init__ (self, bir, iki) :\n    self.bir
+      value: "class Character : \n  def __init__ (self, bir, iki) :\n    self.bir
         = bir\n    self.iki = iki"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669639612140233, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
