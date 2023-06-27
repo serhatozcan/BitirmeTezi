@@ -398,13 +398,33 @@ public class RunCodeButton : MonoBehaviour
 
 
     // Start is called before the first frame update
+    [Space]
+    [Header("Game Over Page")]
+    public GameObject gameOverPanel;
+    public TMP_Text errorMessageText;
+    //, codeInputField_1Text, codeInputField_2Text;
+    //public string codeInputField_1Text, codeInputField_2Text;
+    public void GameOver(string errorMessage)
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
+        //catNumber = CatNumberInput;
+        //levelNumber = levelNumberInput;
+        errorMessageText.text = errorMessage;
+        ////codeInputField_1Text.text = codeInputField_1;
+        //PlayerPrefs.SetString("codeInput1", codeInputField_1);
+        //PlayerPrefs.SetString("codeInput2", codeInputField_2);
+        ////codeInputField_2Text.text = codeInputField_2;
 
-
+    }
     public void ResetLevel()
     {
         //meyve veya farkli seyler eklenirse her sey basta oldugu yere konmali
         //LoadScene ile scene'i yeniden yuklersem cocuklarin yazdiklari kod kaybolur. 
         characterMovement.transform.position = characterStartingPosition;
+        gameOverPanel.SetActive(false);
+        //gerek var mi?
+        Time.timeScale = 1;
     }
     public void LoadLevel()
     {
@@ -933,16 +953,23 @@ public class RunCodeButton : MonoBehaviour
                         else
                         {
 
-                            if (row.Substring(0, 4) == "from")
+                            if (row.Substring(0, 4) != "from")
+                            {
+
+                                Debug.Log("hata");
+                            }
+                            else
                             {
                                 if (row.Substring(4, secondClassFileName.Length) != secondClassFileName)
                                 {
                                     Debug.Log(row.Substring(4, secondClassFileName.Length));
                                     Debug.Log("hata");
+
                                 }
                                 else if (row.Substring(4 + secondClassFileName.Length, 6) != "import")
                                 {
                                     Debug.Log("hata");
+                                    GameOver("Hata mesajý");
                                     //Debug.Log("import:" + row.Substring(4 + secondClassFileName.Length, 6)+".");
                                 }
                                 else if (row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)) != className)
@@ -950,7 +977,6 @@ public class RunCodeButton : MonoBehaviour
                                     Debug.Log(row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)));
                                     Debug.Log("hata");
                                 }
-
                             }
 
 
