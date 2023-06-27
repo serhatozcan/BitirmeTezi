@@ -14,6 +14,7 @@ using TMPro;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public abstract class Instruction : MonoBehaviour
 {
@@ -398,8 +399,14 @@ public class RunCodeButton : MonoBehaviour
 
 
     // Start is called before the first frame update
+
+    //[Space]
+    //[Header("BackButton")]
+    
     [Space]
     [Header("Game Over Page")]
+    public GameObject backButton;
+    public GameObject runButton;
     public GameObject gameOverPanel;
     public TMP_Text errorMessageText;
     //, codeInputField_1Text, codeInputField_2Text;
@@ -407,6 +414,10 @@ public class RunCodeButton : MonoBehaviour
     public void GameOver(string errorMessage)
     {
         gameOverPanel.SetActive(true);
+        inputField1.interactable = false;
+        inputField2.interactable = false;
+        backButton.GetComponent<Button>().interactable = false;
+        runButton.GetComponent<Button>().interactable = false;
         Time.timeScale = 0;
         //catNumber = CatNumberInput;
         //levelNumber = levelNumberInput;
@@ -421,8 +432,13 @@ public class RunCodeButton : MonoBehaviour
     {
         //meyve veya farkli seyler eklenirse her sey basta oldugu yere konmali
         //LoadScene ile scene'i yeniden yuklersem cocuklarin yazdiklari kod kaybolur. 
-        characterMovement.transform.position = characterStartingPosition;
         gameOverPanel.SetActive(false);
+        characterMovement.transform.position = characterStartingPosition;
+        inputField1.interactable = true;
+        inputField2.interactable = true;
+        backButton.GetComponent<Button>().interactable = true;
+        runButton.GetComponent<Button>().interactable = true;
+        
         //gerek var mi?
         Time.timeScale = 1;
     }
@@ -513,6 +529,7 @@ public class RunCodeButton : MonoBehaviour
 
     public void RunCode()
     {
+        GameOver("mesaj");
         //characterMovement.MoveRight();
         //List<Instruction> instructions = new List<Instruction>();
 
