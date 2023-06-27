@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class Instruction : MonoBehaviour
 {
@@ -393,11 +394,23 @@ public class RunCodeButton : MonoBehaviour
     //public CharacterMovementController characterMovementController;
 
     public List<bool> conditionRunList;
+    public Vector3 characterStartingPosition;
+
 
     // Start is called before the first frame update
 
 
-
+    public void ResetLevel()
+    {
+        //meyve veya farkli seyler eklenirse her sey basta oldugu yere konmali
+        //LoadScene ile scene'i yeniden yuklersem cocuklarin yazdiklari kod kaybolur. 
+        characterMovement.transform.position = characterStartingPosition;
+    }
+    public void LoadLevel()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
 
     void Start()
     {
@@ -405,6 +418,7 @@ public class RunCodeButton : MonoBehaviour
         instructionList = new List<Instruction>();
         //ReadInputPage1(inputPage1);
         characterMovement = character.GetComponent<CharacterMovementController>();
+        characterStartingPosition = characterMovement.transform.position;
         characterColorChanger = character.GetComponent<CharacterColorChanger>();
         chestAnimator = chest.GetComponent<Animator>();
         pythonReservedWords = new string[] { "def", "if", "else", "elif", "for", "while", "False", "True", "and", "as", "assert", "break", "class", "continue",
@@ -1005,6 +1019,7 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     //constructor part'larinda normalde string, integer veya double deger olabilir.
                                     //ben buyuk ihtimalle sadece string olan classlar kullanacagim. yine de digerleri de implement edilebilir.
+                                    //python oldugu icin init kisminda parametrelerin tipleri belli olmaz. burada kontrol etmek lazim.
                                 }
                             }
                         }
