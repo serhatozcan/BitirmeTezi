@@ -6,7 +6,7 @@ using Mono.Cecil.Cil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -741,14 +741,14 @@ public class RunCodeButton : MonoBehaviour
                                 }
                                 else
                                 {
-                                    initWordParametersPart.Substring(1,initWordParametersPart.Length-2).Trim();
+                                    initWordParametersPart = initWordParametersPart.Substring(1,initWordParametersPart.Length-2).Trim();
                                     if (initWordParametersPart[initWordParametersPart.Length-1] != ')')
                                     {
                                         Debug.Log("hata");
                                     }
                                     else
                                     {
-                                        initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
+                                        initWordParametersPart = initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
                                         string[] initParameters = initWordParametersPart.Split(",");
                                         for(int j = 0; j< initParameters.Length; j++)
                                         {
@@ -829,8 +829,6 @@ public class RunCodeButton : MonoBehaviour
                 else if (isInsideInit)
                 {
 
-
-
                     int c = 0;
                     while (rows2[i][c] == ' ')
                     {
@@ -845,92 +843,148 @@ public class RunCodeButton : MonoBehaviour
 
                     else
                     {
-                        //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
-                        string row = rows2[i].Replace(" ", "");
-                        if (row.Length < 5)
+                        string trimmedRow = rows2[i].Trim();
+
+                        try
                         {
-                            Debug.Log("hata");
-                        }
-                        else
-                        {
-                            //Debug.Log("hata");
-                            //burasý da deðiþecek...
-                            //if (row.Substring(0, 4) != "self")
-                            //{
-                            //    Debug.Log("hata");
-                            //}
-                            //else
-                            if (!row.Contains("="))
+                            if (!trimmedRow.Contains('='))
                             {
                                 Debug.Log("hata");
                             }
                             else
                             {
-                                string[] assignmentParts = row.Split('=');
+                                string[] assignmentParts = trimmedRow.Split('=');
+                                string leftPart = assignmentParts[0].Trim();
+                                string rightPart = assignmentParts[1].Trim();
 
-                                if (assignmentParts.Length > 2)
-                                {
-                                    Debug.Log("birden fazla = var");
-                                }
-                                else if (!assignmentParts[0].Contains("."))
+                                if(leftPart.Substring(0,selfKeyword.Length) != selfKeyword)
                                 {
                                     Debug.Log("hata");
                                 }
                                 else
                                 {
-                                    string[] leftSide = assignmentParts[0].Split('.');
-                                    if (leftSide.Length > 2)
+                                    string leftPartAfterSelfWord = leftPart.Substring(selfKeyword.Length).Trim();
+                                    if (leftPartAfterSelfWord[0] != '.')
                                     {
-                                        Debug.Log("birden fazla . var");
+                                        Debug.Log("hata");
+
                                     }
-                                    //Burasý deðiþecek çünkü kelimenin self olmasý gerekmiyor. 
-                                    //Bununla birlikte uzunluk kontrolü de deðiþecek. Çünkü self olmasýna göre yapýldý ama 1 karakterlik bir þey de olabilir. 
-                                    //else if (leftSide[0] != "self")
-                                    //{
-                                    //  Debug.Log("hata");
-                                    //}
                                     else
                                     {
-                                        if (leftSide[0] != selfKeyword)
+                                        leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
+                                        if (!VariableCheck(leftPartAfterSelfWord))
                                         {
-                                            Debug.Log("keyword doðru deðil");
+                                            Debug.Log("hata");
                                         }
                                         else
                                         {
-                                            //string selfWord = leftSide[0];
-                                            //string rightSideWord = assignmentParts[1].Substring(0, assignmentParts[1].Length - 1);
-                                            string rightSideWord = assignmentParts[1].Replace("\n", "");
-                                            Debug.Log(rightSideWord);
-                                            Debug.Log(leftSide[1]);
-                                            if (leftSide[1] != rightSideWord)
+                                            if(leftPartAfterSelfWord != rightPart)
                                             {
-                                                Debug.Log(rightSideWord + " " + rightSideWord.Length);
-                                                Debug.Log(leftSide[1] + " " + leftSide[1].Length);
-                                                for (int m = 0; m < rightSideWord.Length; m++)
-                                                {
-                                                    Debug.Log((int)rightSideWord[m]);
-                                                }
-                                                Debug.Log("kelimeler ayný degil");
+                                                Debug.Log("hata");
                                             }
                                             else
                                             {
-                                                //burada kaydetmeye baþlanabilir
-                                                //init row dakilerle de ayrýca karþýlaþtýrmak gerekiyor.
-                                                Debug.Log(leftSide[1] + "," + rightSideWord);
-                                                
-                                                initAssignments.Add(leftSide[1]);
-
+                                                initAssignments.Add(rightPart);
                                             }
                                         }
-
                                     }
-
                                 }
-                                //init icindeki parametreler burada sirasiz yazilabiliyor. ama nesne olusuturulurken sirayla degerlerin girilmesi lazim ve self yazilmamasi lazim.
-
                             }
 
+                        
                         }
+                        catch(Exception e)
+                        {
+                            Debug.Log(e.Message);
+                        }
+                        
+
+                        //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
+                        //string row = rows2[i].Replace(" ", "");
+                        //if (row.Length < 5)
+                        //{
+                        //    Debug.Log("hata");
+                        //}
+                        //else
+                        //{
+                        //    //Debug.Log("hata");
+                        //    //burasý da deðiþecek...
+                        //    //if (row.Substring(0, 4) != "self")
+                        //    //{
+                        //    //    Debug.Log("hata");
+                        //    //}
+                        //    //else
+                        //    if (!row.Contains("="))
+                        //    {
+                        //        Debug.Log("hata");
+                        //    }
+                        //    else
+                        //    {
+                        //        string[] assignmentParts = row.Split('=');
+
+                        //        if (assignmentParts.Length > 2)
+                        //        {
+                        //            Debug.Log("birden fazla = var");
+                        //        }
+                        //        else if (!assignmentParts[0].Contains("."))
+                        //        {
+                        //            Debug.Log("hata");
+                        //        }
+                        //        else
+                        //        {
+                        //            string[] leftSide = assignmentParts[0].Split('.');
+                        //            if (leftSide.Length > 2)
+                        //            {
+                        //                Debug.Log("birden fazla . var");
+                        //            }
+                        //            //Burasý deðiþecek çünkü kelimenin self olmasý gerekmiyor. 
+                        //            //Bununla birlikte uzunluk kontrolü de deðiþecek. Çünkü self olmasýna göre yapýldý ama 1 karakterlik bir þey de olabilir. 
+                        //            //else if (leftSide[0] != "self")
+                        //            //{
+                        //            //  Debug.Log("hata");
+                        //            //}
+                        //            else
+                        //            {
+                        //                if (leftSide[0] != selfKeyword)
+                        //                {
+                        //                    Debug.Log("keyword doðru deðil");
+                        //                }
+                        //                else
+                        //                {
+                        //                    //string selfWord = leftSide[0];
+                        //                    //string rightSideWord = assignmentParts[1].Substring(0, assignmentParts[1].Length - 1);
+                        //                    string rightSideWord = assignmentParts[1].Replace("\n", "");
+                        //                    Debug.Log(rightSideWord);
+                        //                    Debug.Log(leftSide[1]);
+                        //                    if (leftSide[1] != rightSideWord)
+                        //                    {
+                        //                        Debug.Log(rightSideWord + " " + rightSideWord.Length);
+                        //                        Debug.Log(leftSide[1] + " " + leftSide[1].Length);
+                        //                        for (int m = 0; m < rightSideWord.Length; m++)
+                        //                        {
+                        //                            Debug.Log((int)rightSideWord[m]);
+                        //                        }
+                        //                        Debug.Log("kelimeler ayný degil");
+                        //                    }
+                        //                    else
+                        //                    {
+                        //                        //burada kaydetmeye baþlanabilir
+                        //                        //init row dakilerle de ayrýca karþýlaþtýrmak gerekiyor.
+                        //                        Debug.Log(leftSide[1] + "," + rightSideWord);
+                                                
+                        //                        initAssignments.Add(leftSide[1]);
+
+                        //                    }
+                        //                }
+
+                        //            }
+
+                        //        }
+                        //        //init icindeki parametreler burada sirasiz yazilabiliyor. ama nesne olusuturulurken sirayla degerlerin girilmesi lazim ve self yazilmamasi lazim.
+
+                        //    }
+
+                        //}
 
                     }
                 }
@@ -956,7 +1010,7 @@ public class RunCodeButton : MonoBehaviour
             {
                 foreach(string parameter in initParameters)
                 {
-                    if(parameter != "self")
+                    if(parameter != selfKeyword)
                     {
                         if (!initAssignments.Contains(parameter))
                         {
