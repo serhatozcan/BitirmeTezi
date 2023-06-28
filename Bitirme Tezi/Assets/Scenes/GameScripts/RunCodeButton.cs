@@ -589,6 +589,7 @@ public class RunCodeButton : MonoBehaviour
                     {
                         if (row.Substring(0, 5) != "class")
                         {
+                            Debug.Log("hata");
                             GameOver("hata");
                         }
                         else
@@ -597,6 +598,7 @@ public class RunCodeButton : MonoBehaviour
                             
                             if (classPart.Substring(0, className.Length) != className)
                             {
+                                Debug.Log("hata");
                                 GameOver("hata");
                             }
                             else
@@ -604,6 +606,7 @@ public class RunCodeButton : MonoBehaviour
                                 string parentClassPart = classPart.Substring(className.Length).Trim();
                                 if (parentClassPart[0] != '(')
                                 {
+                                    Debug.Log("hata");
                                     GameOver("hata");
                                 }
                                 else
@@ -611,6 +614,7 @@ public class RunCodeButton : MonoBehaviour
                                     parentClassPart = parentClassPart.Substring(1).Trim();
                                     if (parentClassPart.Substring(0, parentClassName.Length) != parentClassName)
                                     {
+                                        Debug.Log("hata");
                                         GameOver("hata");
                                     }
                                     else
@@ -618,13 +622,15 @@ public class RunCodeButton : MonoBehaviour
                                         parentClassPart = parentClassPart.Substring(parentClassName.Length).Replace(" ","");
                                         if (parentClassPart.Length > 2)
                                         {
-                                            
+                                            Debug.Log("hata");
                                             GameOver("hata");
                                         }else if (parentClassPart[0] != ')')
                                         {
+                                            Debug.Log("hata");
                                             GameOver("hata");
                                         }else if (parentClassPart[1] != ':')
                                         {
+                                            Debug.Log("hata");
                                             GameOver("hata");
                                         }
                                     }
@@ -703,96 +709,109 @@ public class RunCodeButton : MonoBehaviour
 
                     //en az gerekli karakter sayýsý = 16
                     //BUNLARI DEÐÝÞTÝREBÝLÝRÝM. DÝREKT HATALI DEMEK SAÇMA.
-                    if (trimmedRow.Length < 16)
+
+                    try
                     {
-                        Debug.Log("hata");
-                    }
-                    else if (trimmedRow.Substring(0, 3) != "def")
-                    {
-                        Debug.Log("Hata");
-
-                    }
-                    else
-                    {
-                        rowWords = trimmedRow.Split(" ", 2);
-
-
-                        // burada class mý, sonu ':' mý vs. kontrol edilecek.
-                        //string lastWord = rowWords[rowWords.Length - 1];
-
-                        string initWord = rowWords[1];
-                        Debug.Log(initWord);
-
-                        //burada hata var. ( 6 da olmak zorunda degil.
-
-
-                        //if (initWord.Length >= 8)
-                        //{
-                        //once ( ) buna gore bolerim sonra icinde baska ( ) var mý bakarým.
-                        //Debug.Log(initWord.Length);
-                        //initWord = initWord.TrimEnd();
-
-                        if (initWord.Substring(0, 8) != "__init__")
+                        if (trimmedRow.Substring(0, 3) != "def")
                         {
-
                             Debug.Log("Hata");
 
                         }
                         else
                         {
-                            //Bu kýsýmda boþluklarýn önemi olmadýðý için boþluksuz kelime elde ediliyor.
-                            initWord = initWord.Replace(" ", "");
-                            //Debug.Log(str);
-                            //if (initWord.Length >= 11)
-                            //{
-                            Debug.Log(initWord[8]);
-                            Debug.Log(initWord[initWord.Length - 2]);
+                            rowWords = trimmedRow.Split(" ", 2);
 
-                            //indexler doðru mu??
-                            if (initWord[8] != '(' || initWord[initWord.Length - 2] != ')')
+                            string initWord = rowWords[1];
+                            Debug.Log(initWord);
+
+                            if (initWord.Substring(0, 8) != "__init__")
                             {
-                                Debug.Log("hata");
-                            }
-                            else if (initWord[initWord.Length - 1] != ':')
-                            {
-                                Debug.Log("hata");
-                            }
-                            //12 cikarmanin sebebi sondaki ekstra karakter
-                            else if (initWord.Substring(9, initWord.Length - 11).Contains("(") || initWord.Substring(9, initWord.Length - 11).Contains(")"))
-                            {
-                                Debug.Log("Fazla parantez");
-                            }
-                            else if (initWord.Substring(9, initWord.Length - 11).Contains(":"))
-                            {
-                                Debug.Log("yanlýþ yerde : ");
+                                Debug.Log("Hata");
                             }
                             else
                             {
-                                string initParametersString = initWord.Substring(9, initWord.Length - 11);
-                                initParameters = initParametersString.Split(",");
-                                for(int j = 0; j<initParameters.Length; j++)
+                                string initWordParametersPart = initWord.Substring(8).Trim();
+
+                                if (initWordParametersPart[0] != '(')
                                 {
-                                    initParameters[j] = initParameters[j].Trim();
-                                    if (!VariableCheck(initParameters[j]))
+                                    Debug.Log("hata");
+                                }else if (initWordParametersPart[initWordParametersPart.Length-1] != ':')
+                                {
+                                    Debug.Log("hata");
+                                }
+                                else
+                                {
+                                    initWordParametersPart.Substring(1,initWordParametersPart.Length-2).Trim();
+                                    if (initWordParametersPart[initWordParametersPart.Length-1] != ')')
                                     {
                                         Debug.Log("hata");
                                     }
+                                    else
+                                    {
+                                        initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
+                                        string[] initParameters = initWordParametersPart.Split(",");
+                                        for(int j = 0; j< initParameters.Length; j++)
+                                        {
+                                            initParameters[j] = initParameters[j].Trim();
+                                            if (!VariableCheck(initParameters[j]))
+                                            {
+                                                Debug.Log("hata");
+                                            }
+                                        }
+                                    }
                                 }
+                                ////Bu kýsýmda boþluklarýn önemi olmadýðý için boþluksuz kelime elde ediliyor.
+                                //initWord = initWord.Replace(" ", "");
+                                ////Debug.Log(str);
+                                ////if (initWord.Length >= 11)
+                                ////{
+                                //Debug.Log(initWord[8]);
+                                //Debug.Log(initWord[initWord.Length - 2]);
+
+                                ////indexler doðru mu??
+                                //if (initWord[8] != '(' || initWord[initWord.Length - 2] != ')')
+                                //{
+                                //    Debug.Log("hata");
+                                //}
+                                //else if (initWord[initWord.Length - 1] != ':')
+                                //{
+                                //    Debug.Log("hata");
+                                //}
+                                ////12 cikarmanin sebebi sondaki ekstra karakter
+                                //else if (initWord.Substring(9, initWord.Length - 11).Contains("(") || initWord.Substring(9, initWord.Length - 11).Contains(")"))
+                                //{
+                                //    Debug.Log("Fazla parantez");
+                                //}
+                                //else if (initWord.Substring(9, initWord.Length - 11).Contains(":"))
+                                //{
+                                //    Debug.Log("yanlýþ yerde : ");
+                                //}
+                                //else
+                                //{
+                                //    string initParametersString = initWord.Substring(9, initWord.Length - 11);
+                                //    initParameters = initParametersString.Split(",");
+                                //    for (int j = 0; j < initParameters.Length; j++)
+                                //    {
+                                //        initParameters[j] = initParameters[j].Trim();
+                                //        if (!VariableCheck(initParameters[j]))
+                                //        {
+                                //            Debug.Log("hata");
+                                //        }
+                                //    }
+                                //}
+
+
                             }
 
-
                         }
-
-                        //}
-
-
-
-                        //burada className'i olmasi gerekenle karsilastir.
-                        //kodda init olup olmamasina gore kodlarin kontrol edilmesi gerekiyor. ikisi icin if else yazilabilir.
-
-
-
                     }
+                    catch(Exception e)
+                    {
+                        Debug.Log("hata "+e.Message);
+                        GameOver("hata");
+                    }
+                    //................
+                    
 
                     //self yerine farkli kelimeler kullanilabilir.
                     selfKeyword = initParameters[0];
