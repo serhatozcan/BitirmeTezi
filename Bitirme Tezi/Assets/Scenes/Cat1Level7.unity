@@ -936,8 +936,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "from Character import character\n\nwhile character.up_tile().is_water():\n 
-    swim_up()\n"
+  m_text: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nwhile
+    character.up_tile().is_water():\n  swim_up()\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8841,8 +8841,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646578836}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5065866, y: -3.4561427, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 1.4689, y: -3.4938, z: 0}
+  m_LocalScale: {x: 2.7645001, y: 2.7645001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -10159,8 +10159,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "from Character import character\n\nfor i in range(2):\n  if character.up_tile().is_water():\n   
-    swim_up()\n  else:\n    move_right()"
+  m_text: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nfor
+    i in range(2):\n  if character.up_tile().is_water():\n    swim_up()\n  else:\n   
+    move_right()"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10521,8 +10522,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2432669637905812108, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from Character import Character\n\nx = Chracter(1,2)\nfor x in range
-        (8):\n  move_right()"
+      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nfor
+        x in range (8):\n  move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638323322094, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_RootOrder
@@ -10574,18 +10575,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638419263385, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from Character import character\n\nif character.up_tile().is_water():\n 
-        swim_up()\nelif character.right_tile().is_ground():\n  move_right()"
+      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nif
+        character.up_tile().is_water():\n  swim_up()\nelif character.right_tile().is_ground():\n 
+        move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638644757541, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "class Character : \n  def __init__ (self, bir, iki) :\n    self.bir
-        = bir\n    self.iki = iki"
+      value: "class SimpleCharacter(Character) : \n  def __init__ (self, bir, iki)
+        :\n    self.bir = bir\n    self.iki = iki"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669639612140233, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from Character import character\n\nfor x in range (3):\n  move_right()\n 
-        for y in range(2):\n    move_up()"
+      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nfor
+        x in range (3):\n  move_right()\n  for y in range(2):\n    move_up()"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9f7326a5ee54654f8e892981101705d, type: 3}

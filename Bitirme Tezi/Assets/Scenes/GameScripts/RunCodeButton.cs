@@ -710,8 +710,8 @@ public class RunCodeButton : MonoBehaviour
                     //en az gerekli karakter sayýsý = 16
                     //BUNLARI DEÐÝÞTÝREBÝLÝRÝM. DÝREKT HATALI DEMEK SAÇMA.
 
-                    try
-                    {
+                    //try
+                    //{
                         if (trimmedRow.Substring(0, 3) != "def")
                         {
                             Debug.Log("Hata");
@@ -731,7 +731,7 @@ public class RunCodeButton : MonoBehaviour
                             else
                             {
                                 string initWordParametersPart = initWord.Substring(8).Trim();
-
+                                Debug.Log(initWordParametersPart);
                                 if (initWordParametersPart[0] != '(')
                                 {
                                     Debug.Log("hata");
@@ -742,6 +742,7 @@ public class RunCodeButton : MonoBehaviour
                                 else
                                 {
                                     initWordParametersPart = initWordParametersPart.Substring(1,initWordParametersPart.Length-2).Trim();
+                                    Debug.Log(initWordParametersPart);
                                     if (initWordParametersPart[initWordParametersPart.Length-1] != ')')
                                     {
                                         Debug.Log("hata");
@@ -749,10 +750,12 @@ public class RunCodeButton : MonoBehaviour
                                     else
                                     {
                                         initWordParametersPart = initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
-                                        string[] initParameters = initWordParametersPart.Split(",");
+                                        Debug.Log(initWordParametersPart);
+                                        initParameters = initWordParametersPart.Split(",");
                                         for(int j = 0; j< initParameters.Length; j++)
                                         {
                                             initParameters[j] = initParameters[j].Trim();
+                                            Debug.Log(initParameters[j]);
                                             if (!VariableCheck(initParameters[j]))
                                             {
                                                 Debug.Log("hata");
@@ -804,15 +807,17 @@ public class RunCodeButton : MonoBehaviour
                             }
 
                         }
-                    }
-                    catch(Exception e)
-                    {
-                        Debug.Log("hata "+e.Message);
-                        GameOver("hata");
-                    }
+                        Debug.Log("nedir");
+                    //}
+                    //catch(Exception e)
+                    //{
+                    //   Debug.Log("hata "+e.Message);
+                    //   GameOver("hata");
+                    //}
                     //................
-                    
-
+                    Debug.Log("x");
+                    Debug.Log(initParameters[0]);
+                    Debug.Log("y");
                     //self yerine farkli kelimeler kullanilabilir.
                     selfKeyword = initParameters[0];
 
@@ -828,7 +833,7 @@ public class RunCodeButton : MonoBehaviour
                 }
                 else if (isInsideInit)
                 {
-
+                    Debug.Log("inside init");
                     int c = 0;
                     while (rows2[i][c] == ' ')
                     {
@@ -844,7 +849,7 @@ public class RunCodeButton : MonoBehaviour
                     else
                     {
                         string trimmedRow = rows2[i].Trim();
-
+                        Debug.Log(trimmedRow);
                         try
                         {
                             if (!trimmedRow.Contains('='))
@@ -872,13 +877,15 @@ public class RunCodeButton : MonoBehaviour
                                     else
                                     {
                                         leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
+                                        Debug.Log(leftPartAfterSelfWord);
                                         if (!VariableCheck(leftPartAfterSelfWord))
                                         {
                                             Debug.Log("hata");
                                         }
                                         else
                                         {
-                                            if(leftPartAfterSelfWord != rightPart)
+                                            Debug.Log(rightPart);
+                                            if (leftPartAfterSelfWord != rightPart)
                                             {
                                                 Debug.Log("hata");
                                             }
@@ -1073,46 +1080,86 @@ public class RunCodeButton : MonoBehaviour
                         }
                         indentation = c;
                         lastIndentation = c;
-                        string row = rows1[i].Replace(" ", "");
-
-                        if (rows1[i].Length < 10 + secondClassFileName.Length + className.Length)
+                        string row = rows1[i].Trim();
+                        try
                         {
-                            Debug.Log("hata");
-                            GameOver("Ýlk satýrda " + className + "'i import etmeniz gerekiyor.");
-                        }
-                        else
-                        {
-
-                            if (row.Substring(0, 4) != "from")
+                            if (row.Substring(0,4) != "from")
                             {
-                                GameOver("Import komutunun ilk kelimesi from olmalýdýr.");
                                 Debug.Log("hata");
                             }
                             else
                             {
-                                if (row.Substring(4, secondClassFileName.Length) != secondClassFileName)
+                                row = row.Substring(4).Trim();
+                                if(row.Substring(0,secondClassFileName.Length) != secondClassFileName)
                                 {
-                                    Debug.Log(row.Substring(4, secondClassFileName.Length));
-                                    GameOver("Import komutunda " + secondClassFileName + " dosyasýnýn adýný yazmanýz gerekiyor.");
                                     Debug.Log("hata");
-
                                 }
-                                else if (row.Substring(4 + secondClassFileName.Length, 6) != "import")
+                                else
                                 {
-                                    Debug.Log("hata");
-                                    GameOver("Import komutununda class'ýn bulunduðu dosyadan sonra import yazmanýz gerekiyor.");
-                                    //Debug.Log("import:" + row.Substring(4 + secondClassFileName.Length, 6)+".");
-                                }
-                                else if (row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)) != className)
-                                {
-                                    Debug.Log(row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)));
-                                    GameOver("Import komutunda " + className +" class'ýný import etmek için import kelimesinden sonra "+ className +" yazmanýz gerekiyor.");
-                                    Debug.Log("hata");
+                                    row = row.Substring(secondClassFileName.Length).Trim();
+                                    if(row.Substring(0,2) != "in")
+                                    {
+                                        Debug.Log("hata");
+                                    }
+                                    else
+                                    {
+                                        row = row.Substring(2).Trim();
+                                        if(row != className)
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        
+                                    }
                                 }
                             }
-
-
                         }
+                        catch (Exception e) 
+                        {
+                            Debug.Log("hata");
+                        }
+                        
+                        
+
+                        //string row = rows1[i].Replace(" ", "");
+
+                        //if (rows1[i].Length < 10 + secondClassFileName.Length + className.Length)
+                        //{
+                        //    Debug.Log("hata");
+                        //    GameOver("Ýlk satýrda " + className + "'i import etmeniz gerekiyor.");
+                        //}
+                        //else
+                        //{
+
+                        //    if (row.Substring(0, 4) != "from")
+                        //    {
+                        //        GameOver("Import komutunun ilk kelimesi from olmalýdýr.");
+                        //        Debug.Log("hata");
+                        //    }
+                        //    else
+                        //    {
+                        //        if (row.Substring(4, secondClassFileName.Length) != secondClassFileName)
+                        //        {
+                        //            Debug.Log(row.Substring(4, secondClassFileName.Length));
+                        //            GameOver("Import komutunda " + secondClassFileName + " dosyasýnýn adýný yazmanýz gerekiyor.");
+                        //            Debug.Log("hata");
+
+                        //        }
+                        //        else if (row.Substring(4 + secondClassFileName.Length, 6) != "import")
+                        //        {
+                        //            Debug.Log("hata");
+                        //            GameOver("Import komutununda class'ýn bulunduðu dosyadan sonra import yazmanýz gerekiyor.");
+                        //            //Debug.Log("import:" + row.Substring(4 + secondClassFileName.Length, 6)+".");
+                        //        }
+                        //        else if (row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)) != className)
+                        //        {
+                        //            Debug.Log(row.Substring(10 + secondClassFileName.Length, row.Length - (10 + secondClassFileName.Length)));
+                        //            GameOver("Import komutunda " + className +" class'ýný import etmek için import kelimesinden sonra "+ className +" yazmanýz gerekiyor.");
+                        //            Debug.Log("hata");
+                        //        }
+                        //    }
+
+
+                        //}
 
                         isFirstRow = false;
                         isClassInstanceRow = true;
@@ -1148,7 +1195,9 @@ public class RunCodeButton : MonoBehaviour
                         }
                         else
                         {
+
                             classInstanceParts = trimmedRow.Split('=');
+
 
                             string classInstanceName = classInstanceParts[0].Trim();
                             string classConstructor = classInstanceParts[1].Trim();
@@ -1180,16 +1229,18 @@ public class RunCodeButton : MonoBehaviour
                                 }
                                 else
                                 {
-                                    //constructor part'larinda normalde string, integer veya double deger olabilir.
+                                    //constructor part'larinda normalde string, integer veya double vs. deger olabilir.
                                     //ben buyuk ihtimalle sadece string olan classlar kullanacagim. yine de digerleri de implement edilebilir.
                                     //python oldugu icin init kisminda parametrelerin tipleri belli olmaz. burada kontrol etmek lazim.
+
+                                    //bölümlere göre farklý kontroller olabilir.
+
+
+
                                 }
                             }
                         }
                         
-
-
-
                         isClassInstanceRow = false;
                     }
                     else
