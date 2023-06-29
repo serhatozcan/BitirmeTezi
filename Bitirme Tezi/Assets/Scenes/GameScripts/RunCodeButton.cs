@@ -28,7 +28,7 @@ public abstract class HolderInstruction : Instruction
     //public abstract void Add(Instruction instruction);
 }
 
-//sadece sayýyla dönen for loop. boolean olacaksa ayrý class oluþturulabilir.
+//sadece sayï¿½yla dï¿½nen for loop. boolean olacaksa ayrï¿½ class oluï¿½turulabilir.
 public class For : HolderInstruction
 {
     RunCodeButton runCodeButton;
@@ -47,7 +47,7 @@ public class For : HolderInstruction
 
     public override void Run()
     {
-        //iterasyon sayýsýný ayarlamak lazým.
+        //iterasyon sayï¿½sï¿½nï¿½ ayarlamak lazï¿½m.
         Debug.Log("iteration" + iterationCount);
 
         for (int i = 0; i < iterationCount; i++)
@@ -101,7 +101,7 @@ public class While : HolderInstruction
         this.level = level;
         //type = 2;
 
-        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
+        //boolean burada hesaplanï¿½rsa karakterin o anki gï¿½ncel durumu deï¿½il. en baï¿½taki durumuna gï¿½re hesap yapï¿½lï¿½r.
     }
 
     public override void Run()
@@ -138,7 +138,7 @@ public class If : HolderInstruction
         this.level = level;
         type = 1;
 
-        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
+        //boolean burada hesaplanï¿½rsa karakterin o anki gï¿½ncel durumu deï¿½il. en baï¿½taki durumuna gï¿½re hesap yapï¿½lï¿½r.
     }
     public If(CharacterMovementController characterMovement, string firstMethod, string secondMethod, string secondMethodParameter, int level)
     {
@@ -150,11 +150,11 @@ public class If : HolderInstruction
         this.level = level;
         type = 2;
 
-        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
+        //boolean burada hesaplanï¿½rsa karakterin o anki gï¿½ncel durumu deï¿½il. en baï¿½taki durumuna gï¿½re hesap yapï¿½lï¿½r.
     }
 
 
-    //rightpart ve operator type olup olmamasýna gore iki sekilde calisacak
+    //rightpart ve operator type olup olmamasï¿½na gore iki sekilde calisacak
     public override void Run()
     {
 
@@ -198,7 +198,7 @@ public class Elif : HolderInstruction
         this.level = level;
         type = 1;
 
-        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
+        //boolean burada hesaplanï¿½rsa karakterin o anki gï¿½ncel durumu deï¿½il. en baï¿½taki durumuna gï¿½re hesap yapï¿½lï¿½r.
     }
     public Elif(CharacterMovementController characterMovement, string firstMethod, string secondMethod, string secondMethodParameter, int level)
     {
@@ -214,16 +214,16 @@ public class Elif : HolderInstruction
         this.level = level;
         type = 2;
 
-        //boolean burada hesaplanýrsa karakterin o anki güncel durumu deðil. en baþtaki durumuna göre hesap yapýlýr.
+        //boolean burada hesaplanï¿½rsa karakterin o anki gï¿½ncel durumu deï¿½il. en baï¿½taki durumuna gï¿½re hesap yapï¿½lï¿½r.
     }
 
 
-    //rightpart ve operator type olup olmamasýna gore iki sekilde calisacak
+    //rightpart ve operator type olup olmamasï¿½na gore iki sekilde calisacak
     public override void Run()
     {
-        //burada önce diðerlerinde baðýmsýz olarak bool deðerine göre çalýþacak mý diye kontrol edeceðiz.
-        //sonra çalýþacaksa conditionRunListte id'ye karþýlýk gelen indexi true yapýcaz.
-        //SIKINTI ÞU: true yaptýktan sonra for loop içerisinde ayný if'e tekrar gelince ne olacak???
+        //burada ï¿½nce diï¿½erlerinde baï¿½ï¿½msï¿½z olarak bool deï¿½erine gï¿½re ï¿½alï¿½ï¿½acak mï¿½ diye kontrol edeceï¿½iz.
+        //sonra ï¿½alï¿½ï¿½acaksa conditionRunListte id'ye karï¿½ï¿½lï¿½k gelen indexi true yapï¿½caz.
+        //SIKINTI ï¿½U: true yaptï¿½ktan sonra for loop iï¿½erisinde aynï¿½ if'e tekrar gelince ne olacak???
 
         //if(conditionRunList == null) 
         //{ 
@@ -236,7 +236,7 @@ public class Elif : HolderInstruction
 
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
-        //Sýkýntýlý bir durum gibi.
+        //Sï¿½kï¿½ntï¿½lï¿½ bir durum gibi.
         //RunCodeButton runCodeButton = new RunCodeButton();
         //RunCodeButton.RunInstructions(instructions);
         RunCodeButton runCodeButton = new RunCodeButton();
@@ -308,7 +308,7 @@ public class Move : Instruction
 
     public override void Run()
     {
-        //burada direk Move(Vector2) kullanýlabilir. 
+        //burada direk Move(Vector2) kullanï¿½labilir. 
         if (direction == "left")
             characterMovement.MoveLeft();
         else if (direction == "right")
@@ -341,7 +341,7 @@ public class Swim : Instruction
 
     public override void Run()
     {
-        //burada direk Move(Vector2) kullanýlabilir. 
+        //burada direk Move(Vector2) kullanï¿½labilir. 
         if (direction == "left")
             characterMovement.SwimLeft();
         else if (direction == "right")
@@ -586,7 +586,7 @@ public class RunCodeButton : MonoBehaviour
                         if (row.Substring(0, 5) != "class")
                         {
                             Debug.Log("hata");
-                            GameOver("class nesnesi oluþturmanýz gerekiyor. class kelimesini kullanmanýz gerekiyor.");
+                            GameOver("class nesnesi oluï¿½turmanï¿½z gerekiyor. class kelimesini kullanmanï¿½z gerekiyor.");
                         }
                         else
                         {
@@ -595,7 +595,7 @@ public class RunCodeButton : MonoBehaviour
                             if (classPart.Substring(0, className.Length) != className)
                             {
                                 Debug.Log("hata");
-                                GameOver("class adýný " + className + " yapmanýz gerekiyor.");
+                                GameOver("class adï¿½nï¿½ " + className + " yapmanï¿½z gerekiyor.");
                             }
                             else
                             {
@@ -603,7 +603,7 @@ public class RunCodeButton : MonoBehaviour
                                 if (parentClassPart[0] != '(')
                                 {
                                     Debug.Log("hata");
-                                    GameOver("Parantez hatasý: Bir class'ý oluþtururken parantezlerini doðru þekilde kullanmanýz gerekiyor. Örnekler: SimpleCharacter(Character) veya Character()");
+                                    GameOver("Parantez hatasï¿½: Bir class'ï¿½ oluï¿½tururken parantezlerini doï¿½ru ï¿½ekilde kullanmanï¿½z gerekiyor. ï¿½rnekler: SimpleCharacter(Character) veya Character()");
                                 }
                                 else
                                 {
@@ -611,7 +611,7 @@ public class RunCodeButton : MonoBehaviour
                                     if (parentClassPart.Substring(0, parentClassName.Length) != parentClassName)
                                     {
                                         Debug.Log("hata");
-                                        GameOver("Oluþturacaðýnýz class'ýn parent class'ýný parantez içine yazmanýz gerekiyor. Örnek: SimpleCharacter(Character)");
+                                        GameOver("Oluï¿½turacaï¿½ï¿½nï¿½z class'ï¿½n parent class'ï¿½nï¿½ parantez iï¿½ine yazmanï¿½z gerekiyor. ï¿½rnek: SimpleCharacter(Character)");
                                     }
                                     else
                                     {
@@ -619,17 +619,17 @@ public class RunCodeButton : MonoBehaviour
                                         if (parentClassPart.Length > 2)
                                         {
                                             Debug.Log("hata");
-                                            GameOver("class oluþtururken parantezi doðru yerde kapattýðýnýzdan ve sonrasýnda sadece : koyduðunuzdan emin olun.");
+                                            GameOver("class oluï¿½tururken parantezi doï¿½ru yerde kapattï¿½ï¿½ï¿½nï¿½zdan ve sonrasï¿½nda sadece : koyduï¿½unuzdan emin olun.");
                                         }
                                         else if (parentClassPart[0] != ')')
                                         {
                                             Debug.Log("hata");
-                                            GameOver("Parantez hatasý: Bir class'ý oluþtururken parantezlerini doðru þekilde kullanmanýz gerekiyor. Örnekler: SimpleCharacter(Character) veya Character()");
+                                            GameOver("Parantez hatasï¿½: Bir class'ï¿½ oluï¿½tururken parantezlerini doï¿½ru ï¿½ekilde kullanmanï¿½z gerekiyor. ï¿½rnekler: SimpleCharacter(Character) veya Character()");
                                         }
                                         else if (parentClassPart[1] != ':')
                                         {
                                             Debug.Log("hata");
-                                            GameOver("class oluþtururken komutun sonuna : eklemeniz gerekiyor.");
+                                            GameOver("class oluï¿½tururken komutun sonuna : eklemeniz gerekiyor.");
                                         }
                                     }
                                 }
@@ -662,7 +662,7 @@ public class RunCodeButton : MonoBehaviour
                     if (rowIndentation != indentation + n)
                     {
                         Debug.Log("Indentation hatasi");
-                        GameOver("Indentation hatasý: Komutun önüne class constructor komutunun önüne koyduðunuzdan " + n + " fazla boþluk koyarak yazmanýz gerekiyor.");
+                        GameOver("Indentation hatasï¿½: Komutun ï¿½nï¿½ne class constructor komutunun ï¿½nï¿½ne koyduï¿½unuzdan " + n + " fazla boï¿½luk koyarak yazmanï¿½z gerekiyor.");
                     }
 
 
@@ -674,15 +674,15 @@ public class RunCodeButton : MonoBehaviour
                     //string[] rowWords = leftTrimmedRow.Split(" ");
 
 
-                    //en az gerekli karakter sayýsý = 16
-                    //BUNLARI DEÐÝÞTÝREBÝLÝRÝM. DÝREKT HATALI DEMEK SAÇMA.
+                    //en az gerekli karakter sayï¿½sï¿½ = 16
+                    //BUNLARI DEï¿½ï¿½ï¿½Tï¿½REBï¿½Lï¿½Rï¿½M. Dï¿½REKT HATALI DEMEK SAï¿½MA.
 
                     //try
                     //{
                     if (trimmedRow.Substring(0, 3) != "def")
                     {
                         Debug.Log("Hata");
-                        GameOver("init komutunu yazmak için önce def kelimesini yazmanýz gerekiyor.");
+                        GameOver("init komutunu yazmak iï¿½in ï¿½nce def kelimesini yazmanï¿½z gerekiyor.");
                     }
                     else
                     {
@@ -694,7 +694,7 @@ public class RunCodeButton : MonoBehaviour
                         if (initWord.Substring(0, 8) != "__init__")
                         {
                             Debug.Log("Hata");
-                            GameOver("init komutu için def yazdýktan sonra boþluk býrakýp __init__ yazarak devam etmeniz gerekiyor.");
+                            GameOver("init komutu iï¿½in def yazdï¿½ktan sonra boï¿½luk bï¿½rakï¿½p __init__ yazarak devam etmeniz gerekiyor.");
                         }
                         else
                         {
@@ -703,7 +703,7 @@ public class RunCodeButton : MonoBehaviour
                             if (initWordParametersPart[0] != '(')
                             {
                                 Debug.Log("hata");
-                                GameOver("Parantez hatasý: __init__ yazdýktan sonra parantez içinde gerekli parametreleri girmeniz gerekiyor.");
+                                GameOver("Parantez hatasï¿½: __init__ yazdï¿½ktan sonra parantez iï¿½inde gerekli parametreleri girmeniz gerekiyor.");
                             }
                             else if (initWordParametersPart[initWordParametersPart.Length - 1] != ':')
                             {
@@ -717,7 +717,7 @@ public class RunCodeButton : MonoBehaviour
                                 if (initWordParametersPart[initWordParametersPart.Length - 1] != ')')
                                 {
                                     Debug.Log("hata");
-                                    GameOver("Parantez hatasý: __init__ yazdýktan sonra parantez içinde gerekli parametreleri girmeniz gerekiyor.");
+                                    GameOver("Parantez hatasï¿½: __init__ yazdï¿½ktan sonra parantez iï¿½inde gerekli parametreleri girmeniz gerekiyor.");
                                 }
                                 else
                                 {
@@ -731,7 +731,7 @@ public class RunCodeButton : MonoBehaviour
                                         if (!VariableCheck(initParameters[j]))
                                         {
                                             Debug.Log("hata");
-                                            GameOver("init içerisine yazdýðýnýz parametre deðiþken yazýmý kurallarýna uymalýdýr. Hatalý parametre: " + initParameters[j]);
+                                            GameOver("init iï¿½erisine yazdï¿½ï¿½ï¿½nï¿½z parametre deï¿½iï¿½ken yazï¿½mï¿½ kurallarï¿½na uymalï¿½dï¿½r. Hatalï¿½ parametre: " + initParameters[j]);
                                         }
                                     }
                                 }
@@ -744,17 +744,17 @@ public class RunCodeButton : MonoBehaviour
                     //Burada parametrelere ulastigim icin burada kontrol ediyorum. Yukarida da edebilirim.
                     if (!initParameters.Contains("shape"))
                     {
-                        GameOver("init parametrelerinden biri shape olmalýdýr.");
+                        GameOver("init parametrelerinden biri shape olmalï¿½dï¿½r.");
                     }
                     else if (!initParameters.Contains("color"))
                     {
-                        GameOver("init parametrelerinden biri color olmalýdýr.");
+                        GameOver("init parametrelerinden biri color olmalï¿½dï¿½r.");
                     }
 
                     //self yerine farkli kelimeler kullanilabilir.
                     selfKeyword = initParameters[0];
 
-                    Debug.Log("burasý");
+                    Debug.Log("burasï¿½");
                     foreach (string parameter in initParameters)
                         Debug.Log(parameter + " " + parameter.Length);
 
@@ -777,7 +777,7 @@ public class RunCodeButton : MonoBehaviour
                     if (rowIndentation != indentation + 2 * n)
                     {
                         Debug.Log("hATA");
-                        GameOver("Indentation hatasý: Komutun önüne init komutunun önüne koyduðunuzdan " + n + " fazla boþluk koyarak yazmanýz gerekiyor.");
+                        GameOver("Indentation hatasï¿½: Komutun ï¿½nï¿½ne init komutunun ï¿½nï¿½ne koyduï¿½unuzdan " + n + " fazla boï¿½luk koyarak yazmanï¿½z gerekiyor.");
                     }
 
                     else
@@ -789,7 +789,7 @@ public class RunCodeButton : MonoBehaviour
                             if (!trimmedRow.Contains('='))
                             {
                                 Debug.Log("hata");
-                                GameOver("Parametreleri atadýðýnýz satýrda atama için = kullanmanýz gerekiyor.");
+                                GameOver("Parametreleri atadï¿½ï¿½ï¿½nï¿½z satï¿½rda atama iï¿½in = kullanmanï¿½z gerekiyor.");
                             }
                             else
                             {
@@ -800,7 +800,7 @@ public class RunCodeButton : MonoBehaviour
                                 if (leftPart.Substring(0, selfKeyword.Length) != selfKeyword)
                                 {
                                     Debug.Log("hata");
-                                    GameOver("Atama satýrýnda belirlediðiniz self keyword'ünü kullanmanýz gerekiyor. Belirlediðiniz self keyword: " + selfKeyword);
+                                    GameOver("Atama satï¿½rï¿½nda belirlediï¿½iniz self keyword'ï¿½nï¿½ kullanmanï¿½z gerekiyor. Belirlediï¿½iniz self keyword: " + selfKeyword);
                                 }
                                 else
                                 {
@@ -808,7 +808,7 @@ public class RunCodeButton : MonoBehaviour
                                     if (leftPartAfterSelfWord[0] != '.')
                                     {
                                         Debug.Log("hata");
-                                        GameOver("Atama satýrýnda belirlediðiniz self keyword'den sonra . kullanmanýz gerekiyor. Belirlediðiniz self keyword" + selfKeyword);
+                                        GameOver("Atama satï¿½rï¿½nda belirlediï¿½iniz self keyword'den sonra . kullanmanï¿½z gerekiyor. Belirlediï¿½iniz self keyword" + selfKeyword);
                                     }
                                     else
                                     {
@@ -820,7 +820,7 @@ public class RunCodeButton : MonoBehaviour
                                         if (!initParameters.Contains(rightPart))
                                         {
                                             Debug.Log("hata");
-                                            GameOver("Atama satýrýnda sað tarafa yazdýðýnýz kelime init parametreleri arasýnda bulunmalýdýr.");
+                                            GameOver("Atama satï¿½rï¿½nda saï¿½ tarafa yazdï¿½ï¿½ï¿½nï¿½z kelime init parametreleri arasï¿½nda bulunmalï¿½dï¿½r.");
                                         }
                                         else
                                         {
@@ -854,7 +854,7 @@ public class RunCodeButton : MonoBehaviour
 
             if (initAssignments.Count != initParameters.Length - 1)
             {
-                Debug.Log("atama sayýlarý yetersiz");
+                Debug.Log("atama sayï¿½larï¿½ yetersiz");
             }
             else
             {
@@ -898,22 +898,22 @@ public class RunCodeButton : MonoBehaviour
 
             int conditionId = -1;
             int lastIndentation = 0;
-            //Baþka class varsa burasý kullanýlacak. Yoksa bazý kýsýmlarý kullanýlmayacak.
+            //Baï¿½ka class varsa burasï¿½ kullanï¿½lacak. Yoksa bazï¿½ kï¿½sï¿½mlarï¿½ kullanï¿½lmayacak.
             for (int i = 0; i < rows1.Length; i++)
             {
-                //ayrýca null kontrolü de gerekebilir.
+                //ayrï¿½ca null kontrolï¿½ de gerekebilir.
                 if (String.IsNullOrEmpty(rows1[i]))
                     continue;
 
                 int rowIndentation;
                 //Debug.Log(rows2[i]);
                 //bos satirlar yok sayiliyor.
-                //BURADA UZUNLUÐU 1'SE DÝYE KONTROL ETMEK BELKÝ DAHA ÝYÝ OLUR AMA UZUN BÝR BOÞLUK DA BIRAKABÝLÝRLER. BÝR ÞEKÝLDE HALLEDÝCEZ.
+                //BURADA UZUNLUï¿½U 1'SE Dï¿½YE KONTROL ETMEK BELKï¿½ DAHA ï¿½Yï¿½ OLUR AMA UZUN Bï¿½R BOï¿½LUK DA BIRAKABï¿½Lï¿½RLER. Bï¿½R ï¿½EKï¿½LDE HALLEDï¿½CEZ.
                 if (!String.IsNullOrEmpty(rows1[i]))
                 {
                     //if (rows1[i].Length >= 4)
                     //{
-                    //birden fazla import satýrý istenmediði için bir tane olacak þekilde ayarlandý. 
+                    //birden fazla import satï¿½rï¿½ istenmediï¿½i iï¿½in bir tane olacak ï¿½ekilde ayarlandï¿½. 
                     if (isFirstRow)
                     {
                         int c = 0;
@@ -929,7 +929,7 @@ public class RunCodeButton : MonoBehaviour
                             if (row.Substring(0, 4) != "from")
                             {
                                 Debug.Log("hata");
-                                GameOver("Import komutunun ilk kelimesi from olmalýdýr.");
+                                GameOver("Import komutunun ilk kelimesi from olmalï¿½dï¿½r.");
                             }
                             else
                             {
@@ -937,7 +937,7 @@ public class RunCodeButton : MonoBehaviour
                                 if (row.Substring(0, secondClassFileName.Length) != secondClassFileName)
                                 {
                                     Debug.Log("hata");
-                                    GameOver("Import komutunda class'ýn olduðu dosyanýn adýný yazmanýz gerekiyor. " + className + " class'ý için dosya adý: " + secondClassFileName);
+                                    GameOver("Import komutunda class'ï¿½n olduï¿½u dosyanï¿½n adï¿½nï¿½ yazmanï¿½z gerekiyor. " + className + " class'ï¿½ iï¿½in dosya adï¿½: " + secondClassFileName);
                                 }
                                 else
                                 {
@@ -945,7 +945,7 @@ public class RunCodeButton : MonoBehaviour
                                     if (row.Substring(0, 6) != "import")
                                     {
                                         Debug.Log("hata");
-                                        GameOver("Import komutununda class'ýn bulunduðu dosyadan sonra import yazmanýz gerekiyor.");
+                                        GameOver("Import komutununda class'ï¿½n bulunduï¿½u dosyadan sonra import yazmanï¿½z gerekiyor.");
                                     }
                                     else
                                     {
@@ -953,7 +953,7 @@ public class RunCodeButton : MonoBehaviour
                                         if (row != className)
                                         {
                                             Debug.Log("hata");
-                                            GameOver("Import komutunda class'ýn adýný yazmanýz gerekiyor. class adý: " + className);
+                                            GameOver("Import komutunda class'ï¿½n adï¿½nï¿½ yazmanï¿½z gerekiyor. class adï¿½: " + className);
                                         }
 
                                     }
@@ -984,7 +984,7 @@ public class RunCodeButton : MonoBehaviour
                         //ilk satirin class oldugu varsayiliyor.
                         if (rowIndentation != indentation)
                         {
-                            GameOver("Indentation hatasý: Komutun önüne import komutunun önüne koyduðunuz kadar boþluk koyarak yazmanýz gerekiyor.");
+                            GameOver("Indentation hatasï¿½: Komutun ï¿½nï¿½ne import komutunun ï¿½nï¿½ne koyduï¿½unuz kadar boï¿½luk koyarak yazmanï¿½z gerekiyor.");
                             Debug.Log("Indentation hatasi");
                         }
 
@@ -995,8 +995,8 @@ public class RunCodeButton : MonoBehaviour
                         string[] classInstanceParts;
                         if (!trimmedRow.Contains("="))
                         {
-                            GameOver("Bir " + className + " nesnesi oluþturmanýz gerekiyor.");
-                            Debug.Log("Bir Character nesnesi oluþturmanýz gerekiyor.");
+                            GameOver("Bir " + className + " nesnesi oluï¿½turmanï¿½z gerekiyor.");
+                            Debug.Log("Bir Character nesnesi oluï¿½turmanï¿½z gerekiyor.");
                         }
                         else
                         {
@@ -1009,7 +1009,7 @@ public class RunCodeButton : MonoBehaviour
 
                             if (!VariableCheck(classInstanceName))
                             {
-                                GameOver("Oluþturmak istediðiniz nesnenin adý deðiþken ismi kurallarýna uygun olmalýdýr.");
+                                GameOver("Oluï¿½turmak istediï¿½iniz nesnenin adï¿½ deï¿½iï¿½ken ismi kurallarï¿½na uygun olmalï¿½dï¿½r.");
                                 Debug.Log("Class instance name:" + classInstanceName + "+");
                                 Debug.Log("hata");
                             }
@@ -1019,7 +1019,7 @@ public class RunCodeButton : MonoBehaviour
                             //}
                             else if (!classConstructor.Contains("(") || !classConstructor.Contains(")"))
                             {
-                                GameOver(className + " nesnesi oluþtururken parantezleri doðru kullanmanýz gerekiyor.\nÖrnek: " + className + "(\"blue\")");
+                                GameOver(className + " nesnesi oluï¿½tururken parantezleri doï¿½ru kullanmanï¿½z gerekiyor.\nï¿½rnek: " + className + "(\"blue\")");
                                 Debug.Log("hata");
                             }
                             else
@@ -1037,7 +1037,7 @@ public class RunCodeButton : MonoBehaviour
                                     if (classParametersPart[classParametersPart.Length - 1] != ')')
                                     {
                                         Debug.Log("hata");
-                                        GameOver("Parantez hatasý: class nesnesi oluþtururken parantezi kapatmanýz gerekiyor.");
+                                        GameOver("Parantez hatasï¿½: class nesnesi oluï¿½tururken parantezi kapatmanï¿½z gerekiyor.");
                                     }
                                     else
                                     {
@@ -1048,7 +1048,7 @@ public class RunCodeButton : MonoBehaviour
                                         if (classParameters.Length != initParameters.Length - 1)
                                         {
                                             Debug.Log("hata");
-                                            GameOver("self keyword olmadan init komutuna yazdýðýnýz parametrelere sýrasýyla uygun deðerler yazmanýz gerekiyor.");
+                                            GameOver("self keyword olmadan init komutuna yazdï¿½ï¿½ï¿½nï¿½z parametrelere sï¿½rasï¿½yla uygun deï¿½erler yazmanï¿½z gerekiyor.");
                                         }
                                         else
                                         {
@@ -1069,7 +1069,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         Debug.Log("hata");
-                                                        GameOver("shape parametresine uygun bir þekil yazmanýz gerekiyor. Uygun þekiller: circle, square");
+                                                        GameOver("shape parametresine uygun bir ï¿½ekil yazmanï¿½z gerekiyor. Uygun ï¿½ekiller: circle, square");
                                                     }
                                                 }
                                                 else if (initParameters[j] == "color")
@@ -1078,24 +1078,25 @@ public class RunCodeButton : MonoBehaviour
                                                     //Color.FromName(parameter);
                                                     if (parameter == "red")
                                                     {
-
+                                                        //GetComponent<Renderer>().material.color = UnityEngine.Color.red;
+                                                        characterColorChanger.ChangeColorToRed();
                                                     }
                                                     else if (parameter == "green")
                                                     {
-
+                                                        characterColorChanger.ChangeColorToGreen();
                                                     }
                                                     else if (parameter == "blue")
                                                     {
-
+                                                        characterColorChanger.ChangeColorToBlue();
                                                     }
                                                     else if (parameter == "yellow")
                                                     {
-
+                                                        characterColorChanger.ChangeColorToYellow();
                                                     }
                                                     else
                                                     {
                                                         Debug.Log("hata");
-                                                        GameOver("color parametresine uygun bir renk yazmanýz gerekiyor. Uygun renkler: red, green, blue, yellow");
+                                                        GameOver("color parametresine uygun bir renk yazmanï¿½z gerekiyor. Uygun renkler: red, green, blue, yellow");
                                                     }
 
                                                 }
@@ -1115,7 +1116,7 @@ public class RunCodeButton : MonoBehaviour
                                     //ben buyuk ihtimalle sadece string olan classlar kullanacagim. yine de digerleri de implement edilebilir.
                                     //python oldugu icin init kisminda parametrelerin tipleri belli olmaz. burada kontrol etmek lazim.
 
-                                    //bölümlere göre farklý kontroller olabilir.
+                                    //bï¿½lï¿½mlere gï¿½re farklï¿½ kontroller olabilir.
 
 
 
@@ -1136,8 +1137,8 @@ public class RunCodeButton : MonoBehaviour
 
                         if ((rowIndentation - indentation) % n != 0)
                         {
-                            GameOver("Indentation hatasý: Komutun baþýnda býraktýðýnýz boþluk miktarýný kontrol etmeniz gerekiyor.");
-                            Debug.Log("indentation hatasý");
+                            GameOver("Indentation hatasï¿½: Komutun baï¿½ï¿½nda bï¿½raktï¿½ï¿½ï¿½nï¿½z boï¿½luk miktarï¿½nï¿½ kontrol etmeniz gerekiyor.");
+                            Debug.Log("indentation hatasï¿½");
                         }
 
 
@@ -1153,8 +1154,8 @@ public class RunCodeButton : MonoBehaviour
                         {
                             if (rowIndentation != lastIndentation + n)
                             {
-                                GameOver("Indentation hatasý: Komutun baþýnda býraktýðýnýz boþluk miktarýný kontrol etmeniz gerekiyor.");
-                                Debug.Log("indentation hatasý2");
+                                GameOver("Indentation hatasï¿½: Komutun baï¿½ï¿½nda bï¿½raktï¿½ï¿½ï¿½nï¿½z boï¿½luk miktarï¿½nï¿½ kontrol etmeniz gerekiyor.");
+                                Debug.Log("indentation hatasï¿½2");
                             }
                         }
 
@@ -1176,8 +1177,8 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     if (trimmedRow[trimmedRow.IndexOf("if") + 2] != ' ')
                                     {
-                                        GameOver("if komutu yazarken if yazdýktan sonra boþluk býrakmanýz gerekiyor.");
-                                        Debug.Log("boþluk olmalý hata");
+                                        GameOver("if komutu yazarken if yazdï¿½ktan sonra boï¿½luk bï¿½rakmanï¿½z gerekiyor.");
+                                        Debug.Log("boï¿½luk olmalï¿½ hata");
                                     }
                                     else
                                     {
@@ -1208,7 +1209,7 @@ public class RunCodeButton : MonoBehaviour
                                                 {
                                                     Debug.Log(ifParts[0]);
                                                     Debug.Log("classname2=" + className);
-                                                    GameOver("Bu problemde if komutunda " + className + "'in metodlarýný kullanarak kontrol yapmanýz gerekiyor.\nÖrnek: if " + className + ".up_tile().is_ground()");
+                                                    GameOver("Bu problemde if komutunda " + className + "'in metodlarï¿½nï¿½ kullanarak kontrol yapmanï¿½z gerekiyor.\nï¿½rnek: if " + className + ".up_tile().is_ground()");
                                                     Debug.Log("hata");
                                                 }
                                                 string firstMethod = null;
@@ -1219,7 +1220,7 @@ public class RunCodeButton : MonoBehaviour
                                                     if (parameterPart != "()")
                                                     {
                                                         Debug.Log("hata");
-                                                        GameOver("Parantez hatasý: up_tile metoduna ulaþmak için up_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: up_tile metoduna ulaï¿½mak iï¿½in up_tile() yazmanï¿½z gerekiyor.");
                                                     }
                                                     else
                                                     {
@@ -1234,7 +1235,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = ifParts[1].Substring(9).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: down_tile metoduna ulaþmak için down_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: down_tile metoduna ulaï¿½mak iï¿½in down_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1249,7 +1250,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = ifParts[1].Substring(10).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: right_tile metoduna ulaþmak için right_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: right_tile metoduna ulaï¿½mak iï¿½in right_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1264,7 +1265,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = ifParts[1].Substring(9).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: left_tile metoduna ulaþmak için left_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: left_tile metoduna ulaï¿½mak iï¿½in left_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1302,7 +1303,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (parameterPart != "():")
                                                     {
-                                                        GameOver("Parantez hatasý: is_ground metoduna ulaþmak için is_ground() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: is_ground metoduna ulaï¿½mak iï¿½in is_ground() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1323,7 +1324,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (parameterPart != "():")
                                                     {
-                                                        GameOver("Parantez hatasý: is_water metoduna ulaþmak için is_water() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: is_water metoduna ulaï¿½mak iï¿½in is_water() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1348,7 +1349,7 @@ public class RunCodeButton : MonoBehaviour
                                                     //hata cikarsa zaten program duracak
                                                     if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
                                                     {
-                                                        GameOver("Parantez hatasý: contains metoduna ulaþmak için örnek olarak contains(apple) yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: contains metoduna ulaï¿½mak iï¿½in ï¿½rnek olarak contains(apple) yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1389,40 +1390,40 @@ public class RunCodeButton : MonoBehaviour
 
                                 if (trimmedRow[3] != ' ')
                                 {
-                                    GameOver("for komutunda for'dan sonra boþluk býrakmanýz gerekiyor.");
+                                    GameOver("for komutunda for'dan sonra boï¿½luk bï¿½rakmanï¿½z gerekiyor.");
                                     Debug.Log("hata");
 
                                 }
                                 else if (!trimmedRow.Contains("in"))
                                 {
-                                    GameOver("Bu problemde for komutunda in kelimesi kullanmanýz gerekiyor.");
+                                    GameOver("Bu problemde for komutunda in kelimesi kullanmanï¿½z gerekiyor.");
                                     Debug.Log("hata");
                                 }
                                 else if (trimmedRow[trimmedRow.IndexOf("in") - 1] != ' ')
                                 {
-                                    GameOver("for komutunda in'den önce boþluk býrakmanýz gerekiyor.");
+                                    GameOver("for komutunda in'den ï¿½nce boï¿½luk bï¿½rakmanï¿½z gerekiyor.");
                                     Debug.Log("hata");
                                 }
                                 else if (trimmedRow[trimmedRow.IndexOf("in") + 2] != ' ')
                                 {
-                                    GameOver("for komutunda in'den sonra boþluk býrakmanýz gerekiyor.");
+                                    GameOver("for komutunda in'den sonra boï¿½luk bï¿½rakmanï¿½z gerekiyor.");
                                     Debug.Log("hata");
                                 }
 
                                 else
                                 {
-                                    //burada sanýrým trim kullanmak gerekiyor ve sonrasýnda kelimenin içinde boþluk var mý diye bakmak gerekiyor
+                                    //burada sanï¿½rï¿½m trim kullanmak gerekiyor ve sonrasï¿½nda kelimenin iï¿½inde boï¿½luk var mï¿½ diye bakmak gerekiyor
                                     string var = trimmedRow.Substring(3, trimmedRow.IndexOf("in") - 3).Trim();
                                     Debug.Log("var = " + var);
                                     //
                                     if (!VariableCheck(var))
                                     {
-                                        GameOver("Deðiþken hatalý:" + var);
+                                        GameOver("Deï¿½iï¿½ken hatalï¿½:" + var);
                                         Debug.Log("hata");
                                     }
                                     else if (!trimmedRow.Contains("range"))
                                     {
-                                        GameOver("Bu problemde for komutunda range kullanmanýz/yazmanýz gerekiyor.");
+                                        GameOver("Bu problemde for komutunda range kullanmanï¿½z/yazmanï¿½z gerekiyor.");
                                         Debug.Log("hata");
                                     }
                                     else
@@ -1432,13 +1433,13 @@ public class RunCodeButton : MonoBehaviour
 
                                         if (rangeParameter[0] != '(')
                                         {
-                                            GameOver("Parantez hatasý: for komutunda range kelimesinden sonra parantez içinde bir deðer girmeniz gerekiyor.");
+                                            GameOver("Parantez hatasï¿½: for komutunda range kelimesinden sonra parantez iï¿½inde bir deï¿½er girmeniz gerekiyor.");
                                             Debug.Log("hata");
                                         }
 
                                         else if (rangeParameter[rangeParameter.Length - 2] != ')')
                                         {
-                                            GameOver("Parantez hatasý: for komutunda range kelimesinden sonra parantez içinde bir deðer girmeniz gerekiyor.");
+                                            GameOver("Parantez hatasï¿½: for komutunda range kelimesinden sonra parantez iï¿½inde bir deï¿½er girmeniz gerekiyor.");
                                             Debug.Log("hata");
                                         }
                                         else if (rangeParameter[rangeParameter.Length - 1] != ':')
@@ -1454,13 +1455,13 @@ public class RunCodeButton : MonoBehaviour
                                             if (int.TryParse(rangeParameter, out parameter))
                                             {
                                                 Debug.Log(parameter);
-                                                //range içindeki deðere ulaþabiliyorum artýk.
+                                                //range iï¿½indeki deï¿½ere ulaï¿½abiliyorum artï¿½k.
 
-                                                //Bunu doðru yere eklemek gerekiyor.
+                                                //Bunu doï¿½ru yere eklemek gerekiyor.
                                                 For forLoop = new For(this, characterMovement, parameter, instructionLevel);
 
 
-                                                //indentation kontrol lazým.
+                                                //indentation kontrol lazï¿½m.
                                                 if (instructionList.Count == 0)
                                                 {
 
@@ -1474,7 +1475,7 @@ public class RunCodeButton : MonoBehaviour
                                                         {
                                                             if (instructionList[j].level == instructionLevel - 1)
                                                             {
-                                                                //burada holder olduklarýndan emin olmak lazým. Yani üsttekinden emin olmak lazým. 
+                                                                //burada holder olduklarï¿½ndan emin olmak lazï¿½m. Yani ï¿½sttekinden emin olmak lazï¿½m. 
                                                                 //((HolderInstruction)instructionList[j]).Add(forLoop);
                                                                 AddInstruction(forLoop);
                                                             }
@@ -1499,13 +1500,13 @@ public class RunCodeButton : MonoBehaviour
                             {
                                 if (!trimmedRow.Contains('('))
                                 {
-                                    GameOver("Parantez hatasý: parametresiz methodlar sonlarýna () eklenerek, parametreli methodlar eklenen parantezin içine parametre deðerleri yazýlarak çaðrýlýr.");
+                                    GameOver("Parantez hatasï¿½: parametresiz methodlar sonlarï¿½na () eklenerek, parametreli methodlar eklenen parantezin iï¿½ine parametre deï¿½erleri yazï¿½larak ï¿½aï¿½rï¿½lï¿½r.");
 
                                     Debug.Log("hata");
                                 }
                                 else if (!trimmedRow.Contains(')'))
                                 {
-                                    GameOver("Parantez hatasý: parametresiz methodlar sonlarýna () eklenerek, parametreli methodlar eklenen parantezin içine parametre deðerleri yazýlarak çaðrýlýr.");
+                                    GameOver("Parantez hatasï¿½: parametresiz methodlar sonlarï¿½na () eklenerek, parametreli methodlar eklenen parantezin iï¿½ine parametre deï¿½erleri yazï¿½larak ï¿½aï¿½rï¿½lï¿½r.");
                                     Debug.Log("hata2");
                                 }
 
@@ -1541,7 +1542,7 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
-                                        GameOver("Method tanýmýný doðru yazmanýz gerekiyor.");
+                                        GameOver("Method tanï¿½mï¿½nï¿½ doï¿½ru yazmanï¿½z gerekiyor.");
                                         Debug.Log("hata");
                                     }
                                     //}
@@ -1559,12 +1560,12 @@ public class RunCodeButton : MonoBehaviour
                             {
                                 if (!trimmedRow.Contains('('))
                                 {
-                                    GameOver("Parantez hatasý: parametresiz methodlar sonlarýna () eklenerek, parametreli methodlar eklenen parantezin içine parametre deðerleri yazýlarak çaðrýlýr.");
+                                    GameOver("Parantez hatasï¿½: parametresiz methodlar sonlarï¿½na () eklenerek, parametreli methodlar eklenen parantezin iï¿½ine parametre deï¿½erleri yazï¿½larak ï¿½aï¿½rï¿½lï¿½r.");
                                     Debug.Log("hata");
                                 }
                                 else if (!trimmedRow.Contains(')'))
                                 {
-                                    GameOver("Parantez hatasý: parametresiz methodlar sonlarýna () eklenerek, parametreli methodlar eklenen parantezin içine parametre deðerleri yazýlarak çaðrýlýr.");
+                                    GameOver("Parantez hatasï¿½: parametresiz methodlar sonlarï¿½na () eklenerek, parametreli methodlar eklenen parantezin iï¿½ine parametre deï¿½erleri yazï¿½larak ï¿½aï¿½rï¿½lï¿½r.");
                                     Debug.Log("hata2");
                                 }
 
@@ -1600,7 +1601,7 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
-                                        GameOver("Method tanýmýný doðru yazmanýz gerekiyor.");
+                                        GameOver("Method tanï¿½mï¿½nï¿½ doï¿½ru yazmanï¿½z gerekiyor.");
                                         Debug.Log("hata");
                                     }
                                     //}
@@ -1624,8 +1625,8 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
                                     {
-                                        GameOver("elif komutu yazarken elif yazdýktan sonra boþluk býrakmanýz gerekiyor.");
-                                        Debug.Log("boþluk olmalý hata");
+                                        GameOver("elif komutu yazarken elif yazdï¿½ktan sonra boï¿½luk bï¿½rakmanï¿½z gerekiyor.");
+                                        Debug.Log("boï¿½luk olmalï¿½ hata");
                                     }
                                     else
                                     {
@@ -1652,7 +1653,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                 if (elifParts[0] != className)
                                                 {
-                                                    GameOver("Bu problemde elif komutunda " + className + "'in metodlarýný kullanarak kontrol yapmanýz gerekiyor.\nÖrnek: elif " + className + ".up_tile().is_ground()");
+                                                    GameOver("Bu problemde elif komutunda " + className + "'in metodlarï¿½nï¿½ kullanarak kontrol yapmanï¿½z gerekiyor.\nï¿½rnek: elif " + className + ".up_tile().is_ground()");
                                                     Debug.Log("hata");
                                                 }
                                                 string firstMethod = null;
@@ -1662,7 +1663,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = elifParts[1].Substring(7).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: up_tile metoduna ulaþmak için up_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: up_tile metoduna ulaï¿½mak iï¿½in up_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1678,7 +1679,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = elifParts[1].Substring(9).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: down_tile metoduna ulaþmak için down_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: down_tile metoduna ulaï¿½mak iï¿½in down_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1693,7 +1694,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = elifParts[1].Substring(10).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: right_tile metoduna ulaþmak için right_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: right_tile metoduna ulaï¿½mak iï¿½in right_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1708,7 +1709,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = elifParts[1].Substring(9).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: left_tile metoduna ulaþmak için left_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: left_tile metoduna ulaï¿½mak iï¿½in left_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1778,7 +1779,7 @@ public class RunCodeButton : MonoBehaviour
                                                         //hata cikarsa zaten program duracak
                                                         if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
                                                         {
-                                                            GameOver("Parantez hatasý: contains metoduna ulaþmak için örnek olarak contains(apple) yazmanýz gerekiyor.");
+                                                            GameOver("Parantez hatasï¿½: contains metoduna ulaï¿½mak iï¿½in ï¿½rnek olarak contains(apple) yazmanï¿½z gerekiyor.");
                                                             Debug.Log("hata");
                                                         }
                                                         else
@@ -1824,8 +1825,8 @@ public class RunCodeButton : MonoBehaviour
                                 {
                                     if (trimmedRow[trimmedRow.IndexOf("while") + 5] != ' ')
                                     {
-                                        GameOver("while komutu yazarken while yazdýktan sonra boþluk býrakmanýz gerekiyor.");
-                                        Debug.Log("boþluk olmalý hata");
+                                        GameOver("while komutu yazarken while yazdï¿½ktan sonra boï¿½luk bï¿½rakmanï¿½z gerekiyor.");
+                                        Debug.Log("boï¿½luk olmalï¿½ hata");
                                     }
                                     else
                                     {
@@ -1852,7 +1853,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                 if (whileParts[0] != className)
                                                 {
-                                                    GameOver("Bu problemde while komutunda " + className + "'in metodlarýný kullanarak kontrol yapmanýz gerekiyor.\nÖrnek: while " + className + ".up_tile().is_ground()");
+                                                    GameOver("Bu problemde while komutunda " + className + "'in metodlarï¿½nï¿½ kullanarak kontrol yapmanï¿½z gerekiyor.\nï¿½rnek: while " + className + ".up_tile().is_ground()");
                                                     Debug.Log("hata");
                                                 }
                                                 string firstMethod = null;
@@ -1862,7 +1863,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = whileParts[1].Substring(7).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: up_tile metoduna ulaþmak için up_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: up_tile metoduna ulaï¿½mak iï¿½in up_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1878,7 +1879,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = whileParts[1].Substring(9).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: down_tile metoduna ulaþmak için down_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: down_tile metoduna ulaï¿½mak iï¿½in down_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1893,7 +1894,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = whileParts[1].Substring(10).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: right_tile metoduna ulaþmak için right_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: right_tile metoduna ulaï¿½mak iï¿½in right_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1908,7 +1909,7 @@ public class RunCodeButton : MonoBehaviour
                                                     parameterPart = whileParts[1].Substring(9).Replace(" ", "");
                                                     if (parameterPart != "()")
                                                     {
-                                                        GameOver("Parantez hatasý: left_tile metoduna ulaþmak için left_tile() yazmanýz gerekiyor.");
+                                                        GameOver("Parantez hatasï¿½: left_tile metoduna ulaï¿½mak iï¿½in left_tile() yazmanï¿½z gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
@@ -1978,7 +1979,7 @@ public class RunCodeButton : MonoBehaviour
                                                         //hata cikarsa zaten program duracak
                                                         if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
                                                         {
-                                                            GameOver("Parantez hatasý: contains metoduna ulaþmak için örnek olarak contains(apple) yazmanýz gerekiyor.");
+                                                            GameOver("Parantez hatasï¿½: contains metoduna ulaï¿½mak iï¿½in ï¿½rnek olarak contains(apple) yazmanï¿½z gerekiyor.");
                                                             Debug.Log("hata");
                                                         }
                                                         else
@@ -2018,7 +2019,7 @@ public class RunCodeButton : MonoBehaviour
                                 trimmedRow = trimmedRow.Replace(" ", "");
                                 if (trimmedRow.Length != 5)
                                 {
-                                    GameOver("else komutu else kelimesi ve : haricinde sadece boþluklar içerebilir.");
+                                    GameOver("else komutu else kelimesi ve : haricinde sadece boï¿½luklar iï¿½erebilir.");
                                     Debug.Log("hata");
                                 }
 
@@ -2030,7 +2031,7 @@ public class RunCodeButton : MonoBehaviour
 
                                 else
                                 {
-                                    //AddInstruction() içinde bunun üstüdneki ConditionHolder mý diye kontrol etmek gerek.
+                                    //AddInstruction() iï¿½inde bunun ï¿½stï¿½dneki ConditionHolder mï¿½ diye kontrol etmek gerek.
                                     //Else elseCondition = new Else(instructionLevel + 1);
                                     //Else elseCondition = new Else(conditionId, conditionRunList, instructionLevel);
                                     Else elseCondition = new Else(characterMovement, instructionLevel);
@@ -2065,7 +2066,7 @@ public class RunCodeButton : MonoBehaviour
             //{
             //if (instructionList[0].GetType() != typeof(For))
             //{
-            //    Debug.Log("Ýlk komutun bir for olmasý gerekiyor.");
+            //    Debug.Log("ï¿½lk komutun bir for olmasï¿½ gerekiyor.");
             //}
             //}
 
@@ -3080,7 +3081,7 @@ public class RunCodeButton : MonoBehaviour
     {
         if (instructionList[0].GetType() != typeof(For))
         {
-            Debug.Log("Ýlk komutun bir for olmasý gerekiyor.");
+            Debug.Log("ï¿½lk komutun bir for olmasï¿½ gerekiyor.");
         }
     }
 
@@ -3116,7 +3117,7 @@ public class RunCodeButton : MonoBehaviour
             {
                 if (instructionList[0].GetType() != typeof(For))
                 {
-                    Debug.Log("Ýlk komutun bir for olmasý gerekiyor.");
+                    Debug.Log("ï¿½lk komutun bir for olmasï¿½ gerekiyor.");
                 }
             }
         }
@@ -3219,7 +3220,7 @@ public class RunCodeButton : MonoBehaviour
     }
 
 
-    //SORUN BURADA HERHALDE. Forun içine eklemiyor moveu.
+    //SORUN BURADA HERHALDE. Forun iï¿½ine eklemiyor moveu.
     public void AddInstruction(Instruction instruction)
     {
 
@@ -3238,7 +3239,7 @@ public class RunCodeButton : MonoBehaviour
             if (i == instruction.level)
             {
                 //if (instruction.ToString() == "Move: up Class")
-                //    Debug.Log("Burasý 2:" + instruction.level);
+                //    Debug.Log("Burasï¿½ 2:" + instruction.level);
 
                 instructionList.Add(instruction);
 
@@ -3249,16 +3250,16 @@ public class RunCodeButton : MonoBehaviour
             {
                 //if (instructionList.Count > 0)
                 //{
-                //burada is instance olacak sanýrým
+                //burada is instance olacak sanï¿½rï¿½m
                 //instructionList[instructionList.Count - 1].GetType() == typeof(HolderInstruction)
-                //Uzun runtime buradan kaynaklanýyor.
+                //Uzun runtime buradan kaynaklanï¿½yor.
                 //instructionList[instructionList.Count - 1] is HolderInstruction
                 Debug.Log(instructionList.Count);
                 Debug.Log(instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)));
                 if (instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)))
                 {
                     Debug.Log("holderxxxx");
-                    //burada son listin sonundaki instructionýn listi alýnýyor
+                    //burada son listin sonundaki instructionï¿½n listi alï¿½nï¿½yor
                     instructionList = ((HolderInstruction)instructionList[instructionList.Count - 1]).instructions;
                     Debug.Log(instructionList.Count);
                     //instruction = instructionList[instructionList.Count - 1];
