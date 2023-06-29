@@ -373,7 +373,7 @@ public class RunCodeButton : MonoBehaviour
     [Header("Category and Level")]
     public int catNumber;
     public int levelNumber;
-
+    //public bool checkIfClassFieldsPrivate;
 
     private List<Instruction> instructionList;
     [Space]
@@ -391,6 +391,7 @@ public class RunCodeButton : MonoBehaviour
     private string[] initParameters = null;
 
     private string[] pythonReservedWords;
+
     private string[] fruits;
     //public CharacterMovementController characterMovementController;
 
@@ -461,6 +462,7 @@ public class RunCodeButton : MonoBehaviour
                                             "del",   "except", "finally",  "form", "global", "import", "in", "is", "lambda",
                                             "nonlocal", "not", "or", "pass", "raise", "return", "try",  "with", "yeld"};
         fruits = new string[] { "apple", "banana", "kiwi" };
+
         conditionRunList = new List<bool>();
         //simdilik burada. sonradan unity uzerinden verilecek.
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -546,6 +548,7 @@ public class RunCodeButton : MonoBehaviour
         string characterColor;
         string secondClassFileName = "SimpleCharacter";
 
+
         //List<string> classInitParameters = new List<string>();
 
         if (!String.IsNullOrEmpty(inputText2))
@@ -566,13 +569,6 @@ public class RunCodeButton : MonoBehaviour
                 if (String.IsNullOrEmpty(rows2[i]))
                     continue;
 
-                //Debug.Log(rows2[i]);
-                //bos satirlar yok sayiliyor.
-                //if (rows2[i] != "\n")
-                //{
-
-                //aslinda burada kelimeleri almis oluyoruz. indentation kontrolu yapariz sadece. ??????
-                //string[] words = rows2[i].Split(" ");
                 if (isFirstRow)
                 {
 
@@ -647,39 +643,6 @@ public class RunCodeButton : MonoBehaviour
                         GameOver("Hata");
                     }
 
-                    //.....................
-                    //if (row.Length < 7)
-                    //{
-                    //    Debug.Log("hata");
-                    //}
-                    //else
-                    //{
-                    //    Debug.Log(row.Length + " " + row);
-                    //    string word = row.Substring(5, row.Length - 5 - 1);
-                    //    if (row.Substring(0, 5) != "class")
-                    //    {
-                    //        Debug.Log(row.Substring(0, 5));
-                    //        Debug.Log("hata");
-                    //    }
-                    //    else if (row[row.Length - 1] != ':')
-                    //    {
-                    //        Debug.Log(row[row.Length - 1]);
-                    //        Debug.Log("hata");
-                    //    }
-                    //    else if (word.Contains(":"))
-                    //    {
-                    //        Debug.Log("hata");
-                    //    }
-                    //    else if (word.Contains("(") || word.Contains(")"))
-                    //    {
-                    //        Debug.Log("hata");
-                    //    }
-                    //    else
-                    //    {
-                    //        className = word;
-                    //        Debug.Log("classname1=" + className);
-                    //    }
-                    //}
 
                     isFirstRow = false;
                     isInitRow = true;
@@ -773,61 +736,21 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                 }
                             }
-                            ////Bu kýsýmda boþluklarýn önemi olmadýðý için boþluksuz kelime elde ediliyor.
-                            //initWord = initWord.Replace(" ", "");
-                            ////Debug.Log(str);
-                            ////if (initWord.Length >= 11)
-                            ////{
-                            //Debug.Log(initWord[8]);
-                            //Debug.Log(initWord[initWord.Length - 2]);
-
-                            ////indexler doðru mu??
-                            //if (initWord[8] != '(' || initWord[initWord.Length - 2] != ')')
-                            //{
-                            //    Debug.Log("hata");
-                            //}
-                            //else if (initWord[initWord.Length - 1] != ':')
-                            //{
-                            //    Debug.Log("hata");
-                            //}
-                            ////12 cikarmanin sebebi sondaki ekstra karakter
-                            //else if (initWord.Substring(9, initWord.Length - 11).Contains("(") || initWord.Substring(9, initWord.Length - 11).Contains(")"))
-                            //{
-                            //    Debug.Log("Fazla parantez");
-                            //}
-                            //else if (initWord.Substring(9, initWord.Length - 11).Contains(":"))
-                            //{
-                            //    Debug.Log("yanlýþ yerde : ");
-                            //}
-                            //else
-                            //{
-                            //    string initParametersString = initWord.Substring(9, initWord.Length - 11);
-                            //    initParameters = initParametersString.Split(",");
-                            //    for (int j = 0; j < initParameters.Length; j++)
-                            //    {
-                            //        initParameters[j] = initParameters[j].Trim();
-                            //        if (!VariableCheck(initParameters[j]))
-                            //        {
-                            //            Debug.Log("hata");
-                            //        }
-                            //    }
-                            //}
-
 
                         }
 
                     }
-                    Debug.Log("nedir");
-                    //}
-                    //catch(Exception e)
-                    //{
-                    //   Debug.Log("hata "+e.Message);
-                    //   GameOver("hata");
-                    //}
-                    //................
-                    Debug.Log("x");
-                    Debug.Log(initParameters[0]);
-                    Debug.Log("y");
+
+                    //Burada parametrelere ulastigim icin burada kontrol ediyorum. Yukarida da edebilirim.
+                    if (!initParameters.Contains("shape"))
+                    {
+                        GameOver("init parametrelerinden biri shape olmalýdýr.");
+                    }
+                    else if (!initParameters.Contains("color"))
+                    {
+                        GameOver("init parametrelerinden biri color olmalýdýr.");
+                    }
+
                     //self yerine farkli kelimeler kullanilabilir.
                     selfKeyword = initParameters[0];
 
@@ -891,21 +814,9 @@ public class RunCodeButton : MonoBehaviour
                                     {
                                         leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
                                         Debug.Log(leftPartAfterSelfWord);
-                                        //if (!VariableCheck(leftPartAfterSelfWord))
-                                        //{
-                                        //    Debug.Log("hata");
-                                        //    GameOver("");
-                                        //}
-                                        //else
-                                        //{
+
                                         Debug.Log(rightPart);
-                                        
-                                        //else
-                                        //{
-                                        //    initAssignments.Add(rightPart);
-                                        //}
-                                        ////}
-                                        //
+
                                         if (!initParameters.Contains(rightPart))
                                         {
                                             Debug.Log("hata");
@@ -914,13 +825,11 @@ public class RunCodeButton : MonoBehaviour
                                         else
                                         {
                                             initAssignments.Add(rightPart);
-                                            //if (leftPartAfterSelfWord != rightPart)
-                                            //{
-                                            //    Debug.Log("hata");
-                                            //    GameOver("Atama satýrýnda sol tarafta yazdýðýnýz deðer ");
-                                            //}
 
                                         }
+
+
+
 
 
                                     }
@@ -941,7 +850,7 @@ public class RunCodeButton : MonoBehaviour
 
             }
 
-          
+
 
             if (initAssignments.Count != initParameters.Length - 1)
             {
@@ -1028,7 +937,7 @@ public class RunCodeButton : MonoBehaviour
                                 if (row.Substring(0, secondClassFileName.Length) != secondClassFileName)
                                 {
                                     Debug.Log("hata");
-                                    GameOver("Import komutunda class'ýn olduðu dosyanýn adýný yazmanýz gerekiyor. "+className+" class'ý için dosya adý: "+ secondClassFileName);
+                                    GameOver("Import komutunda class'ýn olduðu dosyanýn adýný yazmanýz gerekiyor. " + className + " class'ý için dosya adý: " + secondClassFileName);
                                 }
                                 else
                                 {
@@ -1117,7 +1026,7 @@ public class RunCodeButton : MonoBehaviour
                             {
                                 string[] classConstructorParts = classConstructor.Split("(");
                                 string classNamePart = classConstructorParts[0].Trim();
-
+                                string classParametersPart = classConstructorParts[1].Trim();
                                 if (!VariableCheck(classNamePart))
                                 {
                                     //GameOver("");
@@ -1125,6 +1034,83 @@ public class RunCodeButton : MonoBehaviour
                                 }
                                 else
                                 {
+                                    if (classParametersPart[classParametersPart.Length - 1] != ')')
+                                    {
+                                        Debug.Log("hata");
+                                        GameOver("Parantez hatasý: class nesnesi oluþtururken parantezi kapatmanýz gerekiyor.");
+                                    }
+                                    else
+                                    {
+                                        classParametersPart = classParametersPart.Substring(0, classParametersPart.Length - 1);
+
+                                        string[] classParameters = classParametersPart.Split(',');
+
+                                        if (classParameters.Length != initParameters.Length - 1)
+                                        {
+                                            Debug.Log("hata");
+                                            GameOver("self keyword olmadan init komutuna yazdýðýnýz parametrelere sýrasýyla uygun deðerler yazmanýz gerekiyor.");
+                                        }
+                                        else
+                                        {
+                                            for (int j = 1; j < initParameters.Length; j++)
+                                            {
+                                                //classParameters[j].Trim();
+                                                string parameter = classParameters[j - 1].Trim();
+                                                if (initParameters[j] == "shape")
+                                                {
+                                                    if (parameter.Trim() == "circle")
+                                                    {
+
+                                                    }
+                                                    else if (parameter == "square")
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.Log("hata");
+                                                        GameOver("shape parametresine uygun bir þekil yazmanýz gerekiyor. Uygun þekiller: circle, square");
+                                                    }
+                                                }
+                                                else if (initParameters[j] == "color")
+                                                {
+
+                                                    //Color.FromName(parameter);
+                                                    if (parameter == "red")
+                                                    {
+
+                                                    }
+                                                    else if (parameter == "green")
+                                                    {
+
+                                                    }
+                                                    else if (parameter == "blue")
+                                                    {
+
+                                                    }
+                                                    else if (parameter == "yellow")
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.Log("hata");
+                                                        GameOver("color parametresine uygun bir renk yazmanýz gerekiyor. Uygun renkler: red, green, blue, yellow");
+                                                    }
+
+                                                }
+
+                                            }
+                                        }
+
+
+
+                                    }
+
+                                    //string[] classParameters = classConstructorParts[1].Split(',');
+
+
+
                                     //constructor part'larinda normalde string, integer veya double vs. deger olabilir.
                                     //ben buyuk ihtimalle sadece string olan classlar kullanacagim. yine de digerleri de implement edilebilir.
                                     //python oldugu icin init kisminda parametrelerin tipleri belli olmaz. burada kontrol etmek lazim.

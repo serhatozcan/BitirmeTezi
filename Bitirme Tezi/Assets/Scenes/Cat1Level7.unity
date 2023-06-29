@@ -828,8 +828,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5068,8 +5068,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000025749, y: -160}
-  m_SizeDelta: {x: 701.09, y: 90}
+  m_AnchoredPosition: {x: 0.000025749, y: -193}
+  m_SizeDelta: {x: 701.09, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &955933989
 MonoBehaviour:
@@ -7926,8 +7926,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000025749, y: -283}
-  m_SizeDelta: {x: 701.09, y: 90}
+  m_AnchoredPosition: {x: 0.000025749, y: -288}
+  m_SizeDelta: {x: 701.09, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1463992519
 MonoBehaviour:
@@ -8883,8 +8883,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000025788, y: 268}
-  m_SizeDelta: {x: 570.47, y: 76.46}
+  m_AnchoredPosition: {x: -0.0000025788, y: 292}
+  m_SizeDelta: {x: 570.47, y: 61.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657807983
 MonoBehaviour:
@@ -8933,8 +8933,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 75
+  m_fontSizeBase: 75
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9073,8 +9073,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000025749, y: -45.000008}
-  m_SizeDelta: {x: 701.09, y: 90}
+  m_AnchoredPosition: {x: 0.000025749, y: -100}
+  m_SizeDelta: {x: 701.09, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1663228895
 MonoBehaviour:
@@ -10388,8 +10388,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: 110}
-  m_SizeDelta: {x: 787.77, y: 168.43}
+  m_AnchoredPosition: {x: 0.000020981, y: 101.63}
+  m_SizeDelta: {x: 849.23, y: 289.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2071188086
 MonoBehaviour:
@@ -10581,8 +10581,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638644757541, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "class SimpleCharacter(Character) : \n  def __init__ (self, bir, iki)
-        :\n    self.bir = bir\n    self.iki = iki"
+      value: "class SimpleCharacter(Character) : \n  def __init__ (self, shape, color)
+        :\n    self.shape = shape\n    self.color = color"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669639612140233, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
