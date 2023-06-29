@@ -360,7 +360,66 @@ public class Swim : Instruction
 
 }
 
+public class Def_SetShape : HolderInstruction
+{
+    private string shape;
+    public GameObject character;
 
+    public Def_SetShape(GameObject character, string shape)
+    {
+        this.character = character;
+        this.shape = shape;
+    }
+
+    public override void Run()
+    {
+        if (shape == "square")
+        {
+            character.transform.Find("CircleBody").gameObject.SetActive(false);
+            character.transform.Find("SquareBody").gameObject.SetActive(true);
+        }
+        else if (shape == "circle")
+        {
+            character.transform.Find("SquareBody").gameObject.SetActive(false);
+            character.transform.Find("CircleBody").gameObject.SetActive(true);
+        }
+    }
+
+}
+
+
+public class Def_SetColor : HolderInstruction
+{
+    private string color;
+    public CharacterColorChanger characterColorChanger;
+
+    public Def_SetColor(CharacterColorChanger characterColorChanger, string color)
+    {
+        this.characterColorChanger = characterColorChanger;
+        this.color = color;
+    }
+
+    public override void Run()
+    {
+        if (color == "red")
+        {
+            characterColorChanger.ChangeColorToRed();
+        }
+        else if (color == "green")
+        {
+            characterColorChanger.ChangeColorToGreen();
+        }
+        else if (color == "blue")
+        {
+            characterColorChanger.ChangeColorToBlue();
+        }
+        else if (color == "yellow")
+        {
+            characterColorChanger.ChangeColorToYellow();
+        }
+    }
+
+}
 
 public class RunCodeButton : MonoBehaviour
 {
