@@ -3576,12 +3576,12 @@ GameObject:
   - component: {fileID: 660556424}
   - component: {fileID: 660556425}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: CircleBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &660556424
 Transform:
   m_ObjectHideFlags: 0
@@ -4475,8 +4475,8 @@ MonoBehaviour:
   levelNumber: 7
   inputField1: {fileID: 675919796}
   inputField2: {fileID: 1350694834}
-  character: {fileID: 1568619289}
   chest: {fileID: 243447495}
+  character: {fileID: 2067351803}
   chestAnimator: {fileID: 0}
   conditionRunList: 
   characterStartingPosition: {x: 0, y: 0, z: 0}
@@ -4958,7 +4958,7 @@ GameObject:
   - component: {fileID: 946152031}
   - component: {fileID: 946152032}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: TriangleBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6563,12 +6563,12 @@ GameObject:
   - component: {fileID: 1107005011}
   - component: {fileID: 1107005012}
   m_Layer: 0
-  m_Name: Square
+  m_Name: SquareBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1107005011
 Transform:
   m_ObjectHideFlags: 0
@@ -8387,7 +8387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1510901052
 Transform:
   m_ObjectHideFlags: 0
@@ -9949,7 +9949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1876640424
 Transform:
   m_ObjectHideFlags: 0
@@ -10330,7 +10330,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2067351804
 Transform:
   m_ObjectHideFlags: 0
@@ -10339,7 +10339,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067351803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.05, y: 0.53298086, z: -0.039889436}
+  m_LocalPosition: {x: -2.13, y: 0.53298086, z: -0.039889436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10459,7 +10459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2142837038
 Transform:
   m_ObjectHideFlags: 0
@@ -10536,7 +10536,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2432669637905812108, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nfor
+      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(circle,green)\nfor
         x in range (8):\n  move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638323322094, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
@@ -10679,6 +10679,10 @@ PrefabInstance:
     - target: {fileID: 3228896624481883236, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 3228896624481883236, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}

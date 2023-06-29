@@ -380,11 +380,17 @@ public class RunCodeButton : MonoBehaviour
     [Header("GameObjects")]
     public TMP_InputField inputField1;
     public TMP_InputField inputField2;
-    [SerializeField]
-    public GameObject character;
+    
+   
     public GameObject chest;
     private CharacterMovementController characterMovement;
     private CharacterColorChanger characterColorChanger;
+    [Space]
+    [Header("Character")]
+    [SerializeField]
+    public GameObject character;
+    
+
 
     public Animator chestAnimator;
 
@@ -1060,11 +1066,13 @@ public class RunCodeButton : MonoBehaviour
                                                 {
                                                     if (parameter.Trim() == "circle")
                                                     {
-
+                                                        
+                                                        character.transform.Find("CircleBody").gameObject.SetActive(true);
+                                                        //character.SetActive(true);
                                                     }
                                                     else if (parameter == "square")
                                                     {
-
+                                                        character.transform.Find("SquareBody").gameObject.SetActive(true);
                                                     }
                                                     else
                                                     {
@@ -1102,6 +1110,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
 
                                             }
+                                            
                                         }
 
 
@@ -1124,6 +1133,7 @@ public class RunCodeButton : MonoBehaviour
                             }
                         }
 
+                        character.SetActive(true);
                         isClassInstanceRow = false;
                     }
                     else
