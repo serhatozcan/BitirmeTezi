@@ -10620,7 +10620,7 @@ PrefabInstance:
     - target: {fileID: 2432669639612140233, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
       value: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(square,red)\nfor
-        i in range (3):\n  character.move_right()\n  for j in range(2):\n   character. 
+        i in range (3):\n  character.move_right()\n  for j in range(2):\n    character. 
         move_up()"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
