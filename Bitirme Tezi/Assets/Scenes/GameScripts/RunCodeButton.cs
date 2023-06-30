@@ -610,7 +610,7 @@ public class RunCodeButton : MonoBehaviour
         string parentClassName = "Character";
         string characterColor;
         string secondClassFileName = "SimpleCharacter";
-
+        string classInstanceName = null;
 
         //List<string> classInitParameters = new List<string>();
 
@@ -903,10 +903,6 @@ public class RunCodeButton : MonoBehaviour
 
                                         }
 
-
-
-
-
                                     }
                                 }
                             }
@@ -1079,8 +1075,9 @@ public class RunCodeButton : MonoBehaviour
                             classInstanceParts = trimmedRow.Split('=');
 
 
-                            string classInstanceName = classInstanceParts[0].Trim();
+                            classInstanceName = classInstanceParts[0].Trim();
                             string classConstructor = classInstanceParts[1].Trim();
+
 
                             if (!VariableCheck(classInstanceName))
                             {
@@ -1360,20 +1357,8 @@ public class RunCodeButton : MonoBehaviour
                                                         //AddInstruction(ifInstruction);
                                                     }
                                                 }
-                                                //else
-                                                //{
-                                                //    GameOver("Kodunuzda bir hata bulundu.");
-                                                //    Debug.Log("simdilik hata");
-                                                //}
-
-                                                //if (ifParts.Length == 2)
-                                                //{
-                                                //    //burada 2 parcali if listeye eklenecek.
-                                                //}
-                                                //else if (ifParts.Length == 3)
-                                                //{
-                                                //kaldirilabilir ??
-                                                //parameterPart = null;
+                                            
+                                               
                                                 string secondMethod = null;
                                                 //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
 
@@ -1581,124 +1566,179 @@ public class RunCodeButton : MonoBehaviour
                                 }
 
                             }
-                            else if (trimmedRow.Substring(0, 4) == "move")
+                            else if(trimmedRow.Substring(0,classInstanceName.Length) == classInstanceName)
                             {
-                                if (!trimmedRow.Contains('('))
+                                if (!trimmedRow.Contains('.'))
                                 {
-                                    GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
-
                                     Debug.Log("hata");
+                                    GameOver("Bir class nesnesinin metodunu kullanacaginiz zaman class nesnesinin adini yazip . koyduktan sonra metodu yazmaniz gerekiyor. Örnek: character.move_up()");
                                 }
-                                else if (!trimmedRow.Contains(')'))
+                                else
                                 {
-                                    GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
-                                    Debug.Log("hata2");
-                                }
-
-                                string[] instructionParts = trimmedRow.Split('(', 2);
-
-                                instructionParts[0] = instructionParts[0].Trim();
-                                int length = instructionParts[0].Length;
-
-                                Debug.Log(instructionParts[0]);
-                                try
-                                {
-                                    if (instructionParts[0] == "move_up")
+                                    string[] moveParts = trimmedRow.Split('.');
+                                    string classInstancePart = moveParts[0].Trim();
+                                    string methodPart = moveParts[1].Trim();
+                                    Debug.Log("+" + classInstancePart + "+");
+                                    Debug.Log("+" + methodPart + "+");
+                                    if (classInstancePart != classInstanceName)
                                     {
-                                        Move move_up = new Move(characterMovement, "up", instructionLevel);
-                                        AddInstruction(move_up);
-                                    }
-                                    else if (instructionParts[0] == "move_left")
-                                    {
-                                        Move move_left = new Move(characterMovement, "left", instructionLevel);
-                                        AddInstruction(move_left);
-                                    }
-                                    else if (instructionParts[0] == "move_down")
-                                    {
-                                        Move move_down = new Move(characterMovement, "down", instructionLevel);
-                                        AddInstruction(move_down);
-                                    }
-                                    else if (instructionParts[0] == "move_right")
-                                    {
-
-                                        Move move_right = new Move(characterMovement, "right", instructionLevel);
-                                        Debug.Log("mr level " + instructionLevel);
-                                        AddInstruction(move_right);
+                                        Debug.Log("hata");
+                                        GameOver("Bir class nesnesinin metodunu kullanacaginiz zaman class nesnesinin adini yazip . koyduktan sonra metodu yazmaniz gerekiyor. Örnek: character.move_up()");
                                     }
                                     else
                                     {
-                                        GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
-                                        Debug.Log("hata");
+
+                                        if (!methodPart.Contains('('))
+                                        {
+                                            GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
+
+                                            Debug.Log("hata");
+                                        }
+                                        else if (!methodPart.Contains(')'))
+                                        {
+                                            GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
+                                            Debug.Log("hata2");
+                                        }
+
+                                        string[] instructionParts = methodPart.Split('(', 2);
+
+                                        instructionParts[0] = instructionParts[0].Trim();
+                                        int length = instructionParts[0].Length;
+
+                                        Debug.Log(instructionParts[0]);
+                                        try
+                                        {
+                                            if (instructionParts[0].Substring(0,4) == "move")
+                                            {
+                                                if (instructionParts[0] == "move_up")
+                                                {
+                                                    Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                                    AddInstruction(move_up);
+                                                }
+                                                else if (instructionParts[0] == "move_left")
+                                                {
+                                                    Move move_left = new Move(characterMovement, "left", instructionLevel);
+                                                    AddInstruction(move_left);
+                                                }
+                                                else if (instructionParts[0] == "move_down")
+                                                {
+                                                    Move move_down = new Move(characterMovement, "down", instructionLevel);
+                                                    AddInstruction(move_down);
+                                                }
+                                                else if (instructionParts[0] == "move_right")
+                                                {
+
+                                                    Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                                    Debug.Log("mr level " + instructionLevel);
+                                                    AddInstruction(move_right);
+                                                }
+                                                else
+                                                {
+                                                    GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
+                                                    Debug.Log("hata");
+                                                }
+                                            }
+                                            else if (instructionParts[0] == "swim_up")
+                                            {
+                                                Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
+                                                AddInstruction(swim_up);
+                                            }
+                                            else if (instructionParts[0] == "swim_left")
+                                            {
+                                                Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
+                                                AddInstruction(swim_left);
+                                            }
+                                            else if (instructionParts[0] == "swim_down")
+                                            {
+                                                Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
+                                                AddInstruction(swim_down);
+                                            }
+                                            else if (instructionParts[0] == "swim_right")
+                                            {
+
+                                                Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
+                                                Debug.Log("mr level " + instructionLevel);
+                                                AddInstruction(swim_right);
+                                            }
+                                            else
+                                            {
+                                                GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
+                                                Debug.Log("hata");
+                                            }
+
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            GameOver("Hata: " + ex.Message);
+
+                                            Debug.Log(ex.Message);
+                                        }
                                     }
-                                    //}
+
+
                                 }
-                                catch (Exception ex)
-                                {
-                                    GameOver("Hata: " + ex.Message);
-
-                                    Debug.Log(ex.Message);
-                                }
-
-
                             }
-                            else if (trimmedRow.Substring(0, 4) == "swim")
-                            {
-                                if (!trimmedRow.Contains('('))
-                                {
-                                    GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
-                                    Debug.Log("hata");
-                                }
-                                else if (!trimmedRow.Contains(')'))
-                                {
-                                    GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
-                                    Debug.Log("hata2");
-                                }
 
-                                string[] instructionParts = trimmedRow.Split('(', 2);
+                            
+                            //else if (trimmedRow.Substring(0, 4) == "swim")
+                            //{
+                            //    if (!trimmedRow.Contains('('))
+                            //    {
+                            //        GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
+                            //        Debug.Log("hata");
+                            //    }
+                            //    else if (!trimmedRow.Contains(')'))
+                            //    {
+                            //        GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
+                            //        Debug.Log("hata2");
+                            //    }
 
-                                instructionParts[0] = instructionParts[0].Trim();
-                                int length = instructionParts[0].Length;
+                            //    string[] instructionParts = trimmedRow.Split('(', 2);
 
-                                Debug.Log(instructionParts[0]);
-                                try
-                                {
-                                    if (instructionParts[0] == "swim_up")
-                                    {
-                                        Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
-                                        AddInstruction(swim_up);
-                                    }
-                                    else if (instructionParts[0] == "swim_left")
-                                    {
-                                        Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
-                                        AddInstruction(swim_left);
-                                    }
-                                    else if (instructionParts[0] == "swim_down")
-                                    {
-                                        Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
-                                        AddInstruction(swim_down);
-                                    }
-                                    else if (instructionParts[0] == "swim_right")
-                                    {
+                            //    instructionParts[0] = instructionParts[0].Trim();
+                            //    int length = instructionParts[0].Length;
 
-                                        Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
-                                        Debug.Log("mr level " + instructionLevel);
-                                        AddInstruction(swim_right);
-                                    }
-                                    else
-                                    {
-                                        GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
-                                        Debug.Log("hata");
-                                    }
-                                    //}
-                                }
-                                catch (Exception ex)
-                                {
-                                    GameOver("Hata: " + ex.Message);
-                                    Debug.Log(ex.Message);
-                                }
+                            //    Debug.Log(instructionParts[0]);
+                            //    try
+                            //    {
+                            //        if (instructionParts[0] == "swim_up")
+                            //        {
+                            //            Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
+                            //            AddInstruction(swim_up);
+                            //        }
+                            //        else if (instructionParts[0] == "swim_left")
+                            //        {
+                            //            Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
+                            //            AddInstruction(swim_left);
+                            //        }
+                            //        else if (instructionParts[0] == "swim_down")
+                            //        {
+                            //            Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
+                            //            AddInstruction(swim_down);
+                            //        }
+                            //        else if (instructionParts[0] == "swim_right")
+                            //        {
+
+                            //            Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
+                            //            Debug.Log("mr level " + instructionLevel);
+                            //            AddInstruction(swim_right);
+                            //        }
+                            //        else
+                            //        {
+                            //            GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
+                            //            Debug.Log("hata");
+                            //        }
+                            //        //}
+                            //    }
+                            //    catch (Exception ex)
+                            //    {
+                            //        GameOver("Hata: " + ex.Message);
+                            //        Debug.Log(ex.Message);
+                            //    }
 
 
-                            }
+                            //}
                             else if (trimmedRow.Substring(0, 4) == "elif")
                             {
                                 if (trimmedRow[trimmedRow.Length - 1] != ':')

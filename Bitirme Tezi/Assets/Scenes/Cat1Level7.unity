@@ -936,8 +936,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nwhile
-    character.up_tile().is_water():\n  swim_up()\n"
+  m_text: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(circle,yellow)\nwhile
+    character.up_tile().is_water():\n  character.swim_up()\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4477,7 +4477,7 @@ MonoBehaviour:
   inputField2: {fileID: 1350694834}
   chest: {fileID: 243447495}
   characterMovement: {fileID: 0}
-  characterColorChanger: {fileID: 0}
+  characterColorAndShapeChanger: {fileID: 0}
   character: {fileID: 2067351803}
   chestAnimator: {fileID: 0}
   pythonReservedWords: []
@@ -8631,7 +8631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcf1f86e458a2045acb036e394ff71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1599587883
 GameObject:
   m_ObjectHideFlags: 0
@@ -10162,9 +10161,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nfor
-    i in range(2):\n  if character.up_tile().is_water():\n    swim_up()\n  else:\n   
-    move_right()"
+  m_text: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(circle,red)\nfor
+    i in range(2):\n  if character.up_tile().is_water():\n    character.swim_up()\n 
+    else:\n    character.move_right()"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10369,7 +10368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcf1f86e458a2045acb036e394ff71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &2067351806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10557,8 +10555,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2432669637905812108, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(circle,green)\nfor
-        i in range (8):\n  move_right()"
+      value: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(circle,green)\nfor
+        i in range (8):\n  character.move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638323322094, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_RootOrder
@@ -10610,9 +10608,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638419263385, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nif
-        character.up_tile().is_water():\n  swim_up()\nelif character.right_tile().is_ground():\n 
-        move_right()"
+      value: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(square,blue)\nif
+        character.up_tile().is_water():\n  character.swim_up()\nelif character.right_tile().is_ground():\n 
+        character.move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638644757541, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
@@ -10621,8 +10619,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2432669639612140233, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
-      value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(1,2)\nfor
-        x in range (3):\n  move_right()\n  for y in range(2):\n    move_up()"
+      value: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(square,red)\nfor
+        i in range (3):\n  character.move_right()\n  for j in range(2):\n   character. 
+        move_up()"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
