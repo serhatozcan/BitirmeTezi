@@ -363,11 +363,11 @@ public class Swim : Instruction
 public class Def_SetShape : HolderInstruction
 {
     private string shape;
-    public GameObject character;
+    public CharacterColorAndShapeChanger characterColorAndShapeChanger;
 
-    public Def_SetShape(GameObject character, string shape)
+    public Def_SetShape(CharacterColorAndShapeChanger characterColorAndShapeChanger, string shape)
     {
-        this.character = character;
+        this.characterColorAndShapeChanger = characterColorAndShapeChanger;
         this.shape = shape;
     }
 
@@ -375,13 +375,11 @@ public class Def_SetShape : HolderInstruction
     {
         if (shape == "square")
         {
-            character.transform.Find("CircleBody").gameObject.SetActive(false);
-            character.transform.Find("SquareBody").gameObject.SetActive(true);
+            characterColorAndShapeChanger.ChangeShapeToSquare();
         }
         else if (shape == "circle")
         {
-            character.transform.Find("SquareBody").gameObject.SetActive(false);
-            character.transform.Find("CircleBody").gameObject.SetActive(true);
+            characterColorAndShapeChanger.ChangeShapeToCircle();
         }
     }
 
