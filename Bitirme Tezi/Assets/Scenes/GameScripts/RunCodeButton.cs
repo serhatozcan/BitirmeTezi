@@ -9,14 +9,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
-
+using System.Threading;
+using System.Threading.Tasks;
 using TMPro;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public abstract class Instruction : MonoBehaviour
+public abstract class Instruction
 {
     public int level;
     public abstract void Run();
@@ -300,12 +301,13 @@ public class ChangeColor : Instruction
 
 public class Move : Instruction
 {
-
+    private RunCodeButton runCodeButton;
     private CharacterMovementController characterMovement;
     private string direction;
 
-    public Move(CharacterMovementController characterMovement, string direction, int level)
+    public Move(RunCodeButton runCodeButton, CharacterMovementController characterMovement, string direction, int level)
     {
+        this.runCodeButton = runCodeButton;
         this.direction = direction;
         this.characterMovement = characterMovement;
         this.level = level;
@@ -313,7 +315,28 @@ public class Move : Instruction
 
     public override void Run()
     {
+        ////await Task.Delay(1000);
+        ////burada direk Move(Vector2) kullan�labilir. 
+        //if (direction == "left")
+        //    characterMovement.MoveLeft();
+        //else if (direction == "right")
+        //    characterMovement.MoveRight();
+        //else if (direction == "up")
+        //    characterMovement.MoveUp();
+        //else if (direction == "down")
+        //    characterMovement.MoveDown();
+        Debug.Log("run1");
+        runCodeButton.StartCoroutine(RunMethod());
+        Debug.Log("run2");
+    }
+
+    public IEnumerator RunMethod()
+    {
+        //await Task.Delay(1000);
         //burada direk Move(Vector2) kullan�labilir. 
+        Debug.Log("runmethod");
+        yield return new WaitForSeconds(1);
+        Debug.Log(direction);
         if (direction == "left")
             characterMovement.MoveLeft();
         else if (direction == "right")
@@ -322,15 +345,17 @@ public class Move : Instruction
             characterMovement.MoveUp();
         else if (direction == "down")
             characterMovement.MoveDown();
-
+        
     }
-
     public override string ToString()
     {
         return "Move: " + direction + " Class";
     }
 
+   
+    
 }
+
 
 public class Swim : Instruction
 {
@@ -467,6 +492,8 @@ public class RunCodeButton : MonoBehaviour
     public Vector3 characterStartingPosition;
 
 
+    public float timer = 0;
+
     // Start is called before the first frame update
 
     //[Space]
@@ -519,6 +546,7 @@ public class RunCodeButton : MonoBehaviour
 
     void Start()
     {
+        
         isWaitingInstruction = false;
         instructionList = new List<Instruction>();
         //ReadInputPage1(inputPage1);
@@ -543,6 +571,11 @@ public class RunCodeButton : MonoBehaviour
         //characterColorChanger.ChangeColorToRed();
 
         //chestAnimator.SetBool("opening", true);
+    }
+
+    public void Update()
+    {
+        timer += Time.deltaTime;
     }
 
 
@@ -1619,26 +1652,27 @@ public class RunCodeButton : MonoBehaviour
                                             {
                                                 if (instructionParts[0] == "move_up")
                                                 {
-                                                    Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                                    //Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                                    Move move_up = new Move(this, characterMovement, "up", instructionLevel);
                                                     AddInstruction(move_up);
                                                     Debug.Log("MOVE UP : " + instructionLevel);
                                                 }
                                                 else if (instructionParts[0] == "move_left")
                                                 {
-                                                    Move move_left = new Move(characterMovement, "left", instructionLevel);
+                                                    Move move_left = new Move(this, characterMovement, "left", instructionLevel);
                                                     AddInstruction(move_left);
                                                     Debug.Log("MOVE LEFT : " + instructionLevel);
                                                 }
                                                 else if (instructionParts[0] == "move_down")
                                                 {
-                                                    Move move_down = new Move(characterMovement, "down", instructionLevel);
+                                                    Move move_down = new Move(this, characterMovement, "down", instructionLevel);
                                                     AddInstruction(move_down);
                                                     Debug.Log("MOVE DOWN : " + instructionLevel);
                                                 }
                                                 else if (instructionParts[0] == "move_right")
                                                 {
 
-                                                    Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                                    Move move_right = new Move(this, characterMovement, "right", instructionLevel);
                                                     Debug.Log("mr level " + instructionLevel);
                                                     AddInstruction(move_right);
                                                     Debug.Log("MOVE RIGHT : " + instructionLevel);
@@ -2218,7 +2252,7 @@ public class RunCodeButton : MonoBehaviour
             //bool didPreviousConditionsRun = false;
 
             RunInstructions(instructionList);
-
+            Debug.Log("son");
             //Buraya gelecek.
             //karakter sandigin ustundeyse 
             //chestAnimator.SetBool("opening", true);
@@ -2238,6 +2272,8 @@ public class RunCodeButton : MonoBehaviour
     //----------------------------------------------------------------------------------------------------------------
     public static void RunInstructions(List<Instruction> instructionList)
     {
+        //Thread.Sleep(1000);
+        
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
         foreach (Instruction instruction in instructionList)
@@ -2689,8 +2725,9 @@ public class RunCodeButton : MonoBehaviour
             {
                 isThereIf = false;
 
-
+                
                 instruction.Run();
+                
                 //System.Threading.Thread.Sleep(1000);
                 //timer += Time.deltaTime;
                 //if (timer > delay)
@@ -3180,8 +3217,16 @@ public class RunCodeButton : MonoBehaviour
             {
                 isThereIf = false;
 
+                float startingTime = timer;
+                while (startingTime + 2 > timer)
+                {
+                    Debug.Log(timer);
+                    continue;
+                }
+
 
                 instruction.Run();
+                
                 yield return new WaitForSeconds(1);
                 //timer += Time.deltaTime;
                 //if (timer > delay)
