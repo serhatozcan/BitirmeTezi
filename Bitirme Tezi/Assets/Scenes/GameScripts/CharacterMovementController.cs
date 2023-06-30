@@ -20,12 +20,13 @@ public class CharacterMovementController : MonoBehaviour
     private Vector2 right;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         up = new Vector2(0, 1);
         down = new Vector2(0, -1);
         left = new Vector2(-1, 0);
         right = new Vector2(1, 0);
+        Debug.Log(right.x);
         //Move(dr);
         //Move(dr);
         //Move(dr);
@@ -42,8 +43,12 @@ public class CharacterMovementController : MonoBehaviour
     {
         if(CanMove(direction))
         {
+            Debug.Log(transform.position.x);
+            Debug.Log(direction.x + " " +direction.y);
             //character.transform.position += (Vector3)direction;
             transform.position += (Vector3)direction;
+            Debug.Log(direction.x);
+            Debug.Log(transform.position.x);
         }
     }
 
@@ -71,6 +76,7 @@ public class CharacterMovementController : MonoBehaviour
     }
     public void MoveRight()
     {
+        Debug.Log("moveright");
         Move(right);
     }
 
@@ -94,6 +100,7 @@ public class CharacterMovementController : MonoBehaviour
     //direction degeri iki boyutlu vektör (0,1) veya (-1,0) gibi
     private bool CanMove(Vector2 direction)
     {
+        Debug.Log("canmove??");
         Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
         //eger gridPosition'da tile yoksa veya bir obstacle varsa oraya gidilemez
         if(!groundTilemap.HasTile(gridPosition) || obstaclesTilemap.HasTile(gridPosition))

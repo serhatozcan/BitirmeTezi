@@ -442,8 +442,8 @@ public class RunCodeButton : MonoBehaviour
     
    
     public GameObject chest;
-    private CharacterMovementController characterMovement;
-    private CharacterColorChanger characterColorChanger;
+    public  CharacterMovementController characterMovement;
+    public CharacterColorChanger characterColorChanger;
     [Space]
     [Header("Character")]
     [SerializeField]
@@ -454,8 +454,8 @@ public class RunCodeButton : MonoBehaviour
     public Animator chestAnimator;
 
     private string[] initParameters = null;
-
-    private string[] pythonReservedWords;
+    //[HideInInspector]
+    public string[] pythonReservedWords;
 
     private string[] fruits;
     //public CharacterMovementController characterMovementController;
@@ -789,15 +789,22 @@ public class RunCodeButton : MonoBehaviour
                                     initWordParametersPart = initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
                                     Debug.Log(initWordParametersPart);
                                     initParameters = initWordParametersPart.Split(",");
+                                    
                                     for (int j = 0; j < initParameters.Length; j++)
                                     {
+                                        //Debug.Log(j);
+                                        Debug.Log(initParameters.Length);
                                         initParameters[j] = initParameters[j].Trim();
                                         Debug.Log(initParameters[j]);
-                                        if (!VariableCheck(initParameters[j]))
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("init i�erisine yazd���n�z parametre de�i�ken yaz�m� kurallar�na uymal�d�r. Hatal� parametre: " + initParameters[j]);
-                                        }
+                                        //Debug.Log(VariableCheck("ad"));
+                                        Debug.Log(pythonReservedWords.Length);
+                                        //Debug.Log(VariableCheck(initParameters[j]));
+                                        //if (!VariableCheck(initParameters[j]))
+                                        //{
+                                        //    Debug.Log("hata");
+                                        //    //GameOver("init i�erisine yazd���n�z parametre de�i�ken yaz�m� kurallar�na uymal�d�r. Hatal� parametre: " + initParameters[j]);
+                                        //}
+                                        Debug.Log("111");
                                     }
                                 }
                             }
@@ -805,7 +812,7 @@ public class RunCodeButton : MonoBehaviour
                         }
 
                     }
-
+                    
                     //Burada parametrelere ulastigim icin burada kontrol ediyorum. Yukarida da edebilirim.
                     if (!initParameters.Contains("shape"))
                     {
@@ -815,7 +822,7 @@ public class RunCodeButton : MonoBehaviour
                     {
                         GameOver("init parametrelerinden biri color olmal�d�r.");
                     }
-
+                    Debug.Log("222");
                     //self yerine farkli kelimeler kullanilabilir.
                     selfKeyword = initParameters[0];
 
@@ -884,6 +891,11 @@ public class RunCodeButton : MonoBehaviour
 
                                         if (!initParameters.Contains(rightPart))
                                         {
+                                            Debug.Log("+" + rightPart + "+");
+                                            foreach (string str in initParameters)
+                                            {
+                                                Debug.Log("+" + str + "+");
+                                            }
                                             Debug.Log("hata");
                                             GameOver("Atama sat�r�nda sa� tarafa yazd���n�z kelime init parametreleri aras�nda bulunmal�d�r.");
                                         }
@@ -1106,8 +1118,9 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
+                                        Debug.Log("hey");
                                         classParametersPart = classParametersPart.Substring(0, classParametersPart.Length - 1);
-
+                                        Debug.Log(classParametersPart);
                                         string[] classParameters = classParametersPart.Split(',');
 
                                         if (classParameters.Length != initParameters.Length - 1)
@@ -1117,6 +1130,7 @@ public class RunCodeButton : MonoBehaviour
                                         }
                                         else
                                         {
+                                            Debug.Log("hey");
                                             for (int j = 1; j < initParameters.Length; j++)
                                             {
                                                 //classParameters[j].Trim();
@@ -1127,11 +1141,20 @@ public class RunCodeButton : MonoBehaviour
                                                     {
                                                         
                                                         character.transform.Find("CircleBody").gameObject.SetActive(true);
+                                                        character.transform.Find("LeftEye").gameObject.SetActive(true);
+                                                        character.transform.Find("RightEye").gameObject.SetActive(true);
+                                                        character.transform.Find("Mouth").gameObject.SetActive(true);
+                                                        character.transform.Find("EmptyPartOfMouth").gameObject.SetActive(true);
+                                                        Debug.Log("circleeee");
                                                         //character.SetActive(true);
                                                     }
                                                     else if (parameter == "square")
                                                     {
                                                         character.transform.Find("SquareBody").gameObject.SetActive(true);
+                                                        character.transform.Find("LeftEye").gameObject.SetActive(true);
+                                                        character.transform.Find("RightEye").gameObject.SetActive(true);
+                                                        character.transform.Find("Mouth").gameObject.SetActive(true);
+                                                        character.transform.Find("EmptyPartOfMouth").gameObject.SetActive(true);
                                                     }
                                                     else
                                                     {
@@ -1141,7 +1164,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (initParameters[j] == "color")
                                                 {
-
+                                                    Debug.Log("+"+parameter+"+");
                                                     //Color.FromName(parameter);
                                                     if (parameter == "red")
                                                     {
@@ -1150,7 +1173,10 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (parameter == "green")
                                                     {
+                                                        Debug.Log("gg");
+                                                        //character.transform.Find("CircleBody").gameObject.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
                                                         characterColorChanger.ChangeColorToGreen();
+                                                        Debug.Log("greeeeen");
                                                     }
                                                     else if (parameter == "blue")
                                                     {
@@ -1167,9 +1193,9 @@ public class RunCodeButton : MonoBehaviour
                                                     }
 
                                                 }
-
+                                                
                                             }
-                                            
+                                            Debug.Log("burada");
                                         }
 
 
@@ -1193,6 +1219,7 @@ public class RunCodeButton : MonoBehaviour
                         }
 
                         character.SetActive(true);
+                        Debug.Log("activve");
                         isClassInstanceRow = false;
                     }
                     else
@@ -3357,7 +3384,7 @@ public class RunCodeButton : MonoBehaviour
 
     public bool VariableCheck(string var)
     {
-
+        Debug.Log("noluyor");
         if (var == null)
         {
             Debug.Log("hata");
@@ -3370,8 +3397,13 @@ public class RunCodeButton : MonoBehaviour
         }
         else
         {
+            Debug.Log("mm");
+
             Regex regex = new Regex(@"^[a-zA-Z0-9_]*$");
             Match match = regex.Match(var);
+            Debug.Log("bul");
+            Debug.Log(pythonReservedWords.Length);
+
             if (!match.Success)
             {
                 Debug.Log("invalid variable hata");
@@ -3383,6 +3415,7 @@ public class RunCodeButton : MonoBehaviour
                 return false;
             }
         }
+        Debug.Log("yyy");
         return true;
     }
 

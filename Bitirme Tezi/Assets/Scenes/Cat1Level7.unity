@@ -3183,7 +3183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569733662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5039, y: -4.174, z: 0.039889436}
+  m_LocalPosition: {x: 0, y: -0.149, z: 0.039889436}
   m_LocalScale: {x: 0.3897086, y: 0.21436745, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3590,7 +3590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660556423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.499, y: -4.026, z: 0.039889436}
+  m_LocalPosition: {x: 0, y: 0, z: 0.039889436}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4476,8 +4476,11 @@ MonoBehaviour:
   inputField1: {fileID: 675919796}
   inputField2: {fileID: 1350694834}
   chest: {fileID: 243447495}
+  characterMovement: {fileID: 0}
+  characterColorChanger: {fileID: 0}
   character: {fileID: 2067351803}
   chestAnimator: {fileID: 0}
+  pythonReservedWords: []
   conditionRunList: 
   characterStartingPosition: {x: 0, y: 0, z: 0}
   backButton: {fileID: 768081516}
@@ -4972,7 +4975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946152030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.499, y: -4.077, z: 0.039889436}
+  m_LocalPosition: {x: 0, y: 0, z: 0.039889436}
   m_LocalScale: {x: 1, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6577,7 +6580,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107005010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -4.03, z: 0.039889436}
+  m_LocalPosition: {x: 0, y: 0, z: 0.039889436}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8396,7 +8399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510901051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.376, y: -3.93, z: 0.039889436}
+  m_LocalPosition: {x: -0.11, y: 0.119, z: 0.039889436}
   m_LocalScale: {x: 0.14909334, y: 0.1296398, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9958,7 +9961,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876640423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.622, y: -3.93, z: 0.039889436}
+  m_LocalPosition: {x: 0.139, y: 0.119, z: 0.039889436}
   m_LocalScale: {x: 0.14909334, y: 0.1296398, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10324,6 +10327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2067351804}
   - component: {fileID: 2067351805}
+  - component: {fileID: 2067351806}
   m_Layer: 0
   m_Name: SimpleCharacter
   m_TagString: Untagged
@@ -10339,7 +10343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067351803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.13, y: 0.53298086, z: -0.039889436}
+  m_LocalPosition: {x: 0.4, y: -3.48, z: -0.039889436}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10365,7 +10369,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcf1f86e458a2045acb036e394ff71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 0}
+--- !u!114 &2067351806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067351803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e242ab476ae3f49817b46d5b80befc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 1102573216}
+  obstaclesTilemap: {fileID: 477840972}
+  waterTilemap: {fileID: 1175033203}
+  chestPositionTilemap: {fileID: 712063204}
+  up: {x: 0, y: 0}
 --- !u!1 &2071188084
 GameObject:
   m_ObjectHideFlags: 0
@@ -10468,7 +10489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2142837037}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5039, y: -4.124, z: 0.039889436}
+  m_LocalPosition: {x: 0, y: -0.07, z: 0.039889436}
   m_LocalScale: {x: 0.38176665, y: 0.18261907, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10537,7 +10558,7 @@ PrefabInstance:
     - target: {fileID: 2432669637905812108, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
       value: "from SimpleCharacter import SimpleCharacter\n\nx = SimpleCharacter(circle,green)\nfor
-        x in range (8):\n  move_right()"
+        i in range (8):\n  move_right()"
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638323322094, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_RootOrder
@@ -10638,7 +10659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3228896624481883235, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.45
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3228896624481883235, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10682,7 +10703,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3228896624481883236, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
