@@ -273,21 +273,21 @@ public class Else : HolderInstruction
 
 public class ChangeColor : Instruction
 {
-    private CharacterColorChanger characterColorChanger;
+    private CharacterColorAndShapeChanger characterColorAndShapeChanger;
     private string color;
 
-    public ChangeColor(CharacterColorChanger characterColorChanger, string color)
+    public ChangeColor(CharacterColorAndShapeChanger characterColorAndShapeChanger, string color)
     {
-        this.characterColorChanger = characterColorChanger;
+        this.characterColorAndShapeChanger = characterColorAndShapeChanger;
         this.color = color;
     }
 
     public override void Run()
     {
         if (color == "blue")
-            characterColorChanger.ChangeColorToBlue();
+            characterColorAndShapeChanger.ChangeColorToBlue();
         else if (color == "red")
-            characterColorChanger.ChangeColorToRed();
+            characterColorAndShapeChanger.ChangeColorToRed();
         else
             Debug.Log("hata");
     }
@@ -391,11 +391,11 @@ public class Def_SetShape : HolderInstruction
 public class Def_SetColor : HolderInstruction
 {
     private string color;
-    public CharacterColorChanger characterColorChanger;
+    public CharacterColorAndShapeChanger characterColorAndShapeChanger;
 
-    public Def_SetColor(CharacterColorChanger characterColorChanger, string color)
+    public Def_SetColor(CharacterColorAndShapeChanger characterColorAndShapeChanger, string color)
     {
-        this.characterColorChanger = characterColorChanger;
+        this.characterColorAndShapeChanger = characterColorAndShapeChanger;
         this.color = color;
     }
 
@@ -403,19 +403,19 @@ public class Def_SetColor : HolderInstruction
     {
         if (color == "red")
         {
-            characterColorChanger.ChangeColorToRed();
+            characterColorAndShapeChanger.ChangeColorToRed();
         }
         else if (color == "green")
         {
-            characterColorChanger.ChangeColorToGreen();
+            characterColorAndShapeChanger.ChangeColorToGreen();
         }
         else if (color == "blue")
         {
-            characterColorChanger.ChangeColorToBlue();
+            characterColorAndShapeChanger.ChangeColorToBlue();
         }
         else if (color == "yellow")
         {
-            characterColorChanger.ChangeColorToYellow();
+            characterColorAndShapeChanger.ChangeColorToYellow();
         }
     }
 
@@ -443,7 +443,7 @@ public class RunCodeButton : MonoBehaviour
    
     public GameObject chest;
     public  CharacterMovementController characterMovement;
-    public CharacterColorChanger characterColorChanger;
+    public CharacterColorAndShapeChanger characterColorAndShapeChanger;
     [Space]
     [Header("Character")]
     [SerializeField]
@@ -521,7 +521,7 @@ public class RunCodeButton : MonoBehaviour
         //ReadInputPage1(inputPage1);
         characterMovement = character.GetComponent<CharacterMovementController>();
         characterStartingPosition = characterMovement.transform.position;
-        characterColorChanger = character.GetComponent<CharacterColorChanger>();
+        characterColorAndShapeChanger = character.GetComponent<CharacterColorAndShapeChanger>();
         chestAnimator = chest.GetComponent<Animator>();
         pythonReservedWords = new string[] { "def", "if", "else", "elif", "for", "while", "False", "True", "and", "as", "assert", "break", "class", "continue",
                                             "del",   "except", "finally",  "form", "global", "import", "in", "is", "lambda",
@@ -1139,22 +1139,13 @@ public class RunCodeButton : MonoBehaviour
                                                 {
                                                     if (parameter.Trim() == "circle")
                                                     {
-                                                        
-                                                        character.transform.Find("CircleBody").gameObject.SetActive(true);
-                                                        character.transform.Find("LeftEye").gameObject.SetActive(true);
-                                                        character.transform.Find("RightEye").gameObject.SetActive(true);
-                                                        character.transform.Find("Mouth").gameObject.SetActive(true);
-                                                        character.transform.Find("EmptyPartOfMouth").gameObject.SetActive(true);
+                                                        characterColorAndShapeChanger.ChangeShapeToCircle();
                                                         Debug.Log("circleeee");
                                                         //character.SetActive(true);
                                                     }
                                                     else if (parameter == "square")
                                                     {
-                                                        character.transform.Find("SquareBody").gameObject.SetActive(true);
-                                                        character.transform.Find("LeftEye").gameObject.SetActive(true);
-                                                        character.transform.Find("RightEye").gameObject.SetActive(true);
-                                                        character.transform.Find("Mouth").gameObject.SetActive(true);
-                                                        character.transform.Find("EmptyPartOfMouth").gameObject.SetActive(true);
+                                                        characterColorAndShapeChanger.ChangeShapeToSquare();
                                                     }
                                                     else
                                                     {
@@ -1169,22 +1160,22 @@ public class RunCodeButton : MonoBehaviour
                                                     if (parameter == "red")
                                                     {
                                                         //GetComponent<Renderer>().material.color = UnityEngine.Color.red;
-                                                        characterColorChanger.ChangeColorToRed();
+                                                        characterColorAndShapeChanger.ChangeColorToRed();
                                                     }
                                                     else if (parameter == "green")
                                                     {
                                                         Debug.Log("gg");
                                                         //character.transform.Find("CircleBody").gameObject.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
-                                                        characterColorChanger.ChangeColorToGreen();
+                                                        characterColorAndShapeChanger.ChangeColorToGreen();
                                                         Debug.Log("greeeeen");
                                                     }
                                                     else if (parameter == "blue")
                                                     {
-                                                        characterColorChanger.ChangeColorToBlue();
+                                                        characterColorAndShapeChanger.ChangeColorToBlue();
                                                     }
                                                     else if (parameter == "yellow")
                                                     {
-                                                        characterColorChanger.ChangeColorToYellow();
+                                                        characterColorAndShapeChanger.ChangeColorToYellow();
                                                     }
                                                     else
                                                     {

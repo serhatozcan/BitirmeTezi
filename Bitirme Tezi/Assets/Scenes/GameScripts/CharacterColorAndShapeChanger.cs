@@ -1,26 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
-public class CharacterColorChanger : MonoBehaviour
+public class CharacterColorAndShapeChanger : MonoBehaviour
 {
-    private Renderer renderer1;
-    private GameObject circleBody;
-    private GameObject squareBody;
-    private GameObject emptyPartOfMouth;
-    
 
-    [SerializeField]
-    public Color color;
-
-    private void Awake()
+    public void ChangeShapeToSquare()
     {
-        //color = Color.red;
-        //renderer1 = GetComponent<Renderer>();
-        //emptyPartOfMouth = transform.Find("EmptyPartOfMouth").gameObject;
-        //circleBody = transform.Find("CircleBody").gameObject;
-        //squareBody = transform.Find("SquareBody").gameObject;
-
+        
+        transform.Find("CircleBody").gameObject.SetActive(false);
+        transform.Find("SquareBody").gameObject.SetActive(true);
+        transform.Find("LeftEye").gameObject.SetActive(true);
+        transform.Find("RightEye").gameObject.SetActive(true);
+        transform.Find("Mouth").gameObject.SetActive(true);
+        transform.Find("EmptyPartOfMouth").gameObject.SetActive(true);
+    }
+    public void ChangeShapeToCircle()
+    {
+        Debug.Log("circle cagrildi");
+        transform.Find("SquareBody").gameObject.SetActive(false);
+        transform.Find("CircleBody").gameObject.SetActive(true);
+        transform.Find("LeftEye").gameObject.SetActive(true);
+        transform.Find("RightEye").gameObject.SetActive(true);
+        transform.Find("Mouth").gameObject.SetActive(true);
+        transform.Find("EmptyPartOfMouth").gameObject.SetActive(true);
     }
 
     public void ChangeColorToBlue()
