@@ -2,6 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
+
+
+
+public class CallAfterDelay : MonoBehaviour
+{
+    float delay;
+    System.Action action;
+
+    // Will never call this frame, always the next frame at the earliest
+    public static CallAfterDelay Create(float delay, System.Action action)
+    {
+        CallAfterDelay cad = new GameObject("CallAfterDelay").AddComponent<CallAfterDelay>();
+        cad.delay = delay;
+        cad.action = action;
+        return cad;
+    }
+
+    float age;
+
+    void Update()
+    {
+        if (age > delay)
+        {
+            action();
+            Destroy(gameObject);
+        }
+    }
+    void LateUpdate()
+    {
+        age += Time.deltaTime;
+    }
+}
+
 public class CharacterMovementController : MonoBehaviour
 {
     [SerializeField] //Editorden erismek icin
@@ -18,10 +52,12 @@ public class CharacterMovementController : MonoBehaviour
     private Vector2 down;
     private Vector2 left;
     private Vector2 right;
+    //private float moveSpeed;
 
     // Start is called before the first frame update
     void Awake()
     {
+      //  moveSpeed = 5f;
         up = new Vector2(0, 1);
         down = new Vector2(0, -1);
         left = new Vector2(-1, 0);
@@ -47,6 +83,7 @@ public class CharacterMovementController : MonoBehaviour
             Debug.Log(direction.x + " " +direction.y);
             //character.transform.position += (Vector3)direction;
             transform.position += (Vector3)direction;
+            //transform.position = Vector3.MoveTowards(transform.position, (Vector3)direction, moveSpeed * Time.deltaTime);
             Debug.Log(direction.x);
             Debug.Log(transform.position.x);
         }
@@ -64,8 +101,14 @@ public class CharacterMovementController : MonoBehaviour
 
     public void MoveUp()
     {
+        //Move(up);
+        Invoke("Move_Up", 1f);
+    }
+    public void Move_Up()
+    {
         Move(up);
     }
+
     public void MoveDown()
     {
         Move(down);
@@ -76,7 +119,17 @@ public class CharacterMovementController : MonoBehaviour
     }
     public void MoveRight()
     {
-        Debug.Log("moveright");
+        //Debug.Log("moveright");
+        //Invoke("Move_Right", 1f);
+        //CallAfterDelay.Create(2.5f, () => {
+        //    // put the code here you want to do in 2.5 seconds, call a function, etc.
+        //    Move(right);
+        //});
+        Move(right);
+    }
+
+    public void Move_Right()
+    {
         Move(right);
     }
 
