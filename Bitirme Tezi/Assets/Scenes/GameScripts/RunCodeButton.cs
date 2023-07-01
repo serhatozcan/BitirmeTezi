@@ -677,69 +677,76 @@ public class RunCodeButton : MonoBehaviour
                     //string[] rowWords = leftTrimmedRow.Split(" ");
 
 
-                    //try
-                    //{
-                    if (trimmedRow.Substring(0, 3) != "def")
+                    try
                     {
-                        Debug.Log("Hata");
-                        GameOver("init komutunu yazmak i�in �nce def kelimesini yazman�z gerekiyor.");
-                    }
-                    else
-                    {
-                        rowWords = trimmedRow.Split(" ", 2);
-
-                        string initWord = rowWords[1];
-                        Debug.Log(initWord);
-
-                        if (initWord.Substring(0, 8) != "__init__")
+                        if (trimmedRow.Substring(0, 3) != "def")
                         {
                             Debug.Log("Hata");
-                            GameOver("init komutu i�in def yazd�ktan sonra bo�luk b�rak�p __init__ yazarak devam etmeniz gerekiyor.");
+                            GameOver("init komutunu yazmak i�in �nce def kelimesini yazman�z gerekiyor.");
                         }
                         else
                         {
-                            string initWordParametersPart = initWord.Substring(8).Trim();
-                            Debug.Log(initWordParametersPart);
-                            if (initWordParametersPart[0] != '(')
+                            rowWords = trimmedRow.Split(" ", 2);
+
+                            string initWord = rowWords[1];
+                            Debug.Log(initWord);
+
+                            if (initWord.Substring(0, 8) != "__init__")
                             {
-                                Debug.Log("hata");
-                                GameOver("Parantez hatas�: __init__ yazd�ktan sonra parantez i�inde gerekli parametreleri girmeniz gerekiyor.");
-                            }
-                            else if (initWordParametersPart[initWordParametersPart.Length - 1] != ':')
-                            {
-                                Debug.Log("hata");
-                                GameOver("init komutunun sonuna : eklemeniz gerekiyor.");
+                                Debug.Log("Hata");
+                                GameOver("init komutu i�in def yazd�ktan sonra bo�luk b�rak�p __init__ yazarak devam etmeniz gerekiyor.");
                             }
                             else
                             {
-                                initWordParametersPart = initWordParametersPart.Substring(1, initWordParametersPart.Length - 2).Trim();
+                                string initWordParametersPart = initWord.Substring(8).Trim();
                                 Debug.Log(initWordParametersPart);
-                                if (initWordParametersPart[initWordParametersPart.Length - 1] != ')')
+                                if (initWordParametersPart[0] != '(')
                                 {
                                     Debug.Log("hata");
                                     GameOver("Parantez hatas�: __init__ yazd�ktan sonra parantez i�inde gerekli parametreleri girmeniz gerekiyor.");
                                 }
+                                else if (initWordParametersPart[initWordParametersPart.Length - 1] != ':')
+                                {
+                                    Debug.Log("hata");
+                                    GameOver("init komutunun sonuna : eklemeniz gerekiyor.");
+                                }
                                 else
                                 {
-                                    initWordParametersPart = initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
+                                    initWordParametersPart = initWordParametersPart.Substring(1, initWordParametersPart.Length - 2).Trim();
                                     Debug.Log(initWordParametersPart);
-                                    initParameters = initWordParametersPart.Split(",");
-                                    
-                                    for (int j = 0; j < initParameters.Length; j++)
+                                    if (initWordParametersPart[initWordParametersPart.Length - 1] != ')')
                                     {
-                                        Debug.Log(initParameters.Length);
-                                        initParameters[j] = initParameters[j].Trim();
-                                        Debug.Log(initParameters[j]);
-                                        Debug.Log(pythonReservedWords.Length);
-                                        
-                                        Debug.Log("111");
+                                        Debug.Log("hata");
+                                        GameOver("Parantez hatas�: __init__ yazd�ktan sonra parantez i�inde gerekli parametreleri girmeniz gerekiyor.");
+                                    }
+                                    else
+                                    {
+                                        initWordParametersPart = initWordParametersPart.Substring(0, initWordParametersPart.Length - 1).Trim();
+                                        Debug.Log(initWordParametersPart);
+                                        initParameters = initWordParametersPart.Split(",");
+
+                                        for (int j = 0; j < initParameters.Length; j++)
+                                        {
+                                            Debug.Log(initParameters.Length);
+                                            initParameters[j] = initParameters[j].Trim();
+                                            Debug.Log(initParameters[j]);
+                                            Debug.Log(pythonReservedWords.Length);
+
+                                            Debug.Log("111");
+                                        }
                                     }
                                 }
+
                             }
 
                         }
 
                     }
+                    catch(Exception e)
+                    {
+                        Debug.Log("hata");
+                    }
+                   
                     
                     //Burada parametrelere ulastigim icin burada kontrol ediyorum. Yukarida da edebilirim.
                     if (!initParameters.Contains("shape"))
@@ -846,8 +853,6 @@ public class RunCodeButton : MonoBehaviour
 
                     }
                 }
-
-                //}
 
             }
 
