@@ -2,15 +2,10 @@
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
-using Mono.Cecil.Cil;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using TMPro;
 
 using UnityEngine;
@@ -32,14 +27,12 @@ public abstract class HolderInstruction : Instruction
 //sadece say�yla d�nen for loop. boolean olacaksa ayr� class olu�turulabilir.
 public class For : HolderInstruction
 {
-    RunCodeButton runCodeButton;
     public CharacterMovementController characterMovement;
     private int iterationCount;
     //private List<Instruction> instructions;
 
-    public For(RunCodeButton runCodeButton, CharacterMovementController characterMovement, int iterationCount, int level)
+    public For(CharacterMovementController characterMovement, int iterationCount, int level)
     {
-        this.runCodeButton = runCodeButton;
         this.characterMovement = characterMovement;
         this.iterationCount = iterationCount;
         instructions = new List<Instruction>();
@@ -53,47 +46,11 @@ public class For : HolderInstruction
 
         for (int i = 0; i < iterationCount; i++)
         {
-            //elif ve else'lerden once ilk komutun if olmasi gerek.
-            //sirasiyla bakilip calisandan sonrakiler calismamali.
-            //bool didItRun = false;
-            bool isThereIf = false;
-            bool didPreviousConditionsRun = false;
-
-            //RunCodeButton runCodeButton = new RunCodeButton();
+           
             RunCodeButton.RunInstructions(instructions);
-            //RunCodeButton.RunInstructions(instructions);
-
-            //runCodeButton.RunInstructionsCoroutine(instructions);
-            //StartCoroutine(runCodeButton.WaitFor1SecondCoroutine(runCodeButton, instructions));
-
-            //StartCoroutine(runCodeButton.RunInstructions1Second(instructions));
-            //StartCoroutine(runCodeButton.RunInstructionsWithDelay(instructions));
-
-            //runCodeButton.RunInstructions(instructions);
-            //runCodeButton.WaitFor1Second(runCodeButton, instructions);
+            
         }
     }
-
-    //public override void Run()
-    //{
-    //    runCodeButton.StartCoroutine(RunCoroutine());
-    //}
-
-    //public IEnumerator RunCoroutine()
-    //{
-    //    yield return this;
-    //    for (int i = 0; i < iterationCount; i++)
-    //    {
-    //        runCodeButton.RunInstructionsCoroutine(instructions);
-    //    }
-
-    //}
-
-    //public void Add(Instruction instruction)
-    //{
-    //    instructions.Add(instruction);
-    //}
-
 
 
     public override string ToString()
@@ -124,21 +81,12 @@ public class While : HolderInstruction
 
     public override void Run()
     {
-
-        // while()
-        //RunCodeButton.RunInstructions(instructions);
-        //RunCodeButton runCodeButton = new RunCodeButton();
-        //runCodeButton.RunInstructions(instructions);
         RunCodeButton.RunInstructions(instructions);
-        //StartCoroutine(WaitFor1SecondCoroutine(runCodeButton, instructions));
     }
 }
 
 public class If : HolderInstruction
 {
-    //public List<string> leftPart;
-    //public string operatorType;
-    //public List<string> rightPart;
 
     public CharacterMovementController characterMovement;
     public string firstMethod;
@@ -177,25 +125,15 @@ public class If : HolderInstruction
     public override void Run()
     {
 
-        Debug.Log("azxczxcxcc");
-        Debug.Log(instructions.Count);
-        Debug.Log(instructions[0].ToString());
-        bool isThereIf = false;
-        bool didPreviousConditionsRun = false;
-        //RunCodeButton.RunInstructions(instructions);
-        //RunCodeButton runCodeButton = new RunCodeButton();
-        //runCodeButton.RunInstructions(instructions);
         RunCodeButton.RunInstructions(instructions);
     }
 }
 
 public class Elif : HolderInstruction
 {
-    //public RunCodeButton runCodeButton;
+    
     public CharacterMovementController characterMovement;
-    //public List<string> leftPart;
-    //public string operatorType;
-    //public List<string> rightPart;
+   
     public string firstMethod;
     public string secondMethod;
     public string secondMethodParameter;
@@ -210,10 +148,7 @@ public class Elif : HolderInstruction
         this.firstMethod = firstMethod;
         this.secondMethod = null;
         this.secondMethodParameter = null;
-        //this.operatorType = operatorType;
-        //this.rightPart = rightPart;
-        //this.id = id;
-        //this.conditionRunList = conditionRunList;
+       
         instructions = new List<Instruction>();
         this.level = level;
         type = 1;
@@ -226,10 +161,7 @@ public class Elif : HolderInstruction
         this.firstMethod = firstMethod;
         this.secondMethod = secondMethod;
         this.secondMethodParameter = secondMethodParameter;
-        //this.operatorType = operatorType;
-        //this.rightPart = rightPart;
-        //this.id = id;
-        //this.conditionRunList = conditionRunList;
+       
         instructions = new List<Instruction>();
         this.level = level;
         type = 2;
@@ -238,29 +170,10 @@ public class Elif : HolderInstruction
     }
 
 
-    //rightpart ve operator type olup olmamas�na gore iki sekilde calisacak
+    
     public override void Run()
     {
-        //burada �nce di�erlerinde ba��ms�z olarak bool de�erine g�re �al��acak m� diye kontrol edece�iz.
-        //sonra �al��acaksa conditionRunListte id'ye kar��l�k gelen indexi true yap�caz.
-        //SIKINTI �U: true yapt�ktan sonra for loop i�erisinde ayn� if'e tekrar gelince ne olacak???
-
-        //if(conditionRunList == null) 
-        //{ 
-
-        //}
-        //if (operatorType != null)
-        //{
-        //    //buralarda calisip calismadigini dondurmek gerekebilir. ya da run metodunda sadece calistirma yapilacak. run metodu cagrilmadan once if'in calisip calismadigi disarida kontrol edilecek.
-        //}
-
-        bool isThereIf = false;
-        bool didPreviousConditionsRun = false;
-        //S�k�nt�l� bir durum gibi.
-        //RunCodeButton runCodeButton = new RunCodeButton();
-        //RunCodeButton.RunInstructions(instructions);
-        //RunCodeButton runCodeButton = new RunCodeButton();
-        //runCodeButton.RunInstructions(instructions);
+        
         RunCodeButton.RunInstructions(instructions);
     }
 }
@@ -271,8 +184,7 @@ public class Else : HolderInstruction
     public CharacterMovementController characterMovement;
     public Else(CharacterMovementController characterMovement, int level)
     {
-        //this.id = id;
-        //this.conditionRunList = conditionRunList;
+        
         this.characterMovement = characterMovement;
         this.level = level;
         instructions = new List<Instruction>();
@@ -282,13 +194,7 @@ public class Else : HolderInstruction
 
     public override void Run()
     {
-        bool isThereIf = false;
-        bool didPreviousConditionsRun = false;
-        //RunCodeButton.RunInstructions(instructions);
-        //RunCodeButton runCodeButton = new RunCodeButton();
-        //runCodeButton.RunInstructions(instructions);
-        //RunCodeButton runCodeButton = new RunCodeButton();
-        //runCodeButton.RunInstructions(instructions);
+       
         RunCodeButton.RunInstructions(instructions);
     }
 }
@@ -317,20 +223,12 @@ public class ChangeColor : Instruction
 
 public class Move : Instruction
 {
-    private RunCodeButton runCodeButton;
     private CharacterMovementController characterMovement;
     private string direction;
 
-    //public void Start()
-    //{
-    //    characterMovement = transform.Find("SimpleCharacter").gameObject.GetComponent<CharacterMovementController>();
-    //    direction = 
-    //}
-
-
-    public Move(RunCodeButton runCodeButton, CharacterMovementController characterMovement, string direction, int level)
+  
+    public Move(CharacterMovementController characterMovement, string direction, int level)
     {
-        this.runCodeButton = runCodeButton;
         this.direction = direction;
         this.characterMovement = characterMovement;
         this.level = level;
@@ -338,17 +236,7 @@ public class Move : Instruction
 
     public override void Run()
     {
-        //Invoke("RunMethod", 1f);
-        //await Task.Delay(1000);
-        //burada direk Move(Vector2) kullan�labilir. 
-
-        //RunMethod();
-
-        //for (int i = 0; i < 1000; i++)
-        //{
-        //    Debug.Log("");
-        //}
-
+        
         if (direction == "left")
             characterMovement.MoveLeft();
         else if (direction == "right")
@@ -359,11 +247,6 @@ public class Move : Instruction
         else if (direction == "down")
             characterMovement.MoveDown();
 
-
-
-        //Debug.Log("run1");
-        //runCodeButton.StartCoroutine(RunMethod());
-        //Debug.Log("run2");
     }
 
     public void RunMethod()
@@ -379,32 +262,13 @@ public class Move : Instruction
             characterMovement.MoveDown();
     }
 
-    //public IEnumerator RunMethod()
-    //{
-    //    //await Task.Delay(1000);
-    //    //burada direk Move(Vector2) kullan�labilir. 
-    //    Debug.Log("runmethod");
-    //    yield return new WaitForSeconds(0);
-    //    Debug.Log(direction);
-    //    if (direction == "left")
-    //        characterMovement.MoveLeft();
-    //    else if (direction == "right")
-    //        characterMovement.MoveRight();
-    //    else if (direction == "up")
-    //        characterMovement.MoveUp();
-    //    else if (direction == "down")
-    //        characterMovement.MoveDown();
-        
-    //}
+
     public override string ToString()
     {
         return "Move: " + direction + " Class";
     }
 
-   
-    
 }
-
 
 public class Swim : Instruction
 {
@@ -535,7 +399,6 @@ public class RunCodeButton : MonoBehaviour
     public string[] pythonReservedWords;
 
     private string[] fruits;
-    //public CharacterMovementController characterMovementController;
 
     public List<bool> conditionRunList;
     public Vector3 characterStartingPosition;
@@ -543,22 +406,13 @@ public class RunCodeButton : MonoBehaviour
 
     public float timer = 0;
 
-    // Start is called before the first frame update
-
-    //[Space]
-    //[Header("BackButton")]
-
     [Space]
     [Header("Game Over Page")]
     public GameObject backButton;
     public GameObject runButton;
     public GameObject gameOverPanel;
     public TMP_Text errorMessageText;
-    //, codeInputField_1Text, codeInputField_2Text;
-    //public string codeInputField_1Text, codeInputField_2Text;
-
-
-  
+    
 
 
     public void GameOver(string errorMessage)
@@ -607,7 +461,6 @@ public class RunCodeButton : MonoBehaviour
         
         isWaitingInstruction = false;
         instructionList = new List<Instruction>();
-        //ReadInputPage1(inputPage1);
         characterMovement = character.GetComponent<CharacterMovementController>();
         characterStartingPosition = characterMovement.transform.position;
         characterColorAndShapeChanger = character.GetComponent<CharacterColorAndShapeChanger>();
@@ -618,17 +471,11 @@ public class RunCodeButton : MonoBehaviour
         fruits = new string[] { "apple", "banana", "kiwi" };
 
         conditionRunList = new List<bool>();
-        //simdilik burada. sonradan unity uzerinden verilecek.
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        //catNumber = 1;
-        //levelNumber = 7;
-
+        
 
         InitializeFirebase();
-        //characterColorChanger.ChangeColorToBlue();
-        //characterColorChanger.ChangeColorToRed();
-
-        //chestAnimator.SetBool("opening", true);
+        
     }
 
     public void Update()
@@ -664,8 +511,7 @@ public class RunCodeButton : MonoBehaviour
         }
     }
 
-    // Handle removing subscription and reference to the Auth instance.
-    // Automatically called by a Monobehaviour after Destroy is called on it.
+
     void OnDestroy()
     {
         auth.StateChanged -= AuthStateChanged;
@@ -676,16 +522,12 @@ public class RunCodeButton : MonoBehaviour
     public void ReadInputPage1(TMP_InputField inputField1)
     {
         this.inputField1 = inputField1;
-        //inputText2 = inputPage2.text;
-        //Debug.Log(inputPage1);
-        //Debug.Log("Buradan sonra 2. sayfa");
-        //Debug.Log(inputText2);
+        
     }
 
     public void ReadInputPage2(TMP_InputField inputField2)
     {
         this.inputField2 = inputField2;
-        //Debug.Log(inputText2);
     }
 
     public void RunCode()
@@ -707,7 +549,6 @@ public class RunCodeButton : MonoBehaviour
         //string className = null;
         string className = "SimpleCharacter";
         string parentClassName = "Character";
-        string characterColor;
         string secondClassFileName = "SimpleCharacter";
         string classInstanceName = null;
 
@@ -836,9 +677,6 @@ public class RunCodeButton : MonoBehaviour
                     //string[] rowWords = leftTrimmedRow.Split(" ");
 
 
-                    //en az gerekli karakter say�s� = 16
-                    //BUNLARI DE���T�REB�L�R�M. D�REKT HATALI DEMEK SA�MA.
-
                     //try
                     //{
                     if (trimmedRow.Substring(0, 3) != "def")
@@ -889,18 +727,11 @@ public class RunCodeButton : MonoBehaviour
                                     
                                     for (int j = 0; j < initParameters.Length; j++)
                                     {
-                                        //Debug.Log(j);
                                         Debug.Log(initParameters.Length);
                                         initParameters[j] = initParameters[j].Trim();
                                         Debug.Log(initParameters[j]);
-                                        //Debug.Log(VariableCheck("ad"));
                                         Debug.Log(pythonReservedWords.Length);
-                                        //Debug.Log(VariableCheck(initParameters[j]));
-                                        //if (!VariableCheck(initParameters[j]))
-                                        //{
-                                        //    Debug.Log("hata");
-                                        //    //GameOver("init i�erisine yazd���n�z parametre de�i�ken yaz�m� kurallar�na uymal�d�r. Hatal� parametre: " + initParameters[j]);
-                                        //}
+                                        
                                         Debug.Log("111");
                                     }
                                 }
@@ -1058,13 +889,7 @@ public class RunCodeButton : MonoBehaviour
             bool isFirstRow = true;
             bool isClassInstanceRow = false;
             int indentation = 0;
-            //bool isBodyOfSomething = false;
-            //Stack<int> indentationStack = new Stack<int>();
-            //int rowIndentation = 0;
-
-
-            //List<Condition> tempConditions = new List<Condition>();
-            //ConditionHolder conditionHolder = null;
+            
 
             int conditionId = -1;
             int lastIndentation = 0;
@@ -1076,13 +901,10 @@ public class RunCodeButton : MonoBehaviour
                     continue;
 
                 int rowIndentation;
-                //Debug.Log(rows2[i]);
-                //bos satirlar yok sayiliyor.
-                //BURADA UZUNLU�U 1'SE D�YE KONTROL ETMEK BELK� DAHA �Y� OLUR AMA UZUN B�R BO�LUK DA BIRAKAB�L�RLER. B�R �EK�LDE HALLED�CEZ.
+                
                 if (!String.IsNullOrEmpty(rows1[i]))
                 {
-                    //if (rows1[i].Length >= 4)
-                    //{
+                    
                     //birden fazla import sat�r� istenmedi�i i�in bir tane olacak �ekilde ayarland�. 
                     if (isFirstRow)
                     {
@@ -1142,7 +964,7 @@ public class RunCodeButton : MonoBehaviour
                     //buraya eklenebilir.
                     else if (isClassInstanceRow)
                     {
-
+                        
                         int c = 0;
                         while (rows1[i][c] == ' ')
                         {
@@ -1159,7 +981,6 @@ public class RunCodeButton : MonoBehaviour
                         }
 
 
-                        //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
                         string trimmedRow = rows1[i].Trim();
 
                         string[] classInstanceParts;
@@ -1173,7 +994,6 @@ public class RunCodeButton : MonoBehaviour
 
                             classInstanceParts = trimmedRow.Split('=');
 
-
                             classInstanceName = classInstanceParts[0].Trim();
                             string classConstructor = classInstanceParts[1].Trim();
 
@@ -1184,10 +1004,7 @@ public class RunCodeButton : MonoBehaviour
                                 Debug.Log("Class instance name:" + classInstanceName + "+");
                                 Debug.Log("hata");
                             }
-                            //else if(classInstanceRightPart.Contains("="))
-                            //{
-                            //    Debug.Log("Hata");
-                            //}
+                            
                             else if (!classConstructor.Contains("(") || !classConstructor.Contains(")"))
                             {
                                 GameOver(className + " nesnesi olu�tururken parantezleri do�ru kullanman�z gerekiyor.\n�rnek: " + className + "(\"blue\")");
@@ -1235,7 +1052,7 @@ public class RunCodeButton : MonoBehaviour
                                                     {
                                                         characterColorAndShapeChanger.ChangeShapeToCircle();
                                                         Debug.Log("circleeee");
-                                                        //character.SetActive(true);
+                                                       
                                                     }
                                                     else if (parameter == "square")
                                                     {
@@ -1250,16 +1067,13 @@ public class RunCodeButton : MonoBehaviour
                                                 else if (initParameters[j] == "color")
                                                 {
                                                     Debug.Log("+"+parameter+"+");
-                                                    //Color.FromName(parameter);
                                                     if (parameter == "red")
                                                     {
-                                                        //GetComponent<Renderer>().material.color = UnityEngine.Color.red;
                                                         characterColorAndShapeChanger.ChangeColorToRed();
                                                     }
                                                     else if (parameter == "green")
                                                     {
                                                         Debug.Log("gg");
-                                                        //character.transform.Find("CircleBody").gameObject.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
                                                         characterColorAndShapeChanger.ChangeColorToGreen();
                                                         Debug.Log("greeeeen");
                                                     }
@@ -1283,21 +1097,7 @@ public class RunCodeButton : MonoBehaviour
                                             Debug.Log("burada");
                                         }
 
-
-
                                     }
-
-                                    //string[] classParameters = classConstructorParts[1].Split(',');
-
-
-
-                                    //constructor part'larinda normalde string, integer veya double vs. deger olabilir.
-                                    //ben buyuk ihtimalle sadece string olan classlar kullanacagim. yine de digerleri de implement edilebilir.
-                                    //python oldugu icin init kisminda parametrelerin tipleri belli olmaz. burada kontrol etmek lazim.
-
-                                    //b�l�mlere g�re farkl� kontroller olabilir.
-
-
 
                                 }
                             }
@@ -1341,7 +1141,6 @@ public class RunCodeButton : MonoBehaviour
                         }
 
 
-                        //string leftTrimmedRow = rows1[i].Substring(rowIndentation);
                         string trimmedRow = rows1[i].Trim();
                         Debug.Log(trimmedRow + " " + trimmedRow.Length);
 
@@ -1363,7 +1162,6 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
-                                        // if kismi atilacak.
                                         string booleanPart = trimmedRow.Substring(2).Trim();
                                         string operatorType = null;
 
@@ -1406,8 +1204,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(ifInstruction);
+                                                      
                                                     }
 
                                                 }
@@ -1422,8 +1219,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(ifInstruction);
+                                                        
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 10) == "right_tile")
@@ -1437,8 +1233,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(ifInstruction);
+                                                        
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 9) == "left_tile")
@@ -1452,14 +1247,12 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        //If ifInstruction = new If(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(ifInstruction);
+                                                        
                                                     }
                                                 }
                                             
                                                
                                                 string secondMethod = null;
-                                                //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
 
 
                                                 if (ifParts[2].Substring(0, 9) == "is_ground")
@@ -1506,9 +1299,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (ifParts[2].Substring(0, 8) == "contains")
                                                 {
-                                                    //string s = ifParts[2].Substring(8).Replace(" ", "");
                                                     parameterPart = ifParts[2].Substring(8).Trim();
-                                                    //burasi degisecek. ()'in ici dolu olacak.
                                                     if (parameterPart[parameterPart.Length - 1] != ':')
                                                     {
                                                         GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
@@ -1539,9 +1330,6 @@ public class RunCodeButton : MonoBehaviour
 
                                                 }
 
-                                                //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
-                                                //}
-
 
                                             }
 
@@ -1553,9 +1341,6 @@ public class RunCodeButton : MonoBehaviour
                             }
                             else if (trimmedRow.Substring(0, 3) == "for")
                             {
-
-                                //string[] rowWords = rows1[i].Split(' ');
-                                //Debug.Log(rowWords[1]);
 
                                 if (trimmedRow[3] != ' ')
                                 {
@@ -1624,45 +1409,16 @@ public class RunCodeButton : MonoBehaviour
                                             if (int.TryParse(rangeParameter, out parameter))
                                             {
                                                 Debug.Log(parameter);
-                                                //range i�indeki de�ere ula�abiliyorum art�k.
-
-                                                //Bunu do�ru yere eklemek gerekiyor.
-                                                For forLoop = new For(this, characterMovement, parameter, instructionLevel);
+                                                
+                                                For forLoop = new For(characterMovement, parameter, instructionLevel);
                                                 AddInstruction(forLoop);
                                                 
-                                                //indentation kontrol laz�m.
-                                                //if (instructionList.Count == 0)
-                                                //{
-
-                                                //    instructionList.Add(forLoop);
-                                                //}
-                                                //else
-                                                //{
-                                                //    for (int j = instructionList.Count - 1; j >= 0; j--)
-                                                //    {
-                                                //        if (instructionList[j] != null)
-                                                //        {
-                                                //            if (instructionList[j].level == instructionLevel - 1)
-                                                //            {
-                                                //                //burada holder olduklar�ndan emin olmak laz�m. Yani �sttekinden emin olmak laz�m. 
-                                                //                //((HolderInstruction)instructionList[j]).Add(forLoop);
-                                                //                AddInstruction(forLoop);
-                                                //                Debug.Log("FORFORFOR: " + instructionLevel);
-
-                                                //            }
-                                                //        }
-                                                //    }
-                                                //}
-
                                                 lastInstructionType = "holder";
                                                 lastIndentation = rowIndentation;
-                                                //instructionList.Add(forLoop);
 
                                             }
                                         }
                                     }
-
-
 
                                 }
 
@@ -1713,27 +1469,26 @@ public class RunCodeButton : MonoBehaviour
                                             {
                                                 if (instructionParts[0] == "move_up")
                                                 {
-                                                    //Move move_up = new Move(characterMovement, "up", instructionLevel);
-                                                    Move move_up = new Move(this, characterMovement, "up", instructionLevel);
+                                                    Move move_up = new Move(characterMovement, "up", instructionLevel);
                                                     AddInstruction(move_up);
                                                     Debug.Log("MOVE UP : " + instructionLevel);
                                                 }
                                                 else if (instructionParts[0] == "move_left")
                                                 {
-                                                    Move move_left = new Move(this, characterMovement, "left", instructionLevel);
+                                                    Move move_left = new Move(characterMovement, "left", instructionLevel);
                                                     AddInstruction(move_left);
                                                     Debug.Log("MOVE LEFT : " + instructionLevel);
                                                 }
                                                 else if (instructionParts[0] == "move_down")
                                                 {
-                                                    Move move_down = new Move(this, characterMovement, "down", instructionLevel);
+                                                    Move move_down = new Move(characterMovement, "down", instructionLevel);
                                                     AddInstruction(move_down);
                                                     Debug.Log("MOVE DOWN : " + instructionLevel);
                                                 }
                                                 else if (instructionParts[0] == "move_right")
                                                 {
 
-                                                    Move move_right = new Move(this, characterMovement, "right", instructionLevel);
+                                                    Move move_right = new Move(characterMovement, "right", instructionLevel);
                                                     Debug.Log("mr level " + instructionLevel);
                                                     AddInstruction(move_right);
                                                     Debug.Log("MOVE RIGHT : " + instructionLevel);
@@ -1775,10 +1530,6 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                             }
                                         
-
-                                           
-
-
                                         }
                                         catch (Exception ex)
                                         {
@@ -1792,65 +1543,6 @@ public class RunCodeButton : MonoBehaviour
                                 }
                             }
 
-                            
-                            //else if (trimmedRow.Substring(0, 4) == "swim")
-                            //{
-                            //    if (!trimmedRow.Contains('('))
-                            //    {
-                            //        GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
-                            //        Debug.Log("hata");
-                            //    }
-                            //    else if (!trimmedRow.Contains(')'))
-                            //    {
-                            //        GameOver("Parantez hatas�: parametresiz methodlar sonlar�na () eklenerek, parametreli methodlar eklenen parantezin i�ine parametre de�erleri yaz�larak �a�r�l�r.");
-                            //        Debug.Log("hata2");
-                            //    }
-
-                            //    string[] instructionParts = trimmedRow.Split('(', 2);
-
-                            //    instructionParts[0] = instructionParts[0].Trim();
-                            //    int length = instructionParts[0].Length;
-
-                            //    Debug.Log(instructionParts[0]);
-                            //    try
-                            //    {
-                            //        if (instructionParts[0] == "swim_up")
-                            //        {
-                            //            Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
-                            //            AddInstruction(swim_up);
-                            //        }
-                            //        else if (instructionParts[0] == "swim_left")
-                            //        {
-                            //            Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
-                            //            AddInstruction(swim_left);
-                            //        }
-                            //        else if (instructionParts[0] == "swim_down")
-                            //        {
-                            //            Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
-                            //            AddInstruction(swim_down);
-                            //        }
-                            //        else if (instructionParts[0] == "swim_right")
-                            //        {
-
-                            //            Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
-                            //            Debug.Log("mr level " + instructionLevel);
-                            //            AddInstruction(swim_right);
-                            //        }
-                            //        else
-                            //        {
-                            //            GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
-                            //            Debug.Log("hata");
-                            //        }
-                            //        //}
-                            //    }
-                            //    catch (Exception ex)
-                            //    {
-                            //        GameOver("Hata: " + ex.Message);
-                            //        Debug.Log(ex.Message);
-                            //    }
-
-
-                            //}
                             else if (trimmedRow.Substring(0, 4) == "elif")
                             {
                                 if (trimmedRow[trimmedRow.Length - 1] != ':')
@@ -1906,8 +1598,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
 
                                                 }
@@ -1922,8 +1613,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
                                                 }
                                                 else if (elifParts[1].Substring(0, 10) == "right_tile")
@@ -1937,8 +1627,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
                                                 }
                                                 else if (elifParts[1].Substring(0, 9) == "left_tile")
@@ -1952,8 +1641,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
                                                 }
 
@@ -1964,10 +1652,8 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (elifParts.Length == 3)
                                                 {
-                                                    //kaldirilabilir ??
-                                                    //parameterPart = null;
+                                                    
                                                     string secondMethod = null;
-                                                    //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
 
 
                                                     if (elifParts[2].Substring(0, 9) == "is_ground")
@@ -2004,9 +1690,8 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (elifParts[2].Substring(0, 8) == "contains")
                                                     {
-                                                        //string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                        
                                                         parameterPart = elifParts[2].Substring(8).Trim();
-                                                        //burasi degisecek. ()'in ici dolu olacak.
                                                         if (parameterPart[parameterPart.Length - 1] != ':')
                                                         {
                                                             GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
@@ -2037,7 +1722,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                     }
 
-                                                    //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
+                                                    
                                                 }
 
 
@@ -2106,8 +1791,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
 
                                                 }
@@ -2122,8 +1806,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
                                                 }
                                                 else if (whileParts[1].Substring(0, 10) == "right_tile")
@@ -2137,8 +1820,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
                                                 }
                                                 else if (whileParts[1].Substring(0, 9) == "left_tile")
@@ -2152,8 +1834,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        //Elif elifInstruction = new Elif(characterMovement, firstMethod, instructionLevel);
-                                                        //AddInstruction(elifInstruction);
+                                                        
                                                     }
                                                 }
 
@@ -2164,11 +1845,8 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (whileParts.Length == 3)
                                                 {
-                                                    //kaldirilabilir ??
-                                                    //parameterPart = null;
+                                                    
                                                     string secondMethod = null;
-                                                    //kontrol sirasi degismemeli. parameterPart dolu olan sonra okunmali. veya durum degistirilecek.
-
 
                                                     if (whileParts[2].Substring(0, 9) == "is_ground")
                                                     {
@@ -2204,7 +1882,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (whileParts[2].Substring(0, 8) == "contains")
                                                     {
-                                                        //string s = ifParts[2].Substring(8).Replace(" ", "");
+                                                        
                                                         parameterPart = whileParts[2].Substring(8).Trim();
                                                         //burasi degisecek. ()'in ici dolu olacak.
                                                         if (parameterPart[parameterPart.Length - 1] != ':')
@@ -2237,7 +1915,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                     }
 
-                                                    //burada 3 parcali if listeye eklenecek. ya da hepsi kendi yerinden listeye eklenecek.
+                                                    
                                                 }
 
 
@@ -2268,9 +1946,7 @@ public class RunCodeButton : MonoBehaviour
 
                                 else
                                 {
-                                    //AddInstruction() i�inde bunun �st�dneki ConditionHolder m� diye kontrol etmek gerek.
-                                    //Else elseCondition = new Else(instructionLevel + 1);
-                                    //Else elseCondition = new Else(conditionId, conditionRunList, instructionLevel);
+                                    
                                     Else elseCondition = new Else(characterMovement, instructionLevel);
                                     AddInstruction(elseCondition);
                                 }
@@ -2295,29 +1971,12 @@ public class RunCodeButton : MonoBehaviour
                 Debug.Log(v.ToString());
 
 
-            //Burada bolum ozel kontrolleri yapilabilir.
-
-            //CheckCat1Level7Conditions(instructionList);
             CheckLevelConditions(catNumber, levelNumber, instructionList);
-            //if(instructionList.Count > 0)
-            //{
-            //if (instructionList[0].GetType() != typeof(For))
-            //{
-            //    Debug.Log("�lk komutun bir for olmas� gerekiyor.");
-            //}
-            //}
-
-
-            //instructionList burada calistiriliyor.
-            //bool isThereIf = false;
-            //bool didPreviousConditionsRun = false;
+           
 
             RunInstructions(instructionList);
-            //RunInstructionsCoroutine(instructionList);
-            Debug.Log("son");
-            //Buraya gelecek.
-            //karakter sandigin ustundeyse 
-            //chestAnimator.SetBool("opening", true);
+            
+            
 
             //BOLUM GECME KISMI
             Vector3Int characterFinalPosition = characterMovement.groundTilemap.WorldToCell(characterMovement.transform.position);
@@ -2501,10 +2160,7 @@ public class RunCodeButton : MonoBehaviour
 
 
             }
-            //else if (!isThereIf)
-            //{
-            //    Debug.Log("hata");
-            //}
+            
             else if (instruction.GetType() == typeof(Elif))
             {
                 if (!isThereIf)
@@ -2786,22 +2442,9 @@ public class RunCodeButton : MonoBehaviour
             else
             {
                 isThereIf = false;
-
-
-                for(int i = 0; i < 1000; i++)
-                {
-                    Debug.Log("");
-                }
-
+                
                 instruction.Run();
-                //instruction.Invoke("Run", 1f);
-                //System.Threading.Thread.Sleep(1000);
-                //timer += Time.deltaTime;
-                //if (timer > delay)
-                //StartCoroutine(WaitFor1SecondCoroutine(instruction));
-
-
-                //instruction.Invoke("Run", 2f);
+               
 
             }
 
@@ -2880,34 +2523,16 @@ public class RunCodeButton : MonoBehaviour
     //-----------------------------------------------------------------------
     public void SubmitLevelAsPassed()
     {
-        Dictionary<string, object> Level_5 = new Dictionary<string, object>();
-        Level_5["Passed"] = true;
+        Dictionary<string, object> Level_Passed = new Dictionary<string, object>();
+        Level_Passed["Passed"] = true;
 
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).UpdateChildrenAsync(Level_5);
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(Level_5);
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
-        //{
-        //    if (task.IsFaulted)
-        //    {
-        //        Debug.Log("2");
-        //        // Handle the error...
-        //    }
-        //    else if (task.IsCompleted)
-        //    {
-        //        //DataSnapshot snapshot = task.Result;
-
-        //        Dictionary<string, object> PassedLevel = new Dictionary<string, object>();
-        //        PassedLevel["Passed"] = true;
-
-        //        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(PassedLevel);
-        //    }
-        //});
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(Level_Passed);
+        
     }
 
     public void ReadProgressionData(string catNumber)
     {
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+        
         databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -2922,31 +2547,11 @@ public class RunCodeButton : MonoBehaviour
 
                 Dictionary<string, object> Level_X = new Dictionary<string, object>();
                 Level_X["passed"] = true;
-                //userData["firstName"] = firstName;
-                //userData["lastName"] = lastName;
-                //userData["e-mail"] = email;
-
-
-
-                //Dictionary<string, object> childUpdates = new Dictionary<string, object>();
+                
                 string userId = user.UserId;
 
                 //Oldu mu???
                 databaseReference.Child("Users").Child("Children").Child(userId).Child("Progression").UpdateChildrenAsync(Level_X);
-
-                //Sayfa degistirince veya yeni kullanici gelince hepsi resetlenecek mi? Kontrol etmek lazim.
-                //if (snapshot.HasChild("Level_1"))
-                //    Level1Button.GetComponentInChildren<Toggle>().isOn = true;
-                //if (snapshot.HasChild("Level_2"))
-                //    Level2Button.GetComponentInChildren<Toggle>().isOn = true;
-                //if (snapshot.HasChild("Level_3"))
-                //    Level3Button.GetComponentInChildren<Toggle>().isOn = true;
-                //if (snapshot.HasChild("Level_4"))
-                //    Level4Button.GetComponentInChildren<Toggle>().isOn = true;
-                //if (snapshot.HasChild("Level_5"))
-                //    Level5Button.GetComponentInChildren<Toggle>().isOn = true;
-                //if (snapshot.HasChild("Level_6"))
-                //    Level6Button.GetComponentInChildren<Toggle>().isOn = true;
 
             }
         });
@@ -2971,22 +2576,13 @@ public class RunCodeButton : MonoBehaviour
 
             if (i == instruction.level)
             {
-                //if (instruction.ToString() == "Move: up Class")
-                //    Debug.Log("Buras� 2:" + instruction.level);
-
                 instructionList.Add(instruction);
-
 
                 return;
             }
             else
             {
-                //if (instructionList.Count > 0)
-                //{
-                //burada is instance olacak san�r�m
-                //instructionList[instructionList.Count - 1].GetType() == typeof(HolderInstruction)
-                //Uzun runtime buradan kaynaklan�yor.
-                //instructionList[instructionList.Count - 1] is HolderInstruction
+               
                 Debug.Log(instructionList.Count);
                 Debug.Log(instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)));
                 if (instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)))
@@ -3009,15 +2605,7 @@ public class RunCodeButton : MonoBehaviour
         }
 
     }
-    //public static void METHOD_1(MonoBehaviour StartThisStatic)
-    //{
-    //    StartThisStatic.StartCoroutine(Test());
-    //}
-    //public static IEnumerator Test()
-    //{
-    //    yield return new WaitForSeconds(2f);
-    //}
-
+ 
 
     public bool VariableCheck(string var)
     {
