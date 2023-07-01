@@ -7,7 +7,7 @@ public class DropPlace : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log("OnDrop");
-        //suruklenen nesnenin pozisyonu olarak uzerine birakildigi nesnenin pozisyonu atanýyor
+        //suruklenen nesnenin pozisyonu olarak uzerine birakildigi nesnenin pozisyonu atanÄ±yor
         if(eventData.pointerDrag != null)
         {
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;

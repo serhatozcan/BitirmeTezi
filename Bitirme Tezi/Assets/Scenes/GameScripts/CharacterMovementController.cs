@@ -74,7 +74,7 @@ public class CharacterMovementController : MonoBehaviour
 
     }
 
-    //Kodda yazýlanlara göre Move() parametreleriyle cagrilacak.
+    //Kodda yazÄ±lanlara gÃ¶re Move() parametreleriyle cagrilacak.
     public void Move(Vector2 direction)
     {
         if(CanMove(direction))
@@ -150,7 +150,7 @@ public class CharacterMovementController : MonoBehaviour
         Swim(right);
     }
 
-    //direction degeri iki boyutlu vektör (0,1) veya (-1,0) gibi
+    //direction degeri iki boyutlu vektÃ¶r (0,1) veya (-1,0) gibi
     private bool CanMove(Vector2 direction)
     {
         Debug.Log("canmove??");

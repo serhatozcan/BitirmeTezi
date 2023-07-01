@@ -406,21 +406,25 @@ public class RunCodeButton : MonoBehaviour
 
     public float timer = 0;
 
+    
     [Space]
-    [Header("Game Over Page")]
-    public GameObject backButton;
+    [Header("Game Over Panel")]
+    
     public GameObject runButton;
     public GameObject gameOverPanel;
     public TMP_Text errorMessageText;
-    
 
+    [Space]
+    [Header("Options Menu/Panel")]
+    public GameObject optionsButton;
+    public GameObject optionsPanel;
 
     public void GameOver(string errorMessage)
     {
         gameOverPanel.SetActive(true);
         inputField1.interactable = false;
         inputField2.interactable = false;
-        backButton.GetComponent<Button>().interactable = false;
+        optionsButton.GetComponent<Button>().interactable = false;
         runButton.GetComponent<Button>().interactable = false;
         Time.timeScale = 0;
         //catNumber = CatNumberInput;
@@ -444,7 +448,7 @@ public class RunCodeButton : MonoBehaviour
         characterMovement.transform.position = characterStartingPosition;
         inputField1.interactable = true;
         inputField2.interactable = true;
-        backButton.GetComponent<Button>().interactable = true;
+        optionsButton.GetComponent<Button>().interactable = true;
         runButton.GetComponent<Button>().interactable = true;
 
         //gerek var mi?
@@ -454,6 +458,32 @@ public class RunCodeButton : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+    public void OpenAndCloseOptionsMenu()
+    {
+        if (!optionsPanel.activeSelf)
+        {
+            optionsPanel.SetActive(true);
+            Time.timeScale = 0;
+            inputField1.interactable = false;
+            inputField2.interactable = false;
+            runButton.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            optionsPanel.SetActive(false);
+            Time.timeScale = 1;
+            inputField1.interactable = true;
+            inputField2.interactable = true;
+            runButton.GetComponent<Button>().interactable = true;
+        }
+
+       
+    }
+
+    public void BackToCategoryMenu()
+    {
+        SceneManager.LoadScene("Cat"+catNumber);
     }
 
     void Start()
