@@ -978,12 +978,14 @@ public class FirebaseAuthentication : MonoBehaviour
 
                             string firstName = null;
                             string lastName = null;
-
+                           
+                           
                             foreach (DataSnapshot userData in dataSnapshot.Children)
                             {
+
                                 Debug.Log(userData.Key);
-                                //if (userData.Key != "firstName" || userData.Key != "lastName")
-                                //    continue;
+                                if (userData.Key != "firstName" && userData.Key != "lastName")
+                                    continue;
                                 if (userData.Key == "firstName")
                                     firstName = userData.Value.ToString();
                                 if (userData.Key == "lastName")
@@ -991,10 +993,8 @@ public class FirebaseAuthentication : MonoBehaviour
 
                             }
 
-                            Debug.Log(firstName);
-                            Debug.Log(lastName);
-                            //burada buton olusturulacak panele eklenecek
-                            GameObject button = (GameObject)Instantiate(childButtonPrefab);
+
+                            GameObject button = Instantiate(childButtonPrefab);
                             button.transform.SetParent(childrenOfParent.transform);//Setting button parent
                             button.GetComponent<RectTransform>().localScale = Vector3.one;
                             //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
@@ -1003,6 +1003,10 @@ public class FirebaseAuthentication : MonoBehaviour
                             button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
                                                                                                         //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
                             button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
+                            Debug.Log(firstName);
+                            Debug.Log(lastName);
+                            //burada buton olusturulacak panele eklenecek
+
 
 
                         }
