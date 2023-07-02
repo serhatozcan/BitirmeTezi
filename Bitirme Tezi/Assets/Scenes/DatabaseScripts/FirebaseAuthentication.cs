@@ -25,8 +25,8 @@ public class FirebaseAuthentication : MonoBehaviour
     public GameObject childrenOfParent;
     public GameObject childrenList;
 
-    [Space]
-    public List<GameObject> listOfChildrenButtons;
+    //[Space]
+    //public List<GameObject> listOfChildrenButtons;
 
     [Space]
     [Header("Pages")]
@@ -44,8 +44,9 @@ public class FirebaseAuthentication : MonoBehaviour
     [Space]
     [Header("Registration Page of a Child without Parent")]
     public GameObject registerSingleChildMenu;
-
-
+    [Space]
+    [Header("Subjects Menu for Child")]
+    public GameObject subjectsMenu;
     // Login Variables
     [Space]
     [Header("Login")]
@@ -82,6 +83,20 @@ public class FirebaseAuthentication : MonoBehaviour
     public TMP_InputField childConfirmPasswordRegisterField;
 
 
+    [Space]
+    [Header("Options For Parent")]
+    public GameObject parentUserOptionsButton;
+    public GameObject parentUserOptionsPanel;
+    public GameObject addNewChildButton;
+
+    [Space]
+    [Header("Options For Child")]
+    public GameObject childUserOptionsButton;
+    public GameObject childUserOptionsPanel;
+    [Space]
+    public GameObject subjectsPanel;
+
+    [Space]
     private static string currentObservedChild;
     [Space]
     private string parentId;
@@ -168,7 +183,7 @@ public class FirebaseAuthentication : MonoBehaviour
     }
     public void Start()
     {
-
+        
         databaseReference.Child("Users").Child("Parents").GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -213,8 +228,9 @@ public class FirebaseAuthentication : MonoBehaviour
                     if (snapshot.HasChild(user.UserId))
                     {
                         Debug.Log("child");
-                        SceneManager.LoadScene("Subjects Menu");
-
+                        //SceneManager.LoadScene("Subjects Menu");
+                        OpenSubjectsMenu();
+                        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
                 
@@ -225,6 +241,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
     }
 
+   
 
     void InitializeFirebase()
     {
@@ -370,8 +387,9 @@ public class FirebaseAuthentication : MonoBehaviour
                     if (snapshot.HasChild(user.UserId))
                     {
                         Debug.Log("child");
-                        SceneManager.LoadScene("Subjects Menu");
-
+                        //SceneManager.LoadScene("Subjects Menu");
+                        OpenSubjectsMenu();
+                        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
             });
@@ -468,7 +486,9 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     if (snapshot.HasChild(user.UserId))
                     {
-                        SceneManager.LoadScene("Subjects Menu");
+                        //SceneManager.LoadScene("Subjects Menu");
+                        OpenSubjectsMenu();
+                        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
             });
@@ -933,6 +953,12 @@ public class FirebaseAuthentication : MonoBehaviour
         mainMenu.SetActive(true);
     }
 
+    public void OpenSubjectsMenu()
+    {
+        TurnOffAllPages();
+        subjectsMenu.SetActive(true);
+    }
+
     public void OpenRegisterParentMenu()
     {
         TurnOffAllPages();
@@ -973,8 +999,72 @@ public class FirebaseAuthentication : MonoBehaviour
         //SceneManager.LoadScene("Children of a Parent Menu");
         TurnOffAllPages();
         childrenOfParent.SetActive(true);
+        //Debug.Log(user.DisplayName);
+        parentUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
         ReadChildrenOfParentData();
     }
+
+
+    public void OpenAndCloseParentUserOptionsMenu()
+    {
+        if (!parentUserOptionsPanel.activeSelf)
+        {
+            parentUserOptionsPanel.SetActive(true);
+            Time.timeScale = 0;
+            //runButton.GetComponent<Button>().interactable = false;
+            addNewChildButton.GetComponent<Button>().interactable = false;
+            foreach (Transform child in childrenList.transform)
+            {
+                //Destroy(child.gameObject);
+                child.gameObject.GetComponent<Button>().interactable = false;
+            }
+        }
+        else
+        {
+            parentUserOptionsPanel.SetActive(false);
+            Time.timeScale = 1;
+            addNewChildButton.GetComponent<Button>().interactable = true;
+            foreach (Transform child in childrenList.transform)
+            {
+                //Destroy(child.gameObject);
+                child.gameObject.GetComponent<Button>().interactable = true;
+            }
+            //runButton.GetComponent<Button>().interactable = true;
+        }
+
+
+    }
+
+    public void OpenAndCloseChildUserOptionsMenu()
+    {
+        if (!childUserOptionsPanel.activeSelf)
+        {
+            childUserOptionsPanel.SetActive(true);
+            Time.timeScale = 0;
+            //runButton.GetComponent<Button>().interactable = false;
+            //addNewChildButton.GetComponent<Button>().interactable = false;
+            foreach (Transform child in subjectsPanel.transform)
+            {
+                //Destroy(child.gameObject);
+                child.gameObject.GetComponent<Button>().interactable = false;
+            }
+        }
+        else
+        {
+            childUserOptionsPanel.SetActive(false);
+            Time.timeScale = 1;
+            //addNewChildButton.GetComponent<Button>().interactable = true;
+            foreach (Transform child in subjectsPanel.transform)
+            {
+                //Destroy(child.gameObject);
+                child.gameObject.GetComponent<Button>().interactable = true;
+            }
+            //runButton.GetComponent<Button>().interactable = true;
+        }
+
+
+    }
+
     public void OpenProgressionOfChild()
     {
         TurnOffAllPages();
