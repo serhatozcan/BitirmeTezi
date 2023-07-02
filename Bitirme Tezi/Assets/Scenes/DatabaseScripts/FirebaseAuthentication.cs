@@ -82,7 +82,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public TMP_InputField childConfirmPasswordRegisterField;
 
 
-
+    private static string currentObservedChild;
     [Space]
     private string parentId;
     private string userId;
@@ -186,7 +186,10 @@ public class FirebaseAuthentication : MonoBehaviour
                     {
                         Debug.Log("parent");
 
-                        OpenChildrenOfaParentMenu();
+                        //OpenChildrenOfaParentMenu();
+                        //currentObservedChild = childKey;
+                        OpenProgressionOfChild();
+                        ReadProgressionData(currentObservedChild);
                     }
                 }
 
@@ -1093,6 +1096,7 @@ public class FirebaseAuthentication : MonoBehaviour
     }
     void OnClick(string childKey)
     {
+        currentObservedChild = childKey;
         OpenProgressionOfChild();
         ReadProgressionData(childKey);
     }
