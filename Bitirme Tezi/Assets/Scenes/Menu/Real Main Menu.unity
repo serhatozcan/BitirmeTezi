@@ -2542,7 +2542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &119214617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9803,7 +9803,7 @@ GameObject:
   - component: {fileID: 542242874}
   - component: {fileID: 542242873}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: SignOutButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9827,8 +9827,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -786.83, y: 416.99997}
-  m_SizeDelta: {x: 271.28, y: 80.08}
+  m_AnchoredPosition: {x: 719.39, y: 417}
+  m_SizeDelta: {x: 420.25, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542242873
 MonoBehaviour:
@@ -9873,7 +9873,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 542242874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1832571344}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: SignOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &542242874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18576,7 +18588,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xC7\u0131k\u0131\u015F Yap"
+  m_text: "Uygulamay\u0131 Kapat"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19611,7 +19623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &965130521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21396,7 +21408,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Geri
+  m_text: Oturumu Kapat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22087,8 +22099,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 190.33, y: -150}
-  m_SizeDelta: {x: 300, y: 105}
+  m_AnchoredPosition: {x: 0.0060349, y: -150}
+  m_SizeDelta: {x: 680.65, y: 105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1066308996
 MonoBehaviour:
@@ -30520,7 +30532,7 @@ GameObject:
   - component: {fileID: 1419323743}
   - component: {fileID: 1419323742}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: AddChildButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33579,7 +33591,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1543864249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35983,12 +35995,12 @@ GameObject:
   - component: {fileID: 1622109050}
   - component: {fileID: 1622109049}
   m_Layer: 5
-  m_Name: Button
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1622109048
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36007,8 +36019,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 750.57, y: 421.89996}
-  m_SizeDelta: {x: 359.04, y: 80.08}
+  m_AnchoredPosition: {x: -736, y: 417}
+  m_SizeDelta: {x: 359.04, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1622109049
 MonoBehaviour:
