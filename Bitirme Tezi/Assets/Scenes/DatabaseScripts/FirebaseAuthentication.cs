@@ -228,8 +228,8 @@ public class FirebaseAuthentication : MonoBehaviour
                     if (snapshot.HasChild(user.UserId))
                     {
                         Debug.Log("child");
-                        //SceneManager.LoadScene("Subjects Menu");
-                        OpenSubjectsMenu();
+                        SceneManager.LoadScene("Subjects Menu");
+                        //OpenSubjectsMenu();
                         childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
@@ -387,8 +387,8 @@ public class FirebaseAuthentication : MonoBehaviour
                     if (snapshot.HasChild(user.UserId))
                     {
                         Debug.Log("child");
-                        //SceneManager.LoadScene("Subjects Menu");
-                        OpenSubjectsMenu();
+                        SceneManager.LoadScene("Subjects Menu");
+                        //OpenSubjectsMenu();
                         childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
@@ -486,8 +486,8 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     if (snapshot.HasChild(user.UserId))
                     {
-                        //SceneManager.LoadScene("Subjects Menu");
-                        OpenSubjectsMenu();
+                        SceneManager.LoadScene("Subjects Menu");
+                        //OpenSubjectsMenu();
                         childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
