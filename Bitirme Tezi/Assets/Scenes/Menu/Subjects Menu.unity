@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 82943317}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1417138232}
+        m_TargetAssemblyTypeName: FirebaseAuthentication, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &82943317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1748,6 +1760,7 @@ GameObject:
   - component: {fileID: 1417138228}
   - component: {fileID: 1417138227}
   - component: {fileID: 1417138231}
+  - component: {fileID: 1417138232}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1852,6 +1865,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667b1bdcd4e3a24db22f72df89bc8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1417138232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417138226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fb86b26d53cf942be23ac51f871a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dependencyStatus: 0
+  childButtonPrefab: {fileID: 0}
+  childrenOfParent: {fileID: 0}
+  childrenList: {fileID: 0}
+  listOfChildrenButtons: []
+  mainMenu: {fileID: 0}
+  loginMenu: {fileID: 0}
+  userTypeSelectionMenu: {fileID: 0}
+  registerParentMenu: {fileID: 0}
+  registerChildOfParentMenu: {fileID: 0}
+  registerSingleChildMenu: {fileID: 0}
+  emailLoginField: {fileID: 0}
+  passwordLoginField: {fileID: 0}
+  parentFirstNameRegisterField: {fileID: 0}
+  parentLastNameRegisterField: {fileID: 0}
+  parentEmailRegisterField: {fileID: 0}
+  parentPasswordRegisterField: {fileID: 0}
+  parentConfirmPasswordRegisterField: {fileID: 0}
+  singleChildFirstNameRegisterField: {fileID: 0}
+  singleChildLastNameRegisterField: {fileID: 0}
+  singleChildEmailRegisterField: {fileID: 0}
+  singleChildPasswordRegisterField: {fileID: 0}
+  singleChildConfirmPasswordRegisterField: {fileID: 0}
+  childFirstNameRegisterField: {fileID: 0}
+  childLastNameRegisterField: {fileID: 0}
+  childEmailRegisterField: {fileID: 0}
+  childPasswordRegisterField: {fileID: 0}
+  childConfirmPasswordRegisterField: {fileID: 0}
+  progressionOfChildCanvas: {fileID: 0}
+  Cat1_Level1: {fileID: 0}
+  Cat1_Level2: {fileID: 0}
+  Cat1_Level3: {fileID: 0}
+  Cat1_Level4: {fileID: 0}
+  Cat1_Level5: {fileID: 0}
+  Cat1_Level6: {fileID: 0}
+  Cat2_Level1: {fileID: 0}
+  Cat2_Level2: {fileID: 0}
+  Cat2_Level3: {fileID: 0}
+  Cat2_Level4: {fileID: 0}
+  Cat2_Level5: {fileID: 0}
+  Cat2_Level6: {fileID: 0}
+  Cat3_Level1: {fileID: 0}
+  Cat3_Level2: {fileID: 0}
+  Cat3_Level3: {fileID: 0}
+  Cat3_Level4: {fileID: 0}
+  Cat3_Level5: {fileID: 0}
+  Cat3_Level6: {fileID: 0}
+  Cat4_Level1: {fileID: 0}
+  Cat4_Level2: {fileID: 0}
+  Cat4_Level3: {fileID: 0}
+  Cat4_Level4: {fileID: 0}
+  Cat4_Level5: {fileID: 0}
+  Cat4_Level6: {fileID: 0}
+  Cat5_Level1: {fileID: 0}
+  Cat5_Level2: {fileID: 0}
+  Cat5_Level3: {fileID: 0}
+  Cat5_Level4: {fileID: 0}
+  Cat5_Level5: {fileID: 0}
+  Cat5_Level6: {fileID: 0}
+  Cat6_Level1: {fileID: 0}
+  Cat6_Level2: {fileID: 0}
+  Cat6_Level3: {fileID: 0}
+  Cat6_Level4: {fileID: 0}
+  Cat6_Level5: {fileID: 0}
+  Cat6_Level6: {fileID: 0}
 --- !u!1 &1482558425
 GameObject:
   m_ObjectHideFlags: 0
