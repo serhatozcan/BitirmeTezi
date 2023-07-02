@@ -418,6 +418,9 @@ public class RunCodeButton : MonoBehaviour
     [Header("Options Menu/Panel")]
     public GameObject optionsButton;
     public GameObject optionsPanel;
+    [Space]
+    [Header("Back Button for Parent")]
+    public GameObject backButtonForParent;
 
     public void GameOver(string errorMessage)
     {
@@ -505,15 +508,58 @@ public class RunCodeButton : MonoBehaviour
         
 
         InitializeFirebase();
-        
+
+
+        databaseReference.Child("Users").Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+
+                if (snapshot.HasChild(user.UserId))
+                {
+                    Debug.Log("child");
+                    backButtonForParent.SetActive(false);
+                    optionsButton.SetActive(true);
+                    runButton.GetComponent<Button>().interactable = true;
+                }
+            }
+        });
+
+        databaseReference.Child("Users").Child("Parents").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+
+                DataSnapshot snapshot = task.Result;
+
+                if (snapshot.HasChild(user.UserId))
+                {
+                    Debug.Log("parent");
+                    optionsButton.SetActive(false);
+                    runButton.GetComponent<Button>().interactable = false;
+                    backButtonForParent.SetActive(true);
+                    
+                }
+            }
+        });
     }
 
-    public void Update()
+    public void BackButtonForParent()
     {
-        timer += Time.deltaTime;
+        //login'e atıyor. düzeltilecek.
+        SceneManager.LoadScene("Real Main Menu");
     }
-
-
 
     void InitializeFirebase()
     {

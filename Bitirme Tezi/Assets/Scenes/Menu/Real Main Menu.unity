@@ -27411,7 +27411,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1299629029}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1832571342}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1299629029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33585,6 +33597,7 @@ MonoBehaviour:
   childButtonPrefab: {fileID: 0}
   childrenOfParent: {fileID: 0}
   childrenList: {fileID: 0}
+  listOfChildrenButtons: []
   mainMenu: {fileID: 0}
   loginMenu: {fileID: 0}
   userTypeSelectionMenu: {fileID: 0}
@@ -40597,6 +40610,7 @@ MonoBehaviour:
   childButtonPrefab: {fileID: 4826270107319323519, guid: a01e1045e2146144da6c7e44ad738171, type: 3}
   childrenOfParent: {fileID: 119214616}
   childrenList: {fileID: 1181124810}
+  listOfChildrenButtons: []
   mainMenu: {fileID: 1543864247}
   loginMenu: {fileID: 1863726937}
   userTypeSelectionMenu: {fileID: 1886287092}

@@ -25,6 +25,9 @@ public class FirebaseAuthentication : MonoBehaviour
     public GameObject childrenList;
 
     [Space]
+    public List<GameObject> listOfChildrenButtons;
+
+    [Space]
     [Header("Pages")]
     [Space]
     [Header("Main Menu")]
@@ -159,6 +162,10 @@ public class FirebaseAuthentication : MonoBehaviour
                 Debug.LogError("Could not resolve all firebase dependencies: " + dependencyStatus);
             }
         });
+    }
+    public void Start()
+    {
+        listOfChildrenButtons = new List<GameObject> ();
     }
 
 
@@ -947,6 +954,11 @@ public class FirebaseAuthentication : MonoBehaviour
 
         //Transform panelTransform = GameObject.Find("station_panel").transform;
         //Transform panelTransform = childrenList.transform;
+
+        //for(int i = 0; i< listOfChildrenButtons.Count; i++)
+        //{
+        //    Destroy(listOfChildrenButtons[i]);
+        //}
         foreach (Transform child in childrenList.transform)
         {
             Destroy(child.gameObject);
@@ -1009,6 +1021,7 @@ public class FirebaseAuthentication : MonoBehaviour
                             button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
                                                                                                         //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
                             button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
+                            //listOfChildrenButtons.Add(button);
                             Debug.Log(firstName);
                             Debug.Log(lastName);
                             //burada buton olusturulacak panele eklenecek
@@ -1071,6 +1084,11 @@ public class FirebaseAuthentication : MonoBehaviour
         ProgressionOfSubject6(snapshot);
 
     }
+    public void OnClickLevelButton(int catNumber, int levelNumber)
+    {
+        SceneManager.LoadScene("Cat" + catNumber + "Level" + levelNumber);
+    }
+
 
     public void ProgressionOfSubject1(DataSnapshot snapshot)
     {
@@ -1083,7 +1101,11 @@ public class FirebaseAuthentication : MonoBehaviour
         if (snapshot.Child("Subject_1").HasChild("Level_4"))
             Cat1_Level4.GetComponentInChildren<Toggle>().isOn = true;
         if (snapshot.Child("Subject_1").HasChild("Level_5"))
+        {
             Cat1_Level5.GetComponentInChildren<Toggle>().isOn = true;
+            Cat1_Level5.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(1,5));
+        }
+           
         if (snapshot.Child("Subject_1").HasChild("Level_6"))
             Cat1_Level6.GetComponentInChildren<Toggle>().isOn = true;
     }

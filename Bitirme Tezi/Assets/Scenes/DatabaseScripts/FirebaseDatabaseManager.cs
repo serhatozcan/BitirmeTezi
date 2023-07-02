@@ -130,4 +130,8 @@ public class FirebaseDatabaseManager : MonoBehaviour
         SceneManager.LoadScene("Cat1Level5");
     }
    
+    public void OpenSubjectsMenu()
+    {
+        SceneManager.LoadScene("Subjects Menu");
+    }
 }
