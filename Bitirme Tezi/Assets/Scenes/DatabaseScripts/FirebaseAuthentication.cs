@@ -945,6 +945,13 @@ public class FirebaseAuthentication : MonoBehaviour
     public void ReadChildrenOfParentData()
     {
         Debug.Log("1");
+
+        //Transform panelTransform = GameObject.Find("station_panel").transform;
+        //Transform panelTransform = childrenList.transform;
+        foreach (Transform child in childrenList.transform)
+        {
+            Destroy(child.gameObject);
+        }
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
         databaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
