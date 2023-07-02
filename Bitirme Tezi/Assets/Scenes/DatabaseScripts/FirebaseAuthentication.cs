@@ -305,6 +305,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     if (snapshot.HasChild(user.UserId))
                     {
+                        Debug.Log("child");
                         SceneManager.LoadScene("Subjects Menu");
                     }
                 }
@@ -324,6 +325,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     if (snapshot.HasChild(user.UserId))
                     {
+                        Debug.Log("parent");
                         emailOfParent = email;
                         passwordOfParent = password;
                         OpenChildrenOfaParentMenu();
@@ -552,8 +554,8 @@ public class FirebaseAuthentication : MonoBehaviour
                     databaseReference.Child("Users").Child("Children").Child(userId).Child("User Data").UpdateChildrenAsync(userData);
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
-                    SceneManager.LoadScene("Login Menu");
-                    
+                    //SceneManager.LoadScene("Login Menu");
+                    OpenLoginMenu();
 
                 }
             }
