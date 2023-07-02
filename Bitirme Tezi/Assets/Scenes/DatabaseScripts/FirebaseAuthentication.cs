@@ -307,6 +307,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     {
                         Debug.Log("child");
                         SceneManager.LoadScene("Subjects Menu");
+                        
                     }
                 }
             });
@@ -326,6 +327,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     if (snapshot.HasChild(user.UserId))
                     {
                         Debug.Log("parent");
+                        parentId = user.UserId;
                         emailOfParent = email;
                         passwordOfParent = password;
                         OpenChildrenOfaParentMenu();
@@ -340,8 +342,8 @@ public class FirebaseAuthentication : MonoBehaviour
     //--------------------------+++++++++++++++++++++++++++++++++++++++++++
     public void LoginAgain()
     {
-        Debug.Log(emailOfParent);
-        Debug.Log(passwordOfParent);
+        //Debug.Log(emailOfParent);
+        //Debug.Log(passwordOfParent);
         StartCoroutine(LoginAgainAsync(emailOfParent, passwordOfParent));
     }
 
@@ -827,10 +829,14 @@ public class FirebaseAuthentication : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("parent id null");
                         //Hata oldu anlamina geliyor.
                         //Burada hem parent hem child auth silinecek. Parent database verileri de silinecek.
                     }
 
+
+                    Debug.Log(emailOfParent);
+                    Debug.Log(passwordOfParent);
 
                     Debug.Log("Kayıt başarıyla tamamlandı. Hoşgeldiniz " + user.DisplayName);
 
