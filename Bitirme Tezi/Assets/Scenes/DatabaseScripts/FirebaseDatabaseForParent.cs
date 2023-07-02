@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using Firebase;
+
 using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
-using UnityEditor.Animations;
+
 using UnityEngine.SceneManagement;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 

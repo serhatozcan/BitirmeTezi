@@ -19,8 +19,5 @@ EditorBuildSettings:
     guid: 9a92312fac73b904ab5d87f83bc22b20
   - enabled: 1
     path: Assets/Scenes/Cat1Level5.unity
-    guid: f671c073369adf2439d1f914c86d8350
-  - enabled: 1
-    path: Assets/Scenes/Menu/Game Over Screen.unity
-    guid: 38b77605642ae074b9482e5479dcf7cf
+    guid: 81f63b0b9955cfa46a8b4c2eea97a36d
   m_configObjects: {}

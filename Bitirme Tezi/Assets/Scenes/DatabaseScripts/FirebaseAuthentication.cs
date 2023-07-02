@@ -7,7 +7,6 @@ using Firebase.Database;
 using Firebase.Extensions;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class FirebaseAuthentication : MonoBehaviour
@@ -435,7 +434,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public void RegisterChild()
     {
 
-        StartCoroutine(RegisterChildAsync(childFirstNameRegisterField.text, childLastNameRegisterField.text, childEmailRegisterField.text, childPasswordRegisterField.text, childConfirmPasswordRegisterField.text));
+        StartCoroutine(RegisterChildAsync(singleChildFirstNameRegisterField.text, singleChildLastNameRegisterField.text, singleChildEmailRegisterField.text, singleChildPasswordRegisterField.text, singleChildConfirmPasswordRegisterField.text));
     }
 
     private IEnumerator RegisterChildAsync(string firstName, string lastName, string email, string password, string confirmPassword)
