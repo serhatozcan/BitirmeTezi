@@ -8,6 +8,7 @@ using Firebase.Extensions;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Reflection.Emit;
 
 public class FirebaseAuthentication : MonoBehaviour
 {
@@ -145,6 +146,8 @@ public class FirebaseAuthentication : MonoBehaviour
     public GameObject Cat6_Level5;
     public GameObject Cat6_Level6;
 
+    bool signedIn;
+
     private void Awake()
     {
         // Check that all of the necessary dependencies for firebase are present on the system
@@ -165,7 +168,58 @@ public class FirebaseAuthentication : MonoBehaviour
     }
     public void Start()
     {
-        listOfChildrenButtons = new List<GameObject> ();
+
+        databaseReference.Child("Users").Child("Parents").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+
+                DataSnapshot snapshot = task.Result;
+                if (signedIn)
+                {
+                    if (snapshot.HasChild(user.UserId))
+                    {
+                        Debug.Log("parent");
+
+                        OpenChildrenOfaParentMenu();
+                    }
+                }
+
+                
+            }
+        });
+
+        databaseReference.Child("Users").Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("2");
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+
+                if (signedIn)
+                {
+                    if (snapshot.HasChild(user.UserId))
+                    {
+                        Debug.Log("child");
+                        SceneManager.LoadScene("Subjects Menu");
+
+                    }
+                }
+                
+            }
+        });
+
+
+
     }
 
 
@@ -183,8 +237,8 @@ public class FirebaseAuthentication : MonoBehaviour
     {
         if (auth.CurrentUser != user)
         {
-            bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
-
+            //bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
+            signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
             if (!signedIn && user != null)
             {
                 Debug.Log("Çıkış yapıldı " + user.UserId);
@@ -1103,9 +1157,9 @@ public class FirebaseAuthentication : MonoBehaviour
         if (snapshot.Child("Subject_1").HasChild("Level_5"))
         {
             Cat1_Level5.GetComponentInChildren<Toggle>().isOn = true;
-            Cat1_Level5.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(1,5));
+            Cat1_Level5.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(1, 5));
         }
-           
+
         if (snapshot.Child("Subject_1").HasChild("Level_6"))
             Cat1_Level6.GetComponentInChildren<Toggle>().isOn = true;
     }
