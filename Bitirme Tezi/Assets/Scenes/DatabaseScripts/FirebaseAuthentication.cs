@@ -22,7 +22,7 @@ public class FirebaseAuthentication : MonoBehaviour
     [Header("Children of a Parent")]
     public GameObject childButtonPrefab;
     public GameObject childrenOfParent;
-
+    public GameObject childrenList;
 
     [Space]
     [Header("Pages")]
@@ -995,7 +995,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
 
                             GameObject button = Instantiate(childButtonPrefab);
-                            button.transform.SetParent(childrenOfParent.transform);//Setting button parent
+                            button.transform.SetParent(childrenList.transform);//Setting button parent
                             button.GetComponent<RectTransform>().localScale = Vector3.one;
                             //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
                             //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
