@@ -212,7 +212,7 @@ public class FirebaseAuthentication : MonoBehaviour
             // Do NOT use this value to authenticate with your backend server, if you
             // have one; use User.TokenAsync() instead.
             //string uid = user.UserId;
-            userId = user.UserId;   
+            userId = user.UserId;
         }
     }
 
@@ -307,7 +307,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     {
                         Debug.Log("child");
                         SceneManager.LoadScene("Subjects Menu");
-                        
+
                     }
                 }
             });
@@ -321,7 +321,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
                 else if (task.IsCompleted)
                 {
-                    
+
                     DataSnapshot snapshot = task.Result;
 
                     if (snapshot.HasChild(user.UserId))
@@ -335,7 +335,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             });
 
-            
+
 
         }
     }
@@ -562,7 +562,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     //-----------------------------------------------------------------------------
@@ -799,9 +799,9 @@ public class FirebaseAuthentication : MonoBehaviour
                 {
 
                     string userId = user.UserId;
-                    
 
-                    
+
+
                     if (parentId != null)
                     {
                         Dictionary<string, object> userData = new Dictionary<string, object>();
@@ -842,7 +842,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
                     //Firebase otomatik hesap degistirdigi icin gerekli
                     LoginAgain();
-                        
+
 
                     //bool signedIn = user != auth.CurrentUser && auth.CurrentUser != null;
                     //if (signedIn)
@@ -903,14 +903,13 @@ public class FirebaseAuthentication : MonoBehaviour
         userTypeSelectionMenu.SetActive(true);
     }
 
-   
+
     public void OpenChildrenOfaParentMenu()
     {
         //SceneManager.LoadScene("Children of a Parent Menu");
         TurnOffAllPages();
-        ReadChildrenOfParentData();
         childrenOfParent.SetActive(true);
-        
+        ReadChildrenOfParentData();
     }
     public void OpenProgressionOfChild()
     {
@@ -940,7 +939,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
     //--------------------------
 
-   
+
 
     public void ReadChildrenOfParentData()
     {
@@ -985,8 +984,8 @@ public class FirebaseAuthentication : MonoBehaviour
 
                             string firstName = null;
                             string lastName = null;
-                           
-                           
+
+
                             foreach (DataSnapshot userData in dataSnapshot.Children)
                             {
 
