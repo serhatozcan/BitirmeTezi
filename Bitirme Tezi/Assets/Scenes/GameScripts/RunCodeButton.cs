@@ -405,8 +405,9 @@ public class RunCodeButton : MonoBehaviour
 
 
     public float timer = 0;
+    private string[] colorsOfCharacter;
+    private string[] shapesOfCharacter;
 
-    
     [Space]
     [Header("Game Over Panel")]
     
@@ -491,7 +492,8 @@ public class RunCodeButton : MonoBehaviour
 
     void Start()
     {
-        
+        colorsOfCharacter = new string[] { "red", "blue", "green" , "yellow"};
+        shapesOfCharacter = new string[] { "circle", "square" };
         isWaitingInstruction = false;
         instructionList = new List<Instruction>();
         characterMovement = character.GetComponent<CharacterMovementController>();
@@ -1285,7 +1287,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                      
+
                                                     }
 
                                                 }
@@ -1300,7 +1302,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        
+
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 10) == "right_tile")
@@ -1314,7 +1316,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        
+
                                                     }
                                                 }
                                                 else if (ifParts[1].Substring(0, 9) == "left_tile")
@@ -1328,11 +1330,11 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        
+
                                                     }
                                                 }
-                                            
-                                               
+
+
                                                 string secondMethod = null;
 
 
@@ -1490,10 +1492,10 @@ public class RunCodeButton : MonoBehaviour
                                             if (int.TryParse(rangeParameter, out parameter))
                                             {
                                                 Debug.Log(parameter);
-                                                
+
                                                 For forLoop = new For(characterMovement, parameter, instructionLevel);
                                                 AddInstruction(forLoop);
-                                                
+
                                                 lastInstructionType = "holder";
                                                 lastIndentation = rowIndentation;
 
@@ -1504,7 +1506,7 @@ public class RunCodeButton : MonoBehaviour
                                 }
 
                             }
-                            else if(trimmedRow.Substring(0,classInstanceName.Length) == classInstanceName)
+                            else if (trimmedRow.Substring(0, classInstanceName.Length) == classInstanceName)
                             {
                                 if (!trimmedRow.Contains('.'))
                                 {
@@ -1540,77 +1542,145 @@ public class RunCodeButton : MonoBehaviour
 
                                         string[] instructionParts = methodPart.Split('(', 2);
 
-                                        instructionParts[0] = instructionParts[0].Trim();
-                                        int length = instructionParts[0].Length;
+                                        string methodName = instructionParts[0].Trim();
+                                        string methodParameterPart = instructionParts[1].Trim();
+                                            //instructionParts[1] = instructionParts[1].Trim();
+                                        int length = methodName.Length;
 
-                                        Debug.Log(instructionParts[0]);
+                                        Debug.Log(methodName);
                                         try
                                         {
-                                            if (instructionParts[0].Substring(0, 4) == "move")
+                                            if (methodName.Substring(0, 4) == "move")
                                             {
-                                                if (instructionParts[0] == "move_up")
+                                                methodParameterPart = methodParameterPart.Replace(" ", "");
+                                                if (methodPart != ")")
                                                 {
-                                                    Move move_up = new Move(characterMovement, "up", instructionLevel);
-                                                    AddInstruction(move_up);
-                                                    Debug.Log("MOVE UP : " + instructionLevel);
-                                                }
-                                                else if (instructionParts[0] == "move_left")
-                                                {
-                                                    Move move_left = new Move(characterMovement, "left", instructionLevel);
-                                                    AddInstruction(move_left);
-                                                    Debug.Log("MOVE LEFT : " + instructionLevel);
-                                                }
-                                                else if (instructionParts[0] == "move_down")
-                                                {
-                                                    Move move_down = new Move(characterMovement, "down", instructionLevel);
-                                                    AddInstruction(move_down);
-                                                    Debug.Log("MOVE DOWN : " + instructionLevel);
-                                                }
-                                                else if (instructionParts[0] == "move_right")
-                                                {
-
-                                                    Move move_right = new Move(characterMovement, "right", instructionLevel);
-                                                    Debug.Log("mr level " + instructionLevel);
-                                                    AddInstruction(move_right);
-                                                    Debug.Log("MOVE RIGHT : " + instructionLevel);
+                                                    Debug.Log("hata");
+                                                    GameOver("move methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: move_up()");
                                                 }
                                                 else
                                                 {
-                                                    GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                            }
-                                            else if (instructionParts[0].Substring(0, 4) == "swim")
-                                            {
-                                                if (instructionParts[0] == "swim_up")
-                                                {
-                                                    Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
-                                                    AddInstruction(swim_up);
-                                                }
-                                                else if (instructionParts[0] == "swim_left")
-                                                {
-                                                    Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
-                                                    AddInstruction(swim_left);
-                                                }
-                                                else if (instructionParts[0] == "swim_down")
-                                                {
-                                                    Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
-                                                    AddInstruction(swim_down);
-                                                }
-                                                else if (instructionParts[0] == "swim_right")
-                                                {
+                                                    if (methodName == "move_up")
+                                                    {
+                                                        Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                                        AddInstruction(move_up);
+                                                        Debug.Log("MOVE UP : " + instructionLevel);
+                                                    }
+                                                    else if (methodName == "move_left")
+                                                    {
+                                                        Move move_left = new Move(characterMovement, "left", instructionLevel);
+                                                        AddInstruction(move_left);
+                                                        Debug.Log("MOVE LEFT : " + instructionLevel);
+                                                    }
+                                                    else if (methodName == "move_down")
+                                                    {
+                                                        Move move_down = new Move(characterMovement, "down", instructionLevel);
+                                                        AddInstruction(move_down);
+                                                        Debug.Log("MOVE DOWN : " + instructionLevel);
+                                                    }
+                                                    else if (methodName == "move_right")
+                                                    {
 
-                                                    Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
-                                                    Debug.Log("mr level " + instructionLevel);
-                                                    AddInstruction(swim_right);
+                                                        Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                                        Debug.Log("mr level " + instructionLevel);
+                                                        AddInstruction(move_right);
+                                                        Debug.Log("MOVE RIGHT : " + instructionLevel);
+                                                    }
+                                                    else
+                                                    {
+                                                        GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                }
+                                                
+                                            }
+                                            else if (methodName.Substring(0, 4) == "swim")
+                                            {
+                                                methodParameterPart = methodParameterPart.Replace(" ", "");
+                                                if (methodPart != ")")
+                                                {
+                                                    Debug.Log("hata");
+                                                    GameOver("swim methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: swim_up()");
                                                 }
                                                 else
                                                 {
-                                                    GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
+                                                    if (methodName == "swim_up")
+                                                    {
+                                                        Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
+                                                        AddInstruction(swim_up);
+                                                    }
+                                                    else if (methodName == "swim_left")
+                                                    {
+                                                        Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
+                                                        AddInstruction(swim_left);
+                                                    }
+                                                    else if (methodName == "swim_down")
+                                                    {
+                                                        Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
+                                                        AddInstruction(swim_down);
+                                                    }
+                                                    else if (methodName == "swim_right")
+                                                    {
+
+                                                        Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
+                                                        Debug.Log("mr level " + instructionLevel);
+                                                        AddInstruction(swim_right);
+                                                    }
+                                                    else
+                                                    {
+                                                        GameOver("Method tan�m�n� do�ru yazman�z gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                }
+                                               
+                                            }else if (methodName.Substring(0,9) == "set_color")
+                                            {
+                                                methodParameterPart = methodParameterPart.Trim();
+
+                                                if (methodParameterPart[methodParameterPart.Length-1] != ')')
+                                                {
                                                     Debug.Log("hata");
+                                                    GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_color(blue)");
+                                                }
+                                                else
+                                                {
+                                                    string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
+                                                    if (colorsOfCharacter.Contains(methodParameter))
+                                                    {
+                                                        Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter);
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.Log("hata");
+                                                        GameOver("set_color metoduna uygun bir renk yazmanız gerekiyor. Uygun şekiller: red, blue, green, yellow");
+                                                    }
+
+                                                }
+
+                                            }
+                                            else if(methodName.Substring(0, 9) == "set_shape")
+                                            {
+                                                methodParameterPart = methodParameterPart.Trim();
+                                                if (methodParameterPart[methodParameterPart.Length - 1] != ')')
+                                                {
+                                                    Debug.Log("hata");
+                                                    GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_shape(circle)");
+                                                }
+                                                else
+                                                {
+                                                    string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
+                                                    if (shapesOfCharacter.Contains(methodParameter))
+                                                    {
+                                                        Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter);
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.Log("hata");
+                                                        GameOver("set_shape metoduna uygun bir şekil yazmanız gerekiyor. Uygun şekiller: square, circle");
+                                                    }
                                                 }
                                             }
-                                        
+
                                         }
                                         catch (Exception ex)
                                         {
@@ -1679,7 +1749,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        
+
                                                     }
 
                                                 }
@@ -1694,7 +1764,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        
+
                                                     }
                                                 }
                                                 else if (elifParts[1].Substring(0, 10) == "right_tile")
@@ -1708,7 +1778,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        
+
                                                     }
                                                 }
                                                 else if (elifParts[1].Substring(0, 9) == "left_tile")
@@ -1722,7 +1792,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        
+
                                                     }
                                                 }
 
@@ -1733,7 +1803,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (elifParts.Length == 3)
                                                 {
-                                                    
+
                                                     string secondMethod = null;
 
 
@@ -1771,7 +1841,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (elifParts[2].Substring(0, 8) == "contains")
                                                     {
-                                                        
+
                                                         parameterPart = elifParts[2].Substring(8).Trim();
                                                         if (parameterPart[parameterPart.Length - 1] != ':')
                                                         {
@@ -1803,7 +1873,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                     }
 
-                                                    
+
                                                 }
 
 
@@ -1872,7 +1942,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "up_tile";
-                                                        
+
                                                     }
 
                                                 }
@@ -1887,7 +1957,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "down_tile";
-                                                        
+
                                                     }
                                                 }
                                                 else if (whileParts[1].Substring(0, 10) == "right_tile")
@@ -1901,7 +1971,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "right_tile";
-                                                        
+
                                                     }
                                                 }
                                                 else if (whileParts[1].Substring(0, 9) == "left_tile")
@@ -1915,7 +1985,7 @@ public class RunCodeButton : MonoBehaviour
                                                     else
                                                     {
                                                         firstMethod = "left_tile";
-                                                        
+
                                                     }
                                                 }
 
@@ -1926,7 +1996,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (whileParts.Length == 3)
                                                 {
-                                                    
+
                                                     string secondMethod = null;
 
                                                     if (whileParts[2].Substring(0, 9) == "is_ground")
@@ -1963,7 +2033,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else if (whileParts[2].Substring(0, 8) == "contains")
                                                     {
-                                                        
+
                                                         parameterPart = whileParts[2].Substring(8).Trim();
                                                         //burasi degisecek. ()'in ici dolu olacak.
                                                         if (parameterPart[parameterPart.Length - 1] != ':')
@@ -1996,7 +2066,7 @@ public class RunCodeButton : MonoBehaviour
 
                                                     }
 
-                                                    
+
                                                 }
 
 
@@ -2027,7 +2097,7 @@ public class RunCodeButton : MonoBehaviour
 
                                 else
                                 {
-                                    
+
                                     Else elseCondition = new Else(characterMovement, instructionLevel);
                                     AddInstruction(elseCondition);
                                 }
