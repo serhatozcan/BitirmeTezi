@@ -1205,6 +1205,7 @@ public class FirebaseAuthentication : MonoBehaviour
     {
         currentObservedChild = childKey;
         OpenProgressionOfChild();
+        AddOnclicksOfLevelButtons();
         ReadProgressionData(childKey);
     }
 
@@ -1241,7 +1242,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
     public void ProgressionOfChild(DataSnapshot snapshot)
     {
-        AddOnclicksOfLevelButtons();
+        //AddOnclicksOfLevelButtons();
         ProgressionOfSubject1(snapshot);
         ProgressionOfSubject2(snapshot);
         ProgressionOfSubject3(snapshot);
