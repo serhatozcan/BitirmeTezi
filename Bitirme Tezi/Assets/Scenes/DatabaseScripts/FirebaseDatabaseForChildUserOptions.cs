@@ -5,9 +5,10 @@ using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 //using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
 
-public class FirebaseDatabaseManager : MonoBehaviour
+public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
 {
   
 
@@ -24,24 +25,17 @@ public class FirebaseDatabaseManager : MonoBehaviour
     [Header("CategoriesPanel")]
     public GameObject categoriesPanel;
 
-    [Space]
-    [Header("Levels")]
-    public string categoryNumber;
-    public GameObject Level1Button;
-    public GameObject Level2Button;
-    public GameObject Level3Button;
-    public GameObject Level4Button;
-    public GameObject Level5Button;
-    public GameObject Level6Button;
+    //private static string currentObservedChild;
 
     public void Start()
     {
         
-        ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
+        //ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
 
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        ReadProgressionData(categoryNumber);
+        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
+        //ReadProgressionData(categoryNumber);
         //ReadChildrenOfParentData();
     }
 
@@ -76,16 +70,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
     }
 
 
-    public void ResetLevelCheckmarks()
-    {
-        Level1Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level2Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level3Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level4Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level5Button.GetComponentInChildren<Toggle>().isOn = false;
-        Level6Button.GetComponentInChildren<Toggle>().isOn = false;
-    }
-
+   
 
     //private string userId;
 
@@ -126,43 +111,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
 
 
-    public void ReadProgressionData(string catNumber)
-    {
-        Debug.Log("1");
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).GetValueAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsFaulted)
-            {
-                Debug.Log("2");
-                // Handle the error...
-            }
-            else if (task.IsCompleted)
-            {
-                Debug.Log("3");
-                DataSnapshot snapshot = task.Result;
-               
-
-
-
-                //Sayfa degistirince veya yeni kullanici gelince hepsi resetlenecek mi? Kontrol etmek lazim.
-                if (snapshot.HasChild("Level_1"))
-                    Level1Button.GetComponentInChildren<Toggle>().isOn=true;
-                if (snapshot.HasChild("Level_2"))
-                    Level2Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_3"))
-                    Level3Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_4"))
-                    Level4Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_5"))
-                    Level5Button.GetComponentInChildren<Toggle>().isOn = true;
-                if (snapshot.HasChild("Level_6"))
-                    Level6Button.GetComponentInChildren<Toggle>().isOn = true;
-                
-            }
-        });
-    }
+    
 
     public void OpenCat1Level5()
     {

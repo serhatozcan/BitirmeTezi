@@ -204,6 +204,7 @@ public class FirebaseAuthentication : MonoBehaviour
                         //OpenChildrenOfaParentMenu();
                         //currentObservedChild = childKey;
                         OpenProgressionOfChild();
+                        //Bu key kullanılarak progression sayfasinda cocugun adi yazdirilabilir.
                         ReadProgressionData(currentObservedChild);
                     }
                 }
@@ -230,7 +231,7 @@ public class FirebaseAuthentication : MonoBehaviour
                         Debug.Log("child");
                         SceneManager.LoadScene("Subjects Menu");
                         //OpenSubjectsMenu();
-                        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
+                        //childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
                 
@@ -389,7 +390,7 @@ public class FirebaseAuthentication : MonoBehaviour
                         Debug.Log("child");
                         SceneManager.LoadScene("Subjects Menu");
                         //OpenSubjectsMenu();
-                        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
+                        //childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
             });
@@ -488,7 +489,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     {
                         SceneManager.LoadScene("Subjects Menu");
                         //OpenSubjectsMenu();
-                        childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
+                        //childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
                     }
                 }
             });
