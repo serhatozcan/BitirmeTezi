@@ -3106,7 +3106,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1417138231}
         m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
-        m_MethodName: OpenCategory1Menu
+        m_MethodName: OpenSubject1Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

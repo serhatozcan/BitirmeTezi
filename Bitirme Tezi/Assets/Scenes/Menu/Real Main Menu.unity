@@ -40534,8 +40534,8 @@ MonoBehaviour:
   childEmailRegisterField: {fileID: 1010514439}
   childPasswordRegisterField: {fileID: 1332771940}
   childConfirmPasswordRegisterField: {fileID: 1468445795}
-  parentUserOptionsButton: {fileID: 0}
-  parentUserOptionsPanel: {fileID: 0}
+  parentUserOptionsButton: {fileID: 1763882790}
+  parentUserOptionsPanel: {fileID: 1588980345}
   addNewChildButton: {fileID: 1419323740}
   childUserOptionsButton: {fileID: 1763882790}
   childUserOptionsPanel: {fileID: 1588980345}
@@ -40546,7 +40546,7 @@ MonoBehaviour:
   Subject1_Level3: {fileID: 1305920112}
   Subject1_Level4: {fileID: 88595668}
   Subject1_Level5: {fileID: 354140429}
-  Subject1_Level6: {fileID: 939353937}
+  Subject1_Level6: {fileID: 1210247789}
   Subject2_Level1: {fileID: 254348734}
   Subject2_Level2: {fileID: 509144884}
   Subject2_Level3: {fileID: 275806212}

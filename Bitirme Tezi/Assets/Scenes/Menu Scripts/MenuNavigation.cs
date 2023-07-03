@@ -36,9 +36,9 @@ public class MenuNavigation : MonoBehaviour
         SceneManager.LoadScene("Register Parent with Child Menu");
     }
 
-    public void OpenCategory1Menu()
+    public void OpenSubject1Menu()
     {
-        SceneManager.LoadScene("Cat1");
+        SceneManager.LoadScene("Subject1");
     }
 
 

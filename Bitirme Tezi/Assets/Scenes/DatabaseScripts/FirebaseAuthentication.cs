@@ -161,6 +161,13 @@ public class FirebaseAuthentication : MonoBehaviour
     public GameObject Subject6_Level5;
     public GameObject Subject6_Level6;
 
+
+    List<GameObject> level1Objects;
+    List<GameObject> level2Objects;
+    List<GameObject> level3Objects;
+    List<GameObject> level4Objects;
+    List<GameObject> level5Objects;
+    List<GameObject> level6Objects;
     bool signedIn;
 
     private void Awake()
@@ -238,7 +245,16 @@ public class FirebaseAuthentication : MonoBehaviour
             }
         });
 
-        AddOnclicksOfLevelButtons();
+        //level1Objects = new List<GameObject>();
+        //level2Objects = new List<GameObject>();
+        //level3Objects = new List<GameObject>();
+        //level4Objects = new List<GameObject>();
+        //level5Objects = new List<GameObject>();
+        //level6Objects = new List<GameObject>();
+
+        
+
+        //AddOnclicksOfLevelButtons();
 
     }
 
@@ -1099,7 +1115,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public void ReadChildrenOfParentData()
     {
         Debug.Log("1");
-
+        
         //Transform panelTransform = GameObject.Find("station_panel").transform;
         //Transform panelTransform = childrenList.transform;
 
@@ -1196,7 +1212,7 @@ public class FirebaseAuthentication : MonoBehaviour
     public void ReadProgressionData(string childKey)
     {
         //Category1.GetComponentInChildren<Toggle>().isOn = true;
-
+        
 
         Debug.Log("1");
         DatabaseReference progressionDatabaseRef = databaseReference.Child("Users").Child("Children").Child(childKey).Child("Progression");
@@ -1225,6 +1241,7 @@ public class FirebaseAuthentication : MonoBehaviour
 
     public void ProgressionOfChild(DataSnapshot snapshot)
     {
+        AddOnclicksOfLevelButtons();
         ProgressionOfSubject1(snapshot);
         ProgressionOfSubject2(snapshot);
         ProgressionOfSubject3(snapshot);
@@ -1238,8 +1255,10 @@ public class FirebaseAuthentication : MonoBehaviour
         SceneManager.LoadScene("Subject" + subjectNumber + "Level" + levelNumber);
     }
 
+    //butonların hepsini bir list'e ekleyip oradan okuyabilirim.
     public void AddOnclicksOfLevelButtons()
     {
+        Debug.Log("onclick1");
         //Subject 1
         Subject1_Level1.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(1, 1));
         Subject1_Level2.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(1, 2));
@@ -1282,6 +1301,7 @@ public class FirebaseAuthentication : MonoBehaviour
         Subject6_Level4.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(6, 4));
         Subject6_Level5.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(6, 5));
         Subject6_Level6.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(6, 6));
+        Debug.Log("onclick2");
     }
 
 
