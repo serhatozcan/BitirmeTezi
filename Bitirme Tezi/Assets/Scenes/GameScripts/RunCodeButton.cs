@@ -904,21 +904,31 @@ public class RunCodeButton : MonoBehaviour
 
                                         Debug.Log(rightPart);
 
-                                        if (!initParameters.Contains(rightPart))
+                                        //aslında sol taraf _name veya __name gibi olabiliyor. bakılacak.
+                                        if (leftPartAfterSelfWord != rightPart)
                                         {
-                                            Debug.Log("+" + rightPart + "+");
-                                            foreach (string str in initParameters)
-                                            {
-                                                Debug.Log("+" + str + "+");
-                                            }
                                             Debug.Log("hata");
-                                            GameOver("Atama sat�r�nda sa� tarafa yazd���n�z kelime init parametreleri aras�nda bulunmal�d�r.");
                                         }
                                         else
                                         {
-                                            initAssignments.Add(rightPart);
+                                            if (!initParameters.Contains(rightPart))
+                                            {
+                                                Debug.Log("+" + rightPart + "+");
+                                                foreach (string str in initParameters)
+                                                {
+                                                    Debug.Log("+" + str + "+");
+                                                }
+                                                Debug.Log("hata");
+                                                GameOver("Atama sat�r�nda sa� tarafa yazd���n�z kelime init parametreleri aras�nda bulunmal�d�r.");
+                                            }
+                                            else
+                                            {
+                                                initAssignments.Add(rightPart);
 
+                                            }
                                         }
+
+                                        
 
                                     }
                                 }
