@@ -372,8 +372,8 @@ public class RunCodeButton : MonoBehaviour
 
     public bool isWaitingInstruction;
 
-    [Header("Category and Level")]
-    public int catNumber;
+    [Header("Subject and Level")]
+    public int subjectNumber;
     public int levelNumber;
     //public bool checkIfClassFieldsPrivate;
 
@@ -489,7 +489,7 @@ public class RunCodeButton : MonoBehaviour
 
     public void BackToCategoryMenu()
     {
-        SceneManager.LoadScene("Cat" + catNumber);
+        SceneManager.LoadScene("Subject" + subjectNumber);
     }
 
     void Start()
@@ -2437,7 +2437,7 @@ public class RunCodeButton : MonoBehaviour
                 Debug.Log(v.ToString());
 
 
-            CheckLevelConditions(catNumber, levelNumber, instructionList);
+            CheckLevelConditions(subjectNumber, levelNumber, instructionList);
 
 
             RunInstructions(instructionList);
@@ -2919,7 +2919,7 @@ public class RunCodeButton : MonoBehaviour
 
     //----------------------------------------------------------------------
     //Check Level Conditions
-    public void CheckCat1Level7Conditions(List<Instruction> instructionList)
+    public void CheckSubject1Level7Conditions(List<Instruction> instructionList)
     {
         if (instructionList[0].GetType() != typeof(For))
         {
@@ -2927,9 +2927,9 @@ public class RunCodeButton : MonoBehaviour
         }
     }
 
-    public void CheckLevelConditions(int catNumber, int levelNumber, List<Instruction> instructionList)
+    public void CheckLevelConditions(int subjectNumber, int levelNumber, List<Instruction> instructionList)
     {
-        if (catNumber == 1)
+        if (subjectNumber == 1)
         {
             if (levelNumber == 1)
             {
@@ -2963,23 +2963,23 @@ public class RunCodeButton : MonoBehaviour
                 }
             }
         }
-        else if (catNumber == 2)
+        else if (subjectNumber == 2)
         {
 
         }
-        else if (catNumber == 3)
+        else if (subjectNumber == 3)
         {
 
         }
-        else if (catNumber == 4)
+        else if (subjectNumber == 4)
         {
 
         }
-        else if (catNumber == 5)
+        else if (subjectNumber == 5)
         {
 
         }
-        else if (catNumber == 6)
+        else if (subjectNumber == 6)
         {
 
         }
@@ -2992,14 +2992,14 @@ public class RunCodeButton : MonoBehaviour
         Dictionary<string, object> Level_Passed = new Dictionary<string, object>();
         Level_Passed["Passed"] = true;
 
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(Level_Passed);
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + subjectNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(Level_Passed);
 
     }
 
-    public void ReadProgressionData(string catNumber)
+    public void ReadProgressionData(string subjectNumber)
     {
 
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + subjectNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {

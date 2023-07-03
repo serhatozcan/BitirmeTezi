@@ -4675,7 +4675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isWaitingInstruction: 0
-  catNumber: 1
+  subjectNumber: 1
   levelNumber: 5
   inputField1: {fileID: 675919796}
   inputField2: {fileID: 1350694834}
@@ -6786,7 +6786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1111823807
 MonoBehaviour:
   m_ObjectHideFlags: 0

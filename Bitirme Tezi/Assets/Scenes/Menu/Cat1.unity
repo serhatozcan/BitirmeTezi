@@ -2270,7 +2270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c8a42395191b94897888c53a17307f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  categoryNumber: 1
+  childUserOptionsButton: {fileID: 0}
+  childUserOptionsPanel: {fileID: 0}
+  subjectsPanel: {fileID: 0}
+  subjectNumber: 1
   Level1Button: {fileID: 2054157068}
   Level2Button: {fileID: 932850802}
   Level3Button: {fileID: 668825909}

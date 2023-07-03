@@ -21,12 +21,12 @@ public class FirebaseDatabaseManager : MonoBehaviour
     public GameObject childUserOptionsPanel;
 
     [Space]
-    [Header("CategoriesPanel")]
-    public GameObject categoriesPanel;
+    [Header("SubjectsPanel")]
+    public GameObject subjectsPanel;
 
     [Space]
     [Header("Levels")]
-    public string categoryNumber;
+    public string subjectNumber;
     public GameObject Level1Button;
     public GameObject Level2Button;
     public GameObject Level3Button;
@@ -41,7 +41,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        ReadProgressionData(categoryNumber);
+        ReadProgressionData(subjectNumber);
         //ReadChildrenOfParentData();
     }
 
@@ -53,7 +53,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
             Time.timeScale = 0;
             //runButton.GetComponent<Button>().interactable = false;
             //addNewChildButton.GetComponent<Button>().interactable = false;
-            foreach (Transform child in categoriesPanel.transform)
+            foreach (Transform child in subjectsPanel.transform)
             {
                 //Destroy(child.gameObject);
                 child.gameObject.GetComponent<Button>().interactable = false;
@@ -64,7 +64,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
             childUserOptionsPanel.SetActive(false);
             Time.timeScale = 1;
             //addNewChildButton.GetComponent<Button>().interactable = true;
-            foreach (Transform child in categoriesPanel.transform)
+            foreach (Transform child in subjectsPanel.transform)
             {
                 //Destroy(child.gameObject);
                 child.gameObject.GetComponent<Button>().interactable = true;
@@ -126,12 +126,12 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
 
 
-    public void ReadProgressionData(string catNumber)
+    public void ReadProgressionData(string subjectNumber)
     {
         Debug.Log("1");
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
-        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).GetValueAsync().ContinueWithOnMainThread(task =>
+        databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + subjectNumber).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
@@ -164,9 +164,9 @@ public class FirebaseDatabaseManager : MonoBehaviour
         });
     }
 
-    public void OpenCat1Level5()
+    public void OpenSubject1Level5()
     {
-        SceneManager.LoadScene("Cat1Level5");
+        SceneManager.LoadScene("Subject1Level5");
     }
    
     public void OpenSubjectsMenu()

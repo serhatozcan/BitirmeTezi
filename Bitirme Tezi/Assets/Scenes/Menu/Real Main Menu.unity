@@ -725,7 +725,7 @@ GameObject:
   - component: {fileID: 64025328}
   - component: {fileID: 64025327}
   m_Layer: 5
-  m_Name: Category3Levels
+  m_Name: Subject3Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1549,7 +1549,7 @@ GameObject:
   - component: {fileID: 87999810}
   - component: {fileID: 87999809}
   m_Layer: 5
-  m_Name: Category1Levels
+  m_Name: Subject1Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8486,7 +8486,7 @@ GameObject:
   - component: {fileID: 453609825}
   - component: {fileID: 453609824}
   m_Layer: 5
-  m_Name: Category6Levels
+  m_Name: Subject6Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11627,7 +11627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 606032470}
   m_Layer: 5
-  m_Name: Category 2
+  m_Name: Subject 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14568,7 +14568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 727299398}
   m_Layer: 5
-  m_Name: Category 4
+  m_Name: Subject 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24900,7 +24900,7 @@ GameObject:
   - component: {fileID: 1201543948}
   - component: {fileID: 1201543947}
   m_Layer: 5
-  m_Name: Category4Levels
+  m_Name: Subject4Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29482,7 +29482,7 @@ GameObject:
   - component: {fileID: 1397210665}
   - component: {fileID: 1397210664}
   m_Layer: 5
-  m_Name: Category2Levels
+  m_Name: Subject2Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32687,7 +32687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1498562272}
   m_Layer: 5
-  m_Name: Category 6
+  m_Name: Subject 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34895,7 +34895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1580811161}
   m_Layer: 5
-  m_Name: Category 5
+  m_Name: Subject 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36191,7 +36191,7 @@ GameObject:
   - component: {fileID: 1629740420}
   - component: {fileID: 1629740419}
   m_Layer: 5
-  m_Name: Category5Levels
+  m_Name: Subject5Levels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36891,7 +36891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1670293164}
   m_Layer: 5
-  m_Name: Category 3
+  m_Name: Subject 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40541,42 +40541,42 @@ MonoBehaviour:
   childUserOptionsPanel: {fileID: 1588980345}
   subjectsPanel: {fileID: 0}
   progressionOfChildCanvas: {fileID: 232957999}
-  Cat1_Level1: {fileID: 19768581}
-  Cat1_Level2: {fileID: 1469023023}
-  Cat1_Level3: {fileID: 1305920112}
-  Cat1_Level4: {fileID: 88595668}
-  Cat1_Level5: {fileID: 354140429}
-  Cat1_Level6: {fileID: 1210247789}
-  Cat2_Level1: {fileID: 254348734}
-  Cat2_Level2: {fileID: 509144884}
-  Cat2_Level3: {fileID: 275806212}
-  Cat2_Level4: {fileID: 941590144}
-  Cat2_Level5: {fileID: 1497518601}
-  Cat2_Level6: {fileID: 233719765}
-  Cat3_Level1: {fileID: 907299993}
-  Cat3_Level2: {fileID: 210318311}
-  Cat3_Level3: {fileID: 764631453}
-  Cat3_Level4: {fileID: 713408909}
-  Cat3_Level5: {fileID: 218813211}
-  Cat3_Level6: {fileID: 1595067851}
-  Cat4_Level1: {fileID: 666374117}
-  Cat4_Level2: {fileID: 36447251}
-  Cat4_Level3: {fileID: 1567356919}
-  Cat4_Level4: {fileID: 905515915}
-  Cat4_Level5: {fileID: 237298604}
-  Cat4_Level6: {fileID: 467218258}
-  Cat5_Level1: {fileID: 25943064}
-  Cat5_Level2: {fileID: 217678386}
-  Cat5_Level3: {fileID: 648132443}
-  Cat5_Level4: {fileID: 1401057281}
-  Cat5_Level5: {fileID: 327407537}
-  Cat5_Level6: {fileID: 773640435}
-  Cat6_Level1: {fileID: 1949331963}
-  Cat6_Level2: {fileID: 1673928372}
-  Cat6_Level3: {fileID: 1874605432}
-  Cat6_Level4: {fileID: 2074356085}
-  Cat6_Level5: {fileID: 1090892193}
-  Cat6_Level6: {fileID: 868867745}
+  Subject1_Level1: {fileID: 19768581}
+  Subject1_Level2: {fileID: 1469023023}
+  Subject1_Level3: {fileID: 1305920112}
+  Subject1_Level4: {fileID: 88595668}
+  Subject1_Level5: {fileID: 354140429}
+  Subject1_Level6: {fileID: 939353937}
+  Subject2_Level1: {fileID: 254348734}
+  Subject2_Level2: {fileID: 509144884}
+  Subject2_Level3: {fileID: 275806212}
+  Subject2_Level4: {fileID: 941590144}
+  Subject2_Level5: {fileID: 1497518601}
+  Subject2_Level6: {fileID: 233719765}
+  Subject3_Level1: {fileID: 907299993}
+  Subject3_Level2: {fileID: 210318311}
+  Subject3_Level3: {fileID: 764631453}
+  Subject3_Level4: {fileID: 713408909}
+  Subject3_Level5: {fileID: 218813211}
+  Subject3_Level6: {fileID: 1595067851}
+  Subject4_Level1: {fileID: 666374117}
+  Subject4_Level2: {fileID: 36447251}
+  Subject4_Level3: {fileID: 1567356919}
+  Subject4_Level4: {fileID: 905515915}
+  Subject4_Level5: {fileID: 237298604}
+  Subject4_Level6: {fileID: 467218258}
+  Subject5_Level1: {fileID: 25943064}
+  Subject5_Level2: {fileID: 217678386}
+  Subject5_Level3: {fileID: 648132443}
+  Subject5_Level4: {fileID: 1401057281}
+  Subject5_Level5: {fileID: 327407537}
+  Subject5_Level6: {fileID: 773640435}
+  Subject6_Level1: {fileID: 1949331963}
+  Subject6_Level2: {fileID: 1673928372}
+  Subject6_Level3: {fileID: 1874605432}
+  Subject6_Level4: {fileID: 2074356085}
+  Subject6_Level5: {fileID: 1090892193}
+  Subject6_Level6: {fileID: 868867745}
 --- !u!1 &1833581735
 GameObject:
   m_ObjectHideFlags: 0
@@ -44820,7 +44820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2013318533}
   m_Layer: 5
-  m_Name: Category 1
+  m_Name: Subject 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

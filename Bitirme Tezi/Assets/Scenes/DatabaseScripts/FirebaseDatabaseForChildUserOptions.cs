@@ -22,8 +22,8 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
     public GameObject childUserOptionsPanel;
 
     [Space]
-    [Header("CategoriesPanel")]
-    public GameObject categoriesPanel;
+    [Header("SubjectsPanel")]
+    public GameObject subjectsPanel;
 
     //private static string currentObservedChild;
 
@@ -47,7 +47,7 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
             Time.timeScale = 0;
             //runButton.GetComponent<Button>().interactable = false;
             //addNewChildButton.GetComponent<Button>().interactable = false;
-            foreach (Transform child in categoriesPanel.transform)
+            foreach (Transform child in subjectsPanel.transform)
             {
                 //Destroy(child.gameObject);
                 child.gameObject.GetComponent<Button>().interactable = false;
@@ -58,7 +58,7 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
             childUserOptionsPanel.SetActive(false);
             Time.timeScale = 1;
             //addNewChildButton.GetComponent<Button>().interactable = true;
-            foreach (Transform child in categoriesPanel.transform)
+            foreach (Transform child in subjectsPanel.transform)
             {
                 //Destroy(child.gameObject);
                 child.gameObject.GetComponent<Button>().interactable = true;
@@ -111,13 +111,6 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
 
 
 
-    
-
-    public void OpenCat1Level5()
-    {
-        SceneManager.LoadScene("Cat1Level5");
-    }
-   
     public void OpenSubjectsMenu()
     {
         SceneManager.LoadScene("Subjects Menu");
