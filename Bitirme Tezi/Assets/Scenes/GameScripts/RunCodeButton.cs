@@ -46,9 +46,9 @@ public class For : HolderInstruction
 
         for (int i = 0; i < iterationCount; i++)
         {
-           
+
             RunCodeButton.RunInstructions(instructions);
-            
+
         }
     }
 
@@ -131,9 +131,9 @@ public class If : HolderInstruction
 
 public class Elif : HolderInstruction
 {
-    
+
     public CharacterMovementController characterMovement;
-   
+
     public string firstMethod;
     public string secondMethod;
     public string secondMethodParameter;
@@ -148,7 +148,7 @@ public class Elif : HolderInstruction
         this.firstMethod = firstMethod;
         this.secondMethod = null;
         this.secondMethodParameter = null;
-       
+
         instructions = new List<Instruction>();
         this.level = level;
         type = 1;
@@ -161,7 +161,7 @@ public class Elif : HolderInstruction
         this.firstMethod = firstMethod;
         this.secondMethod = secondMethod;
         this.secondMethodParameter = secondMethodParameter;
-       
+
         instructions = new List<Instruction>();
         this.level = level;
         type = 2;
@@ -170,10 +170,10 @@ public class Elif : HolderInstruction
     }
 
 
-    
+
     public override void Run()
     {
-        
+
         RunCodeButton.RunInstructions(instructions);
     }
 }
@@ -184,7 +184,7 @@ public class Else : HolderInstruction
     public CharacterMovementController characterMovement;
     public Else(CharacterMovementController characterMovement, int level)
     {
-        
+
         this.characterMovement = characterMovement;
         this.level = level;
         instructions = new List<Instruction>();
@@ -194,7 +194,7 @@ public class Else : HolderInstruction
 
     public override void Run()
     {
-       
+
         RunCodeButton.RunInstructions(instructions);
     }
 }
@@ -226,7 +226,7 @@ public class Move : Instruction
     private CharacterMovementController characterMovement;
     private string direction;
 
-  
+
     public Move(CharacterMovementController characterMovement, string direction, int level)
     {
         this.direction = direction;
@@ -236,12 +236,12 @@ public class Move : Instruction
 
     public override void Run()
     {
-        
+
         if (direction == "left")
             characterMovement.MoveLeft();
         else if (direction == "right")
             characterMovement.MoveRight();
-            //characterMovement.Invoke("MoveRight", 1f);
+        //characterMovement.Invoke("MoveRight", 1f);
         else if (direction == "up")
             characterMovement.MoveUp();
         else if (direction == "down")
@@ -380,16 +380,16 @@ public class RunCodeButton : MonoBehaviour
     [Header("GameObjects")]
     public TMP_InputField inputField1;
     public TMP_InputField inputField2;
-    
-   
+
+
     public GameObject chest;
-    public  CharacterMovementController characterMovement;
+    public CharacterMovementController characterMovement;
     public CharacterColorAndShapeChanger characterColorAndShapeChanger;
     [Space]
     [Header("Character")]
     [SerializeField]
     public GameObject character;
-    
+
 
 
     public Animator chestAnimator;
@@ -410,7 +410,7 @@ public class RunCodeButton : MonoBehaviour
 
     [Space]
     [Header("Game Over Panel")]
-    
+
     public GameObject runButton;
     public GameObject gameOverPanel;
     public TMP_Text errorMessageText;
@@ -482,17 +482,17 @@ public class RunCodeButton : MonoBehaviour
             runButton.GetComponent<Button>().interactable = true;
         }
 
-       
+
     }
 
     public void BackToCategoryMenu()
     {
-        SceneManager.LoadScene("Cat"+catNumber);
+        SceneManager.LoadScene("Cat" + catNumber);
     }
 
     void Start()
     {
-        colorsOfCharacter = new string[] { "red", "blue", "green" , "yellow"};
+        colorsOfCharacter = new string[] { "red", "blue", "green", "yellow" };
         shapesOfCharacter = new string[] { "circle", "square" };
         isWaitingInstruction = false;
         instructionList = new List<Instruction>();
@@ -507,7 +507,7 @@ public class RunCodeButton : MonoBehaviour
 
         conditionRunList = new List<bool>();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
-        
+
 
         InitializeFirebase();
 
@@ -551,7 +551,7 @@ public class RunCodeButton : MonoBehaviour
                     optionsButton.SetActive(false);
                     runButton.GetComponent<Button>().interactable = false;
                     backButtonForParent.SetActive(true);
-                    
+
                 }
             }
         });
@@ -600,7 +600,7 @@ public class RunCodeButton : MonoBehaviour
     public void ReadInputPage1(TMP_InputField inputField1)
     {
         this.inputField1 = inputField1;
-        
+
     }
 
     public void ReadInputPage2(TMP_InputField inputField2)
@@ -612,8 +612,8 @@ public class RunCodeButton : MonoBehaviour
     {
         //aslinda gerek olmayabilir
         instructionList.Clear();
-     
-        
+
+
         string inputText1 = inputField1.text;
         string inputText2 = inputField2.text;
 
@@ -820,12 +820,12 @@ public class RunCodeButton : MonoBehaviour
                         }
 
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.Log("hata");
                     }
-                   
-                    
+
+
                     //Burada parametrelere ulastigim icin burada kontrol ediyorum. Yukarida da edebilirim.
                     if (!initParameters.Contains("shape"))
                     {
@@ -930,6 +930,104 @@ public class RunCodeButton : MonoBehaviour
                         }
 
                     }
+                    isInsideInit = false;
+                }
+                else
+                {
+                    //burada def set_color ve def set_shape okunacak.
+                    int c = 0;
+                    while (rows2[i][c] == ' ')
+                    {
+                        c++;
+                    }
+                    rowIndentation = c;
+
+                    if (rowIndentation != indentation + n)
+                    {
+                        Debug.Log("hATA");
+                        GameOver("Indentation hatası: Method oluşturacağınız zaman class komutunun önüne eklediğinizden " + n + " boşluk fazla bırakarak başlamanız gerekiyor.");
+                    }
+
+                    else
+                    {
+                        string trimmedRow = rows2[i].Trim();
+                        Debug.Log(trimmedRow);
+                        try
+                        {
+                            if (trimmedRow.Substring(0, 3) != "def")
+                            {
+                                Debug.Log("hata");
+                            }
+                            else
+                            {
+                                string methodPart = trimmedRow.Substring(3).Trim();
+                                //bu kısım metodlaştırılıp soruya göre çağrılabilir.
+                                if (methodPart.Substring(0, 9) != "set_color" && methodPart.Substring(0, 9) != "set_shape")
+                                {
+                                    Debug.Log("hata");
+                                }
+                                else
+                                {
+                                    string methodParameterPart = methodPart.Substring(9).Trim();
+                                    if (methodParameterPart[0] != '(')
+                                    {
+                                        Debug.Log("hata");
+
+                                    }
+                                    else if (methodParameterPart[methodParameterPart.Length - 1] != ':')
+                                    {
+                                        Debug.Log("hata");
+                                    }
+                                    else
+                                    {
+                                        methodParameterPart = methodParameterPart.Substring(1, methodParameterPart.Length - 2).Trim();
+                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else
+                                        {
+                                            string[] methodParameters = methodParameterPart.Split(',');
+                                            for (int j = 0; i < methodParameters.Length; i++)
+                                            {
+                                                methodParameters[j] = methodParameters[j].Trim();
+                                            }
+
+
+                                            if (methodParameters[0] != selfKeyword)
+                                            {
+                                                Debug.Log("hata");
+
+                                            }
+                                            else
+                                            {
+                                                if (methodPart.Substring(0, 9) == "set_color")
+                                                {
+                                                    if (methodParameters[1] != "color")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                }
+                                                else if (methodPart.Substring(0, 9) == "set_shape")
+                                                {
+                                                    if (methodParameters[1] != "shape")
+                                                    {
+                                                        Debug.Log("hata");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.Log("hata");
+                        }
+                    }
+
                 }
 
             }
@@ -972,7 +1070,7 @@ public class RunCodeButton : MonoBehaviour
             bool isFirstRow = true;
             bool isClassInstanceRow = false;
             int indentation = 0;
-            
+
 
             int conditionId = -1;
             int lastIndentation = 0;
@@ -984,10 +1082,10 @@ public class RunCodeButton : MonoBehaviour
                     continue;
 
                 int rowIndentation;
-                
+
                 if (!String.IsNullOrEmpty(rows1[i]))
                 {
-                    
+
                     //birden fazla import sat�r� istenmedi�i i�in bir tane olacak �ekilde ayarland�. 
                     if (isFirstRow)
                     {
@@ -1047,7 +1145,7 @@ public class RunCodeButton : MonoBehaviour
                     //buraya eklenebilir.
                     else if (isClassInstanceRow)
                     {
-                        
+
                         int c = 0;
                         while (rows1[i][c] == ' ')
                         {
@@ -1087,7 +1185,7 @@ public class RunCodeButton : MonoBehaviour
                                 Debug.Log("Class instance name:" + classInstanceName + "+");
                                 Debug.Log("hata");
                             }
-                            
+
                             else if (!classConstructor.Contains("(") || !classConstructor.Contains(")"))
                             {
                                 GameOver(className + " nesnesi olu�tururken parantezleri do�ru kullanman�z gerekiyor.\n�rnek: " + className + "(\"blue\")");
@@ -1135,7 +1233,7 @@ public class RunCodeButton : MonoBehaviour
                                                     {
                                                         characterColorAndShapeChanger.ChangeShapeToCircle();
                                                         Debug.Log("circleeee");
-                                                       
+
                                                     }
                                                     else if (parameter == "square")
                                                     {
@@ -1149,7 +1247,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
                                                 else if (initParameters[j] == "color")
                                                 {
-                                                    Debug.Log("+"+parameter+"+");
+                                                    Debug.Log("+" + parameter + "+");
                                                     if (parameter == "red")
                                                     {
                                                         characterColorAndShapeChanger.ChangeColorToRed();
@@ -1175,7 +1273,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
 
                                                 }
-                                                
+
                                             }
                                             Debug.Log("burada");
                                         }
@@ -1544,7 +1642,7 @@ public class RunCodeButton : MonoBehaviour
 
                                         string methodName = instructionParts[0].Trim();
                                         string methodParameterPart = instructionParts[1].Trim();
-                                            //instructionParts[1] = instructionParts[1].Trim();
+                                        //instructionParts[1] = instructionParts[1].Trim();
                                         int length = methodName.Length;
 
                                         Debug.Log(methodName);
@@ -1592,7 +1690,7 @@ public class RunCodeButton : MonoBehaviour
                                                         Debug.Log("hata");
                                                     }
                                                 }
-                                                
+
                                             }
                                             else if (methodName.Substring(0, 4) == "swim")
                                             {
@@ -1632,12 +1730,13 @@ public class RunCodeButton : MonoBehaviour
                                                         Debug.Log("hata");
                                                     }
                                                 }
-                                               
-                                            }else if (methodName.Substring(0,9) == "set_color")
+
+                                            }
+                                            else if (methodName.Substring(0, 9) == "set_color")
                                             {
                                                 methodParameterPart = methodParameterPart.Trim();
 
-                                                if (methodParameterPart[methodParameterPart.Length-1] != ')')
+                                                if (methodParameterPart[methodParameterPart.Length - 1] != ')')
                                                 {
                                                     Debug.Log("hata");
                                                     GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_color(blue)");
@@ -1658,7 +1757,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
 
                                             }
-                                            else if(methodName.Substring(0, 9) == "set_shape")
+                                            else if (methodName.Substring(0, 9) == "set_shape")
                                             {
                                                 methodParameterPart = methodParameterPart.Trim();
                                                 if (methodParameterPart[methodParameterPart.Length - 1] != ')')
@@ -2123,11 +2222,11 @@ public class RunCodeButton : MonoBehaviour
 
 
             CheckLevelConditions(catNumber, levelNumber, instructionList);
-           
+
 
             RunInstructions(instructionList);
-            
-            
+
+
 
             //BOLUM GECME KISMI
             Vector3Int characterFinalPosition = characterMovement.groundTilemap.WorldToCell(characterMovement.transform.position);
@@ -2145,7 +2244,7 @@ public class RunCodeButton : MonoBehaviour
     public static void RunInstructions(List<Instruction> instructionList)
     {
         //Thread.Sleep(1000);
-        
+
         bool isThereIf = false;
         bool didPreviousConditionsRun = false;
         foreach (Instruction instruction in instructionList)
@@ -2311,7 +2410,7 @@ public class RunCodeButton : MonoBehaviour
 
 
             }
-            
+
             else if (instruction.GetType() == typeof(Elif))
             {
                 if (!isThereIf)
@@ -2593,15 +2692,15 @@ public class RunCodeButton : MonoBehaviour
             else
             {
                 isThereIf = false;
-                
+
                 instruction.Run();
-               
+
 
             }
 
         }
     }
-    
+
     //----------------------------------------------------------------------
     //Check Level Conditions
     public void CheckCat1Level7Conditions(List<Instruction> instructionList)
@@ -2678,12 +2777,12 @@ public class RunCodeButton : MonoBehaviour
         Level_Passed["Passed"] = true;
 
         databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).UpdateChildrenAsync(Level_Passed);
-        
+
     }
 
     public void ReadProgressionData(string catNumber)
     {
-        
+
         databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + levelNumber).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -2698,7 +2797,7 @@ public class RunCodeButton : MonoBehaviour
 
                 Dictionary<string, object> Level_X = new Dictionary<string, object>();
                 Level_X["passed"] = true;
-                
+
                 string userId = user.UserId;
 
                 //Oldu mu???
@@ -2733,7 +2832,7 @@ public class RunCodeButton : MonoBehaviour
             }
             else
             {
-               
+
                 Debug.Log(instructionList.Count);
                 Debug.Log(instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)));
                 if (instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)))
@@ -2756,7 +2855,7 @@ public class RunCodeButton : MonoBehaviour
         }
 
     }
- 
+
 
     public bool VariableCheck(string var)
     {
