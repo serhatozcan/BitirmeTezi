@@ -308,10 +308,11 @@ public class Def_SetShape : HolderInstruction
     private string shape;
     public CharacterColorAndShapeChanger characterColorAndShapeChanger;
 
-    public Def_SetShape(CharacterColorAndShapeChanger characterColorAndShapeChanger, string shape)
+    public Def_SetShape(CharacterColorAndShapeChanger characterColorAndShapeChanger, string shape, int level)
     {
         this.characterColorAndShapeChanger = characterColorAndShapeChanger;
         this.shape = shape;
+        this.level = level;
     }
 
     public override void Run()
@@ -334,10 +335,11 @@ public class Def_SetColor : HolderInstruction
     private string color;
     public CharacterColorAndShapeChanger characterColorAndShapeChanger;
 
-    public Def_SetColor(CharacterColorAndShapeChanger characterColorAndShapeChanger, string color)
+    public Def_SetColor(CharacterColorAndShapeChanger characterColorAndShapeChanger, string color, int level)
     {
         this.characterColorAndShapeChanger = characterColorAndShapeChanger;
         this.color = color;
+        this.level = level;
     }
 
     public override void Run()
@@ -851,9 +853,104 @@ public class RunCodeButton : MonoBehaviour
 
 
                 }
-                else if (isInsideInit)
+                //else if (isInsideInit)
+                //{
+                //    Debug.Log("inside init");
+                //    int c = 0;
+                //    while (rows2[i][c] == ' ')
+                //    {
+                //        c++;
+                //    }
+                //    rowIndentation = c;
+
+                //    if (rowIndentation != indentation + 2 * n)
+                //    {
+                //        Debug.Log("hATA");
+                //        GameOver("Indentation hatas�: Komutun �n�ne init komutunun �n�ne koydu�unuzdan " + n + " fazla bo�luk koyarak yazman�z gerekiyor.");
+                //    }
+
+                //    else
+                //    {
+                //        string trimmedRow = rows2[i].Trim();
+                //        Debug.Log(trimmedRow);
+                //        try
+                //        {
+                //            if (!trimmedRow.Contains('='))
+                //            {
+                //                Debug.Log("hata");
+                //                GameOver("Parametreleri atad���n�z sat�rda atama i�in = kullanman�z gerekiyor.");
+                //            }
+                //            else
+                //            {
+                //                string[] assignmentParts = trimmedRow.Split('=');
+                //                string leftPart = assignmentParts[0].Trim();
+                //                string rightPart = assignmentParts[1].Trim();
+
+                //                if (leftPart.Substring(0, selfKeyword.Length) != selfKeyword)
+                //                {
+                //                    Debug.Log("hata");
+                //                    GameOver("Atama sat�r�nda belirledi�iniz self keyword'�n� kullanman�z gerekiyor. Belirledi�iniz self keyword: " + selfKeyword);
+                //                }
+                //                else
+                //                {
+                //                    string leftPartAfterSelfWord = leftPart.Substring(selfKeyword.Length).Trim();
+                //                    if (leftPartAfterSelfWord[0] != '.')
+                //                    {
+                //                        Debug.Log("hata");
+                //                        GameOver("Atama sat�r�nda belirledi�iniz self keyword'den sonra . kullanman�z gerekiyor. Belirledi�iniz self keyword" + selfKeyword);
+                //                    }
+                //                    else
+                //                    {
+                //                        leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
+                //                        Debug.Log(leftPartAfterSelfWord);
+
+                //                        Debug.Log(rightPart);
+
+                //                        //aslında sol taraf _name veya __name gibi olabiliyor. bakılacak.
+                //                        if (leftPartAfterSelfWord != rightPart)
+                //                        {
+                //                            Debug.Log("hata");
+                //                        }
+                //                        else
+                //                        {
+                //                            if (!initParameters.Contains(rightPart))
+                //                            {
+                //                                Debug.Log("+" + rightPart + "+");
+                //                                foreach (string str in initParameters)
+                //                                {
+                //                                    Debug.Log("+" + str + "+");
+                //                                }
+                //                                Debug.Log("hata");
+                //                                GameOver("Atama sat�r�nda sa� tarafa yazd���n�z kelime init parametreleri aras�nda bulunmal�d�r.");
+                //                            }
+                //                            else
+                //                            {
+                //                                initAssignments.Add(rightPart);
+
+                //                            }
+                //                        }
+
+
+
+                //                    }
+                //                }
+                //            }
+
+
+                //        }
+                //        catch (Exception e)
+                //        {
+                //            Debug.Log(e.Message);
+                //        }
+
+                //    }
+                //    //isInsideInit = false;
+                //}
+                else if (isInsideSetColor || isInsideSetShape)
                 {
-                    Debug.Log("inside init");
+                    Debug.Log(isInsideSetColor + " " + rows2[i] + " " + isInsideSetShape);
+                    //burada kod şöyle olacak
+                    //self.color = color
                     int c = 0;
                     while (rows2[i][c] == ' ')
                     {
@@ -864,11 +961,105 @@ public class RunCodeButton : MonoBehaviour
                     if (rowIndentation != indentation + 2 * n)
                     {
                         Debug.Log("hATA");
-                        GameOver("Indentation hatas�: Komutun �n�ne init komutunun �n�ne koydu�unuzdan " + n + " fazla bo�luk koyarak yazman�z gerekiyor.");
+                        GameOver("");
                     }
-
                     else
                     {
+                        string trimmedRow = rows2[i].Trim();
+                        Debug.Log(trimmedRow);
+                        try
+                        {
+                            if (!trimmedRow.Contains('='))
+                            {
+                                Debug.Log("hata");
+                                GameOver("");
+                            }
+                            else
+                            {
+                                string[] assignmentParts = trimmedRow.Split('=');
+                                string leftPart = assignmentParts[0].Trim();
+                                string rightPart = assignmentParts[1].Trim();
+
+                                if (leftPart.Substring(0, selfKeyword.Length) != selfKeyword)
+                                {
+                                    Debug.Log("hata");
+                                    GameOver("Atama sat�r�nda belirledi�iniz self keyword'�n� kullanman�z gerekiyor. Belirledi�iniz self keyword: " + selfKeyword);
+                                }
+                                else
+                                {
+                                    string leftPartAfterSelfWord = leftPart.Substring(selfKeyword.Length).Trim();
+                                    if (leftPartAfterSelfWord[0] != '.')
+                                    {
+                                        Debug.Log("hata");
+                                        GameOver("Atama sat�r�nda belirledi�iniz self keyword'den sonra . kullanman�z gerekiyor. Belirledi�iniz self keyword" + selfKeyword);
+                                    }
+                                    else
+                                    {
+                                        leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
+                                        Debug.Log(leftPartAfterSelfWord);
+
+                                        Debug.Log(rightPart);
+
+                                        if (leftPartAfterSelfWord != rightPart)
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else
+                                        {
+                                            if (isInsideSetColor)
+                                            {
+                                                if (rightPart != "color")
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else
+                                                {
+                                                    isInsideSetColor = false;
+                                                }
+                                            }
+                                            else if (isInsideSetShape)
+                                            {
+                                                if (rightPart != "shape")
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else
+                                                {
+                                                    isInsideSetShape = false;
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                    }
+
+
+                }
+
+                else
+                {
+                    //burada def set_color ve def set_shape okunacak.
+                    int c = 0;
+                    while (rows2[i][c] == ' ')
+                    {
+                        c++;
+                    }
+                    rowIndentation = c;
+                    //------------------------------------
+                    if (rowIndentation == indentation + 2 * n && isInsideInit)
+                    {
+                        //Debug.Log("hATA");
+                        //GameOver("Indentation hatas�: Komutun �n�ne init komutunun �n�ne koydu�unuzdan " + n + " fazla bo�luk koyarak yazman�z gerekiyor.");
+
                         string trimmedRow = rows2[i].Trim();
                         Debug.Log(trimmedRow);
                         try
@@ -928,7 +1119,7 @@ public class RunCodeButton : MonoBehaviour
                                             }
                                         }
 
-                                        
+
 
                                     }
                                 }
@@ -940,124 +1131,18 @@ public class RunCodeButton : MonoBehaviour
                         {
                             Debug.Log(e.Message);
                         }
-
-                    }
-                    isInsideInit = false;
-                }else if (isInsideSetColor || isInsideSetShape)
-                {
-                    //burada kod şöyle olacak
-                    //self.color = color
-                    int c = 0;
-                    while (rows2[i][c] == ' ')
-                    {
-                        c++;
-                    }
-                    rowIndentation = c;
-
-                    if (rowIndentation != indentation + 2 * n)
-                    {
-                        Debug.Log("hATA");
-                        GameOver("");
-                    }
-                    else
-                    {
-                        string trimmedRow = rows2[i].Trim();
-                        Debug.Log(trimmedRow);
-                        try
-                        {
-                            if (!trimmedRow.Contains('='))
-                            {
-                                Debug.Log("hata");
-                                GameOver("");
-                            }
-                            else
-                            {
-                                string[] assignmentParts = trimmedRow.Split('=');
-                                string leftPart = assignmentParts[0].Trim();
-                                string rightPart = assignmentParts[1].Trim();
-
-                                if (leftPart.Substring(0, selfKeyword.Length) != selfKeyword)
-                                {
-                                    Debug.Log("hata");
-                                    GameOver("Atama sat�r�nda belirledi�iniz self keyword'�n� kullanman�z gerekiyor. Belirledi�iniz self keyword: " + selfKeyword);
-                                }
-                                else
-                                {
-                                    string leftPartAfterSelfWord = leftPart.Substring(selfKeyword.Length).Trim();
-                                    if (leftPartAfterSelfWord[0] != '.')
-                                    {
-                                        Debug.Log("hata");
-                                        GameOver("Atama sat�r�nda belirledi�iniz self keyword'den sonra . kullanman�z gerekiyor. Belirledi�iniz self keyword" + selfKeyword);
-                                    }
-                                    else
-                                    {
-                                        leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
-                                        Debug.Log(leftPartAfterSelfWord);
-
-                                        Debug.Log(rightPart);
-
-                                        if(leftPartAfterSelfWord != rightPart)
-                                        {
-                                            Debug.Log("hata");
-                                        }
-                                        else
-                                        {
-                                            if (isInsideSetColor)
-                                            {
-                                                if (rightPart != "color")
-                                                {
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    isInsideSetColor = false;
-                                                }
-                                            }else if (isInsideSetShape)
-                                            {
-                                                if (rightPart != "shape")
-                                                {
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    isInsideSetShape = false;
-                                                }
-                                            }
-                                            
-                                        }
-
-                                    }
-                                }
-                            }
-
-                        }
-                        catch (Exception e)
-                        {
-
-                        }
                     }
 
-                    
-                }
-               
-                else
-                {
-                    //burada def set_color ve def set_shape okunacak.
-                    int c = 0;
-                    while (rows2[i][c] == ' ')
+                    else if (rowIndentation == indentation + n)
                     {
-                        c++;
-                    }
-                    rowIndentation = c;
+                        isInsideInit = false;
+                        //Debug.Log("hATA");
+                        //Debug.Log(rowIndentation);
+                        //Debug.Log("-" + rows2[i] +"-");
+                        //Debug.Log(indentation);
+                        //GameOver("Indentation hatası: Method oluşturacağınız zaman class komutunun önüne eklediğinizden " + n + " boşluk fazla bırakarak başlamanız gerekiyor.");
 
-                    if (rowIndentation != indentation + n)
-                    {
-                        Debug.Log("hATA");
-                        GameOver("Indentation hatası: Method oluşturacağınız zaman class komutunun önüne eklediğinizden " + n + " boşluk fazla bırakarak başlamanız gerekiyor.");
-                    }
-
-                    else
-                    {
+                        Debug.Log("*" + rows2[i] + "*");
                         string trimmedRow = rows2[i].Trim();
                         Debug.Log(trimmedRow);
                         try
@@ -1088,15 +1173,19 @@ public class RunCodeButton : MonoBehaviour
                                     }
                                     else
                                     {
+                                        Debug.Log("methodParameterPart1:" + methodParameterPart + "/");
                                         methodParameterPart = methodParameterPart.Substring(1, methodParameterPart.Length - 2).Trim();
+                                        Debug.Log("methodParameterPart2:" + methodParameterPart + "/");
                                         if (methodParameterPart[methodParameterPart.Length - 1] != ')')
                                         {
                                             Debug.Log("hata");
                                         }
                                         else
                                         {
+                                            methodParameterPart = methodParameterPart.Substring(0, methodParameterPart.Length - 1);
+                                            Debug.Log("methodParameterPart3:" + methodParameterPart + "/");
                                             string[] methodParameters = methodParameterPart.Split(',');
-                                            for (int j = 0; i < methodParameters.Length; i++)
+                                            for (int j = 0; j < methodParameters.Length; j++)
                                             {
                                                 methodParameters[j] = methodParameters[j].Trim();
                                             }
@@ -1113,10 +1202,12 @@ public class RunCodeButton : MonoBehaviour
                                                 {
                                                     if (methodParameters[1] != "color")
                                                     {
+                                                        Debug.Log("pp" + methodParameters[1] + "pp");
                                                         Debug.Log("hata");
                                                     }
                                                     else
                                                     {
+                                                        Debug.Log("inside color");
                                                         isInsideSetColor = true;
                                                     }
                                                 }
@@ -1128,6 +1219,7 @@ public class RunCodeButton : MonoBehaviour
                                                     }
                                                     else
                                                     {
+                                                        Debug.Log("inside shape");
                                                         isInsideSetShape = true;
                                                     }
                                                 }
@@ -1142,6 +1234,11 @@ public class RunCodeButton : MonoBehaviour
                         {
                             Debug.Log("hata");
                         }
+                    }
+
+                    else
+                    {
+                        isInsideInit = false;
                     }
 
                 }
@@ -1734,6 +1831,7 @@ public class RunCodeButton : MonoBehaviour
                                     string methodPart = moveParts[1].Trim();
                                     Debug.Log("+" + classInstancePart + "+");
                                     Debug.Log("+" + methodPart + "+");
+
                                     if (classInstancePart != classInstanceName)
                                     {
                                         Debug.Log("hata");
@@ -1862,7 +1960,8 @@ public class RunCodeButton : MonoBehaviour
                                                     string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
                                                     if (colorsOfCharacter.Contains(methodParameter))
                                                     {
-                                                        Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter);
+                                                        Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter, instructionLevel);
+                                                        AddInstruction(setColor);
                                                     }
                                                     else
                                                     {
@@ -1886,7 +1985,8 @@ public class RunCodeButton : MonoBehaviour
                                                     string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
                                                     if (shapesOfCharacter.Contains(methodParameter))
                                                     {
-                                                        Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter);
+                                                        Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter, instructionLevel);
+                                                        AddInstruction(setShape);
                                                     }
                                                     else
                                                     {
