@@ -641,6 +641,8 @@ public class RunCodeButton : MonoBehaviour
             bool isFirstRow = true;
             bool isInitRow = false;
             bool isInsideInit = false;
+            bool isInsideSetColor = false;
+            bool isInsideSetShape = false;
             string selfKeyword = null;
             int rowIndentation = 0;
             for (int i = 0; i < rows2.Length; i++)
@@ -931,7 +933,103 @@ public class RunCodeButton : MonoBehaviour
 
                     }
                     isInsideInit = false;
+                }else if (isInsideSetColor || isInsideSetShape)
+                {
+                    //burada kod şöyle olacak
+                    //self.color = color
+                    int c = 0;
+                    while (rows2[i][c] == ' ')
+                    {
+                        c++;
+                    }
+                    rowIndentation = c;
+
+                    if (rowIndentation != indentation + 2 * n)
+                    {
+                        Debug.Log("hATA");
+                        GameOver("");
+                    }
+                    else
+                    {
+                        string trimmedRow = rows2[i].Trim();
+                        Debug.Log(trimmedRow);
+                        try
+                        {
+                            if (!trimmedRow.Contains('='))
+                            {
+                                Debug.Log("hata");
+                                GameOver("");
+                            }
+                            else
+                            {
+                                string[] assignmentParts = trimmedRow.Split('=');
+                                string leftPart = assignmentParts[0].Trim();
+                                string rightPart = assignmentParts[1].Trim();
+
+                                if (leftPart.Substring(0, selfKeyword.Length) != selfKeyword)
+                                {
+                                    Debug.Log("hata");
+                                    GameOver("Atama sat�r�nda belirledi�iniz self keyword'�n� kullanman�z gerekiyor. Belirledi�iniz self keyword: " + selfKeyword);
+                                }
+                                else
+                                {
+                                    string leftPartAfterSelfWord = leftPart.Substring(selfKeyword.Length).Trim();
+                                    if (leftPartAfterSelfWord[0] != '.')
+                                    {
+                                        Debug.Log("hata");
+                                        GameOver("Atama sat�r�nda belirledi�iniz self keyword'den sonra . kullanman�z gerekiyor. Belirledi�iniz self keyword" + selfKeyword);
+                                    }
+                                    else
+                                    {
+                                        leftPartAfterSelfWord = leftPartAfterSelfWord.Substring(1).Trim();
+                                        Debug.Log(leftPartAfterSelfWord);
+
+                                        Debug.Log(rightPart);
+
+                                        if(leftPartAfterSelfWord != rightPart)
+                                        {
+                                            Debug.Log("hata");
+                                        }
+                                        else
+                                        {
+                                            if (isInsideSetColor)
+                                            {
+                                                if (rightPart != "color")
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else
+                                                {
+                                                    isInsideSetColor = false;
+                                                }
+                                            }else if (isInsideSetShape)
+                                            {
+                                                if (rightPart != "shape")
+                                                {
+                                                    Debug.Log("hata");
+                                                }
+                                                else
+                                                {
+                                                    isInsideSetShape = false;
+                                                }
+                                            }
+                                            
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                    }
+
+                    
                 }
+               
                 else
                 {
                     //burada def set_color ve def set_shape okunacak.
@@ -1007,12 +1105,20 @@ public class RunCodeButton : MonoBehaviour
                                                     {
                                                         Debug.Log("hata");
                                                     }
+                                                    else
+                                                    {
+                                                        isInsideSetColor = true;
+                                                    }
                                                 }
                                                 else if (methodPart.Substring(0, 9) == "set_shape")
                                                 {
                                                     if (methodParameters[1] != "shape")
                                                     {
                                                         Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        isInsideSetShape = true;
                                                     }
                                                 }
                                             }
