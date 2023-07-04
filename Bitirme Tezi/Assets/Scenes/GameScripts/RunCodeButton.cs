@@ -1713,6 +1713,27 @@ public class RunCodeButton : MonoBehaviour
                                                     }
 
                                                 }
+                                                else if (ifParts[2].Substring(0, 11) == "is_obstacle")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(11).Replace(" ", "");
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else if (parameterPart != "():")
+                                                    {
+                                                        GameOver("Parantez hatas�: is_water metoduna ula�mak i�in is_water() yazman�z gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_obstacle";
+                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                        AddInstruction(ifInstruction);
+                                                    }
+
+                                                }
                                                 else if (ifParts[2].Substring(0, 8) == "contains")
                                                 {
                                                     parameterPart = ifParts[2].Substring(8).Trim();
@@ -2186,6 +2207,22 @@ public class RunCodeButton : MonoBehaviour
                                                         }
 
                                                     }
+                                                    else if (elifParts[2].Substring(0, 11) == "is_obstacle")
+                                                    {
+                                                        parameterPart = elifParts[2].Substring(11).Replace(" ", "");
+                                                        if (parameterPart != "():")
+                                                        {
+                                                            GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_obstacle";
+                                                            Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(elifInstruction);
+                                                        }
+
+                                                    }
                                                     else if (elifParts[2].Substring(0, 8) == "contains")
                                                     {
 
@@ -2388,6 +2425,22 @@ public class RunCodeButton : MonoBehaviour
                                                         }
 
                                                     }
+                                                    else if (whileParts[2].Substring(0, 11) == "is_obstacle")
+                                                    {
+                                                        parameterPart = whileParts[2].Substring(11).Replace(" ", "");
+                                                        if (parameterPart != "():")
+                                                        {
+                                                            GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_obstacle";
+                                                            While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(whileInstruction);
+                                                        }
+
+                                                    }
                                                     else if (whileParts[2].Substring(0, 8) == "contains")
                                                     {
 
@@ -2564,6 +2617,21 @@ public class RunCodeButton : MonoBehaviour
                                 instruction.Run();
                             }
                         }
+                        else if (((If)instruction).secondMethod == "is_obstacle")
+                        {
+                            Debug.Log("wATER");
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(0, 1);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int upTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && !((If)instruction).isThereNotOperator)
+                            {
+                                Debug.Log(":????????");
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
                         else if (((If)instruction).secondMethod == "contains")
                         {
                             //burada direkt parameterPart diye yazilabilir mi??
@@ -2609,6 +2677,19 @@ public class RunCodeButton : MonoBehaviour
                                 instruction.Run();
                             }
                         }
+                        else if (((If)instruction).secondMethod == "is_obstacle")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(0, -1);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int downTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && !((If)instruction).isThereNotOperator)
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
 
                     }
                     else if (((If)instruction).firstMethod == "right_tile")
@@ -2641,6 +2722,19 @@ public class RunCodeButton : MonoBehaviour
                                 instruction.Run();
                             }
                         }
+                        else if (((If)instruction).secondMethod == "is_obstacle")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(1, 0);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int rightTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && !((If)instruction).isThereNotOperator)
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
                     }
                     else if (((If)instruction).firstMethod == "left_tile")
                     {
@@ -2664,6 +2758,19 @@ public class RunCodeButton : MonoBehaviour
                             Vector3Int leftTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                             //Oldu mu???
                             if (((If)instruction).characterMovement.waterTilemap.HasTile(leftTilePosition) && !((If)instruction).isThereNotOperator)
+                            {
+                                didPreviousConditionsRun = true;
+                                instruction.Run();
+                            }
+                        }
+                        else if (((If)instruction).secondMethod == "is_obstacle")
+                        {
+                            //burada ground mu diye kontrol etmek gerekiyor
+                            Vector2 direction = new Vector2(-1, 0);
+                            //groundTilemap vs waterTilemap ???
+                            Vector3Int leftTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
+                            //Oldu mu???
+                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && !((If)instruction).isThereNotOperator)
                             {
                                 didPreviousConditionsRun = true;
                                 instruction.Run();
@@ -2718,6 +2825,19 @@ public class RunCodeButton : MonoBehaviour
                                     instruction.Run();
                                 }
                             }
+                            else if (((Elif)instruction).secondMethod == "is_obstacle")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, 1);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
                             else if (((Elif)instruction).secondMethod == "contains")
                             {
                                 //burada direkt parameterPart diye yazilabilir mi??
@@ -2763,6 +2883,19 @@ public class RunCodeButton : MonoBehaviour
                                     instruction.Run();
                                 }
                             }
+                            else if (((Elif)instruction).secondMethod == "is_obstacle")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(0, -1);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int downTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
 
                         }
                         else if (((Elif)instruction).firstMethod == "right_tile")
@@ -2792,6 +2925,19 @@ public class RunCodeButton : MonoBehaviour
                                     instruction.Run();
                                 }
                             }
+                            else if (((Elif)instruction).secondMethod == "is_obstacle")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(1, 0);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int rightTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
                         }
                         else if (((Elif)instruction).firstMethod == "left_tile")
                         {
@@ -2815,6 +2961,19 @@ public class RunCodeButton : MonoBehaviour
                                 Vector3Int leftTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
                                 //Oldu mu???
                                 if (((Elif)instruction).characterMovement.waterTilemap.HasTile(leftTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                {
+                                    didPreviousConditionsRun = true;
+                                    instruction.Run();
+                                }
+                            }
+                            else if (((Elif)instruction).secondMethod == "is_obstacle")
+                            {
+                                //burada ground mu diye kontrol etmek gerekiyor
+                                Vector2 direction = new Vector2(-1, 0);
+                                //groundTilemap vs waterTilemap ???
+                                Vector3Int leftTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
+                                //Oldu mu???
+                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && !((Elif)instruction).isThereNotOperator)
                                 {
                                     didPreviousConditionsRun = true;
                                     instruction.Run();
@@ -2868,6 +3027,19 @@ public class RunCodeButton : MonoBehaviour
                             upTilePosition = upTilePosition + Vector3Int.FloorToInt((Vector3)direction);
                         }
                     }
+                    else if (((While)instruction).secondMethod == "is_obstacle")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(0, 1);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int upTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && !((While)instruction).isThereNotOperator)
+                        {
+                            instruction.Run();
+                            upTilePosition = upTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
                 }
                 else if (((While)instruction).firstMethod == "right_tile")
                 {
@@ -2891,6 +3063,19 @@ public class RunCodeButton : MonoBehaviour
                         Vector3Int rightTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
                         //Oldu mu???
                         while (((While)instruction).characterMovement.waterTilemap.HasTile(rightTilePosition) && !((While)instruction).isThereNotOperator)
+                        {
+                            instruction.Run();
+                            rightTilePosition = rightTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                    else if (((While)instruction).secondMethod == "is_obstacle")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(1, 0);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int rightTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && !((While)instruction).isThereNotOperator)
                         {
                             instruction.Run();
                             rightTilePosition = rightTilePosition + Vector3Int.FloorToInt((Vector3)direction);
@@ -2924,6 +3109,19 @@ public class RunCodeButton : MonoBehaviour
                             downTilePosition = downTilePosition + Vector3Int.FloorToInt((Vector3)direction);
                         }
                     }
+                    else if (((While)instruction).secondMethod == "is_obstacle")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(0, -1);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int downTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && !((While)instruction).isThereNotOperator)
+                        {
+                            instruction.Run();
+                            downTilePosition = downTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
                 }
                 else if (((While)instruction).firstMethod == "left_tile")
                 {
@@ -2947,6 +3145,19 @@ public class RunCodeButton : MonoBehaviour
                         Vector3Int leftTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
                         //Oldu mu???
                         while (((While)instruction).characterMovement.waterTilemap.HasTile(leftTilePosition) && !((While)instruction).isThereNotOperator)
+                        {
+                            instruction.Run();
+                            leftTilePosition = leftTilePosition + Vector3Int.FloorToInt((Vector3)direction);
+                        }
+                    }
+                    else if (((While)instruction).secondMethod == "is_obstacle")
+                    {
+                        //burada ground mu diye kontrol etmek gerekiyor
+                        Vector2 direction = new Vector2(-1, 0);
+                        //groundTilemap vs waterTilemap ???
+                        Vector3Int leftTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
+                        //Oldu mu???
+                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && !((While)instruction).isThereNotOperator)
                         {
                             instruction.Run();
                             leftTilePosition = leftTilePosition + Vector3Int.FloorToInt((Vector3)direction);
