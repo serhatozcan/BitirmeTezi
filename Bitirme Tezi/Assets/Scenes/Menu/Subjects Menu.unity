@@ -342,8 +342,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1417138231}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: OpenLoginPage
+        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+        m_MethodName: OpenSubject2Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -746,8 +746,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1417138231}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: OpenLoginPage
+        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+        m_MethodName: OpenSubject5Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1273,8 +1273,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1417138231}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: OpenLoginPage
+        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+        m_MethodName: OpenSubject4Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1618,8 +1618,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1417138231}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: OpenLoginPage
+        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+        m_MethodName: OpenSubject3Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2306,6 +2306,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6667b1bdcd4e3a24db22f72df89bc8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subjectNumber: 0
+  Subject1_Level1: {fileID: 0}
+  Subject1_Level2: {fileID: 0}
+  Subject1_Level3: {fileID: 0}
+  Subject1_Level4: {fileID: 0}
+  Subject1_Level5: {fileID: 0}
+  Subject1_Level6: {fileID: 0}
+  Subject2_Level1: {fileID: 0}
+  Subject2_Level2: {fileID: 0}
+  Subject2_Level3: {fileID: 0}
+  Subject2_Level4: {fileID: 0}
+  Subject2_Level5: {fileID: 0}
+  Subject2_Level6: {fileID: 0}
+  Subject3_Level1: {fileID: 0}
+  Subject3_Level2: {fileID: 0}
+  Subject3_Level3: {fileID: 0}
+  Subject3_Level4: {fileID: 0}
+  Subject3_Level5: {fileID: 0}
+  Subject3_Level6: {fileID: 0}
+  Subject4_Level1: {fileID: 0}
+  Subject4_Level2: {fileID: 0}
+  Subject4_Level3: {fileID: 0}
+  Subject4_Level4: {fileID: 0}
+  Subject4_Level5: {fileID: 0}
+  Subject4_Level6: {fileID: 0}
+  Subject5_Level1: {fileID: 0}
+  Subject5_Level2: {fileID: 0}
+  Subject5_Level3: {fileID: 0}
+  Subject5_Level4: {fileID: 0}
+  Subject5_Level5: {fileID: 0}
+  Subject5_Level6: {fileID: 0}
+  Subject6_Level1: {fileID: 0}
+  Subject6_Level2: {fileID: 0}
+  Subject6_Level3: {fileID: 0}
+  Subject6_Level4: {fileID: 0}
+  Subject6_Level5: {fileID: 0}
+  Subject6_Level6: {fileID: 0}
 --- !u!1 &1482558425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,8 +2754,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1417138231}
-        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
-        m_MethodName: OpenLoginPage
+        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+        m_MethodName: OpenSubject6Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

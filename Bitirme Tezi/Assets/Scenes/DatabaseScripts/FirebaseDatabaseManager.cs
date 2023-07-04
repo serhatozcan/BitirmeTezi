@@ -26,7 +26,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
     [Space]
     [Header("Levels")]
-    public string subjectNumber;
+    public int subjectNumber;
     public GameObject Level1Button;
     public GameObject Level2Button;
     public GameObject Level3Button;
@@ -43,6 +43,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         ReadProgressionData(subjectNumber);
         //ReadChildrenOfParentData();
+        AddOnClicksOfSubject();
     }
 
     public void OpenAndCloseChildUserOptionsMenu()
@@ -126,7 +127,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
 
 
-    public void ReadProgressionData(string subjectNumber)
+    public void ReadProgressionData(int subjectNumber)
     {
         Debug.Log("1");
         //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
@@ -164,10 +165,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
         });
     }
 
-    public void OpenSubject1Level5()
-    {
-        SceneManager.LoadScene("Subject1Level5");
-    }
+   
    
     public void OpenSubjectsMenu()
     {
@@ -180,4 +178,38 @@ public class FirebaseDatabaseManager : MonoBehaviour
         SceneManager.LoadScene("Real Main Menu");
         Debug.Log("Main menu");
     }
+
+
+
+
+    public void OpenSubject1Level5()
+    {
+        SceneManager.LoadScene("Subject1Level5");
+    }
+
+
+
+
+
+
+
+    public void OnClickLevelButton(int subjectNumber, int levelNumber)
+    {
+        SceneManager.LoadScene("Subject" + subjectNumber + "Level" + levelNumber);
+    }
+    public void AddOnClicksOfSubject()
+    {
+
+        Level1Button.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(subjectNumber, 1));
+        Level2Button.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(subjectNumber, 2));
+        Level3Button.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(subjectNumber, 3));
+        Level4Button.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(subjectNumber, 4));
+        Level5Button.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(subjectNumber, 5));
+        Level6Button.GetComponentInChildren<Button>().onClick.AddListener(() => OnClickLevelButton(subjectNumber, 6));
+
+    }
+
+
+
+
 }

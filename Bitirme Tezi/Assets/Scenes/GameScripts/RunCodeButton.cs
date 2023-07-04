@@ -370,6 +370,10 @@ public class RunCodeButton : MonoBehaviour
     FirebaseUser user;
     DatabaseReference databaseReference;
 
+    [Header("Kod Sayfa Sayısı")]
+    public int codePageCount;
+
+
     public bool isWaitingInstruction;
 
     [Header("Subject and Level")]
@@ -449,11 +453,10 @@ public class RunCodeButton : MonoBehaviour
         gameOverPanel.SetActive(false);
         instructionList.Clear();
 
-
-
         characterMovement.transform.position = characterStartingPosition;
         inputField1.interactable = true;
-        inputField2.interactable = true;
+        if (codePageCount == 2)
+            inputField2.interactable = true;
         optionsButton.GetComponent<Button>().interactable = true;
         runButton.GetComponent<Button>().interactable = true;
 
@@ -472,7 +475,8 @@ public class RunCodeButton : MonoBehaviour
             optionsPanel.SetActive(true);
             Time.timeScale = 0;
             inputField1.interactable = false;
-            inputField2.interactable = false;
+            if (codePageCount == 2)
+                inputField2.interactable = false;
             runButton.GetComponent<Button>().interactable = false;
         }
         else
@@ -480,7 +484,8 @@ public class RunCodeButton : MonoBehaviour
             optionsPanel.SetActive(false);
             Time.timeScale = 1;
             inputField1.interactable = true;
-            inputField2.interactable = true;
+            if (codePageCount == 2)
+                inputField2.interactable = true;
             runButton.GetComponent<Button>().interactable = true;
         }
 
@@ -617,10 +622,14 @@ public class RunCodeButton : MonoBehaviour
 
 
         string inputText1 = inputField1.text;
-        string inputText2 = inputField2.text;
+        string inputText2 = null;
+        if (codePageCount == 2)
+            inputText2 = inputField2.text;
 
         string[] rows1 = inputText1.Split("\n");
-        string[] rows2 = inputText2.Split("\n");
+        string[] rows2 = null;
+        if (codePageCount == 2)
+            rows2 = inputText2.Split("\n");
 
         //indentation buyuklugu
         int n = 2;
@@ -634,7 +643,8 @@ public class RunCodeButton : MonoBehaviour
 
         //List<string> classInitParameters = new List<string>();
 
-        if (!String.IsNullOrEmpty(inputText2))
+
+        if (codePageCount == 2 && !String.IsNullOrEmpty(inputText2))
         {
             List<string> initAssignments = new List<string>();
             int indentation = 0;
@@ -1269,9 +1279,6 @@ public class RunCodeButton : MonoBehaviour
 
         }
 
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //eger string bos degilse
         if (!String.IsNullOrEmpty(inputText1))
         {
             //List<Instruction> instructions = new List<Instruction>();
@@ -1300,7 +1307,7 @@ public class RunCodeButton : MonoBehaviour
                 {
 
                     //birden fazla import sat�r� istenmedi�i i�in bir tane olacak �ekilde ayarland�. 
-                    if (isFirstRow)
+                    if (codePageCount == 2 && isFirstRow)
                     {
                         int c = 0;
                         while (rows1[i][c] == ' ')
@@ -1356,7 +1363,7 @@ public class RunCodeButton : MonoBehaviour
                         isClassInstanceRow = true;
                     }
                     //buraya eklenebilir.
-                    else if (isClassInstanceRow)
+                    else if (codePageCount == 2 && isClassInstanceRow)
                     {
 
                         int c = 0;
@@ -1946,7 +1953,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
 
                                             }
-                                            else if (methodName.Substring(0, 9) == "set_color")
+                                            else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_color")
                                             {
                                                 methodParameterPart = methodParameterPart.Trim();
 
@@ -1972,7 +1979,7 @@ public class RunCodeButton : MonoBehaviour
                                                 }
 
                                             }
-                                            else if (methodName.Substring(0, 9) == "set_shape")
+                                            else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_shape")
                                             {
                                                 methodParameterPart = methodParameterPart.Trim();
                                                 if (methodParameterPart[methodParameterPart.Length - 1] != ')')
@@ -2432,27 +2439,37 @@ public class RunCodeButton : MonoBehaviour
 
             }
 
-            Debug.Log(instructionList.Count);
-            foreach (Instruction v in instructionList)
-                Debug.Log(v.ToString());
 
-
-            CheckLevelConditions(subjectNumber, levelNumber, instructionList);
-
-
-            RunInstructions(instructionList);
-
-
-
-            //BOLUM GECME KISMI
-            Vector3Int characterFinalPosition = characterMovement.groundTilemap.WorldToCell(characterMovement.transform.position);
-            if (characterMovement.chestPositionTilemap.HasTile(characterFinalPosition))
-            {
-                chestAnimator.SetBool("opening", true);
-                //burada bolum gecilmis olacak.
-                SubmitLevelAsPassed();
-            }
         }
+
+
+
+
+        Debug.Log(instructionList.Count);
+        foreach (Instruction v in instructionList)
+            Debug.Log(v.ToString());
+
+
+        CheckLevelConditions(subjectNumber, levelNumber, instructionList);
+
+
+        RunInstructions(instructionList);
+
+
+
+        //BOLUM GECME KISMI
+        Vector3Int characterFinalPosition = characterMovement.groundTilemap.WorldToCell(characterMovement.transform.position);
+        if (characterMovement.chestPositionTilemap.HasTile(characterFinalPosition))
+        {
+            chestAnimator.SetBool("opening", true);
+            //burada bolum gecilmis olacak.
+            SubmitLevelAsPassed();
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        //eger string bos degilse
+
     }
 
 
