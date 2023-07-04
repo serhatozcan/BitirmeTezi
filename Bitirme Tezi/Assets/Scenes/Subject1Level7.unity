@@ -4511,6 +4511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a4663f37cc44d4e92fbc65435c40a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  codePageCount: 0
   isWaitingInstruction: 0
   subjectNumber: 1
   levelNumber: 7
@@ -10701,6 +10702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Debug Texts (+ReadMe) (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2432669638323322095, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2432669638419263385, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
       value: "from SimpleCharacter import SimpleCharacter\n\ncharacter = SimpleCharacter(square,blue)\nif
@@ -14928,6 +14933,10 @@ PrefabInstance:
     - target: {fileID: 2432669638323322095, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_Name
       value: Debug Texts (+ReadMe)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2432669638323322095, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2432669638419263385, guid: f9f7326a5ee54654f8e892981101705d, type: 3}
       propertyPath: m_text
