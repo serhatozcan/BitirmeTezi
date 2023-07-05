@@ -449,7 +449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kategori 1
+  m_text: "Konu 1: \\nKodlamaya Giri\u015F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -476,8 +476,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
-  m_fontSizeBase: 47
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -584,7 +584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kategori 3
+  m_text: "Konu 3:\\nIf else Yap\u0131s\u0131"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kategori 6
+  m_text: "Konu 6:\\nNesne Y\xF6nelimli Programlama"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kategori 2
+  m_text: "Konu 2:\\nFor D\xF6ng\xFCs\xFC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2307,42 +2307,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subjectNumber: 0
-  Subject1_Level1: {fileID: 0}
-  Subject1_Level2: {fileID: 0}
-  Subject1_Level3: {fileID: 0}
-  Subject1_Level4: {fileID: 0}
-  Subject1_Level5: {fileID: 0}
-  Subject1_Level6: {fileID: 0}
-  Subject2_Level1: {fileID: 0}
-  Subject2_Level2: {fileID: 0}
-  Subject2_Level3: {fileID: 0}
-  Subject2_Level4: {fileID: 0}
-  Subject2_Level5: {fileID: 0}
-  Subject2_Level6: {fileID: 0}
-  Subject3_Level1: {fileID: 0}
-  Subject3_Level2: {fileID: 0}
-  Subject3_Level3: {fileID: 0}
-  Subject3_Level4: {fileID: 0}
-  Subject3_Level5: {fileID: 0}
-  Subject3_Level6: {fileID: 0}
-  Subject4_Level1: {fileID: 0}
-  Subject4_Level2: {fileID: 0}
-  Subject4_Level3: {fileID: 0}
-  Subject4_Level4: {fileID: 0}
-  Subject4_Level5: {fileID: 0}
-  Subject4_Level6: {fileID: 0}
-  Subject5_Level1: {fileID: 0}
-  Subject5_Level2: {fileID: 0}
-  Subject5_Level3: {fileID: 0}
-  Subject5_Level4: {fileID: 0}
-  Subject5_Level5: {fileID: 0}
-  Subject5_Level6: {fileID: 0}
-  Subject6_Level1: {fileID: 0}
-  Subject6_Level2: {fileID: 0}
-  Subject6_Level3: {fileID: 0}
-  Subject6_Level4: {fileID: 0}
-  Subject6_Level5: {fileID: 0}
-  Subject6_Level6: {fileID: 0}
 --- !u!1 &1482558425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,8 +2494,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 300, y: 250}
-  m_Spacing: {x: 200, y: 200}
+  m_CellSize: {x: 375, y: 300}
+  m_Spacing: {x: 75, y: 100}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &1769648645
@@ -2592,7 +2556,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kategori 5
+  m_text: "Konu 5: \\n\u0130\xE7 \u0130\xE7e \u0130fadeler"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2852,11 +2816,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8344599166877656417, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 420.25
+      value: 515.58
       objectReference: {fileID: 0}
     - target: {fileID: 8344599166877656417, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 90
+      value: 129.65
       objectReference: {fileID: 0}
     - target: {fileID: 8344599166877656417, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2888,11 +2852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8344599166877656417, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 719.39
+      value: 671.72986
       objectReference: {fileID: 0}
     - target: {fileID: 8344599166877656417, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 417
+      value: 407.77
       objectReference: {fileID: 0}
     - target: {fileID: 8344599166877656417, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2909,6 +2873,10 @@ PrefabInstance:
     - target: {fileID: 8344599166877656430, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
       propertyPath: m_Name
       value: UserOptionsButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8344599166958004314, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
+      propertyPath: m_text
+      value: "Kullan\u0131c\u0131"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c64112b034c41244806d0da1a2267ab, type: 3}
@@ -2980,7 +2948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kategori 4
+  m_text: "Konu 4:\\nWhile D\xF6ng\xFCs\xFC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
