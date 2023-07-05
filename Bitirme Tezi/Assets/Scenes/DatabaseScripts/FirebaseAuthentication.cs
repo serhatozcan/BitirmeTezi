@@ -82,6 +82,12 @@ public class FirebaseAuthentication : MonoBehaviour
     public TMP_InputField childPasswordRegisterField;
     public TMP_InputField childConfirmPasswordRegisterField;
 
+    [Space]
+    [Header("Error messages")]
+    public GameObject loginMenuErrorMessage;
+    public GameObject registerParentMenuErrorMessage;
+    public GameObject registerChildOfParentMenuErrorMessage;
+    public GameObject registerSingleChildMenuErrorMessage;
 
     [Space]
     [Header("Options For Parent")]
@@ -304,6 +310,27 @@ public class FirebaseAuthentication : MonoBehaviour
 
     //-----------------------------------------------------------------------------
 
+    public void LoginMenuErrorMessage(string errorMessage)
+    {
+        loginMenuErrorMessage.SetActive(true);
+        loginMenuErrorMessage.GetComponent<TMP_Text>().SetText(errorMessage);
+    }
+    public void RegisterSingleChildMenuErrorMessage(string errorMessage)
+    {
+        registerSingleChildMenuErrorMessage.SetActive(true);
+        registerSingleChildMenuErrorMessage.GetComponent<TMP_Text>().SetText(errorMessage);
+    }
+    public void RegisterChildOfParentMenuErrorMessage(string errorMessage)
+    {
+        registerChildOfParentMenuErrorMessage.SetActive(true);
+        registerChildOfParentMenuErrorMessage.GetComponent<TMP_Text>().SetText(errorMessage);
+    }
+    public void RegisterParentMenuErrorMessage(string errorMessage)
+    {
+        registerParentMenuErrorMessage.SetActive(true);
+        registerParentMenuErrorMessage.GetComponent<TMP_Text>().SetText(errorMessage);
+    }
+
     public void GetUserData()
     {
         FirebaseUser user = auth.CurrentUser;
@@ -388,6 +415,7 @@ public class FirebaseAuthentication : MonoBehaviour
             }
 
             Debug.Log(failedMessage);
+            LoginMenuErrorMessage(failedMessage);
         }
         else
         {
@@ -401,6 +429,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 if (task.IsFaulted)
                 {
                     Debug.Log("2");
+                    LoginMenuErrorMessage("Veri tabanı bağlantısında hata oldu");
                     // Handle the error...
                 }
                 else if (task.IsCompleted)
@@ -422,6 +451,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 if (task.IsFaulted)
                 {
                     Debug.Log("2");
+                    LoginMenuErrorMessage("Veri tabanı bağlantısında hata oldu.");
                     // Handle the error...
                 }
                 else if (task.IsCompleted)
@@ -553,18 +583,22 @@ public class FirebaseAuthentication : MonoBehaviour
         if (firstName == "")
         {
             Debug.LogError("Ad boş bırakılamaz");
+            RegisterSingleChildMenuErrorMessage("Ad boş bırakılamaz");
         }
         else if (lastName == "")
         {
             Debug.LogError("Soyad boş bırakılamaz");
+            RegisterSingleChildMenuErrorMessage("Soyad boş bırakılamaz");
         }
         else if (email == "")
         {
             Debug.LogError("E-posta boş bırakılamaz");
+            RegisterSingleChildMenuErrorMessage("E-posta boş bırakılamaz");
         }
         else if (password != confirmPassword)
         {
             Debug.LogError("Şifreler aynı değil");
+            RegisterSingleChildMenuErrorMessage("Şifreler uyuşmuyor");
         }
         else
         {
@@ -575,7 +609,7 @@ public class FirebaseAuthentication : MonoBehaviour
             if (registerTask.Exception != null)
             {
                 Debug.LogError(registerTask.Exception);
-
+                RegisterSingleChildMenuErrorMessage("Veri tabanına kaydederken hata oldu");
                 FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
 
@@ -600,6 +634,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
 
                 Debug.Log(failedMessage);
+                RegisterSingleChildMenuErrorMessage(failedMessage);
             }
             else
             {
@@ -618,6 +653,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     user.DeleteAsync();
 
                     Debug.LogError(updateProfileTask.Exception);
+                    RegisterSingleChildMenuErrorMessage("Kullanıcı kaydedilemedi.");
 
                     FirebaseException firebaseException = updateProfileTask.Exception.GetBaseException() as FirebaseException;
                     AuthError authError = (AuthError)firebaseException.ErrorCode;
@@ -644,6 +680,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     }
 
                     Debug.Log(failedMessage);
+                    RegisterSingleChildMenuErrorMessage(failedMessage);
                 }
                 else
                 {
@@ -684,18 +721,22 @@ public class FirebaseAuthentication : MonoBehaviour
         if (firstName == "")
         {
             Debug.LogError("Ad boş bırakılamaz");
+            RegisterParentMenuErrorMessage("Ad boş bırakılamaz");
         }
         else if (lastName == "")
         {
             Debug.LogError("Soyad boş bırakılamaz");
+            RegisterParentMenuErrorMessage("Soyad boş bırakılamaz");
         }
         else if (email == "")
         {
             Debug.LogError("E-posta boş bırakılamaz");
+            RegisterParentMenuErrorMessage("E-posta boş bırakılamaz");
         }
         else if (password != confirmPassword)
         {
             Debug.LogError("Şifreler aynı değil");
+            RegisterParentMenuErrorMessage("Şifreler uyuşmuyor.");
         }
         else
         {
@@ -706,6 +747,7 @@ public class FirebaseAuthentication : MonoBehaviour
             if (registerTask.Exception != null)
             {
                 Debug.LogError(registerTask.Exception);
+                RegisterParentMenuErrorMessage("Veri tabanına kaydederken hata oldu.");
 
                 FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
@@ -731,6 +773,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
 
                 Debug.Log(failedMessage);
+                RegisterParentMenuErrorMessage(failedMessage);
             }
             else
             {
@@ -749,6 +792,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     user.DeleteAsync();
 
                     Debug.LogError(updateProfileTask.Exception);
+                    RegisterParentMenuErrorMessage("Kullanıcı kaydedilemedi.");
 
                     FirebaseException firebaseException = updateProfileTask.Exception.GetBaseException() as FirebaseException;
                     AuthError authError = (AuthError)firebaseException.ErrorCode;
@@ -775,6 +819,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     }
 
                     Debug.Log(failedMessage);
+                    RegisterParentMenuErrorMessage(failedMessage);
                 }
                 else
                 {
@@ -810,18 +855,22 @@ public class FirebaseAuthentication : MonoBehaviour
         if (firstName == "")
         {
             Debug.LogError("Ad boş bırakılamaz");
+            RegisterChildOfParentMenuErrorMessage("Ad boş bırakılamaz");
         }
         else if (lastName == "")
         {
             Debug.LogError("Soyad boş bırakılamaz");
+            RegisterChildOfParentMenuErrorMessage("Soyad boş bırakılamaz");
         }
         else if (email == "")
         {
             Debug.LogError("E-posta boş bırakılamaz");
+            RegisterChildOfParentMenuErrorMessage("E-posta boş bırakılamaz");
         }
         else if (password != confirmPassword)
         {
             Debug.LogError("Şifreler aynı değil");
+            RegisterChildOfParentMenuErrorMessage("Şifreler uyuşmuyor");
         }
         else
         {
@@ -832,6 +881,7 @@ public class FirebaseAuthentication : MonoBehaviour
             if (registerTask.Exception != null)
             {
                 Debug.LogError(registerTask.Exception);
+                RegisterChildOfParentMenuErrorMessage("Veri tabanına kaydederken hata oldu");
 
                 FirebaseException firebaseException = registerTask.Exception.GetBaseException() as FirebaseException;
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
@@ -857,6 +907,7 @@ public class FirebaseAuthentication : MonoBehaviour
                 }
 
                 Debug.Log(failedMessage);
+                RegisterChildOfParentMenuErrorMessage(failedMessage);
             }
             else
             {
@@ -875,7 +926,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     user.DeleteAsync();
 
                     Debug.LogError(updateProfileTask.Exception);
-
+                    RegisterChildOfParentMenuErrorMessage("Kullanıcı kaydedilemedi");
                     FirebaseException firebaseException = updateProfileTask.Exception.GetBaseException() as FirebaseException;
                     AuthError authError = (AuthError)firebaseException.ErrorCode;
 
@@ -901,6 +952,7 @@ public class FirebaseAuthentication : MonoBehaviour
                     }
 
                     Debug.Log(failedMessage);
+                    RegisterChildOfParentMenuErrorMessage(failedMessage);
                 }
                 else
                 {
