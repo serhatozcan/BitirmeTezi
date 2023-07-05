@@ -1908,9 +1908,10 @@ public class RunCodeButton : MonoBehaviour
                                             if (methodName.Substring(0, 4) == "move")
                                             {
                                                 methodParameterPart = methodParameterPart.Replace(" ", "");
-                                                if (methodPart != ")")
+                                                if (methodParameterPart != ")")
                                                 {
                                                     Debug.Log("hata");
+                                                    Debug.Log(methodPart);
                                                     GameOver("move methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: move_up()");
                                                 }
                                                 else
@@ -1952,7 +1953,7 @@ public class RunCodeButton : MonoBehaviour
                                             else if (methodName.Substring(0, 4) == "swim")
                                             {
                                                 methodParameterPart = methodParameterPart.Replace(" ", "");
-                                                if (methodPart != ")")
+                                                if (methodParameterPart != ")")
                                                 {
                                                     Debug.Log("hata");
                                                     GameOver("swim methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: swim_up()");
