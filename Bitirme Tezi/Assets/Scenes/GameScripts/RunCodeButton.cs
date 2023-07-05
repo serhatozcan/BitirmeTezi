@@ -741,7 +741,7 @@ public class RunCodeButton : MonoBehaviour
                     catch (Exception e)
                     {
                         Debug.Log(e.Message);
-                        GameOver("Hata");
+                        GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                     }
 
 
@@ -843,6 +843,7 @@ public class RunCodeButton : MonoBehaviour
                     catch (Exception e)
                     {
                         Debug.Log("hata");
+                        GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                     }
 
 
@@ -962,7 +963,8 @@ public class RunCodeButton : MonoBehaviour
                         }
                         catch (Exception e)
                         {
-
+                            Debug.Log(e.Message);
+                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                         }
                     }
 
@@ -1054,6 +1056,7 @@ public class RunCodeButton : MonoBehaviour
                         catch (Exception e)
                         {
                             Debug.Log(e.Message);
+                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                         }
                     }
 
@@ -1153,6 +1156,7 @@ public class RunCodeButton : MonoBehaviour
                         catch (Exception e)
                         {
                             Debug.Log("hata");
+                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                         }
                     }
 
@@ -1170,6 +1174,7 @@ public class RunCodeButton : MonoBehaviour
             if (initAssignments.Count != initParameters.Length - 1)
             {
                 Debug.Log("Atama sayıları yetersiz");
+                GameOver("Atama sayıları yetersiz. init parametrelerinin self keyword hariç tamamını atamanız gerekiyor.");
             }
             else
             {
@@ -1181,6 +1186,7 @@ public class RunCodeButton : MonoBehaviour
                         {
                             Debug.Log(parameter);
                             Debug.Log("hata");
+                            GameOver("Atamalarınızda hata/lar var.");
                         }
                     }
 
@@ -1266,6 +1272,8 @@ public class RunCodeButton : MonoBehaviour
                         catch (Exception e)
                         {
                             Debug.Log("hata");
+                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
+
                         }
 
 
@@ -1295,126 +1303,136 @@ public class RunCodeButton : MonoBehaviour
                         string trimmedRow = rows1[i].Trim();
 
                         string[] classInstanceParts;
-                        if (!trimmedRow.Contains("="))
+                        try
                         {
-                            GameOver("Bir " + className + " nesnesi oluşturmanız gerekiyor.");
-                            Debug.Log("Bir Character nesnesi oluşturmanız gerekiyor.");
-                        }
-                        else
-                        {
-
-                            classInstanceParts = trimmedRow.Split('=');
-
-                            classInstanceName = classInstanceParts[0].Trim();
-                            string classConstructor = classInstanceParts[1].Trim();
-
-
-                            if (!VariableCheck(classInstanceName))
+                            if (!trimmedRow.Contains("="))
                             {
-                                GameOver("Oluşturmak istediğiniz nesnenin adı değişken ismi kurallarına uygun olmalıdır.");
-                                Debug.Log("Class instance name:" + classInstanceName + "+");
-                                Debug.Log("hata");
-                            }
-
-                            else if (!classConstructor.Contains("(") || !classConstructor.Contains(")"))
-                            {
-                                GameOver(className + " nesnesi oluştururken parantezleri doğru kullanmanız gerekiyor.\nÖrnek: " + className + "(\"blue\")");
-                                Debug.Log("hata");
+                                GameOver("Bir " + className + " nesnesi oluşturmanız gerekiyor.");
+                                Debug.Log("Bir Character nesnesi oluşturmanız gerekiyor.");
                             }
                             else
                             {
-                                string[] classConstructorParts = classConstructor.Split("(");
-                                string classNamePart = classConstructorParts[0].Trim();
-                                string classParametersPart = classConstructorParts[1].Trim();
-                                if (!VariableCheck(classNamePart))
+
+                                classInstanceParts = trimmedRow.Split('=');
+
+                                classInstanceName = classInstanceParts[0].Trim();
+                                string classConstructor = classInstanceParts[1].Trim();
+
+
+                                if (!VariableCheck(classInstanceName))
                                 {
-                                    //GameOver("");
-                                    Debug.Log("HATA");
+                                    GameOver("Oluşturmak istediğiniz nesnenin adı değişken ismi kurallarına uygun olmalıdır.");
+                                    Debug.Log("Class instance name:" + classInstanceName + "+");
+                                    Debug.Log("hata");
+                                }
+
+                                else if (!classConstructor.Contains("(") || !classConstructor.Contains(")"))
+                                {
+                                    GameOver(className + " nesnesi oluştururken parantezleri doğru kullanmanız gerekiyor.\nÖrnek: " + className + "(\"blue\")");
+                                    Debug.Log("hata");
                                 }
                                 else
                                 {
-                                    if (classParametersPart[classParametersPart.Length - 1] != ')')
+                                    string[] classConstructorParts = classConstructor.Split("(");
+                                    string classNamePart = classConstructorParts[0].Trim();
+                                    string classParametersPart = classConstructorParts[1].Trim();
+                                    if (!VariableCheck(classNamePart))
                                     {
-                                        Debug.Log("hata");
-                                        GameOver("Parantez hatası: class nesnesi oluştururken parantezi kapatmanız gerekiyor.");
+                                        //GameOver("");
+                                        Debug.Log("HATA");
                                     }
                                     else
                                     {
-                                        Debug.Log("hey");
-                                        classParametersPart = classParametersPart.Substring(0, classParametersPart.Length - 1);
-                                        Debug.Log(classParametersPart);
-                                        string[] classParameters = classParametersPart.Split(',');
-
-                                        if (classParameters.Length != initParameters.Length - 1)
+                                        if (classParametersPart[classParametersPart.Length - 1] != ')')
                                         {
                                             Debug.Log("hata");
-                                            GameOver("self keyword olmadan init komutuna yazdığınız parametrelere sırasıyla uygun değerler yazmanız gerekiyor.");
+                                            GameOver("Parantez hatası: class nesnesi oluştururken parantezi kapatmanız gerekiyor.");
                                         }
                                         else
                                         {
                                             Debug.Log("hey");
-                                            for (int j = 1; j < initParameters.Length; j++)
+                                            classParametersPart = classParametersPart.Substring(0, classParametersPart.Length - 1);
+                                            Debug.Log(classParametersPart);
+                                            string[] classParameters = classParametersPart.Split(',');
+
+                                            if (classParameters.Length != initParameters.Length - 1)
                                             {
-                                                //classParameters[j].Trim();
-                                                string parameter = classParameters[j - 1].Trim();
-                                                if (initParameters[j] == "shape")
-                                                {
-                                                    if (parameter.Trim() == "circle")
-                                                    {
-                                                        characterColorAndShapeChanger.ChangeShapeToCircle();
-                                                        Debug.Log("circleeee");
-
-                                                    }
-                                                    else if (parameter == "square")
-                                                    {
-                                                        characterColorAndShapeChanger.ChangeShapeToSquare();
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.Log("hata");
-                                                        GameOver("shape parametresine uygun bir şekil yazmanız gerekiyor. Uygun şekiller: circle, square");
-                                                    }
-                                                }
-                                                else if (initParameters[j] == "color")
-                                                {
-                                                    Debug.Log("+" + parameter + "+");
-                                                    if (parameter == "red")
-                                                    {
-                                                        characterColorAndShapeChanger.ChangeColorToRed();
-                                                    }
-                                                    else if (parameter == "green")
-                                                    {
-                                                        Debug.Log("gg");
-                                                        characterColorAndShapeChanger.ChangeColorToGreen();
-                                                        Debug.Log("greeeeen");
-                                                    }
-                                                    else if (parameter == "blue")
-                                                    {
-                                                        characterColorAndShapeChanger.ChangeColorToBlue();
-                                                    }
-                                                    else if (parameter == "yellow")
-                                                    {
-                                                        characterColorAndShapeChanger.ChangeColorToYellow();
-                                                    }
-                                                    else
-                                                    {
-                                                        Debug.Log("hata");
-                                                        GameOver("color parametresine uygun bir renk yazman�z gerekiyor. Uygun renkler: red, green, blue, yellow");
-                                                    }
-
-                                                }
-
+                                                Debug.Log("hata");
+                                                GameOver("self keyword olmadan init komutuna yazdığınız parametrelere sırasıyla uygun değerler yazmanız gerekiyor.");
                                             }
-                                            Debug.Log("burada");
+                                            else
+                                            {
+                                                Debug.Log("hey");
+                                                for (int j = 1; j < initParameters.Length; j++)
+                                                {
+                                                    //classParameters[j].Trim();
+                                                    string parameter = classParameters[j - 1].Trim();
+                                                    if (initParameters[j] == "shape")
+                                                    {
+                                                        if (parameter.Trim() == "circle")
+                                                        {
+                                                            characterColorAndShapeChanger.ChangeShapeToCircle();
+                                                            Debug.Log("circleeee");
+
+                                                        }
+                                                        else if (parameter == "square")
+                                                        {
+                                                            characterColorAndShapeChanger.ChangeShapeToSquare();
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.Log("hata");
+                                                            GameOver("shape parametresine uygun bir şekil yazmanız gerekiyor. Uygun şekiller: circle, square");
+                                                        }
+                                                    }
+                                                    else if (initParameters[j] == "color")
+                                                    {
+                                                        Debug.Log("+" + parameter + "+");
+                                                        if (parameter == "red")
+                                                        {
+                                                            characterColorAndShapeChanger.ChangeColorToRed();
+                                                        }
+                                                        else if (parameter == "green")
+                                                        {
+                                                            Debug.Log("gg");
+                                                            characterColorAndShapeChanger.ChangeColorToGreen();
+                                                            Debug.Log("greeeeen");
+                                                        }
+                                                        else if (parameter == "blue")
+                                                        {
+                                                            characterColorAndShapeChanger.ChangeColorToBlue();
+                                                        }
+                                                        else if (parameter == "yellow")
+                                                        {
+                                                            characterColorAndShapeChanger.ChangeColorToYellow();
+                                                        }
+                                                        else
+                                                        {
+                                                            Debug.Log("hata");
+                                                            GameOver("color parametresine uygun bir renk yazman�z gerekiyor. Uygun renkler: red, green, blue, yellow");
+                                                        }
+
+                                                    }
+
+                                                }
+                                                Debug.Log("burada");
+                                            }
+
                                         }
 
                                     }
-
                                 }
                             }
-                        }
 
-                        character.SetActive(true);
+                            character.SetActive(true);
+                        }
+                        catch(Exception e)
+                        {
+                            Debug.Log("hata");
+                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
+
+                        }
+                        
                         Debug.Log("activve");
                         isClassInstanceRow = false;
                     }
@@ -1948,8 +1966,8 @@ public class RunCodeButton : MonoBehaviour
                                         }
                                         catch (Exception ex)
                                         {
-                                            GameOver("Hata: " + ex.Message);
-
+                                            //GameOver("Hata: " + ex.Message);
+                                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                                             Debug.Log(ex.Message);
                                         }
                                     }
@@ -2423,7 +2441,8 @@ public class RunCodeButton : MonoBehaviour
                         }
                         catch (Exception e)
                         {
-                            GameOver("Hata: " + e.Message);
+                            //GameOver("Hata: " + e.Message);
+                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
                             Debug.Log(e.Message);
                         }
 
