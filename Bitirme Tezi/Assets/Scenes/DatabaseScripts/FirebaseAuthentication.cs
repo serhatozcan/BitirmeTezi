@@ -961,7 +961,7 @@ public class FirebaseAuthentication : MonoBehaviour
             }
         }
         //Gerek var mi?
-        parentId = null;
+        //parentId = null;
     }
     //-----------------------------------------------------------------------------
     public void OpenMainMenu()
