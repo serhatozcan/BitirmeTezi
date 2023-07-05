@@ -110,6 +110,7 @@ public class FirebaseAuthentication : MonoBehaviour
     //******
     [Space]
     [Space]
+    public TMP_Text nameOfObservedChild;
     [Space]
     public GameObject progressionOfChildCanvas;
     [Space]
@@ -170,6 +171,9 @@ public class FirebaseAuthentication : MonoBehaviour
     List<GameObject> level6Objects;
     bool signedIn;
 
+    public string observedChildFirstName;
+    public string observedChildLastName;
+
     private void Awake()
     {
         // Check that all of the necessary dependencies for firebase are present on the system
@@ -210,8 +214,10 @@ public class FirebaseAuthentication : MonoBehaviour
 
                         //OpenChildrenOfaParentMenu();
                         //currentObservedChild = childKey;
-                        OpenProgressionOfChild();
+                        //OpenProgressionOfChild();
+                        OpenProgressionOfChildWithoutNewNames();
                         //Bu key kullanılarak progression sayfasinda cocugun adi yazdirilabilir.
+                        //nameOfObservedChild = currentObservedChild
                         ReadProgressionData(currentObservedChild);
                     }
                 }
@@ -1082,12 +1088,19 @@ public class FirebaseAuthentication : MonoBehaviour
 
     }
 
-    public void OpenProgressionOfChild()
+    public void OpenProgressionOfChildWithoutNewNames()
     {
         TurnOffAllPages();
         progressionOfChildCanvas.SetActive(true);
+       // currentObservedChild= nameOfChild;
     }
-
+    public void OpenProgressionOfChildWithNewNames(string firstName, string lastName)
+    {
+        TurnOffAllPages();
+        progressionOfChildCanvas.SetActive(true);
+        nameOfObservedChild.SetText(firstName+" "+lastName+ " İlerleme Durumu");
+        // currentObservedChild= nameOfChild;
+    }
 
     public void TurnOffAllPages()
     {
@@ -1182,7 +1195,7 @@ public class FirebaseAuthentication : MonoBehaviour
                             //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
                             //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
 
-                            button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
+                            button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key, firstName, lastName));//Setting what button does when clicked
                                                                                                         //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
                             button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
                             //listOfChildrenButtons.Add(button);
@@ -1201,10 +1214,10 @@ public class FirebaseAuthentication : MonoBehaviour
             }
         });
     }
-    void OnClick(string childKey)
+    void OnClick(string childKey, string firstName, string lastName)
     {
         currentObservedChild = childKey;
-        OpenProgressionOfChild();
+        OpenProgressionOfChildWithNewNames(firstName, lastName);
         AddOnclicksOfLevelButtons();
         ReadProgressionData(childKey);
     }

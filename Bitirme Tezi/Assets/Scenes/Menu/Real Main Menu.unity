@@ -40545,6 +40545,7 @@ MonoBehaviour:
   childUserOptionsButton: {fileID: 1763882790}
   childUserOptionsPanel: {fileID: 1588980345}
   subjectsPanel: {fileID: 0}
+  nameOfObservedChild: {fileID: 425921865}
   progressionOfChildCanvas: {fileID: 232957999}
   Subject1_Level1: {fileID: 19768581}
   Subject1_Level2: {fileID: 1469023023}
