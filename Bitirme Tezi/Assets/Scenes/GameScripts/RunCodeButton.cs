@@ -2475,7 +2475,7 @@ public class RunCodeButton : MonoBehaviour
             Debug.Log(v.ToString());
 
 
-        //CheckLevelConditions(subjectNumber, levelNumber, instructionList);
+        CheckLevelConditions(subjectNumber, levelNumber, instructionList);
 
 
         RunInstructions(instructionList);
