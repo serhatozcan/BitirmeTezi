@@ -2907,7 +2907,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "If else yap\u0131s\u0131 i\xE7inde karakterin sa\u011F taraf\u0131ndaki
+  m_text: "If elif komutlar\u0131n\u0131 kullanarak karakterin sa\u011F taraf\u0131ndaki
     blok suysa swim, karaysa move metoduyla karakteri sa\u011F blo\u011Fa g\xF6t\xFCr\xFCn. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -3237,8 +3237,8 @@ public class RunCodeButton : MonoBehaviour
                 if (instructionList[0].GetType() != typeof(If))
                 {
                     Debug.Log("hata");
-                    GameOver("Bu soruda if else yapısını kullanmanız gerekiyor.");
-                }else if (((If)instructionList[0]).firstMethod != "is_uptile")
+                    GameOver("Bu soruda if yapısını kullanmanız gerekiyor.");
+                }else if (((If)instructionList[0]).firstMethod != "up_tile")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin üstündeki bloğa ulaşmak için up_tile() metodunu kullanmanız gerekiyor.");
@@ -3246,18 +3246,64 @@ public class RunCodeButton : MonoBehaviour
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
-                }else if(instructionList[1].GetType() != typeof(Else))
+                }
+            }
+            else if (levelNumber == 2)
+            {
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda if else yapısını kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin sağındaki bloğa ulaşmak için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
+                else if (instructionList[1].GetType() != typeof(Else))
                 {
                     Debug.Log("hata");
                     GameOver("Bu soruda if else yapısını kullanmanız gerekiyor.");
                 }
             }
-            else if (levelNumber == 2)
-            {
-               
-            }
             else if (levelNumber == 3)
             {
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda if ve elif komutlarını  kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin sağındaki bloğa ulaşmak için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
+
+                else if (instructionList[1].GetType() != typeof(Elif))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda if ve elif komutlarını kullanmanız gerekiyor.");
+                }
+                else if (((Elif)instructionList[1]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("elif komutunda karakterin sağındaki bloğa ulaşmak için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((Elif)instructionList[1]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("elif komutunda bir bloğun kara olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
 
             }
             else if (levelNumber == 4)
