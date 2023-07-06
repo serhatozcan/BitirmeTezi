@@ -1485,760 +1485,521 @@ public class RunCodeButton : MonoBehaviour
                         Debug.Log(trimmedRow + " " + trimmedRow.Length);
                         Debug.Log(classInstanceName);
 
-                        //try
-                        //{
-                        if (trimmedRow.Substring(0, 2) == "if")
+                        try
                         {
-                            if (trimmedRow[trimmedRow.Length - 1] != ':')
+                            if (trimmedRow.Substring(0, 2) == "if")
                             {
-                                GameOver("if komutunun sonuna : eklemeniz gerekiyor.");
-                                Debug.Log("hata");
-                            }
-                            else
-                            {
-                                if (trimmedRow[trimmedRow.IndexOf("if") + 2] != ' ')
+                                if (trimmedRow[trimmedRow.Length - 1] != ':')
                                 {
-                                    GameOver("if komutu yazarken if yazdıktan sonra boşluk bırakmanız gerekiyor.");
-                                    Debug.Log("boşluk olmalı hata");
+                                    GameOver("if komutunun sonuna : eklemeniz gerekiyor.");
+                                    Debug.Log("hata");
                                 }
                                 else
                                 {
-                                    string booleanPart = trimmedRow.Substring(2).Trim();
-                                    string operatorType = null;
-
-                                    if (booleanPart.Contains("=="))
-                                        operatorType = "==";
-                                    else if (booleanPart.Contains("!="))
-                                        operatorType = "!=";
-                                    else if (booleanPart.Contains("<"))
-                                        operatorType = "<";
-                                    else if (booleanPart.Contains(">"))
-                                        operatorType = ">";
-
-                                    bool isThereNotOperator = false;
-
-                                    if (booleanPart.Substring(0, 3) == "not")
+                                    if (trimmedRow[trimmedRow.IndexOf("if") + 2] != ' ')
                                     {
-                                        isThereNotOperator = true;
-                                        booleanPart = booleanPart.Substring(3).Trim();
-
+                                        GameOver("if komutu yazarken if yazdıktan sonra boşluk bırakmanız gerekiyor.");
+                                        Debug.Log("boşluk olmalı hata");
                                     }
-
-
-
-                                    if (operatorType == null)
+                                    else
                                     {
-                                        string[] ifParts = booleanPart.Split('.');
-                                        string parameterPart = null;
+                                        string booleanPart = trimmedRow.Substring(2).Trim();
+                                        string operatorType = null;
 
-                                        //if (ifParts.Length == 2 || ifParts.Length == 3)
-                                        if (ifParts.Length == 3)
+                                        if (booleanPart.Contains("=="))
+                                            operatorType = "==";
+                                        else if (booleanPart.Contains("!="))
+                                            operatorType = "!=";
+                                        else if (booleanPart.Contains("<"))
+                                            operatorType = "<";
+                                        else if (booleanPart.Contains(">"))
+                                            operatorType = ">";
+
+                                        bool isThereNotOperator = false;
+
+                                        if (booleanPart.Substring(0, 3) == "not")
                                         {
+                                            isThereNotOperator = true;
+                                            booleanPart = booleanPart.Substring(3).Trim();
 
-                                            if (ifParts[0].Trim() != classInstanceName)
+                                        }
+
+
+
+                                        if (operatorType == null)
+                                        {
+                                            string[] ifParts = booleanPart.Split('.');
+                                            string parameterPart = null;
+
+                                            //if (ifParts.Length == 2 || ifParts.Length == 3)
+                                            if (ifParts.Length == 3)
                                             {
-                                                Debug.Log(ifParts[0]);
-                                                Debug.Log("classname2=" + classInstanceName);
-                                                GameOver("Bu problemde if komutunda " + classInstanceName + "'in metodlarını kullanarak kontrol yapmanız gerekiyor.\nÖrnek: if " + classInstanceName + ".up_tile().is_ground()");
-                                                Debug.Log("hata");
-                                            }
-                                            string firstMethod = null;
 
-                                            if (ifParts[1].Substring(0, 7) == "up_tile")
-                                            {
-                                                parameterPart = ifParts[1].Substring(7).Replace(" ", "");
-                                                if (parameterPart != "()")
+                                                if (ifParts[0].Trim() != classInstanceName)
                                                 {
-                                                    Debug.Log("hata");
-                                                    GameOver("Parantez hatası: up_tile metoduna ulaşmak için up_tile() yazmanız gerekiyor.");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "up_tile";
-
-                                                }
-
-                                            }
-                                            else if (ifParts[1].Substring(0, 9) == "down_tile")
-                                            {
-                                                parameterPart = ifParts[1].Substring(9).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: down_tile metoduna ulaşmak için down_tile() yazmanız gerekiyor.");
+                                                    Debug.Log(ifParts[0]);
+                                                    Debug.Log("classname2=" + classInstanceName);
+                                                    GameOver("Bu problemde if komutunda " + classInstanceName + "'in metodlarını kullanarak kontrol yapmanız gerekiyor.\nÖrnek: if " + classInstanceName + ".up_tile().is_ground()");
                                                     Debug.Log("hata");
                                                 }
-                                                else
-                                                {
-                                                    firstMethod = "down_tile";
+                                                string firstMethod = null;
 
-                                                }
-                                            }
-                                            else if (ifParts[1].Substring(0, 10) == "right_tile")
-                                            {
-                                                parameterPart = ifParts[1].Substring(10).Replace(" ", "");
-                                                if (parameterPart != "()")
+                                                if (ifParts[1].Substring(0, 7) == "up_tile")
                                                 {
-                                                    GameOver("Parantez hatası: right_tile metoduna ulaşmak için right_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "right_tile";
-
-                                                }
-                                            }
-                                            else if (ifParts[1].Substring(0, 9) == "left_tile")
-                                            {
-                                                parameterPart = ifParts[1].Substring(9).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: left_tile metoduna ulaşmak için left_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "left_tile";
-
-                                                }
-                                            }
-
-
-                                            string secondMethod = null;
-
-
-                                            if (ifParts[2].Substring(0, 9) == "is_ground")
-                                            {
-                                                parameterPart = ifParts[2].Substring(9).Replace(" ", "");
-                                                if (parameterPart[parameterPart.Length - 1] != ':')
-                                                {
-                                                    GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else if (parameterPart != "():")
-                                                {
-                                                    GameOver("Parantez hatası: is_ground metoduna ulaşmak için is_ground() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    secondMethod = "is_ground";
-                                                    If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                    AddInstruction(ifInstruction);
-                                                }
-
-                                            }
-                                            else if (ifParts[2].Substring(0, 8) == "is_water")
-                                            {
-                                                parameterPart = ifParts[2].Substring(8).Replace(" ", "");
-                                                if (parameterPart[parameterPart.Length - 1] != ':')
-                                                {
-                                                    GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else if (parameterPart != "():")
-                                                {
-                                                    GameOver("Parantez hatası: is_water metoduna ulaşmak için is_water() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    secondMethod = "is_water";
-                                                    If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                    AddInstruction(ifInstruction);
-                                                }
-
-                                            }
-                                            else if (ifParts[2].Substring(0, 11) == "is_obstacle")
-                                            {
-                                                parameterPart = ifParts[2].Substring(11).Replace(" ", "");
-                                                if (parameterPart[parameterPart.Length - 1] != ':')
-                                                {
-                                                    GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else if (parameterPart != "():")
-                                                {
-                                                    GameOver("Parantez hatası: is_water metoduna ulaşmak için is_water() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    secondMethod = "is_obstacle";
-                                                    If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                    AddInstruction(ifInstruction);
-                                                }
-
-                                            }
-                                            else if (ifParts[2].Substring(0, 8) == "contains")
-                                            {
-                                                parameterPart = ifParts[2].Substring(8).Trim();
-                                                if (parameterPart[parameterPart.Length - 1] != ':')
-                                                {
-                                                    GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
-                                                //hata cikarsa zaten program duracak
-                                                if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
-                                                {
-                                                    GameOver("Parantez hatası: contains metoduna ulaşmak için örnek olarak contains(apple) yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-
-                                                    if (!fruits.Contains(parameterPart))
+                                                    parameterPart = ifParts[1].Substring(7).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
-                                                        GameOver("contains metoduna parametre olarak sadece apple, banana veya kiwi yazabilirsiniz.");
+                                                        Debug.Log("hata");
+                                                        GameOver("Parantez hatası: up_tile metoduna ulaşmak için up_tile() yazmanız gerekiyor.");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "up_tile";
+
+                                                    }
+
+                                                }
+                                                else if (ifParts[1].Substring(0, 9) == "down_tile")
+                                                {
+                                                    parameterPart = ifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: down_tile metoduna ulaşmak için down_tile() yazmanız gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
                                                     {
-                                                        secondMethod = "contains";
-                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(ifInstruction);
+                                                        firstMethod = "down_tile";
+
                                                     }
                                                 }
+                                                else if (ifParts[1].Substring(0, 10) == "right_tile")
+                                                {
+                                                    parameterPart = ifParts[1].Substring(10).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: right_tile metoduna ulaşmak için right_tile() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "right_tile";
+
+                                                    }
+                                                }
+                                                else if (ifParts[1].Substring(0, 9) == "left_tile")
+                                                {
+                                                    parameterPart = ifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: left_tile metoduna ulaşmak için left_tile() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "left_tile";
+
+                                                    }
+                                                }
+
+
+                                                string secondMethod = null;
+
+
+                                                if (ifParts[2].Substring(0, 9) == "is_ground")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(9).Replace(" ", "");
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else if (parameterPart != "():")
+                                                    {
+                                                        GameOver("Parantez hatası: is_ground metoduna ulaşmak için is_ground() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_ground";
+                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                        AddInstruction(ifInstruction);
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 8) == "is_water")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(8).Replace(" ", "");
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else if (parameterPart != "():")
+                                                    {
+                                                        GameOver("Parantez hatası: is_water metoduna ulaşmak için is_water() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_water";
+                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                        AddInstruction(ifInstruction);
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 11) == "is_obstacle")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(11).Replace(" ", "");
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else if (parameterPart != "():")
+                                                    {
+                                                        GameOver("Parantez hatası: is_water metoduna ulaşmak için is_water() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        secondMethod = "is_obstacle";
+                                                        If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                        AddInstruction(ifInstruction);
+                                                    }
+
+                                                }
+                                                else if (ifParts[2].Substring(0, 8) == "contains")
+                                                {
+                                                    parameterPart = ifParts[2].Substring(8).Trim();
+                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    {
+                                                        GameOver("if komutununun sonuna : eklemeniz gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
+                                                    //hata cikarsa zaten program duracak
+                                                    if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
+                                                    {
+                                                        GameOver("Parantez hatası: contains metoduna ulaşmak için örnek olarak contains(apple) yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+
+                                                        if (!fruits.Contains(parameterPart))
+                                                        {
+                                                            GameOver("contains metoduna parametre olarak sadece apple, banana veya kiwi yazabilirsiniz.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "contains";
+                                                            If ifInstruction = new If(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(ifInstruction);
+                                                        }
+                                                    }
+
+                                                }
+
 
                                             }
 
 
                                         }
-
-
                                     }
+
                                 }
+                            }
+                            else if (trimmedRow.Substring(0, 3) == "for")
+                            {
 
-                            }
-                        }
-                        else if (trimmedRow.Substring(0, 3) == "for")
-                        {
-
-                            if (trimmedRow[3] != ' ')
-                            {
-                                GameOver("for komutunda for'dan sonra boşluk bırakmanız gerekiyor.");
-                                Debug.Log("hata");
-
-                            }
-                            else if (!trimmedRow.Contains("in"))
-                            {
-                                GameOver("Bu problemde for komutunda in kelimesi kullanmanız gerekiyor.");
-                                Debug.Log("hata");
-                            }
-                            else if (trimmedRow[trimmedRow.IndexOf("in") - 1] != ' ')
-                            {
-                                GameOver("for komutunda in'den önce boşluk bırakmanız gerekiyor.");
-                                Debug.Log("hata");
-                            }
-                            else if (trimmedRow[trimmedRow.IndexOf("in") + 2] != ' ')
-                            {
-                                GameOver("for komutunda in'den sonra boşluk bırakmanız gerekiyor.");
-                                Debug.Log("hata");
-                            }
-
-                            else
-                            {
-                                //burada san�r�m trim kullanmak gerekiyor ve sonras�nda kelimenin i�inde bo�luk var m� diye bakmak gerekiyor
-                                string var = trimmedRow.Substring(3, trimmedRow.IndexOf("in") - 3).Trim();
-                                Debug.Log("var = " + var);
-                                //
-                                if (!VariableCheck(var))
+                                if (trimmedRow[3] != ' ')
                                 {
-                                    GameOver("Değişken hatalı:" + var);
+                                    GameOver("for komutunda for'dan sonra boşluk bırakmanız gerekiyor.");
+                                    Debug.Log("hata");
+
+                                }
+                                else if (!trimmedRow.Contains("in"))
+                                {
+                                    GameOver("Bu problemde for komutunda in kelimesi kullanmanız gerekiyor.");
                                     Debug.Log("hata");
                                 }
-                                else if (!trimmedRow.Contains("range"))
+                                else if (trimmedRow[trimmedRow.IndexOf("in") - 1] != ' ')
                                 {
-                                    GameOver("Bu problemde for komutunda range kullanmanız/yazmanız gerekiyor.");
+                                    GameOver("for komutunda in'den önce boşluk bırakmanız gerekiyor.");
                                     Debug.Log("hata");
                                 }
+                                else if (trimmedRow[trimmedRow.IndexOf("in") + 2] != ' ')
+                                {
+                                    GameOver("for komutunda in'den sonra boşluk bırakmanız gerekiyor.");
+                                    Debug.Log("hata");
+                                }
+
                                 else
                                 {
-                                    string rangeParameter = trimmedRow.Substring(trimmedRow.IndexOf("range") + 5).Replace(" ", "");
-                                    Debug.Log("rangeParameter1 = " + rangeParameter);
-
-                                    if (rangeParameter[0] != '(')
+                                    //burada san�r�m trim kullanmak gerekiyor ve sonras�nda kelimenin i�inde bo�luk var m� diye bakmak gerekiyor
+                                    string var = trimmedRow.Substring(3, trimmedRow.IndexOf("in") - 3).Trim();
+                                    Debug.Log("var = " + var);
+                                    //
+                                    if (!VariableCheck(var))
                                     {
-                                        GameOver("Parantez hatası: for komutunda range kelimesinden sonra parantez içinde bir değer girmeniz gerekiyor.");
+                                        GameOver("Değişken hatalı:" + var);
                                         Debug.Log("hata");
                                     }
-
-                                    else if (rangeParameter[rangeParameter.Length - 2] != ')')
+                                    else if (!trimmedRow.Contains("range"))
                                     {
-                                        GameOver("Parantez hatası: for komutunda range kelimesinden sonra parantez içinde bir değer girmeniz gerekiyor.");
-                                        Debug.Log("hata");
-                                    }
-                                    else if (rangeParameter[rangeParameter.Length - 1] != ':')
-                                    {
-                                        GameOver("for komutunun sonuna : eklemeniz gerekiyor.");
+                                        GameOver("Bu problemde for komutunda range kullanmanız/yazmanız gerekiyor.");
                                         Debug.Log("hata");
                                     }
                                     else
                                     {
-                                        rangeParameter = rangeParameter.Substring(1, rangeParameter.Length - 3);
-                                        Debug.Log("rangeParameter2 = " + rangeParameter);
-                                        int parameter;
-                                        if (int.TryParse(rangeParameter, out parameter))
+                                        string rangeParameter = trimmedRow.Substring(trimmedRow.IndexOf("range") + 5).Replace(" ", "");
+                                        Debug.Log("rangeParameter1 = " + rangeParameter);
+
+                                        if (rangeParameter[0] != '(')
                                         {
-                                            Debug.Log(parameter);
+                                            GameOver("Parantez hatası: for komutunda range kelimesinden sonra parantez içinde bir değer girmeniz gerekiyor.");
+                                            Debug.Log("hata");
+                                        }
 
-                                            For forLoop = new For(characterMovement, parameter, instructionLevel);
-                                            AddInstruction(forLoop);
+                                        else if (rangeParameter[rangeParameter.Length - 2] != ')')
+                                        {
+                                            GameOver("Parantez hatası: for komutunda range kelimesinden sonra parantez içinde bir değer girmeniz gerekiyor.");
+                                            Debug.Log("hata");
+                                        }
+                                        else if (rangeParameter[rangeParameter.Length - 1] != ':')
+                                        {
+                                            GameOver("for komutunun sonuna : eklemeniz gerekiyor.");
+                                            Debug.Log("hata");
+                                        }
+                                        else
+                                        {
+                                            rangeParameter = rangeParameter.Substring(1, rangeParameter.Length - 3);
+                                            Debug.Log("rangeParameter2 = " + rangeParameter);
+                                            int parameter;
+                                            if (int.TryParse(rangeParameter, out parameter))
+                                            {
+                                                Debug.Log(parameter);
 
-                                            lastInstructionType = "holder";
-                                            lastIndentation = rowIndentation;
+                                                For forLoop = new For(characterMovement, parameter, instructionLevel);
+                                                AddInstruction(forLoop);
 
+                                                lastInstructionType = "holder";
+                                                lastIndentation = rowIndentation;
+
+                                            }
                                         }
                                     }
+
                                 }
 
                             }
-
-                        }
-                        else if (trimmedRow.Substring(0, 4) == "elif")
-                        {
-                            if (trimmedRow[trimmedRow.Length - 1] != ':')
+                            else if (trimmedRow.Substring(0, 4) == "elif")
                             {
-                                GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
-                                Debug.Log("hata");
-                            }
-                            else
-                            {
-                                if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
+                                if (trimmedRow[trimmedRow.Length - 1] != ':')
                                 {
-                                    GameOver("elif komutu yazarken elif yazdıktan sonra boşluk bırakmanız gerekiyor.");
-                                    Debug.Log("boşluk olmalı hata");
+                                    GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                    Debug.Log("hata");
                                 }
                                 else
                                 {
-                                    string booleanPart = trimmedRow.Substring(4).Trim();
-                                    string operatorType = null;
-
-                                    if (booleanPart.Contains("=="))
-                                        operatorType = "==";
-                                    else if (booleanPart.Contains("!="))
-                                        operatorType = "!=";
-                                    else if (booleanPart.Contains("<"))
-                                        operatorType = "<";
-                                    else if (booleanPart.Contains(">"))
-                                        operatorType = ">";
-
-
-                                    bool isThereNotOperator = false;
-
-                                    if (booleanPart.Substring(0, 3) == "not")
+                                    if (trimmedRow[trimmedRow.IndexOf("elif") + 4] != ' ')
                                     {
-                                        isThereNotOperator = true;
-                                        booleanPart = booleanPart.Substring(3).Trim();
-
+                                        GameOver("elif komutu yazarken elif yazdıktan sonra boşluk bırakmanız gerekiyor.");
+                                        Debug.Log("boşluk olmalı hata");
                                     }
-
-
-                                    if (operatorType == null)
+                                    else
                                     {
-                                        string[] elifParts = booleanPart.Split('.');
-                                        string parameterPart = null;
+                                        string booleanPart = trimmedRow.Substring(4).Trim();
+                                        string operatorType = null;
 
-                                        if (elifParts.Length == 2 || elifParts.Length == 3)
+                                        if (booleanPart.Contains("=="))
+                                            operatorType = "==";
+                                        else if (booleanPart.Contains("!="))
+                                            operatorType = "!=";
+                                        else if (booleanPart.Contains("<"))
+                                            operatorType = "<";
+                                        else if (booleanPart.Contains(">"))
+                                            operatorType = ">";
+
+
+                                        bool isThereNotOperator = false;
+
+                                        if (booleanPart.Substring(0, 3) == "not")
                                         {
+                                            isThereNotOperator = true;
+                                            booleanPart = booleanPart.Substring(3).Trim();
 
-                                            if (elifParts[0].Trim() != classInstanceName)
-                                            {
-                                                GameOver("Bu problemde elif komutunda " + classInstanceName + "'in metodlarını kullanarak kontrol yapmanız gerekiyor.\nÖrnek: elif " + classInstanceName + ".up_tile().is_ground()");
-                                                Debug.Log("hata");
-                                            }
-                                            string firstMethod = null;
+                                        }
 
-                                            if (elifParts[1].Substring(0, 7) == "up_tile")
+
+                                        if (operatorType == null)
+                                        {
+                                            string[] elifParts = booleanPart.Split('.');
+                                            string parameterPart = null;
+
+                                            if (elifParts.Length == 2 || elifParts.Length == 3)
                                             {
-                                                parameterPart = elifParts[1].Substring(7).Replace(" ", "");
-                                                if (parameterPart != "()")
+
+                                                if (elifParts[0].Trim() != classInstanceName)
                                                 {
-                                                    GameOver("Parantez hatası: up_tile metoduna ulaşmak için up_tile() yazmanız gerekiyor.");
+                                                    GameOver("Bu problemde elif komutunda " + classInstanceName + "'in metodlarını kullanarak kontrol yapmanız gerekiyor.\nÖrnek: elif " + classInstanceName + ".up_tile().is_ground()");
                                                     Debug.Log("hata");
                                                 }
-                                                else
+                                                string firstMethod = null;
+
+                                                if (elifParts[1].Substring(0, 7) == "up_tile")
                                                 {
-                                                    firstMethod = "up_tile";
-
-                                                }
-
-                                            }
-                                            else if (elifParts[1].Substring(0, 9) == "down_tile")
-                                            {
-                                                parameterPart = elifParts[1].Substring(9).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: down_tile metoduna ulaşmak için down_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "down_tile";
-
-                                                }
-                                            }
-                                            else if (elifParts[1].Substring(0, 10) == "right_tile")
-                                            {
-                                                parameterPart = elifParts[1].Substring(10).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: right_tile metoduna ulaşmak için right_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "right_tile";
-
-                                                }
-                                            }
-                                            else if (elifParts[1].Substring(0, 9) == "left_tile")
-                                            {
-                                                parameterPart = elifParts[1].Substring(9).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: left_tile metoduna ulaşmak için left_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "left_tile";
-
-                                                }
-                                            }
-
-
-                                            if (elifParts.Length == 2)
-                                            {
-                                                //burada 2 parcali if listeye eklenecek.
-                                            }
-                                            else if (elifParts.Length == 3)
-                                            {
-
-                                                string secondMethod = null;
-
-
-                                                if (elifParts[2].Substring(0, 9) == "is_ground")
-                                                {
-                                                    parameterPart = elifParts[2].Substring(9).Replace(" ", "");
-                                                    if (parameterPart != "():")
+                                                    parameterPart = elifParts[1].Substring(7).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
-                                                        GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                                        GameOver("Parantez hatası: up_tile metoduna ulaşmak için up_tile() yazmanız gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
                                                     {
-                                                        secondMethod = "is_ground";
-                                                        Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(elifInstruction);
+                                                        firstMethod = "up_tile";
+
                                                     }
 
                                                 }
-                                                else if (elifParts[2].Substring(0, 8) == "is_water")
+                                                else if (elifParts[1].Substring(0, 9) == "down_tile")
                                                 {
-                                                    parameterPart = elifParts[2].Substring(8).Replace(" ", "");
-                                                    if (parameterPart != "():")
+                                                    parameterPart = elifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
-                                                        GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                                        GameOver("Parantez hatası: down_tile metoduna ulaşmak için down_tile() yazmanız gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
                                                     {
-                                                        secondMethod = "is_water";
-                                                        Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(elifInstruction);
-                                                    }
+                                                        firstMethod = "down_tile";
 
+                                                    }
                                                 }
-                                                else if (elifParts[2].Substring(0, 11) == "is_obstacle")
+                                                else if (elifParts[1].Substring(0, 10) == "right_tile")
                                                 {
-                                                    parameterPart = elifParts[2].Substring(11).Replace(" ", "");
-                                                    if (parameterPart != "():")
+                                                    parameterPart = elifParts[1].Substring(10).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
-                                                        GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                                        GameOver("Parantez hatası: right_tile metoduna ulaşmak için right_tile() yazmanız gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
                                                     {
-                                                        secondMethod = "is_obstacle";
-                                                        Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(elifInstruction);
-                                                    }
+                                                        firstMethod = "right_tile";
 
+                                                    }
                                                 }
-                                                else if (elifParts[2].Substring(0, 8) == "contains")
+                                                else if (elifParts[1].Substring(0, 9) == "left_tile")
                                                 {
-
-                                                    parameterPart = elifParts[2].Substring(8).Trim();
-                                                    if (parameterPart[parameterPart.Length - 1] != ':')
+                                                    parameterPart = elifParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
                                                     {
-                                                        GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
-                                                        Debug.Log("hata");
-                                                    }
-                                                    parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
-                                                    //hata cikarsa zaten program duracak
-                                                    if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
-                                                    {
-                                                        GameOver("Parantez hatası: contains metoduna ulaşmak için örnek olarak contains(apple) yazmanız gerekiyor.");
+                                                        GameOver("Parantez hatası: left_tile metoduna ulaşmak için left_tile() yazmanız gerekiyor.");
                                                         Debug.Log("hata");
                                                     }
                                                     else
                                                     {
-                                                        if (!fruits.Contains(parameterPart))
+                                                        firstMethod = "left_tile";
+
+                                                    }
+                                                }
+
+
+                                                if (elifParts.Length == 2)
+                                                {
+                                                    //burada 2 parcali if listeye eklenecek.
+                                                }
+                                                else if (elifParts.Length == 3)
+                                                {
+
+                                                    string secondMethod = null;
+
+
+                                                    if (elifParts[2].Substring(0, 9) == "is_ground")
+                                                    {
+                                                        parameterPart = elifParts[2].Substring(9).Replace(" ", "");
+                                                        if (parameterPart != "():")
                                                         {
-                                                            GameOver("contains metoduna parametre olarak sadece apple, banana veya kiwi yazabilirsiniz.");
+                                                            GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
                                                             Debug.Log("hata");
                                                         }
                                                         else
                                                         {
-                                                            secondMethod = "contains";
-                                                            Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
+                                                            secondMethod = "is_ground";
+                                                            Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
                                                             AddInstruction(elifInstruction);
                                                         }
 
                                                     }
-
-                                                }
-
-
-                                            }
-
-
-                                        }
-
-
-                                    }
-                                }
-
-                            }
-                        }
-                        else if (trimmedRow.Substring(0, 4) == "else")
-                        {
-                            trimmedRow = trimmedRow.Replace(" ", "");
-                            if (trimmedRow.Length != 5)
-                            {
-                                GameOver("else komutu else kelimesi ve : haricinde sadece boşluklar içerebilir.");
-                                Debug.Log("hata");
-                            }
-
-                            else if (trimmedRow[4] != ':')
-                            {
-                                GameOver("else komutunun sonuna : eklemeniz gerekiyor.");
-                                Debug.Log("hata");
-                            }
-
-                            else
-                            {
-
-                                Else elseCondition = new Else(characterMovement, instructionLevel);
-                                AddInstruction(elseCondition);
-                            }
-
-
-                        }
-
-                        else if (trimmedRow.Substring(0, 5) == "while")
-                        {
-                            if (trimmedRow[trimmedRow.Length - 1] != ':')
-                            {
-                                GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
-                                Debug.Log("hata");
-                            }
-                            else
-                            {
-                                if (trimmedRow[trimmedRow.IndexOf("while") + 5] != ' ')
-                                {
-                                    GameOver("while komutu yazarken while yazdıktan sonra boşluk bırakmanız gerekiyor.");
-                                    Debug.Log("boşluk olmalı hata");
-                                }
-                                else
-                                {
-                                    string booleanPart = trimmedRow.Substring(5).Trim();
-                                    string operatorType = null;
-
-                                    if (booleanPart.Contains("=="))
-                                        operatorType = "==";
-                                    else if (booleanPart.Contains("!="))
-                                        operatorType = "!=";
-                                    else if (booleanPart.Contains("<"))
-                                        operatorType = "<";
-                                    else if (booleanPart.Contains(">"))
-                                        operatorType = ">";
-
-
-                                    bool isThereNotOperator = false;
-
-                                    if (booleanPart.Substring(0, 3) == "not")
-                                    {
-                                        isThereNotOperator = true;
-                                        booleanPart = booleanPart.Substring(3).Trim();
-
-                                    }
-
-
-                                    if (operatorType == null)
-                                    {
-                                        string[] whileParts = booleanPart.Split('.');
-                                        string parameterPart = null;
-
-                                        if (whileParts.Length == 2 || whileParts.Length == 3)
-                                        {
-
-                                            if (whileParts[0].Trim() != classInstanceName)
-                                            {
-                                                GameOver("Bu problemde while komutunda " + classInstanceName + "'in metodlarını kullanarak kontrol yapmanız gerekiyor.\nÖrnek: while " + classInstanceName + ".up_tile().is_ground()");
-                                                Debug.Log("hata");
-                                            }
-                                            string firstMethod = null;
-
-                                            if (whileParts[1].Substring(0, 7) == "up_tile")
-                                            {
-                                                parameterPart = whileParts[1].Substring(7).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: up_tile metoduna ulaşmak için up_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "up_tile";
-
-                                                }
-
-                                            }
-                                            else if (whileParts[1].Substring(0, 9) == "down_tile")
-                                            {
-                                                parameterPart = whileParts[1].Substring(9).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: down_tile metoduna ulaşmak için down_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "down_tile";
-
-                                                }
-                                            }
-                                            else if (whileParts[1].Substring(0, 10) == "right_tile")
-                                            {
-                                                parameterPart = whileParts[1].Substring(10).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: right_tile metoduna ulaşmak için right_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "right_tile";
-
-                                                }
-                                            }
-                                            else if (whileParts[1].Substring(0, 9) == "left_tile")
-                                            {
-                                                parameterPart = whileParts[1].Substring(9).Replace(" ", "");
-                                                if (parameterPart != "()")
-                                                {
-                                                    GameOver("Parantez hatası: left_tile metoduna ulaşmak için left_tile() yazmanız gerekiyor.");
-                                                    Debug.Log("hata");
-                                                }
-                                                else
-                                                {
-                                                    firstMethod = "left_tile";
-
-                                                }
-                                            }
-
-
-                                            if (whileParts.Length == 2)
-                                            {
-                                                //burada 2 parcali if listeye eklenecek.
-                                            }
-                                            else if (whileParts.Length == 3)
-                                            {
-
-                                                string secondMethod = null;
-
-                                                if (whileParts[2].Substring(0, 9) == "is_ground")
-                                                {
-                                                    parameterPart = whileParts[2].Substring(9).Replace(" ", "");
-                                                    if (parameterPart != "():")
+                                                    else if (elifParts[2].Substring(0, 8) == "is_water")
                                                     {
-                                                        GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        secondMethod = "is_ground";
-                                                        While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(whileInstruction);
-                                                    }
-
-                                                }
-                                                else if (whileParts[2].Substring(0, 8) == "is_water")
-                                                {
-                                                    parameterPart = whileParts[2].Substring(8).Replace(" ", "");
-                                                    if (parameterPart != "():")
-                                                    {
-                                                        GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        secondMethod = "is_water";
-                                                        While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(whileInstruction);
-                                                    }
-
-                                                }
-                                                else if (whileParts[2].Substring(0, 11) == "is_obstacle")
-                                                {
-                                                    parameterPart = whileParts[2].Substring(11).Replace(" ", "");
-                                                    if (parameterPart != "():")
-                                                    {
-                                                        GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        secondMethod = "is_obstacle";
-                                                        While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
-                                                        AddInstruction(whileInstruction);
-                                                    }
-
-                                                }
-                                                else if (whileParts[2].Substring(0, 8) == "contains")
-                                                {
-
-                                                    parameterPart = whileParts[2].Substring(8).Trim();
-                                                    //burasi degisecek. ()'in ici dolu olacak.
-                                                    if (parameterPart[parameterPart.Length - 1] != ':')
-                                                    {
-                                                        GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
-                                                        Debug.Log("hata");
-                                                    }
-                                                    parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
-                                                    //hata cikarsa zaten program duracak
-                                                    if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
-                                                    {
-                                                        GameOver("Parantez hatası: contains metoduna ulaşmak için örnek olarak contains(apple) yazmanız gerekiyor.");
-                                                        Debug.Log("hata");
-                                                    }
-                                                    else
-                                                    {
-                                                        if (!fruits.Contains(parameterPart))
+                                                        parameterPart = elifParts[2].Substring(8).Replace(" ", "");
+                                                        if (parameterPart != "():")
                                                         {
-                                                            GameOver("contains metoduna parametre olarak sadece apple, banana veya kiwi yazabilirsiniz.");
+                                                            GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
                                                             Debug.Log("hata");
                                                         }
                                                         else
                                                         {
-                                                            secondMethod = "contains";
-                                                            While whileInstruction = new While(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
-                                                            AddInstruction(whileInstruction);
+                                                            secondMethod = "is_water";
+                                                            Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(elifInstruction);
                                                         }
 
                                                     }
+                                                    else if (elifParts[2].Substring(0, 11) == "is_obstacle")
+                                                    {
+                                                        parameterPart = elifParts[2].Substring(11).Replace(" ", "");
+                                                        if (parameterPart != "():")
+                                                        {
+                                                            GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_obstacle";
+                                                            Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(elifInstruction);
+                                                        }
+
+                                                    }
+                                                    else if (elifParts[2].Substring(0, 8) == "contains")
+                                                    {
+
+                                                        parameterPart = elifParts[2].Substring(8).Trim();
+                                                        if (parameterPart[parameterPart.Length - 1] != ':')
+                                                        {
+                                                            GameOver("elif komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
+                                                        //hata cikarsa zaten program duracak
+                                                        if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
+                                                        {
+                                                            GameOver("Parantez hatası: contains metoduna ulaşmak için örnek olarak contains(apple) yazmanız gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            if (!fruits.Contains(parameterPart))
+                                                            {
+                                                                GameOver("contains metoduna parametre olarak sadece apple, banana veya kiwi yazabilirsiniz.");
+                                                                Debug.Log("hata");
+                                                            }
+                                                            else
+                                                            {
+                                                                secondMethod = "contains";
+                                                                Elif elifInstruction = new Elif(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
+                                                                AddInstruction(elifInstruction);
+                                                            }
+
+                                                        }
+
+                                                    }
+
 
                                                 }
 
@@ -2247,219 +2008,454 @@ public class RunCodeButton : MonoBehaviour
 
 
                                         }
-
-
                                     }
+
+                                }
+                            }
+                            else if (trimmedRow.Substring(0, 4) == "else")
+                            {
+                                trimmedRow = trimmedRow.Replace(" ", "");
+                                if (trimmedRow.Length != 5)
+                                {
+                                    GameOver("else komutu else kelimesi ve : haricinde sadece boşluklar içerebilir.");
+                                    Debug.Log("hata");
                                 }
 
-                            }
-                        }
-                        else if (trimmedRow.Substring(0, classInstanceName.Length) == classInstanceName)
-                        {
-                            if (!trimmedRow.Contains('.'))
-                            {
-                                Debug.Log("hata");
-                                GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
-                            }
-                            else
-                            {
-                                string[] moveParts = trimmedRow.Split('.');
-                                string classInstancePart = moveParts[0].Trim();
-                                string methodPart = moveParts[1].Trim();
-                                //Debug.Log("+" + classInstancePart + "+");
-                                //Debug.Log("+" + methodPart + "+");
+                                else if (trimmedRow[4] != ':')
+                                {
+                                    GameOver("else komutunun sonuna : eklemeniz gerekiyor.");
+                                    Debug.Log("hata");
+                                }
 
-                                if (classInstancePart != classInstanceName)
+                                else
+                                {
+
+                                    Else elseCondition = new Else(characterMovement, instructionLevel);
+                                    AddInstruction(elseCondition);
+                                }
+
+
+                            }
+
+                            else if (trimmedRow.Substring(0, 5) == "while")
+                            {
+                                if (trimmedRow[trimmedRow.Length - 1] != ':')
+                                {
+                                    GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
+                                    Debug.Log("hata");
+                                }
+                                else
+                                {
+                                    if (trimmedRow[trimmedRow.IndexOf("while") + 5] != ' ')
+                                    {
+                                        GameOver("while komutu yazarken while yazdıktan sonra boşluk bırakmanız gerekiyor.");
+                                        Debug.Log("boşluk olmalı hata");
+                                    }
+                                    else
+                                    {
+                                        string booleanPart = trimmedRow.Substring(5).Trim();
+                                        string operatorType = null;
+
+                                        if (booleanPart.Contains("=="))
+                                            operatorType = "==";
+                                        else if (booleanPart.Contains("!="))
+                                            operatorType = "!=";
+                                        else if (booleanPart.Contains("<"))
+                                            operatorType = "<";
+                                        else if (booleanPart.Contains(">"))
+                                            operatorType = ">";
+
+
+                                        bool isThereNotOperator = false;
+
+                                        if (booleanPart.Substring(0, 3) == "not")
+                                        {
+                                            isThereNotOperator = true;
+                                            booleanPart = booleanPart.Substring(3).Trim();
+
+                                        }
+
+
+                                        if (operatorType == null)
+                                        {
+                                            string[] whileParts = booleanPart.Split('.');
+                                            string parameterPart = null;
+
+                                            if (whileParts.Length == 2 || whileParts.Length == 3)
+                                            {
+
+                                                if (whileParts[0].Trim() != classInstanceName)
+                                                {
+                                                    GameOver("Bu problemde while komutunda " + classInstanceName + "'in metodlarını kullanarak kontrol yapmanız gerekiyor.\nÖrnek: while " + classInstanceName + ".up_tile().is_ground()");
+                                                    Debug.Log("hata");
+                                                }
+                                                string firstMethod = null;
+
+                                                if (whileParts[1].Substring(0, 7) == "up_tile")
+                                                {
+                                                    parameterPart = whileParts[1].Substring(7).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: up_tile metoduna ulaşmak için up_tile() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "up_tile";
+
+                                                    }
+
+                                                }
+                                                else if (whileParts[1].Substring(0, 9) == "down_tile")
+                                                {
+                                                    parameterPart = whileParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: down_tile metoduna ulaşmak için down_tile() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "down_tile";
+
+                                                    }
+                                                }
+                                                else if (whileParts[1].Substring(0, 10) == "right_tile")
+                                                {
+                                                    parameterPart = whileParts[1].Substring(10).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: right_tile metoduna ulaşmak için right_tile() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "right_tile";
+
+                                                    }
+                                                }
+                                                else if (whileParts[1].Substring(0, 9) == "left_tile")
+                                                {
+                                                    parameterPart = whileParts[1].Substring(9).Replace(" ", "");
+                                                    if (parameterPart != "()")
+                                                    {
+                                                        GameOver("Parantez hatası: left_tile metoduna ulaşmak için left_tile() yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                    else
+                                                    {
+                                                        firstMethod = "left_tile";
+
+                                                    }
+                                                }
+
+
+                                                if (whileParts.Length == 2)
+                                                {
+                                                    //burada 2 parcali if listeye eklenecek.
+                                                }
+                                                else if (whileParts.Length == 3)
+                                                {
+
+                                                    string secondMethod = null;
+
+                                                    if (whileParts[2].Substring(0, 9) == "is_ground")
+                                                    {
+                                                        parameterPart = whileParts[2].Substring(9).Replace(" ", "");
+                                                        if (parameterPart != "():")
+                                                        {
+                                                            GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_ground";
+                                                            While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(whileInstruction);
+                                                        }
+
+                                                    }
+                                                    else if (whileParts[2].Substring(0, 8) == "is_water")
+                                                    {
+                                                        parameterPart = whileParts[2].Substring(8).Replace(" ", "");
+                                                        if (parameterPart != "():")
+                                                        {
+                                                            GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_water";
+                                                            While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(whileInstruction);
+                                                        }
+
+                                                    }
+                                                    else if (whileParts[2].Substring(0, 11) == "is_obstacle")
+                                                    {
+                                                        parameterPart = whileParts[2].Substring(11).Replace(" ", "");
+                                                        if (parameterPart != "():")
+                                                        {
+                                                            GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            secondMethod = "is_obstacle";
+                                                            While whileInstruction = new While(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
+                                                            AddInstruction(whileInstruction);
+                                                        }
+
+                                                    }
+                                                    else if (whileParts[2].Substring(0, 8) == "contains")
+                                                    {
+
+                                                        parameterPart = whileParts[2].Substring(8).Trim();
+                                                        //burasi degisecek. ()'in ici dolu olacak.
+                                                        if (parameterPart[parameterPart.Length - 1] != ':')
+                                                        {
+                                                            GameOver("while komutunun sonuna : eklemeniz gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        parameterPart = parameterPart.Substring(0, parameterPart.Length - 1);
+                                                        //hata cikarsa zaten program duracak
+                                                        if (parameterPart[0] != '(' || parameterPart[parameterPart.Length - 2] != ')')
+                                                        {
+                                                            GameOver("Parantez hatası: contains metoduna ulaşmak için örnek olarak contains(apple) yazmanız gerekiyor.");
+                                                            Debug.Log("hata");
+                                                        }
+                                                        else
+                                                        {
+                                                            if (!fruits.Contains(parameterPart))
+                                                            {
+                                                                GameOver("contains metoduna parametre olarak sadece apple, banana veya kiwi yazabilirsiniz.");
+                                                                Debug.Log("hata");
+                                                            }
+                                                            else
+                                                            {
+                                                                secondMethod = "contains";
+                                                                While whileInstruction = new While(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
+                                                                AddInstruction(whileInstruction);
+                                                            }
+
+                                                        }
+
+                                                    }
+
+
+                                                }
+
+
+                                            }
+
+
+                                        }
+                                    }
+
+                                }
+                            }
+                            else if (trimmedRow.Substring(0, classInstanceName.Length) == classInstanceName)
+                            {
+                                if (!trimmedRow.Contains('.'))
                                 {
                                     Debug.Log("hata");
                                     GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
                                 }
                                 else
                                 {
+                                    string[] moveParts = trimmedRow.Split('.');
+                                    string classInstancePart = moveParts[0].Trim();
+                                    string methodPart = moveParts[1].Trim();
+                                    //Debug.Log("+" + classInstancePart + "+");
+                                    //Debug.Log("+" + methodPart + "+");
 
-                                    if (!methodPart.Contains('('))
+                                    if (classInstancePart != classInstanceName)
                                     {
-                                        GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
-
                                         Debug.Log("hata");
+                                        GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
                                     }
-                                    else if (!methodPart.Contains(')'))
+                                    else
                                     {
-                                        GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
-                                        Debug.Log("hata2");
-                                    }
 
-                                    string[] instructionParts = methodPart.Split('(', 2);
-
-                                    string methodName = instructionParts[0].Trim();
-                                    string methodParameterPart = instructionParts[1].Trim();
-                                    //instructionParts[1] = instructionParts[1].Trim();
-                                    int length = methodName.Length;
-
-                                    //Debug.Log(methodName);
-                                    //try
-                                    //{
-                                    if (methodName.Substring(0, 4) == "move")
-                                    {
-                                        methodParameterPart = methodParameterPart.Replace(" ", "");
-                                        if (methodParameterPart != ")")
+                                        if (!methodPart.Contains('('))
                                         {
+                                            GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
+
                                             Debug.Log("hata");
-                                            //Debug.Log(methodPart);
-                                            GameOver("move methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: move_up()");
                                         }
-                                        else
+                                        else if (!methodPart.Contains(')'))
                                         {
-                                            if (methodName == "move_up")
-                                            {
-                                                Move move_up = new Move(characterMovement, "up", instructionLevel);
-                                                AddInstruction(move_up);
-                                                Debug.Log("MOVE UP : " + instructionLevel);
-                                            }
-                                            else if (methodName == "move_left")
-                                            {
-                                                Move move_left = new Move(characterMovement, "left", instructionLevel);
-                                                AddInstruction(move_left);
-                                                Debug.Log("MOVE LEFT : " + instructionLevel);
-                                            }
-                                            else if (methodName == "move_down")
-                                            {
-                                                Move move_down = new Move(characterMovement, "down", instructionLevel);
-                                                AddInstruction(move_down);
-                                                Debug.Log("MOVE DOWN : " + instructionLevel);
-                                            }
-                                            else if (methodName == "move_right")
-                                            {
-
-                                                Move move_right = new Move(characterMovement, "right", instructionLevel);
-                                                Debug.Log("mr level " + instructionLevel);
-                                                AddInstruction(move_right);
-                                                Debug.Log("MOVE RIGHT : " + instructionLevel);
-                                            }
-                                            else
-                                            {
-                                                GameOver("Method tanımını doğru yazmanız gerekiyor.");
-                                                Debug.Log("hata");
-                                            }
+                                            GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
+                                            Debug.Log("hata2");
                                         }
 
+                                        string[] instructionParts = methodPart.Split('(', 2);
+
+                                        string methodName = instructionParts[0].Trim();
+                                        string methodParameterPart = instructionParts[1].Trim();
+                                        //instructionParts[1] = instructionParts[1].Trim();
+                                        int length = methodName.Length;
+
+                                        //Debug.Log(methodName);
+                                        try
+                                        {
+                                            if (methodName.Substring(0, 4) == "move")
+                                            {
+                                                methodParameterPart = methodParameterPart.Replace(" ", "");
+                                                if (methodParameterPart != ")")
+                                                {
+                                                    Debug.Log("hata");
+                                                    //Debug.Log(methodPart);
+                                                    GameOver("move methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: move_up()");
+                                                }
+                                                else
+                                                {
+                                                    if (methodName == "move_up")
+                                                    {
+                                                        Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                                        AddInstruction(move_up);
+                                                        Debug.Log("MOVE UP : " + instructionLevel);
+                                                    }
+                                                    else if (methodName == "move_left")
+                                                    {
+                                                        Move move_left = new Move(characterMovement, "left", instructionLevel);
+                                                        AddInstruction(move_left);
+                                                        Debug.Log("MOVE LEFT : " + instructionLevel);
+                                                    }
+                                                    else if (methodName == "move_down")
+                                                    {
+                                                        Move move_down = new Move(characterMovement, "down", instructionLevel);
+                                                        AddInstruction(move_down);
+                                                        Debug.Log("MOVE DOWN : " + instructionLevel);
+                                                    }
+                                                    else if (methodName == "move_right")
+                                                    {
+
+                                                        Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                                        Debug.Log("mr level " + instructionLevel);
+                                                        AddInstruction(move_right);
+                                                        Debug.Log("MOVE RIGHT : " + instructionLevel);
+                                                    }
+                                                    else
+                                                    {
+                                                        GameOver("Method tanımını doğru yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                }
+
+                                            }
+                                            else if (methodName.Substring(0, 4) == "swim")
+                                            {
+                                                methodParameterPart = methodParameterPart.Replace(" ", "");
+                                                if (methodParameterPart != ")")
+                                                {
+                                                    Debug.Log("hata");
+                                                    GameOver("swim methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: swim_up()");
+                                                }
+                                                else
+                                                {
+                                                    if (methodName == "swim_up")
+                                                    {
+                                                        Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
+                                                        AddInstruction(swim_up);
+                                                    }
+                                                    else if (methodName == "swim_left")
+                                                    {
+                                                        Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
+                                                        AddInstruction(swim_left);
+                                                    }
+                                                    else if (methodName == "swim_down")
+                                                    {
+                                                        Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
+                                                        AddInstruction(swim_down);
+                                                    }
+                                                    else if (methodName == "swim_right")
+                                                    {
+
+                                                        Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
+                                                        Debug.Log("mr level " + instructionLevel);
+                                                        AddInstruction(swim_right);
+                                                    }
+                                                    else
+                                                    {
+                                                        GameOver("Method tanımını doğru yazmanız gerekiyor.");
+                                                        Debug.Log("hata");
+                                                    }
+                                                }
+
+                                            }
+                                            else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_color")
+                                            {
+                                                methodParameterPart = methodParameterPart.Trim();
+
+                                                if (methodParameterPart[methodParameterPart.Length - 1] != ')')
+                                                {
+                                                    Debug.Log("hata");
+                                                    GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_color(blue)");
+                                                }
+                                                else
+                                                {
+                                                    string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
+                                                    if (colorsOfCharacter.Contains(methodParameter))
+                                                    {
+                                                        Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter, instructionLevel);
+                                                        AddInstruction(setColor);
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.Log("hata");
+                                                        GameOver("set_color metoduna uygun bir renk yazmanız gerekiyor. Uygun şekiller: red, blue, green, yellow");
+                                                    }
+
+                                                }
+
+                                            }
+                                            else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_shape")
+                                            {
+                                                methodParameterPart = methodParameterPart.Trim();
+                                                if (methodParameterPart[methodParameterPart.Length - 1] != ')')
+                                                {
+                                                    Debug.Log("hata");
+                                                    GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_shape(circle)");
+                                                }
+                                                else
+                                                {
+                                                    string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
+                                                    if (shapesOfCharacter.Contains(methodParameter))
+                                                    {
+                                                        Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter, instructionLevel);
+                                                        AddInstruction(setShape);
+                                                    }
+                                                    else
+                                                    {
+                                                        Debug.Log("hata");
+                                                        GameOver("set_shape metoduna uygun bir şekil yazmanız gerekiyor. Uygun şekiller: square, circle");
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            //GameOver("Hata: " + ex.Message);
+                                            GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
+                                            Debug.Log(ex.Message);
+                                        }
                                     }
-                                    else if (methodName.Substring(0, 4) == "swim")
-                                    {
-                                        methodParameterPart = methodParameterPart.Replace(" ", "");
-                                        if (methodParameterPart != ")")
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("swim methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: swim_up()");
-                                        }
-                                        else
-                                        {
-                                            if (methodName == "swim_up")
-                                            {
-                                                Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
-                                                AddInstruction(swim_up);
-                                            }
-                                            else if (methodName == "swim_left")
-                                            {
-                                                Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
-                                                AddInstruction(swim_left);
-                                            }
-                                            else if (methodName == "swim_down")
-                                            {
-                                                Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
-                                                AddInstruction(swim_down);
-                                            }
-                                            else if (methodName == "swim_right")
-                                            {
 
-                                                Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
-                                                Debug.Log("mr level " + instructionLevel);
-                                                AddInstruction(swim_right);
-                                            }
-                                            else
-                                            {
-                                                GameOver("Method tanımını doğru yazmanız gerekiyor.");
-                                                Debug.Log("hata");
-                                            }
-                                        }
 
-                                    }
-                                    else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_color")
-                                    {
-                                        methodParameterPart = methodParameterPart.Trim();
-
-                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_color(blue)");
-                                        }
-                                        else
-                                        {
-                                            string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
-                                            if (colorsOfCharacter.Contains(methodParameter))
-                                            {
-                                                Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter, instructionLevel);
-                                                AddInstruction(setColor);
-                                            }
-                                            else
-                                            {
-                                                Debug.Log("hata");
-                                                GameOver("set_color metoduna uygun bir renk yazmanız gerekiyor. Uygun şekiller: red, blue, green, yellow");
-                                            }
-
-                                        }
-
-                                    }
-                                    else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_shape")
-                                    {
-                                        methodParameterPart = methodParameterPart.Trim();
-                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_shape(circle)");
-                                        }
-                                        else
-                                        {
-                                            string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
-                                            if (shapesOfCharacter.Contains(methodParameter))
-                                            {
-                                                Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter, instructionLevel);
-                                                AddInstruction(setShape);
-                                            }
-                                            else
-                                            {
-                                                Debug.Log("hata");
-                                                GameOver("set_shape metoduna uygun bir şekil yazmanız gerekiyor. Uygun şekiller: square, circle");
-                                            }
-                                        }
-                                    }
-
-                                    //}
-                                    //catch (Exception ex)
-                                    //{
-                                    //    //GameOver("Hata: " + ex.Message);
-                                    //    GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
-                                    //    Debug.Log(ex.Message);
-                                    //}
                                 }
-
-
                             }
+
+
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.Log(e.Message);
+                            GameOver("Kodunuzda eksik kısımlar var.");
                         }
 
-                        
 
-
-                        
-
-
-                        //}
-                        //catch (Exception e)
-                        //{
-                        //    //GameOver("Hata: " + e.Message);
-                        //    GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
-                        //    Debug.Log(e.Message);
-                        //}
 
                     }
                 }
