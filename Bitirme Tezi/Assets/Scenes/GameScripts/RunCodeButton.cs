@@ -1795,199 +1795,6 @@ public class RunCodeButton : MonoBehaviour
                             }
 
                         }
-                        else if (trimmedRow.Substring(0, classInstanceName.Length) == classInstanceName)
-                        {
-                            if (!trimmedRow.Contains('.'))
-                            {
-                                Debug.Log("hata");
-                                GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
-                            }
-                            else
-                            {
-                                string[] moveParts = trimmedRow.Split('.');
-                                string classInstancePart = moveParts[0].Trim();
-                                string methodPart = moveParts[1].Trim();
-                                //Debug.Log("+" + classInstancePart + "+");
-                                //Debug.Log("+" + methodPart + "+");
-
-                                if (classInstancePart != classInstanceName)
-                                {
-                                    Debug.Log("hata");
-                                    GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
-                                }
-                                else
-                                {
-
-                                    if (!methodPart.Contains('('))
-                                    {
-                                        GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
-
-                                        Debug.Log("hata");
-                                    }
-                                    else if (!methodPart.Contains(')'))
-                                    {
-                                        GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
-                                        Debug.Log("hata2");
-                                    }
-
-                                    string[] instructionParts = methodPart.Split('(', 2);
-
-                                    string methodName = instructionParts[0].Trim();
-                                    string methodParameterPart = instructionParts[1].Trim();
-                                    //instructionParts[1] = instructionParts[1].Trim();
-                                    int length = methodName.Length;
-
-                                    //Debug.Log(methodName);
-                                    //try
-                                    //{
-                                    if (methodName.Substring(0, 4) == "move")
-                                    {
-                                        methodParameterPart = methodParameterPart.Replace(" ", "");
-                                        if (methodParameterPart != ")")
-                                        {
-                                            Debug.Log("hata");
-                                            //Debug.Log(methodPart);
-                                            GameOver("move methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: move_up()");
-                                        }
-                                        else
-                                        {
-                                            if (methodName == "move_up")
-                                            {
-                                                Move move_up = new Move(characterMovement, "up", instructionLevel);
-                                                AddInstruction(move_up);
-                                                Debug.Log("MOVE UP : " + instructionLevel);
-                                            }
-                                            else if (methodName == "move_left")
-                                            {
-                                                Move move_left = new Move(characterMovement, "left", instructionLevel);
-                                                AddInstruction(move_left);
-                                                Debug.Log("MOVE LEFT : " + instructionLevel);
-                                            }
-                                            else if (methodName == "move_down")
-                                            {
-                                                Move move_down = new Move(characterMovement, "down", instructionLevel);
-                                                AddInstruction(move_down);
-                                                Debug.Log("MOVE DOWN : " + instructionLevel);
-                                            }
-                                            else if (methodName == "move_right")
-                                            {
-
-                                                Move move_right = new Move(characterMovement, "right", instructionLevel);
-                                                Debug.Log("mr level " + instructionLevel);
-                                                AddInstruction(move_right);
-                                                Debug.Log("MOVE RIGHT : " + instructionLevel);
-                                            }
-                                            else
-                                            {
-                                                GameOver("Method tanımını doğru yazmanız gerekiyor.");
-                                                Debug.Log("hata");
-                                            }
-                                        }
-
-                                    }
-                                    else if (methodName.Substring(0, 4) == "swim")
-                                    {
-                                        methodParameterPart = methodParameterPart.Replace(" ", "");
-                                        if (methodParameterPart != ")")
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("swim methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: swim_up()");
-                                        }
-                                        else
-                                        {
-                                            if (methodName == "swim_up")
-                                            {
-                                                Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
-                                                AddInstruction(swim_up);
-                                            }
-                                            else if (methodName == "swim_left")
-                                            {
-                                                Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
-                                                AddInstruction(swim_left);
-                                            }
-                                            else if (methodName == "swim_down")
-                                            {
-                                                Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
-                                                AddInstruction(swim_down);
-                                            }
-                                            else if (methodName == "swim_right")
-                                            {
-
-                                                Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
-                                                Debug.Log("mr level " + instructionLevel);
-                                                AddInstruction(swim_right);
-                                            }
-                                            else
-                                            {
-                                                GameOver("Method tanımını doğru yazmanız gerekiyor.");
-                                                Debug.Log("hata");
-                                            }
-                                        }
-
-                                    }
-                                    else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_color")
-                                    {
-                                        methodParameterPart = methodParameterPart.Trim();
-
-                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_color(blue)");
-                                        }
-                                        else
-                                        {
-                                            string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
-                                            if (colorsOfCharacter.Contains(methodParameter))
-                                            {
-                                                Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter, instructionLevel);
-                                                AddInstruction(setColor);
-                                            }
-                                            else
-                                            {
-                                                Debug.Log("hata");
-                                                GameOver("set_color metoduna uygun bir renk yazmanız gerekiyor. Uygun şekiller: red, blue, green, yellow");
-                                            }
-
-                                        }
-
-                                    }
-                                    else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_shape")
-                                    {
-                                        methodParameterPart = methodParameterPart.Trim();
-                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
-                                        {
-                                            Debug.Log("hata");
-                                            GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_shape(circle)");
-                                        }
-                                        else
-                                        {
-                                            string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
-                                            if (shapesOfCharacter.Contains(methodParameter))
-                                            {
-                                                Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter, instructionLevel);
-                                                AddInstruction(setShape);
-                                            }
-                                            else
-                                            {
-                                                Debug.Log("hata");
-                                                GameOver("set_shape metoduna uygun bir şekil yazmanız gerekiyor. Uygun şekiller: square, circle");
-                                            }
-                                        }
-                                    }
-
-                                    //}
-                                    //catch (Exception ex)
-                                    //{
-                                    //    //GameOver("Hata: " + ex.Message);
-                                    //    GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
-                                    //    Debug.Log(ex.Message);
-                                    //}
-                                }
-
-
-                            }
-                        }
-
                         else if (trimmedRow.Substring(0, 4) == "elif")
                         {
                             if (trimmedRow[trimmedRow.Length - 1] != ':')
@@ -2205,7 +2012,30 @@ public class RunCodeButton : MonoBehaviour
 
                             }
                         }
+                        else if (trimmedRow.Substring(0, 4) == "else")
+                        {
+                            trimmedRow = trimmedRow.Replace(" ", "");
+                            if (trimmedRow.Length != 5)
+                            {
+                                GameOver("else komutu else kelimesi ve : haricinde sadece boşluklar içerebilir.");
+                                Debug.Log("hata");
+                            }
 
+                            else if (trimmedRow[4] != ':')
+                            {
+                                GameOver("else komutunun sonuna : eklemeniz gerekiyor.");
+                                Debug.Log("hata");
+                            }
+
+                            else
+                            {
+
+                                Else elseCondition = new Else(characterMovement, instructionLevel);
+                                AddInstruction(elseCondition);
+                            }
+
+
+                        }
 
                         else if (trimmedRow.Substring(0, 5) == "while")
                         {
@@ -2424,32 +2254,205 @@ public class RunCodeButton : MonoBehaviour
 
                             }
                         }
-
-
-                        else if (trimmedRow.Substring(0, 4) == "else")
+                        else if (trimmedRow.Substring(0, classInstanceName.Length) == classInstanceName)
                         {
-                            trimmedRow = trimmedRow.Replace(" ", "");
-                            if (trimmedRow.Length != 5)
+                            if (!trimmedRow.Contains('.'))
                             {
-                                GameOver("else komutu else kelimesi ve : haricinde sadece boşluklar içerebilir.");
                                 Debug.Log("hata");
+                                GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
                             }
-
-                            else if (trimmedRow[4] != ':')
-                            {
-                                GameOver("else komutunun sonuna : eklemeniz gerekiyor.");
-                                Debug.Log("hata");
-                            }
-
                             else
                             {
+                                string[] moveParts = trimmedRow.Split('.');
+                                string classInstancePart = moveParts[0].Trim();
+                                string methodPart = moveParts[1].Trim();
+                                //Debug.Log("+" + classInstancePart + "+");
+                                //Debug.Log("+" + methodPart + "+");
 
-                                Else elseCondition = new Else(characterMovement, instructionLevel);
-                                AddInstruction(elseCondition);
+                                if (classInstancePart != classInstanceName)
+                                {
+                                    Debug.Log("hata");
+                                    GameOver("Bir class nesnesinin metodunu kullanacağınız zaman class nesnesinin adını yazıp . koyduktan sonra metodu yazmanız gerekiyor. Örnek: character.move_up()");
+                                }
+                                else
+                                {
+
+                                    if (!methodPart.Contains('('))
+                                    {
+                                        GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
+
+                                        Debug.Log("hata");
+                                    }
+                                    else if (!methodPart.Contains(')'))
+                                    {
+                                        GameOver("Parantez hatası: parametresiz methodlar sonlarına () eklenerek, parametreli methodlar eklenen parantezin içine parametre değerleri yazılarak çağrılır.");
+                                        Debug.Log("hata2");
+                                    }
+
+                                    string[] instructionParts = methodPart.Split('(', 2);
+
+                                    string methodName = instructionParts[0].Trim();
+                                    string methodParameterPart = instructionParts[1].Trim();
+                                    //instructionParts[1] = instructionParts[1].Trim();
+                                    int length = methodName.Length;
+
+                                    //Debug.Log(methodName);
+                                    //try
+                                    //{
+                                    if (methodName.Substring(0, 4) == "move")
+                                    {
+                                        methodParameterPart = methodParameterPart.Replace(" ", "");
+                                        if (methodParameterPart != ")")
+                                        {
+                                            Debug.Log("hata");
+                                            //Debug.Log(methodPart);
+                                            GameOver("move methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: move_up()");
+                                        }
+                                        else
+                                        {
+                                            if (methodName == "move_up")
+                                            {
+                                                Move move_up = new Move(characterMovement, "up", instructionLevel);
+                                                AddInstruction(move_up);
+                                                Debug.Log("MOVE UP : " + instructionLevel);
+                                            }
+                                            else if (methodName == "move_left")
+                                            {
+                                                Move move_left = new Move(characterMovement, "left", instructionLevel);
+                                                AddInstruction(move_left);
+                                                Debug.Log("MOVE LEFT : " + instructionLevel);
+                                            }
+                                            else if (methodName == "move_down")
+                                            {
+                                                Move move_down = new Move(characterMovement, "down", instructionLevel);
+                                                AddInstruction(move_down);
+                                                Debug.Log("MOVE DOWN : " + instructionLevel);
+                                            }
+                                            else if (methodName == "move_right")
+                                            {
+
+                                                Move move_right = new Move(characterMovement, "right", instructionLevel);
+                                                Debug.Log("mr level " + instructionLevel);
+                                                AddInstruction(move_right);
+                                                Debug.Log("MOVE RIGHT : " + instructionLevel);
+                                            }
+                                            else
+                                            {
+                                                GameOver("Method tanımını doğru yazmanız gerekiyor.");
+                                                Debug.Log("hata");
+                                            }
+                                        }
+
+                                    }
+                                    else if (methodName.Substring(0, 4) == "swim")
+                                    {
+                                        methodParameterPart = methodParameterPart.Replace(" ", "");
+                                        if (methodParameterPart != ")")
+                                        {
+                                            Debug.Log("hata");
+                                            GameOver("swim methodlarını parametre eklemeden yazmanız gerekiyor. Örnek: swim_up()");
+                                        }
+                                        else
+                                        {
+                                            if (methodName == "swim_up")
+                                            {
+                                                Swim swim_up = new Swim(characterMovement, "up", instructionLevel);
+                                                AddInstruction(swim_up);
+                                            }
+                                            else if (methodName == "swim_left")
+                                            {
+                                                Swim swim_left = new Swim(characterMovement, "left", instructionLevel);
+                                                AddInstruction(swim_left);
+                                            }
+                                            else if (methodName == "swim_down")
+                                            {
+                                                Swim swim_down = new Swim(characterMovement, "down", instructionLevel);
+                                                AddInstruction(swim_down);
+                                            }
+                                            else if (methodName == "swim_right")
+                                            {
+
+                                                Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
+                                                Debug.Log("mr level " + instructionLevel);
+                                                AddInstruction(swim_right);
+                                            }
+                                            else
+                                            {
+                                                GameOver("Method tanımını doğru yazmanız gerekiyor.");
+                                                Debug.Log("hata");
+                                            }
+                                        }
+
+                                    }
+                                    else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_color")
+                                    {
+                                        methodParameterPart = methodParameterPart.Trim();
+
+                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
+                                        {
+                                            Debug.Log("hata");
+                                            GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_color(blue)");
+                                        }
+                                        else
+                                        {
+                                            string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
+                                            if (colorsOfCharacter.Contains(methodParameter))
+                                            {
+                                                Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter, instructionLevel);
+                                                AddInstruction(setColor);
+                                            }
+                                            else
+                                            {
+                                                Debug.Log("hata");
+                                                GameOver("set_color metoduna uygun bir renk yazmanız gerekiyor. Uygun şekiller: red, blue, green, yellow");
+                                            }
+
+                                        }
+
+                                    }
+                                    else if (codePageCount == 2 && methodName.Substring(0, 9) == "set_shape")
+                                    {
+                                        methodParameterPart = methodParameterPart.Trim();
+                                        if (methodParameterPart[methodParameterPart.Length - 1] != ')')
+                                        {
+                                            Debug.Log("hata");
+                                            GameOver("Parantez hatası: parametreli metod komutlarını yazarken parametreli parantez içine yazmanız gerekiyor. Örnek: set_shape(circle)");
+                                        }
+                                        else
+                                        {
+                                            string methodParameter = methodParameterPart.Substring(0, methodParameterPart.Length - 1).Trim();
+                                            if (shapesOfCharacter.Contains(methodParameter))
+                                            {
+                                                Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter, instructionLevel);
+                                                AddInstruction(setShape);
+                                            }
+                                            else
+                                            {
+                                                Debug.Log("hata");
+                                                GameOver("set_shape metoduna uygun bir şekil yazmanız gerekiyor. Uygun şekiller: square, circle");
+                                            }
+                                        }
+                                    }
+
+                                    //}
+                                    //catch (Exception ex)
+                                    //{
+                                    //    //GameOver("Hata: " + ex.Message);
+                                    //    GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
+                                    //    Debug.Log(ex.Message);
+                                    //}
+                                }
+
+
                             }
-
-
                         }
+
+                        
+
+
+                        
+
+
                         //}
                         //catch (Exception e)
                         //{
