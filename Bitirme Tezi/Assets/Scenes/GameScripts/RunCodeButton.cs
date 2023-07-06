@@ -3326,7 +3326,7 @@ public class RunCodeButton : MonoBehaviour
                 else if (((If)instructionList[0]).firstMethod != "is_obstacle")
                 {
                     Debug.Log("hata");
-                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
                 }
             }
             else if (levelNumber == 5)
@@ -3349,7 +3349,7 @@ public class RunCodeButton : MonoBehaviour
                 else if (((If)instructionList[0]).firstMethod != "is_obstacle")
                 {
                     Debug.Log("hata");
-                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
                 }
 
 
@@ -3372,7 +3372,50 @@ public class RunCodeButton : MonoBehaviour
             }
             else if (levelNumber == 6)
             {
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane if yapısı kullanmanız gerekiyor.");
+                }
+                else if (!((If)instructionList[0]).isThereNotOperator)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bir engel olmadığından emin olmak için not operatörünü kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "left_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin soldundaki bloğu kontrol etmek için left_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "is_obstacle")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
+                }
 
+
+                else if (instructionList[1].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane if yapısı kullanmanız gerekiyor.");
+                }
+                
+                else if (((If)instructionList[1]).firstMethod != "up_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[1]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
+                }
+
+                else if (instructionList[2].GetType() != typeof(Else))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane if yapısı kullanmanız gerekiyor.");
+                }
             }
         }
         else if (subjectNumber == 4)
