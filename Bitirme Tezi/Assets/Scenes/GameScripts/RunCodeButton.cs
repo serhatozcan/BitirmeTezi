@@ -3422,15 +3422,77 @@ public class RunCodeButton : MonoBehaviour
         {
             if (levelNumber == 1)
             {
-
+                if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
+               
+                else if (((While)instructionList[0]).firstMethod != "up_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[0]).firstMethod != "is_water")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 2)
             {
+                if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
 
+                else if (((While)instructionList[0]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[0]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 3)
             {
+                if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
 
+                else if (((While)instructionList[0]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[0]).firstMethod != "is_water")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
+
+                else if (instructionList[1].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
+
+                else if (((While)instructionList[1]).firstMethod != "down_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin altındaki bloğu kontrol etmek için down_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[1]).firstMethod != "is_water")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 4)
             {
