@@ -3118,8 +3118,7 @@ public class RunCodeButton : MonoBehaviour
     {
         if (subjectNumber == 1)
         {
-            //if (levelNumber == 1)
-            //{
+            
             for (int i = 0; i < instructionList.Count; i++)
             {
                 if (instructionList[i].GetType() != typeof(Move))
@@ -3128,34 +3127,7 @@ public class RunCodeButton : MonoBehaviour
                     GameOver("Bu soruda sadece move metodlarını kullanmanız gerekiyor.");
                 }
             }
-            //}
-            //else if (levelNumber == 2)
-            //{
-
-            //}
-            //else if (levelNumber == 3)
-            //{
-
-            //}
-            //else if (levelNumber == 4)
-            //{
-
-            //}
-            //else if (levelNumber == 5)
-            //{
-
-            //}
-            //else if (levelNumber == 6)
-            //{
-
-            //}
-            //else if (levelNumber == 7)
-            //{
-            //    if (instructionList[0].GetType() != typeof(For))
-            //    {
-            //        Debug.Log("�lk komutun bir for olmas� gerekiyor.");
-            //    }
-            //}
+           
         }
         else if (subjectNumber == 2)
         {
@@ -3164,7 +3136,7 @@ public class RunCodeButton : MonoBehaviour
                 if (instructionList[0].GetType() != typeof(For))
                 {
                     Debug.Log("hata");
-                    GameOver("");
+                    GameOver("Bu soruda for döngüsü kullanmanız gerekiyor.");
                 }
             }
             else if (levelNumber == 2)
@@ -3172,7 +3144,7 @@ public class RunCodeButton : MonoBehaviour
                 if (instructionList[0].GetType() != typeof(For))
                 {
                     Debug.Log("hata");
-                    GameOver("");
+                    GameOver("Bu soruda for döngüsü kullanmanız gerekiyor.");
                 }
             }
             else if (levelNumber == 3)
@@ -3180,7 +3152,7 @@ public class RunCodeButton : MonoBehaviour
                 if (instructionList[0].GetType() != typeof(For))
                 {
                     Debug.Log("hata");
-                    GameOver("");
+                    GameOver("Bu soruda for döngüsü kullanmanız gerekiyor.");
                 }
             }
             else if (levelNumber == 4)
@@ -3642,15 +3614,53 @@ public class RunCodeButton : MonoBehaviour
         {
             if (levelNumber == 1)
             {
-
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                }
+                else if (instructionList[1].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 2)
             {
-
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                }
+                else if (instructionList[1].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 3)
             {
-
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                }
+                else if (instructionList[1].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir for döngüsünün içinde bir if yapısı kullanmanız gerekiyor.");
+                }
+            
+                else if (((If)instructionList[1]).firstMethod != "up_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[1]).secondMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 4)
             {
