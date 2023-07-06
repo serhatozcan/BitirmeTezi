@@ -872,7 +872,7 @@ public class RunCodeButton : MonoBehaviour
 
 
                 }
-               
+
                 else if (isInsideSetColor || isInsideSetShape)
                 {
                     Debug.Log(isInsideSetColor + " " + rows2[i] + " " + isInsideSetShape);
@@ -1065,7 +1065,7 @@ public class RunCodeButton : MonoBehaviour
                     else if (rowIndentation == indentation + n)
                     {
                         isInsideInit = false;
-                        
+
 
                         Debug.Log("*" + rows2[i] + "*");
                         string trimmedRow = rows2[i].Trim();
@@ -1428,13 +1428,13 @@ public class RunCodeButton : MonoBehaviour
 
                             character.SetActive(true);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Debug.Log("hata");
                             GameOver("Kodunuzda eksik veya hatalı nokta/lar var.");
 
                         }
-                        
+
                         Debug.Log("activve");
                         isClassInstanceRow = false;
                     }
@@ -1507,13 +1507,13 @@ public class RunCodeButton : MonoBehaviour
 
                                         bool isThereNotOperator = false;
 
-                                        if(booleanPart.Substring(0,3) == "not")
+                                        if (booleanPart.Substring(0, 3) == "not")
                                         {
                                             isThereNotOperator = true;
                                             booleanPart = booleanPart.Substring(3).Trim();
 
                                         }
-                                        
+
 
 
                                         if (operatorType == null)
@@ -2526,7 +2526,7 @@ public class RunCodeButton : MonoBehaviour
 
                                 instruction.Run();
 
-                                
+
                             }
                         }
                         else if (((If)instruction).secondMethod == "is_water")
@@ -3118,6 +3118,163 @@ public class RunCodeButton : MonoBehaviour
     {
         if (subjectNumber == 1)
         {
+            //if (levelNumber == 1)
+            //{
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                if (instructionList[i].GetType() != typeof(Move))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda sadece move metodlarını kullanmanız gerekiyor.");
+                }
+            }
+            //}
+            //else if (levelNumber == 2)
+            //{
+
+            //}
+            //else if (levelNumber == 3)
+            //{
+
+            //}
+            //else if (levelNumber == 4)
+            //{
+
+            //}
+            //else if (levelNumber == 5)
+            //{
+
+            //}
+            //else if (levelNumber == 6)
+            //{
+
+            //}
+            //else if (levelNumber == 7)
+            //{
+            //    if (instructionList[0].GetType() != typeof(For))
+            //    {
+            //        Debug.Log("�lk komutun bir for olmas� gerekiyor.");
+            //    }
+            //}
+        }
+        else if (subjectNumber == 2)
+        {
+            if (levelNumber == 1)
+            {
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("");
+                }
+            }
+            else if (levelNumber == 2)
+            {
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("");
+                }
+            }
+            else if (levelNumber == 3)
+            {
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("");
+                }
+            }
+            else if (levelNumber == 4)
+            {
+                int forLoopCount = 0;
+                for (int i = 0; i < instructionList.Count; i++)
+                {
+                    if (instructionList[i].GetType() == typeof(For))
+                    {
+                        forLoopCount++;
+                    }
+                }
+                if(forLoopCount == 0)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda en az bir tane for döngüsü kullanmanız gerekiyor.");
+                }   
+               
+            }
+            else if (levelNumber == 5)
+            {
+                for (int i = 0; i < instructionList.Count; i++)
+                {
+                    if (instructionList[i].GetType() != typeof(For))
+                    {
+                        Debug.Log("hata");
+                        GameOver("Bu soruda tüm komutlarınızı for döngüleri içine yazmanız gerekiyor.");
+                    }
+                }
+            }
+            else if (levelNumber == 6)
+            {
+                int forLoopCount = 0;
+                for (int i = 0; i < instructionList.Count; i++)
+                {
+                    if (instructionList[i].GetType() == typeof(For))
+                    {
+                        forLoopCount++;
+                    }
+                }
+                if (forLoopCount == 0)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda en az bir tane for döngüsü kullanmanız gerekiyor.");
+                }
+
+            }
+
+        }
+        else if (subjectNumber == 3)
+        {
+            if (levelNumber == 1)
+            {
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda if else yapısını kullanmanız gerekiyor.");
+                }else if (((If)instructionList[0]).firstMethod != "is_uptile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin üstündeki bloğa ulaşmak için up_tile() metodunu kullanmanız gerekiyor.");
+                }else if(((If)instructionList[0]).firstMethod != "is_water")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }else if(instructionList[1].GetType() != typeof(Else))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda if else yapısını kullanmanız gerekiyor.");
+                }
+            }
+            else if (levelNumber == 2)
+            {
+               
+            }
+            else if (levelNumber == 3)
+            {
+
+            }
+            else if (levelNumber == 4)
+            {
+
+            }
+            else if (levelNumber == 5)
+            {
+
+            }
+            else if (levelNumber == 6)
+            {
+
+            }
+        }
+        else if (subjectNumber == 4)
+        {
             if (levelNumber == 1)
             {
 
@@ -3142,33 +3299,60 @@ public class RunCodeButton : MonoBehaviour
             {
 
             }
-            else if (levelNumber == 7)
-            {
-                if (instructionList[0].GetType() != typeof(For))
-                {
-                    Debug.Log("�lk komutun bir for olmas� gerekiyor.");
-                }
-            }
-        }
-        else if (subjectNumber == 2)
-        {
-
-        }
-        else if (subjectNumber == 3)
-        {
-
-        }
-        else if (subjectNumber == 4)
-        {
-
         }
         else if (subjectNumber == 5)
         {
+            if (levelNumber == 1)
+            {
 
+            }
+            else if (levelNumber == 2)
+            {
+
+            }
+            else if (levelNumber == 3)
+            {
+
+            }
+            else if (levelNumber == 4)
+            {
+
+            }
+            else if (levelNumber == 5)
+            {
+
+            }
+            else if (levelNumber == 6)
+            {
+
+            }
         }
         else if (subjectNumber == 6)
         {
+            if (levelNumber == 1)
+            {
 
+            }
+            else if (levelNumber == 2)
+            {
+
+            }
+            else if (levelNumber == 3)
+            {
+
+            }
+            else if (levelNumber == 4)
+            {
+
+            }
+            else if (levelNumber == 5)
+            {
+
+            }
+            else if (levelNumber == 6)
+            {
+
+            }
         }
 
     }
