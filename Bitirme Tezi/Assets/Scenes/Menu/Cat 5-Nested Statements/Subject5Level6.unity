@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kod
+  m_text: Konu 5 Seviye 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2907,8 +2907,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Karakteri sand\u0131\u011Fa ula\u015Ft\u0131rmak i\xE7in move metodlar\u0131n\u0131
-    kullan\u0131n."
+  m_text: "Ka\xE7 kere d\xF6nece\u011Fini belirleyerek bir for d\xF6ng\xFCs\xFC yaz\u0131n.
+    Bu d\xF6ng\xFCn\xFCn i\xE7inde if else yap\u0131s\u0131yla karakterin ne taraf\u0131nda
+    sa\u011F veya sol taraf\u0131ndan hangisinde kara varsa oradan y\xFCr\xFCmesini
+    sa\u011Flay\u0131n ve karakteri sand\u0131\u011Fa ula\u015Ft\u0131r\u0131n."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
