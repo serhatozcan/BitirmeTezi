@@ -3242,7 +3242,7 @@ public class RunCodeButton : MonoBehaviour
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin üstündeki kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
-                }else if(((If)instructionList[0]).firstMethod != "is_water")
+                }else if(((If)instructionList[0]).secondMethod != "is_water")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3260,7 +3260,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[0]).firstMethod != "is_ground")
+                else if (((If)instructionList[0]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3283,7 +3283,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[0]).firstMethod != "is_ground")
+                else if (((If)instructionList[0]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3299,7 +3299,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("elif komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((Elif)instructionList[1]).firstMethod != "is_ground")
+                else if (((Elif)instructionList[1]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("elif komutunda bir bloğun kara olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3323,7 +3323,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin altındaki bloğu kontrol etmek down_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[0]).firstMethod != "is_obstacle")
+                else if (((If)instructionList[0]).secondMethod != "is_obstacle")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3346,7 +3346,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin soldundaki bloğu kontrol etmek için left_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[0]).firstMethod != "is_obstacle")
+                else if (((If)instructionList[0]).secondMethod != "is_obstacle")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3364,7 +3364,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[1]).firstMethod != "is_ground")
+                else if (((If)instructionList[1]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
@@ -3387,7 +3387,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin soldundaki bloğu kontrol etmek için left_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[0]).firstMethod != "is_obstacle")
+                else if (((If)instructionList[0]).secondMethod != "is_obstacle")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3405,7 +3405,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((If)instructionList[1]).firstMethod != "is_ground")
+                else if (((If)instructionList[1]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3433,7 +3433,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[0]).firstMethod != "is_water")
+                else if (((While)instructionList[0]).secondMethod != "is_water")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3452,7 +3452,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[0]).firstMethod != "is_ground")
+                else if (((While)instructionList[0]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
@@ -3471,7 +3471,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[0]).firstMethod != "is_water")
+                else if (((While)instructionList[0]).secondMethod != "is_water")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3488,7 +3488,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin altındaki bloğu kontrol etmek için down_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[1]).firstMethod != "is_water")
+                else if (((While)instructionList[1]).secondMethod != "is_water")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3512,7 +3512,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin altındaki bloğu kontrol etmek için down_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[0]).firstMethod != "is_obstacle")
+                else if (((While)instructionList[0]).secondMethod != "is_obstacle")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3535,7 +3535,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[1]).firstMethod != "is_water")
+                else if (((While)instructionList[1]).secondMethod != "is_water")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
@@ -3555,7 +3555,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin solundaki bloğu kontrol etmek için left_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[0]).firstMethod != "is_ground")
+                else if (((While)instructionList[0]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
@@ -3573,7 +3573,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("while komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
                 }
-                else if (((While)instructionList[1]).firstMethod != "is_ground")
+                else if (((While)instructionList[1]).secondMethod != "is_ground")
                 {
                     Debug.Log("hata");
                     GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
@@ -3583,7 +3583,59 @@ public class RunCodeButton : MonoBehaviour
             }
             else if (levelNumber == 6)
             {
+                if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda birden fazla while yapısı kullanmanız gerekiyor.\"");
+                }
 
+
+                else if (((While)instructionList[0]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin solundaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[0]).secondMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
+                }
+
+                else if (instructionList[1].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda birden fazla while yapısı kullanmanız gerekiyor.");
+                }
+
+                else if (((While)instructionList[1]).firstMethod != "down_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin altındaki bloğu kontrol etmek için down_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[1]).secondMethod != "is_water")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
+
+
+                if (instructionList[2].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda birden fazla while yapısı kullanmanız gerekiyor.\"");
+                }
+
+
+                else if (((While)instructionList[2]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin solundaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[2]).secondMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
+                }
             }
         }
         else if (subjectNumber == 5)
