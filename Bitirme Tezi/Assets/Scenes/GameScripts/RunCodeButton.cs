@@ -3241,7 +3241,7 @@ public class RunCodeButton : MonoBehaviour
                 }else if (((If)instructionList[0]).firstMethod != "up_tile")
                 {
                     Debug.Log("hata");
-                    GameOver("if komutunda karakterin üstündeki bloğa ulaşmak için up_tile() metodunu kullanmanız gerekiyor.");
+                    GameOver("if komutunda karakterin üstündeki kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
                 }else if(((If)instructionList[0]).firstMethod != "is_water")
                 {
                     Debug.Log("hata");
@@ -3258,7 +3258,7 @@ public class RunCodeButton : MonoBehaviour
                 else if (((If)instructionList[0]).firstMethod != "right_tile")
                 {
                     Debug.Log("hata");
-                    GameOver("if komutunda karakterin sağındaki bloğa ulaşmak için right_tile() metodunu kullanmanız gerekiyor.");
+                    GameOver("if komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
                 else if (((If)instructionList[0]).firstMethod != "is_ground")
                 {
@@ -3281,7 +3281,7 @@ public class RunCodeButton : MonoBehaviour
                 else if (((If)instructionList[0]).firstMethod != "right_tile")
                 {
                     Debug.Log("hata");
-                    GameOver("if komutunda karakterin sağındaki bloğa ulaşmak için right_tile() metodunu kullanmanız gerekiyor.");
+                    GameOver("if komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
                 else if (((If)instructionList[0]).firstMethod != "is_ground")
                 {
@@ -3297,7 +3297,7 @@ public class RunCodeButton : MonoBehaviour
                 else if (((Elif)instructionList[1]).firstMethod != "right_tile")
                 {
                     Debug.Log("hata");
-                    GameOver("elif komutunda karakterin sağındaki bloğa ulaşmak için right_tile() metodunu kullanmanız gerekiyor.");
+                    GameOver("elif komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
                 }
                 else if (((Elif)instructionList[1]).firstMethod != "is_ground")
                 {
@@ -3308,11 +3308,49 @@ public class RunCodeButton : MonoBehaviour
             }
             else if (levelNumber == 4)
             {
-
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda if yapısını kullanmanız gerekiyor.");
+                }
+                else if (!((If)instructionList[0]).isThereNotOperator)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bir engel olmadığından emin olmak için not operatörünü kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "down_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin altındaki bloğu kontrol etmek down_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "is_obstacle")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 5)
             {
-
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane if yapısı kullanmanız gerekiyor.");
+                }
+                else if (!((If)instructionList[0]).isThereNotOperator)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bir engel olmadığından emin olmak için not operatörünü kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "left_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda karakterin soldundaki bloğu kontrol etmek için left_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((If)instructionList[0]).firstMethod != "is_obstacle")
+                {
+                    Debug.Log("hata");
+                    GameOver("if komutunda bir blokta engel olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 6)
             {
