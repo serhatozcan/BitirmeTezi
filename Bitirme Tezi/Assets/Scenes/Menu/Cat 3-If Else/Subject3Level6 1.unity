@@ -3047,7 +3047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "If else yap\u0131s\u0131 i\xE7inde karakterin sol taraf\u0131ndaki blokta
+  m_text: "If else komutlar\u0131 kullanarak karakterin sol taraf\u0131ndaki blokta
     engel yoksa move metoduyla karakteri sol blo\u011Fa g\xF6t\xFCr\xFCn. Engel varsa
     beklesin. Daha sonra karakterin \xFCst taraf\u0131ndaki blok karaysa move metoduyla
     karakteri \xFCst blo\u011Fa g\xF6t\xFCr\xFCn, de\u011Filse move metoduyla karakteri
