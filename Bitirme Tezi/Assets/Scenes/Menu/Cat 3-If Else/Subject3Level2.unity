@@ -12199,7 +12199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5633622588574947805, guid: 7ebcdd1dca396ef41aa2f249c49d6810, type: 3}
       propertyPath: m_text
-      value: "if character.right_tile().is_ground():\n  character.move_up()\nelse:\n 
+      value: "if character.right_tile().is_ground():\n  character.move_right()\nelse:\n 
         character.move_left()"
       objectReference: {fileID: 0}
     - target: {fileID: 5633622588587538847, guid: 7ebcdd1dca396ef41aa2f249c49d6810, type: 3}
