@@ -3485,20 +3485,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 712063202}
     m_ColliderPaths:
-    - - X: 20000000
+    - - X: 10000000
+        Y: -20000000
+      - X: 0
+        Y: -20000000
+      - X: 0
         Y: -30000000
       - X: 10000000
         Y: -30000000
-      - X: 10000000
-        Y: -40000000
-      - X: 20000000
-        Y: -40000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 1.9999708, y: -4}
-      - {x: 1.9999708, y: -3}
-      - {x: 1, y: -3.0000293}
-      - {x: 1.0000293, y: -4}
+    - - {x: 0.99997073, y: -3}
+      - {x: 0.99997073, y: -2}
+      - {x: 0, y: -2.0000293}
+      - {x: 0.000029300001, y: -3}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &712063201
@@ -3596,7 +3596,7 @@ Tilemap:
   m_GameObject: {fileID: 712063198}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 1, y: -4, z: 0}
+  - first: {x: 0, y: -3, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 6
@@ -9323,11 +9323,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264513587679787790, guid: 894d0c4e7bfc7d349aed5898c5120fff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.4
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8264513587679787790, guid: 894d0c4e7bfc7d349aed5898c5120fff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.22
+      value: -2.22
       objectReference: {fileID: 0}
     - target: {fileID: 8264513587679787790, guid: 894d0c4e7bfc7d349aed5898c5120fff, type: 3}
       propertyPath: m_LocalPosition.z

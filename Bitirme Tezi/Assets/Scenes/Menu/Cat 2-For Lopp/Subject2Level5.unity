@@ -3486,19 +3486,19 @@ CompositeCollider2D:
   - m_Collider: {fileID: 712063202}
     m_ColliderPaths:
     - - X: 20000000
-        Y: -30000000
+        Y: 20000000
       - X: 10000000
-        Y: -30000000
+        Y: 20000000
       - X: 10000000
-        Y: -40000000
+        Y: 10000000
       - X: 20000000
-        Y: -40000000
+        Y: 10000000
   m_CompositePaths:
     m_Paths:
-    - - {x: 1.9999708, y: -4}
-      - {x: 1.9999708, y: -3}
-      - {x: 1, y: -3.0000293}
-      - {x: 1.0000293, y: -4}
+    - - {x: 1.9999708, y: 1}
+      - {x: 1.9999708, y: 2}
+      - {x: 1, y: 1.9999708}
+      - {x: 1.0000293, y: 1}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &712063201
@@ -3596,7 +3596,7 @@ Tilemap:
   m_GameObject: {fileID: 712063198}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: 1, y: -4, z: 0}
+  - first: {x: 1, y: 1, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 6
@@ -5913,30 +5913,36 @@ CompositeCollider2D:
         Y: -50000000
       - X: 90000000
         Y: -50000000
-    - - X: 0
-        Y: -20000000
-      - X: 0
-        Y: -10000000
-      - X: 10000000
-        Y: -10000000
-      - X: 10000000
-        Y: 0
+    - - X: 30000000
+        Y: -40000000
       - X: 30000000
-        Y: 0
-      - X: 30000000
+        Y: -30000000
+      - X: 20000000
+        Y: -30000000
+      - X: 20000000
         Y: -20000000
+      - X: 40000000
+        Y: -20000000
+      - X: 40000000
+        Y: -30000000
+      - X: 50000000
+        Y: -30000000
+      - X: 50000000
+        Y: -40000000
   m_CompositePaths:
     m_Paths:
     - - {x: 8.99997, y: -5}
       - {x: 8.99997, y: 4}
       - {x: -2, y: 3.999971}
       - {x: -1.9999708, y: -5}
-    - - {x: 3, y: -1.9999707}
-      - {x: 0, y: -1.9999707}
-      - {x: 0.0000294, y: -1}
-      - {x: 1, y: -0.99997073}
-      - {x: 1.0000294, y: 0}
-      - {x: 3, y: -0.0000294}
+    - - {x: 5, y: -3.9999704}
+      - {x: 3, y: -3.9999704}
+      - {x: 2.999971, y: -3}
+      - {x: 2, y: -2.9999707}
+      - {x: 2.0000293, y: -2}
+      - {x: 4, y: -2.0000293}
+      - {x: 4.000029, y: -3}
+      - {x: 5, y: -3.0000293}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1102573219
@@ -9327,7 +9333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8264513587679787790, guid: 894d0c4e7bfc7d349aed5898c5120fff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.22
+      value: 1.78
       objectReference: {fileID: 0}
     - target: {fileID: 8264513587679787790, guid: 894d0c4e7bfc7d349aed5898c5120fff, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11729,7 +11735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3228896624481883235, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.6
+      value: 3.4
       objectReference: {fileID: 0}
     - target: {fileID: 3228896624481883235, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_LocalPosition.y
