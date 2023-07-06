@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Konu 5 Seviye 1
+  m_text: Konu 6 Seviye 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3682,12 +3682,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Character s\u0131n\u0131f\u0131ndan kal\u0131t\u0131lan SimpleCharacter
-    adl\u0131 s\u0131n\u0131f\u0131 yaz\u0131n. SimpleCharacter i\xE7in bir tane
-    __init__ metodu yaz\u0131n. __init__ metoduyla shape (\u015Fekil) ve color (renk)
-    \xF6zelliklerinin atamas\u0131n\u0131 ayarlay\u0131n. Daha sonra Main sekmesinde
-    SimpleCharacter adl\u0131 dosyada bulunan SimpleCharacter adl\u0131 s\u0131n\u0131f\u0131n
-    istedi\u011Finiz \xF6zelliklerde olan bir nesnesini olu\u015Fturun."
+  m_text: "Yazd\u0131\u011F\u0131n\u0131z SimpleCharacter s\u0131n\u0131f\u0131n\u0131na
+    karakterin rengini belirleyecek set_color isimde bir metod yaz\u0131n. Daha sonra
+    Main sekmesinde SimpleCharacter adl\u0131 dosyada bulunan SimpleCharacter adl\u0131
+    s\u0131n\u0131f\u0131n istedi\u011Finiz \xF6zelliklerde olan bir nesnesini olu\u015Fturun.
+    set_color metodunu kullanarak karakterin rengini k\u0131rm\u0131z\u0131 (red)
+    yap\u0131n."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4723,7 +4723,7 @@ MonoBehaviour:
   codePageCount: 2
   isWaitingInstruction: 0
   subjectNumber: 6
-  levelNumber: 1
+  levelNumber: 2
   inputField1: {fileID: 675919796}
   inputField2: {fileID: 1350694834}
   chest: {fileID: 243447495}

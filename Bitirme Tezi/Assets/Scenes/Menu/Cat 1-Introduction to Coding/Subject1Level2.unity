@@ -3944,7 +3944,7 @@ MonoBehaviour:
   codePageCount: 1
   isWaitingInstruction: 0
   subjectNumber: 1
-  levelNumber: 7
+  levelNumber: 2
   inputField1: {fileID: 675919796}
   inputField2: {fileID: 0}
   chest: {fileID: 243447495}
