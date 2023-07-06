@@ -3118,7 +3118,7 @@ public class RunCodeButton : MonoBehaviour
     {
         if (subjectNumber == 1)
         {
-            
+
             for (int i = 0; i < instructionList.Count; i++)
             {
                 if (instructionList[i].GetType() != typeof(Move))
@@ -3127,7 +3127,7 @@ public class RunCodeButton : MonoBehaviour
                     GameOver("Bu soruda sadece move metodlarını kullanmanız gerekiyor.");
                 }
             }
-           
+
         }
         else if (subjectNumber == 2)
         {
@@ -3165,12 +3165,12 @@ public class RunCodeButton : MonoBehaviour
                         forLoopCount++;
                     }
                 }
-                if(forLoopCount == 0)
+                if (forLoopCount == 0)
                 {
                     Debug.Log("hata");
                     GameOver("Bu soruda en az bir tane for döngüsü kullanmanız gerekiyor.");
-                }   
-               
+                }
+
             }
             else if (levelNumber == 5)
             {
@@ -3210,11 +3210,13 @@ public class RunCodeButton : MonoBehaviour
                 {
                     Debug.Log("hata");
                     GameOver("Bu soruda if yapısını kullanmanız gerekiyor.");
-                }else if (((If)instructionList[0]).firstMethod != "up_tile")
+                }
+                else if (((If)instructionList[0]).firstMethod != "up_tile")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda karakterin üstündeki kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
-                }else if(((If)instructionList[0]).secondMethod != "is_water")
+                }
+                else if (((If)instructionList[0]).secondMethod != "is_water")
                 {
                     Debug.Log("hata");
                     GameOver("if komutunda bir bloğun su olup olmadığını kontrol etmek için is_water() metodunu kullanmanız gerekiyor.");
@@ -3330,7 +3332,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda iki tane if yapısı kullanmanız gerekiyor.");
                 }
-                
+
                 else if (((If)instructionList[1]).firstMethod != "up_tile")
                 {
                     Debug.Log("hata");
@@ -3371,7 +3373,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda iki tane if yapısı kullanmanız gerekiyor.");
                 }
-                
+
                 else if (((If)instructionList[1]).firstMethod != "up_tile")
                 {
                     Debug.Log("hata");
@@ -3399,7 +3401,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
                 }
-               
+
                 else if (((While)instructionList[0]).firstMethod != "up_tile")
                 {
                     Debug.Log("hata");
@@ -3520,7 +3522,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
                 }
-               
+
 
                 else if (((While)instructionList[0]).firstMethod != "left_tile")
                 {
@@ -3619,10 +3621,17 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
                 }
-                else if (instructionList[1].GetType() != typeof(For))
+                else
                 {
-                    Debug.Log("hata");
-                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                    Instruction insideInstruction = ((For)instructionList[0]).instructions[0];
+                    if (insideInstruction != null)
+                    {
+                        if (insideInstruction.GetType() != typeof(For))
+                        {
+                            Debug.Log("hata");
+                            GameOver("Bu soruda bir for döngüsünün içinde bir if yapısı kullanmanız gerekiyor.");
+                        }
+                    }
                 }
             }
             else if (levelNumber == 2)
@@ -3632,11 +3641,20 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
                 }
-                else if (instructionList[1].GetType() != typeof(For))
+                else
                 {
-                    Debug.Log("hata");
-                    GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
+                    Instruction insideInstruction = ((For)instructionList[0]).instructions[0];
+                    if (insideInstruction != null)
+                    {
+                        if (insideInstruction.GetType() != typeof(For))
+                        {
+                            Debug.Log("hata");
+                            GameOver("Bu soruda bir for döngüsünün içinde bir if yapısı kullanmanız gerekiyor.");
+                        }
+                    }
                 }
+
+
             }
             else if (levelNumber == 3)
             {
@@ -3645,33 +3663,93 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda bir for döngüsünün içinde bir for döngüsü kullanmanız gerekiyor.");
                 }
-                else if (instructionList[1].GetType() != typeof(If))
+                else
                 {
-                    Debug.Log("hata");
-                    GameOver("Bu soruda bir for döngüsünün içinde bir if yapısı kullanmanız gerekiyor.");
+                    Instruction insideInstruction = ((For)instructionList[0]).instructions[0];
+                    if (insideInstruction != null)
+                    {
+                        if (insideInstruction.GetType() != typeof(If))
+                        {
+                            Debug.Log("hata");
+                            GameOver("Bu soruda bir for döngüsünün içinde bir if yapısı kullanmanız gerekiyor.");
+                        }
+                        
+                    }
                 }
-            
-                else if (((If)instructionList[1]).firstMethod != "up_tile")
-                {
-                    Debug.Log("hata");
-                    GameOver("if komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
-                }
-                else if (((If)instructionList[1]).secondMethod != "is_ground")
-                {
-                    Debug.Log("hata");
-                    GameOver("if komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
-                }
+
             }
             else if (levelNumber == 4)
             {
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir if yapısının içinde bir if yapısı kullanmanız gerekiyor.");
+                }
+                else
+                {
+                    int ifInstructionCount = 0;
+                    for(int i = 0; i< ((If)instructionList[0]).instructions.Count; i++)
+                    {
+                        if (((If)instructionList[0]).instructions[i].GetType() == typeof(If))
+                        ifInstructionCount++;
+                    }
+                    if(ifInstructionCount == 0)
+                    {
+                        Debug.Log("hata");
+                        GameOver("Bu soruda bir if yapısının içinde bir if yapısı kullanmanız gerekiyor.");
+                    }
+
+                }
 
             }
             else if (levelNumber == 5)
             {
+                if (instructionList[0].GetType() != typeof(If))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir if yapısının içinde bir if yapısı kullanmanız gerekiyor.");
+                }
+                else
+                {
+                    int ifInstructionCount = 0;
+                    for (int i = 0; i < ((If)instructionList[0]).instructions.Count; i++)
+                    {
+                        if (((If)instructionList[0]).instructions[i].GetType() == typeof(If))
+                            ifInstructionCount++;
+                    }
+                    if (ifInstructionCount == 0)
+                    {
+                        Debug.Log("hata");
+                        GameOver("Bu soruda bir if yapısının içinde bir if yapısı kullanmanız gerekiyor.");
+                    }
+
+                }
 
             }
             else if (levelNumber == 6)
             {
+                if (instructionList[0].GetType() != typeof(For))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda bir if yapısının içinde bir if yapısı kullanmanız gerekiyor.");
+                }
+                else
+                {
+                    List < Instruction> insideInstructions = ((For)instructionList[0]).instructions;
+                    if(insideInstructions.Count != 2) {
+                        Debug.Log("hata");
+                        GameOver("For döngüsünün içinde if ve elif komutlarını kullanmanız gerekiyor.");
+                    }else if (insideInstructions[0].GetType() != typeof(If))
+                    {
+                        Debug.Log("hata");
+                        GameOver("For döngüsünün içinde if ve elif komutlarını kullanmanız gerekiyor.");
+                    }
+                    else if (insideInstructions[1].GetType() != typeof(Elif))
+                    {
+                        Debug.Log("hata");
+                        GameOver("For döngüsünün içinde if ve elif komutlarını kullanmanız gerekiyor.");
+                    }
+                }
 
             }
         }
