@@ -3496,10 +3496,89 @@ public class RunCodeButton : MonoBehaviour
             }
             else if (levelNumber == 4)
             {
+                if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
+                else if (!((While)instructionList[0]).isThereNotOperator)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bir engel olmadığından emin olmak için not operatörünü kullanmanız gerekiyor.");
+                }
 
+                else if (((While)instructionList[0]).firstMethod != "down_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin altındaki bloğu kontrol etmek için down_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[0]).firstMethod != "is_obstacle")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir blokta engel olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
+                }
+
+
+                else if (instructionList[1].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
+                else if (!((While)instructionList[1]).isThereNotOperator)
+                {
+                    Debug.Log("hata");
+                    GameOver("Bir engel olmadığından emin olmak için not operatörünü kullanmanız gerekiyor.");
+                }
+
+                else if (((While)instructionList[1]).firstMethod != "right_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin sağındaki bloğu kontrol etmek için right_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[1]).firstMethod != "is_water")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun su olup olmadığını kontrol etmek için is_obstacle() metodunu kullanmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 5)
             {
+                if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
+               
+
+                else if (((While)instructionList[0]).firstMethod != "left_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin solundaki bloğu kontrol etmek için left_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[0]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
+                }
+
+                else if (instructionList[0].GetType() != typeof(While))
+                {
+                    Debug.Log("hata");
+                    GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
+                }
+
+
+                else if (((While)instructionList[1]).firstMethod != "up_tile")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda karakterin üstündeki bloğu kontrol etmek için up_tile() metodunu kullanmanız gerekiyor.");
+                }
+                else if (((While)instructionList[1]).firstMethod != "is_ground")
+                {
+                    Debug.Log("hata");
+                    GameOver("while komutunda bir bloğun kara olup olmadığını kontrol etmek için is_ground() metodunu kullanmanız gerekiyor.");
+                }
+
 
             }
             else if (levelNumber == 6)
