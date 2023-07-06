@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 739124556}
   - component: {fileID: 739124555}
   - component: {fileID: 739124554}
-  - component: {fileID: 739124559}
+  - component: {fileID: 739124560}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -640,22 +640,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &739124559
+--- !u!114 &739124560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739124553}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d6a5a99325987a48adf98c729f2dfd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6667b1bdcd4e3a24db22f72df89bc8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabButton1: {fileID: 0}
-  tabButton2: {fileID: 0}
-  page1: {fileID: 0}
-  page2: {fileID: 0}
+  subjectNumber: 0
 --- !u!1 &792822161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,8 +1079,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 457, y: -88}
-  m_SizeDelta: {x: 960, y: 796.02}
+  m_AnchoredPosition: {x: 466, y: -88}
+  m_SizeDelta: {x: 702.81, y: 796.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1680497727
 MonoBehaviour:
@@ -1105,7 +1102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 83ab52d38a2777a4ea7bb104c5d66595, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b7d786bb4dff9914c9cddfe9f1c962da, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1351,7 +1348,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1890116048}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 739124560}
+        m_TargetAssemblyTypeName: MenuNavigation, Assembly-CSharp
+        m_MethodName: GoBackForTutorialScreens
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1890116048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1587,11 +1596,11 @@ MonoBehaviour:
   m_text: "Kodlama d\xF6ng\xFCler bir kod blo\u011Funu \xE7ok say\u0131da \xE7al\u0131\u015Ft\u0131rmak
     i\xE7in kullan\u0131l\u0131r. \n\nFor d\xF6ng\xFCs\xFCnde bir kod blo\u011Funun
     ka\xE7 kere \xE7al\u0131\u015Faca\u011F\u0131n\u0131 se\xE7ebilirsiniz. \n\nfor
-    i in range (3):\n  character.move_right()\n  character.move_up()\n\n\u015Feklinde
-    bir kod yazd\u0131\u011F\u0131n\u0131zda range parametresi olarak girilen 3 say\u0131s\u0131
+    i in range (4):\n  character.move_right()\n  character.move_up()\n\n\u015Feklinde
+    bir kod yazd\u0131\u011F\u0131n\u0131zda range parametresi olarak girilen 4 say\u0131s\u0131
     kadar for blo\u011Funun i\xE7indeki komutlar s\u0131ras\u0131yla \xE7al\u0131\u015F\u0131r.
     Bu \xF6rnekte karakter \xF6nce sa\u011Fa sonra sola hareket edecektir. Bu hareketi
-    toplamda 3 kere yapacakt\u0131r.  "
+    toplamda 4 kere yapacakt\u0131r. ve sand\u0131\u011Fa ula\u015Facakt\u0131r."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

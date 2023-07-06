@@ -12,15 +12,129 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu/Subjects Menu.unity
     guid: 6e64c4902bd58f34e86e0ed88db2228a
   - enabled: 1
-    path: Assets/Scenes/Menu/Add New Child of a Parent Menu.unity
-    guid: 9a92312fac73b904ab5d87f83bc22b20
-  - enabled: 1
-    path: Assets/Scenes/Subject1Level5.unity
-    guid: 81f63b0b9955cfa46a8b4c2eea97a36d
-  - enabled: 1
     path: Assets/Scenes/Menu/Subject1.unity
     guid: a67aacb426098af4c920e7155fe1eb80
   - enabled: 1
-    path: Assets/Scenes/Subject1Level7.unity
-    guid: 0cfde38047ab1a446ad3eb1934daf199
+    path: Assets/Scenes/Menu/Tutorials/Subject1Lesson.unity
+    guid: efe21f3fef49bd34eb5d5f8cafc0e8fc
+  - enabled: 1
+    path: Assets/Scenes/Menu/Subject2.unity
+    guid: 173a54b625363ec4987a5accfad8fd3b
+  - enabled: 1
+    path: Assets/Scenes/Menu/Tutorials/Subject2Lesson.unity
+    guid: 1ab89cd9264603740ad5179a38ba9071
+  - enabled: 1
+    path: Assets/Scenes/Menu/Subject3.unity
+    guid: d6a67ebe942a3a04dbbe862d08c01fe8
+  - enabled: 1
+    path: Assets/Scenes/Menu/Tutorials/Subject3Lesson.unity
+    guid: 739b886e060fd29478f0617204bab675
+  - enabled: 1
+    path: Assets/Scenes/Menu/Subject4.unity
+    guid: 4bef106d36b3cbe41a5e4426d925216a
+  - enabled: 1
+    path: Assets/Scenes/Menu/Tutorials/Subject4Lesson.unity
+    guid: 084b2912de9d013498c7e59c1cea09d7
+  - enabled: 1
+    path: Assets/Scenes/Menu/Subject5.unity
+    guid: cd42f480cad8c4d45aedbc3ebf44b1b0
+  - enabled: 1
+    path: Assets/Scenes/Menu/Tutorials/Subject5Lesson.unity
+    guid: 10c442ccf00af584bb9d7090be086a38
+  - enabled: 1
+    path: Assets/Scenes/Menu/Subject6.unity
+    guid: c712ba14af213ca4594b09fb3ec59866
+  - enabled: 1
+    path: Assets/Scenes/Menu/Tutorials/Subject6Lesson.unity
+    guid: 6a12397bbe5d84d40aef3beaccdcccc9
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level1.unity
+    guid: c44c618dcf473844f98f2d1970e0f7cd
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level2.unity
+    guid: c0bf98786fdcae344afc27bd51680f08
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level3.unity
+    guid: dc4d01bb9ac88284a916dceee9945463
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level4.unity
+    guid: b3756ec13aa3bb14084c548964751b3a
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level5.unity
+    guid: 76cce271189a55441b536960aeb69931
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level6.unity
+    guid: 68812f6c8d47ed34b9da46625380e8ad
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level1.unity
+    guid: bf55fb5eda1b6344b8a3772955f1b5a9
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level2.unity
+    guid: 2dd481b113623b64ab48af387d634626
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level3.unity
+    guid: acb976a23b7bbb64eb7787d461b50e80
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level4.unity
+    guid: f2fd123eb84e18e489082695ab7119d6
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level5.unity
+    guid: 7a9fdf4120db6334baab7ff5d3c4863e
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level6.unity
+    guid: 5d0265f406df5f543b634c90f35701b3
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level1.unity
+    guid: 69861351cbc52f549b03bb2f0b79837e
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level2.unity
+    guid: fabd3d51ab6585a4dbdf01f8d22710f3
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level3.unity
+    guid: f08b296b0bdc87345aa16d06bbd3406e
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level4.unity
+    guid: 3b884ba71ff3e004383463b1e897b679
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level5.unity
+    guid: 915b6876a5e018143954fe4d82b6ea87
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level6.unity
+    guid: 2a8d0b1604cc0bc4bb3934595e56fb1e
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 4-While Loop/Subject4Level1.unity
+    guid: b8c69ef6097fc124284d1f931998fb53
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 4-While Loop/Subject4Level2.unity
+    guid: d222ce1be28f2ed4a89326ba1e5ffe2e
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 4-While Loop/Subject4Level3.unity
+    guid: 5628248be35623e4ba5b2dfed4798d1f
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 4-While Loop/Subject4Level4.unity
+    guid: 16ad61826b0ef6f4c877d1de8140c89b
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 4-While Loop/Subject4Level5.unity
+    guid: 2a443e3ffe496384d8e91c6708a34117
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 4-While Loop/Subject4Level6.unity
+    guid: a8bc25117e571e845b83d91c64b319d1
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level1.unity
+    guid: 98ec794b1c1383546b5288a8e47be5f2
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level2.unity
+    guid: 97f11eb091d32314bab9f4494bf02f3d
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level3.unity
+    guid: bfee932d527e7a943846d9fb2a6d0165
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level4.unity
+    guid: 2569ee6a03e75964f93fc3368f282956
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level5.unity
+    guid: 1699c04173b1ddd4eae41a70b1ae9c82
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level6.unity
+    guid: 374b8c0d005c273479e5551d0a22401e
   m_configObjects: {}

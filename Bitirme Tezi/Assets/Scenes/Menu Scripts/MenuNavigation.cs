@@ -69,7 +69,15 @@ public class MenuNavigation : MonoBehaviour
         SceneManager.LoadScene("Subject6");
     }
 
-    
+
+    public void OpenTutorial()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
+    public void GoBackForTutorialScreens()
+    {
+         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+    }
 
 
 
