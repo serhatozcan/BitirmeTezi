@@ -310,7 +310,7 @@ public class Swim : Instruction
 
 public class Def_SetShape : HolderInstruction
 {
-    private string shape;
+    public string shape;
     public CharacterColorAndShapeChanger characterColorAndShapeChanger;
 
     public Def_SetShape(CharacterColorAndShapeChanger characterColorAndShapeChanger, string shape, int level)
@@ -337,7 +337,7 @@ public class Def_SetShape : HolderInstruction
 
 public class Def_SetColor : HolderInstruction
 {
-    private string color;
+    public string color;
     public CharacterColorAndShapeChanger characterColorAndShapeChanger;
 
     public Def_SetColor(CharacterColorAndShapeChanger characterColorAndShapeChanger, string color, int level)
@@ -3755,30 +3755,76 @@ public class RunCodeButton : MonoBehaviour
         }
         else if (subjectNumber == 6)
         {
-            if (levelNumber == 1)
+            //if (levelNumber == 1)
+            //{
+                
+            //}
+            if (levelNumber == 2)
             {
-
-            }
-            else if (levelNumber == 2)
-            {
-
+                if(instructionList[0].GetType() != typeof(Def_SetColor)){
+                    Debug.Log("hata");
+                    GameOver("set_color metodunu kullanmanız gerekiyor.");
+                }else if (((Def_SetColor)instructionList[0]).color != "red")
+                {
+                    Debug.Log("hata");
+                    GameOver("set_color metodu ile karakteri kırmızı yapmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 3)
             {
-
+                if (instructionList[0].GetType() != typeof(Def_SetShape))
+                {
+                    Debug.Log("hata");
+                    GameOver("set_color metodunu kullanmanız gerekiyor.");
+                }
+                else if (((Def_SetShape)instructionList[0]).shape != "circle")
+                {
+                    Debug.Log("hata");
+                    GameOver("set_color metodu ile karakteri kırmızı yapmanız gerekiyor.");
+                }
             }
             else if (levelNumber == 4)
             {
+                int setColorMethodCount = 0;
+                int setShapeMethodCount = 0;
 
-            }
-            else if (levelNumber == 5)
-            {
+                for(int i = 0; i<instructionList.Count; i++)
+                {
+                    if (instructionList[i].GetType()  == typeof(Def_SetColor))
+                    {
+                        setColorMethodCount++;
+                    }
+                    else if (instructionList[i].GetType() == typeof(Def_SetShape))
+                    {
+                        setShapeMethodCount++;
+                    }
+                }
 
+                if(setColorMethodCount > 0)
+                {
+                    Debug.Log("hata");
+                    GameOver("set_color metodu kullanmamanız gerekiyor.");
+                }
+                else if(setShapeMethodCount > 0) 
+                {
+                    Debug.Log("hata");
+                    GameOver("set_shape metodu kullanmamanız gerekiyor.");
+                }
+                else
+                {
+                    if (!transform.Find("SquareBody").gameObject.activeSelf)
+                    {
+                        Debug.Log("hata");
+                        GameOver("Karakteri kare (square) şeklinde oluşturmanız gerekiyor.");
+                    }else if(transform.Find("SquareBody").gameObject.GetComponent<Renderer>().material.color != UnityEngine.Color.yellow)
+                    {
+                        Debug.Log("hata");
+                        GameOver("Karakteri sarı (yellow) renkte oluşturmanız gerekiyor.");
+                    }
+                    
+                }
             }
-            else if (levelNumber == 6)
-            {
-
-            }
+            
         }
 
     }
