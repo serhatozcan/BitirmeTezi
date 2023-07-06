@@ -649,6 +649,8 @@ public class RunCodeButton : MonoBehaviour
 
         //List<string> classInitParameters = new List<string>();
 
+        if (codePageCount == 1)
+            classInstanceName = "character";
 
         if (codePageCount == 2 && !String.IsNullOrEmpty(inputText2))
         {

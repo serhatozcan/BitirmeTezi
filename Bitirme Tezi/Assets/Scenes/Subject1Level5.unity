@@ -6644,24 +6644,12 @@ CompositeCollider2D:
         Y: -50000000
       - X: 90000000
         Y: -50000000
-    - - X: 0
-        Y: -30000000
-      - X: 0
-        Y: 0
-      - X: 10000000
-        Y: 0
-      - X: 10000000
-        Y: -30000000
   m_CompositePaths:
     m_Paths:
     - - {x: 8.99997, y: -5}
       - {x: 8.99997, y: 4}
       - {x: -1, y: 3.999971}
       - {x: -0.99997073, y: -5}
-    - - {x: 1, y: -2.9999707}
-      - {x: 0, y: -2.9999707}
-      - {x: 0.0000294, y: 0}
-      - {x: 1, y: -0.0000294}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
 --- !u!50 &1102573219
@@ -14462,7 +14450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3228896624481883236, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 100e83c3cc1c5e94485f5bbb24299fa9, type: 3}
