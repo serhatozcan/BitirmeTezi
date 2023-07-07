@@ -2092,14 +2092,14 @@ public class RunCodeButton : MonoBehaviour
 
 
                                         bool isThereNotOperator = false;
-
+                                        Debug.Log(booleanPart);
                                         if (booleanPart.Substring(0, 3) == "not")
                                         {
                                             isThereNotOperator = true;
                                             booleanPart = booleanPart.Substring(3).Trim();
 
                                         }
-
+                                        
 
                                         if (operatorType == null)
                                         {
@@ -2614,29 +2614,14 @@ public class RunCodeButton : MonoBehaviour
                             //groundTilemap vs waterTilemap ???
                             Vector3Int upTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                             //Oldu mu???
-                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && !((If)instruction).isThereNotOperator)
+                            if (!((If)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && ((If)instruction).isThereNotOperator)
                             {
                                 Debug.Log(":????????");
                                 didPreviousConditionsRun = true;
                                 instruction.Run();
                             }
                         }
-                        else if (((If)instruction).secondMethod == "contains")
-                        {
-                            //burada direkt parameterPart diye yazilabilir mi??
-                            if (((If)instruction).secondMethodParameter == "apple")
-                            {
-
-                            }
-                            else if (((If)instruction).secondMethodParameter == "banana")
-                            {
-
-                            }
-                            else if (((If)instruction).secondMethodParameter == "kiwi")
-                            {
-
-                            }
-                        }
+                      
                     }
                     //HEPSINE CONTAINS EKLENECEK.
                     else if (((If)instruction).firstMethod == "down_tile")
@@ -2673,7 +2658,7 @@ public class RunCodeButton : MonoBehaviour
                             //groundTilemap vs waterTilemap ???
                             Vector3Int downTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                             //Oldu mu???
-                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && !((If)instruction).isThereNotOperator)
+                            if (!((If)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && ((If)instruction).isThereNotOperator)
                             {
                                 didPreviousConditionsRun = true;
                                 instruction.Run();
@@ -2718,7 +2703,7 @@ public class RunCodeButton : MonoBehaviour
                             //groundTilemap vs waterTilemap ???
                             Vector3Int rightTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                             //Oldu mu???
-                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && !((If)instruction).isThereNotOperator)
+                            if (!((If)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && ((If)instruction).isThereNotOperator)
                             {
                                 didPreviousConditionsRun = true;
                                 instruction.Run();
@@ -2759,7 +2744,7 @@ public class RunCodeButton : MonoBehaviour
                             //groundTilemap vs waterTilemap ???
                             Vector3Int leftTilePosition = ((If)instruction).characterMovement.groundTilemap.WorldToCell(((If)instruction).characterMovement.transform.position + (Vector3)direction);
                             //Oldu mu???
-                            if (((If)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && !((If)instruction).isThereNotOperator)
+                            if (!((If)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && ((If)instruction).isThereNotOperator)
                             {
                                 didPreviousConditionsRun = true;
                                 instruction.Run();
@@ -2821,7 +2806,7 @@ public class RunCodeButton : MonoBehaviour
                                 //groundTilemap vs waterTilemap ???
                                 Vector3Int upTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
                                 //Oldu mu???
-                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                if (!((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && ((Elif)instruction).isThereNotOperator)
                                 {
                                     didPreviousConditionsRun = true;
                                     instruction.Run();
@@ -2879,7 +2864,7 @@ public class RunCodeButton : MonoBehaviour
                                 //groundTilemap vs waterTilemap ???
                                 Vector3Int downTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
                                 //Oldu mu???
-                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                if (!((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && ((Elif)instruction).isThereNotOperator)
                                 {
                                     didPreviousConditionsRun = true;
                                     instruction.Run();
@@ -2921,7 +2906,7 @@ public class RunCodeButton : MonoBehaviour
                                 //groundTilemap vs waterTilemap ???
                                 Vector3Int rightTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
                                 //Oldu mu???
-                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                if (!((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && ((Elif)instruction).isThereNotOperator)
                                 {
                                     didPreviousConditionsRun = true;
                                     instruction.Run();
@@ -2962,7 +2947,7 @@ public class RunCodeButton : MonoBehaviour
                                 //groundTilemap vs waterTilemap ???
                                 Vector3Int leftTilePosition = ((Elif)instruction).characterMovement.groundTilemap.WorldToCell(((Elif)instruction).characterMovement.transform.position + (Vector3)direction);
                                 //Oldu mu???
-                                if (((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && !((Elif)instruction).isThereNotOperator)
+                                if (!((Elif)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && ((Elif)instruction).isThereNotOperator)
                                 {
                                     didPreviousConditionsRun = true;
                                     instruction.Run();
@@ -3023,7 +3008,7 @@ public class RunCodeButton : MonoBehaviour
                         //groundTilemap vs waterTilemap ???
                         Vector3Int upTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
                         //Oldu mu???
-                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && !((While)instruction).isThereNotOperator)
+                        while (!((While)instruction).characterMovement.obstaclesTilemap.HasTile(upTilePosition) && ((While)instruction).isThereNotOperator)
                         {
                             instruction.Run();
                             upTilePosition = upTilePosition + Vector3Int.FloorToInt((Vector3)direction);
@@ -3064,7 +3049,7 @@ public class RunCodeButton : MonoBehaviour
                         //groundTilemap vs waterTilemap ???
                         Vector3Int rightTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
                         //Oldu mu???
-                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && !((While)instruction).isThereNotOperator)
+                        while (!((While)instruction).characterMovement.obstaclesTilemap.HasTile(rightTilePosition) && ((While)instruction).isThereNotOperator)
                         {
                             instruction.Run();
                             rightTilePosition = rightTilePosition + Vector3Int.FloorToInt((Vector3)direction);
@@ -3105,7 +3090,7 @@ public class RunCodeButton : MonoBehaviour
                         //groundTilemap vs waterTilemap ???
                         Vector3Int downTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
                         //Oldu mu???
-                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && !((While)instruction).isThereNotOperator)
+                        while (!((While)instruction).characterMovement.obstaclesTilemap.HasTile(downTilePosition) && ((While)instruction).isThereNotOperator)
                         {
                             instruction.Run();
                             downTilePosition = downTilePosition + Vector3Int.FloorToInt((Vector3)direction);
@@ -3146,7 +3131,7 @@ public class RunCodeButton : MonoBehaviour
                         //groundTilemap vs waterTilemap ???
                         Vector3Int leftTilePosition = ((While)instruction).characterMovement.groundTilemap.WorldToCell(((While)instruction).characterMovement.transform.position + (Vector3)direction);
                         //Oldu mu???
-                        while (((While)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && !((While)instruction).isThereNotOperator)
+                        while (!((While)instruction).characterMovement.obstaclesTilemap.HasTile(leftTilePosition) && ((While)instruction).isThereNotOperator)
                         {
                             instruction.Run();
                             leftTilePosition = leftTilePosition + Vector3Int.FloorToInt((Vector3)direction);
@@ -3560,11 +3545,7 @@ public class RunCodeButton : MonoBehaviour
                     Debug.Log("hata");
                     GameOver("Bu soruda iki tane while yapısı kullanmanız gerekiyor.");
                 }
-                else if (!((While)instructionList[1]).isThereNotOperator)
-                {
-                    Debug.Log("hata");
-                    GameOver("Bir engel olmadığından emin olmak için not operatörünü kullanmanız gerekiyor.");
-                }
+                
 
                 else if (((While)instructionList[1]).firstMethod != "right_tile")
                 {

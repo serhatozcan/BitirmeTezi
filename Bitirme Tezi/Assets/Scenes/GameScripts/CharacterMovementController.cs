@@ -152,7 +152,7 @@ public class CharacterMovementController : MonoBehaviour
     //direction degeri iki boyutlu vektör (0,1) veya (-1,0) gibi
     private bool CanMove(Vector2 direction)
     {
-        Debug.Log("canmove??");
+        //Debug.Log("canmove??");
         Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
         //eger gridPosition'da tile yoksa veya bir obstacle varsa oraya gidilemez
         if(!groundTilemap.HasTile(gridPosition) || obstaclesTilemap.HasTile(gridPosition))
