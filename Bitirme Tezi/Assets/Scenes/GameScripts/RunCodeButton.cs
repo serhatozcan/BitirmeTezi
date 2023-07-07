@@ -522,6 +522,15 @@ public class RunCodeButton : MonoBehaviour
         conditionRunList = new List<bool>();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
+        if (subjectNumber == 6)
+        {
+            if (levelNumber == 2 || levelNumber == 3)
+            {
+                inputField2.text = "class SimpleCharacter(Character) : \r\n  def __init__ (self, shape, color) :\r\n    self.shape = shape\r\n    self.color = color";
+                
+            }
+        }
+
 
         InitializeFirebase();
 
@@ -658,7 +667,7 @@ public class RunCodeButton : MonoBehaviour
         {
             List<string> initAssignments = new List<string>();
             int indentation = 0;
-
+            
 
             bool isFirstRow = true;
             bool isInitRow = false;

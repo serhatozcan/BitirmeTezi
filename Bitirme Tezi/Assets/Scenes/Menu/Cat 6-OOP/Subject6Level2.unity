@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Konu 5 Seviye 1
+  m_text: Konu 6 Seviye 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3682,12 +3682,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Character s\u0131n\u0131f\u0131ndan kal\u0131t\u0131lan SimpleCharacter
-    adl\u0131 s\u0131n\u0131f\u0131 yaz\u0131n. SimpleCharacter i\xE7in bir tane
-    __init__ metodu yaz\u0131n. __init__ metoduyla shape (\u015Fekil) ve color (renk)
-    \xF6zelliklerinin atamas\u0131n\u0131 ayarlay\u0131n. Daha sonra Main sekmesinde
-    SimpleCharacter adl\u0131 dosyada bulunan SimpleCharacter adl\u0131 s\u0131n\u0131f\u0131n
-    istedi\u011Finiz \xF6zelliklerde olan bir nesnesini olu\u015Fturun."
+  m_text: "Bir \xF6nceki problemde olu\u015Fturdu\u011Funuz SimpleCharacter s\u0131n\u0131f\u0131na
+    karakterin rengini de\u011F\u015Ftirmede kullan\u0131lacak set_color(renk) metodunu
+    tan\u0131mlay\u0131n. Main sayfas\u0131nda bir SimpleCharacter nesnesi olu\u015Fturun
+    ve bu nesnenin rengini set_color(renk) kullanarak red yap\u0131n. SimpleCharacter
+    sayfas\u0131ndaki kodu silmeden set_color(renk) metodunu tan\u0131mlay\u0131n."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10133,7 +10132,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: "class SimpleCharacter(Character) : \n  def __init__ (self, shape, color)
+    :\n    self.shape = shape\n    self.color = color"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
