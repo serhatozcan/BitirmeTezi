@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using TMPro;
 
 using UnityEngine.SceneManagement;
-//using Firebase.Extensions.TaskExtension; // for ContinueWithOnMainThread
+
 
 public class FirebaseDatabaseForParent : MonoBehaviour
 {
@@ -30,20 +30,11 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     public GameObject childrenButtonsPanel;
 
 
-    //[Space]
-    //[Header("Categories")]
-    //public GameObject Category1;
-    //public GameObject Category2;
-    //public GameObject Category3;
-    //public GameObject Category4;
-    //public GameObject Category5;
-    //public GameObject Category6;
+   
 
     [Space]
     [Header("Levels")]
-    //public string categoryNumber;
-
-    //Direkt Category ler burada atanabilir sanirim. ÖNEMLÝ ÖNEMLÝ  ÖNEMLÝ
+   
 
     [Header("Category 1")]
     public GameObject Cat1_Level1;
@@ -103,24 +94,17 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         
 
         
-        //ReadProgressionData(categoryNumber);
+       
         ReadChildrenOfParentData();
     }
 
     public void ResetLevelCheckmarks()
     {
-        //Level1Button.GetComponentInChildren<Toggle>().isOn = false;
-        //Level2Button.GetComponentInChildren<Toggle>().isOn = false;
-        //Level3Button.GetComponentInChildren<Toggle>().isOn = false;
-        //Level4Button.GetComponentInChildren<Toggle>().isOn = false;
-        //Level5Button.GetComponentInChildren<Toggle>().isOn = false;
-        //Level6Button.GetComponentInChildren<Toggle>().isOn = false;
+       
     }
 
 
-    //private string userId;
-
-    // Handle initialization of the necessary firebase modules:
+    
     void InitializeFirebase()
     {
         Debug.Log("Setting up Firebase Auth");
@@ -129,7 +113,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         AuthStateChanged(this, null);
     }
 
-    // Track state changes of the auth object.
+    
     void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
         if (auth.CurrentUser != user)
@@ -147,8 +131,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
         }
     }
 
-    // Handle removing subscription and reference to the Auth instance.
-    // Automatically called by a Monobehaviour after Destroy is called on it.
+   
     void OnDestroy()
     {
         auth.StateChanged -= AuthStateChanged;
@@ -160,35 +143,26 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
     void OnClickOpenLevel(string catNumber, string levelNumber)
     {
-        //burada bolum acilacak ama bolumu gecme olmayacak
+        
     }
 
 
-    //void AssignOnClicksToButtons()
-    //{
-    //    for()
-    //    GameObject.Find("Category" + catNumber + "/Level " + levelNumber + "/Button").GetComponent<Button>().onClick()
-    //}
-
+    
     public void ReadProgressionData(string childKey)
     {
-        //Category1.GetComponentInChildren<Toggle>().isOn = true;
-
+       
 
         Debug.Log("1");
         DatabaseReference progressionDatabaseRef = databaseReference.Child("Users").Child("Children").Child(childKey).Child("Progression");
         
-        //burada listleri dolasmam lazim
-
-        //kategori sayisi ve level sayilarini bir yerden cekmem lazim
-        
+      
 
 
         progressionDatabaseRef.GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
-                // Handle the error...
+               
             }
             else if (task.IsCompleted)
             {
@@ -306,14 +280,13 @@ public class FirebaseDatabaseForParent : MonoBehaviour
     public void ReadChildrenOfParentData()
     {
         Debug.Log("1");
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("Progression").Child("Subject_" + catNumber).Child("Level_" + catNumber)
-        //databaseReference.Child("Users").Child("Children").Child(user.UserId).Child("User Data")
+       
         databaseReference.Child("Users").Child("Parents").Child(user.UserId).Child("Children").GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
             {
                 Debug.Log("2");
-                // Handle the error...
+                
             }
             else if (task.IsCompleted)
             {
@@ -323,7 +296,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
                 foreach (DataSnapshot child in snapshot.Children)
                 {
-                    //bu sekilde her bir cocugun key'ine ulasiliyor
+                    
                     Debug.Log(child.Key);
 
                     databaseReference.Child("Users").Child("Children").Child(child.Key).Child("User Data").GetValueAsync().ContinueWithOnMainThread(task2 =>
@@ -331,7 +304,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
                         if (task2.IsFaulted)
                         {
                             Debug.Log("2");
-                            // Handle the error...
+                            
                         }
                         else if (task2.IsCompleted)
                         {
@@ -343,8 +316,8 @@ public class FirebaseDatabaseForParent : MonoBehaviour
                             foreach (DataSnapshot userData in dataSnapshot.Children)
                             {
                                 Debug.Log(userData.Key);
-                                //if (userData.Key != "firstName" || userData.Key != "lastName")
-                                //    continue;
+                               
+                                
                                 if (userData.Key == "firstName")
                                     firstName = userData.Value.ToString();
                                 if (userData.Key == "lastName")
@@ -354,16 +327,15 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
                             Debug.Log(firstName);
                             Debug.Log(lastName);
-                            //burada buton olusturulacak panele eklenecek
+                           
                             GameObject button = (GameObject)Instantiate(childButtonPrefab);
-                            button.transform.SetParent(childrenButtonsPanel.transform);//Setting button parent
+                            button.transform.SetParent(childrenButtonsPanel.transform);
                             button.GetComponent<RectTransform>().localScale = Vector3.one;
-                            //button.GetComponent<RectTransform>().anchorMax = new Vector2(3.0f, 3.0f);
-                            //button.GetComponent<RectTransform>().anchorMin = new Vector2(1.0f, 1.0f);
+                            
 
-                            button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));//Setting what button does when clicked
-                                                                                                        //Next line assumes button has child with text as first gameobject like button created from GameObject->UI->Button
-                            button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;//Changing text
+                            button.GetComponent<Button>().onClick.AddListener(() => OnClick(child.Key));
+                                                                                                        
+                            button.transform.GetChild(0).GetComponent<TMP_Text>().text = firstName + " " + lastName;
 
 
                         }
@@ -416,11 +388,7 @@ public class FirebaseDatabaseForParent : MonoBehaviour
 
     public void DropDownMenu(int val)
     {
-        //if (val == 1)
-        //    OpenManageChildrenPage();
-        //else if (val == 2)
-        //    OpenUserDataPage();
-        //else if (val == 3)
+       
             
     }
 }

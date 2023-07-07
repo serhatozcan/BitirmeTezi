@@ -82,7 +82,7 @@ public class CharacterMovementController : MonoBehaviour
             Debug.Log(direction.x + " " +direction.y);
             //character.transform.position += (Vector3)direction;
             transform.position += (Vector3)direction;
-            //transform.position = Vector3.MoveTowards(transform.position, (Vector3)direction, moveSpeed * Time.deltaTime);
+            
             Debug.Log(direction.x);
             Debug.Log(transform.position.x);
         }
@@ -92,7 +92,7 @@ public class CharacterMovementController : MonoBehaviour
     {
         if (CanSwim(direction))
         {
-            //character.transform.position += (Vector3)direction;
+            
             transform.position += (Vector3)direction;
         }
     }
@@ -100,8 +100,8 @@ public class CharacterMovementController : MonoBehaviour
 
     public void MoveUp()
     {
-        //Move(up);
-        Invoke("Move_Up", 1f);
+
+        Move(up);
     }
     public void Move_Up()
     {
@@ -118,12 +118,7 @@ public class CharacterMovementController : MonoBehaviour
     }
     public void MoveRight()
     {
-        //Debug.Log("moveright");
-        //Invoke("Move_Right", 1f);
-        //CallAfterDelay.Create(2.5f, () => {
-        //    // put the code here you want to do in 2.5 seconds, call a function, etc.
-        //    Move(right);
-        //});
+       
         Move(right);
     }
 
@@ -152,9 +147,9 @@ public class CharacterMovementController : MonoBehaviour
     //direction degeri iki boyutlu vektör (0,1) veya (-1,0) gibi
     private bool CanMove(Vector2 direction)
     {
-        //Debug.Log("canmove??");
+        
         Vector3Int gridPosition = groundTilemap.WorldToCell(transform.position + (Vector3)direction);
-        //eger gridPosition'da tile yoksa veya bir obstacle varsa oraya gidilemez
+        
         if(!groundTilemap.HasTile(gridPosition) || obstaclesTilemap.HasTile(gridPosition))
         {
             Debug.Log("Cant move");

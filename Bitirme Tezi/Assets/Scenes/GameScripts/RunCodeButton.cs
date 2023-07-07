@@ -21,15 +21,15 @@ public abstract class Instruction
 public abstract class HolderInstruction : Instruction
 {
     public List<Instruction> instructions;
-    //public abstract void Add(Instruction instruction);
+    
 }
 
-//sadece say�yla d�nen for loop. boolean olacaksa ayr� class olu�turulabilir.
+
 public class For : HolderInstruction
 {
     public CharacterMovementController characterMovement;
     private int iterationCount;
-    //private List<Instruction> instructions;
+    
 
     public For(CharacterMovementController characterMovement, int iterationCount, int level)
     {
@@ -41,7 +41,7 @@ public class For : HolderInstruction
 
     public override void Run()
     {
-        //iterasyon say�s�n� ayarlamak laz�m.
+        
         Debug.Log("iteration" + iterationCount);
 
         for (int i = 0; i < iterationCount; i++)
@@ -76,9 +76,9 @@ public class While : HolderInstruction
         instructions = new List<Instruction>();
         this.isThereNotOperator = isThereNotOperator;
         this.level = level;
-        //type = 2;
+        
 
-        //boolean burada hesaplan�rsa karakterin o anki g�ncel durumu de�il. en ba�taki durumuna g�re hesap yap�l�r.
+        
     }
 
     public override void Run()
@@ -109,7 +109,7 @@ public class If : HolderInstruction
         this.level = level;
         type = 1;
 
-        //boolean burada hesaplan�rsa karakterin o anki g�ncel durumu de�il. en ba�taki durumuna g�re hesap yap�l�r.
+        
     }
     public If(CharacterMovementController characterMovement, string firstMethod, string secondMethod, string secondMethodParameter, bool isThereNotOperator, int level)
     {
@@ -122,11 +122,11 @@ public class If : HolderInstruction
         this.level = level;
         type = 2;
 
-        //boolean burada hesaplan�rsa karakterin o anki g�ncel durumu de�il. en ba�taki durumuna g�re hesap yap�l�r.
+        
     }
 
 
-    //rightpart ve operator type olup olmamas�na gore iki sekilde calisacak
+    
     public override void Run()
     {
 
@@ -158,7 +158,7 @@ public class Elif : HolderInstruction
         this.level = level;
         type = 1;
 
-        //boolean burada hesaplan�rsa karakterin o anki g�ncel durumu de�il. en ba�taki durumuna g�re hesap yap�l�r.
+       
     }
     public Elif(CharacterMovementController characterMovement, string firstMethod, string secondMethod, string secondMethodParameter, bool isThereNotOperator, int level)
     {
@@ -171,7 +171,7 @@ public class Elif : HolderInstruction
         this.level = level;
         type = 2;
 
-        //boolean burada hesaplan�rsa karakterin o anki g�ncel durumu de�il. en ba�taki durumuna g�re hesap yap�l�r.
+        
     }
 
 

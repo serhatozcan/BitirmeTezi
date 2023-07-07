@@ -12,14 +12,14 @@ public class TabStructure : MonoBehaviour
     public GameObject page2;
 
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         HideAllPages();
         ShowPage1();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         

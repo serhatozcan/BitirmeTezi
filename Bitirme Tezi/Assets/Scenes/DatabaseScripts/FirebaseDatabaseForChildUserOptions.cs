@@ -25,18 +25,17 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
     [Header("SubjectsPanel")]
     public GameObject subjectsPanel;
 
-    //private static string currentObservedChild;
+    
 
     public void Start()
     {
         
-        //ResetLevelCheckmarks();  //Bu gereksiz olabilir. 
+        
 
         InitializeFirebase();
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         childUserOptionsButton.GetComponent<Button>().GetComponentInChildren<TMP_Text>().SetText(user.DisplayName);
-        //ReadProgressionData(categoryNumber);
-        //ReadChildrenOfParentData();
+        
     }
 
     public void OpenAndCloseChildUserOptionsMenu()
@@ -45,11 +44,10 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
         {
             childUserOptionsPanel.SetActive(true);
             Time.timeScale = 0;
-            //runButton.GetComponent<Button>().interactable = false;
-            //addNewChildButton.GetComponent<Button>().interactable = false;
+            
             foreach (Transform child in subjectsPanel.transform)
             {
-                //Destroy(child.gameObject);
+               
                 child.gameObject.GetComponent<Button>().interactable = false;
             }
         }
@@ -57,24 +55,19 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
         {
             childUserOptionsPanel.SetActive(false);
             Time.timeScale = 1;
-            //addNewChildButton.GetComponent<Button>().interactable = true;
+            
             foreach (Transform child in subjectsPanel.transform)
             {
-                //Destroy(child.gameObject);
+                
                 child.gameObject.GetComponent<Button>().interactable = true;
             }
-            //runButton.GetComponent<Button>().interactable = true;
+            
         }
 
 
     }
 
 
-   
-
-    //private string userId;
-
-    // Handle initialization of the necessary firebase modules:
     void InitializeFirebase()
     {
         Debug.Log("Setting up Firebase Auth");
@@ -83,7 +76,7 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
         AuthStateChanged(this, null);
     }
 
-    // Track state changes of the auth object.
+    
     void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
         if (auth.CurrentUser != user)
@@ -101,8 +94,7 @@ public class FirebaseDatabaseForChildUserOptions : MonoBehaviour
         }
     }
 
-    // Handle removing subscription and reference to the Auth instance.
-    // Automatically called by a Monobehaviour after Destroy is called on it.
+   
     void OnDestroy()
     {
         auth.StateChanged -= AuthStateChanged;
