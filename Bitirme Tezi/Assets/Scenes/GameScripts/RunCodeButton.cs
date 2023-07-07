@@ -185,7 +185,7 @@ public class Elif : HolderInstruction
 
 public class Else : HolderInstruction
 {
-    //gerekli degil galiba
+    
     public CharacterMovementController characterMovement;
     public Else(CharacterMovementController characterMovement, int level)
     {
@@ -289,7 +289,7 @@ public class Swim : Instruction
 
     public override void Run()
     {
-        //burada direk Move(Vector2) kullan�labilir. 
+        
         if (direction == "left")
             characterMovement.SwimLeft();
         else if (direction == "right")
@@ -440,23 +440,18 @@ public class RunCodeButton : MonoBehaviour
         inputField1.interactable = false;
         if (codePageCount == 2)
             inputField2.interactable = false;
-        //inputField2.interactable = false;
+        
         optionsButton.GetComponent<Button>().interactable = false;
         runButton.GetComponent<Button>().interactable = false;
         Time.timeScale = 0;
-        //catNumber = CatNumberInput;
-        //levelNumber = levelNumberInput;
+        
         errorMessageText.text = errorMessage;
-        ////codeInputField_1Text.text = codeInputField_1;
-        //PlayerPrefs.SetString("codeInput1", codeInputField_1);
-        //PlayerPrefs.SetString("codeInput2", codeInputField_2);
-        ////codeInputField_2Text.text = codeInputField_2;
+        
 
     }
     public void ResetLevel()
     {
-        //meyve veya farkli seyler eklenirse her sey basta oldugu yere konmali
-        //LoadScene ile scene'i yeniden yuklersem cocuklarin yazdiklari kod kaybolur. 
+        
         gameOverPanel.SetActive(false);
         instructionList.Clear();
 
@@ -467,7 +462,7 @@ public class RunCodeButton : MonoBehaviour
         optionsButton.GetComponent<Button>().interactable = true;
         runButton.GetComponent<Button>().interactable = true;
 
-        //gerek var mi?
+       
         Time.timeScale = 1;
     }
     public void LoadLevel()
@@ -633,8 +628,7 @@ public class RunCodeButton : MonoBehaviour
 
     public void RunCode()
     {
-        //GameOver("Örnek kod hatası");
-        //aslinda gerek olmayabilir
+        
         instructionList.Clear();
 
 
@@ -652,13 +646,13 @@ public class RunCodeButton : MonoBehaviour
         int n = 2;
 
 
-        //string className = null;
+        
         string className = "SimpleCharacter";
         string parentClassName = "Character";
         string secondClassFileName = "SimpleCharacter";
         string classInstanceName = null;
 
-        //List<string> classInitParameters = new List<string>();
+        
 
         if (codePageCount == 1)
             classInstanceName = "character";
@@ -781,11 +775,11 @@ public class RunCodeButton : MonoBehaviour
 
 
 
-                    //string leftTrimmedRow = rows2[i].Substring(rowIndentation);
+                    
                     string trimmedRow = rows2[i].Trim();
                     Debug.Log(rows2[i]);
                     string[] rowWords;
-                    //string[] rowWords = leftTrimmedRow.Split(" ");
+                    
 
 
                     try
@@ -887,8 +881,7 @@ public class RunCodeButton : MonoBehaviour
                 else if (isInsideSetColor || isInsideSetShape)
                 {
                     Debug.Log(isInsideSetColor + " " + rows2[i] + " " + isInsideSetShape);
-                    //burada kod şöyle olacak
-                    //self.color = color
+                    
                     int c = 0;
                     while (rows2[i][c] == ' ')
                     {
@@ -986,7 +979,7 @@ public class RunCodeButton : MonoBehaviour
 
                 else
                 {
-                    //burada def set_color ve def set_shape okunacak.
+                    
                     int c = 0;
                     while (rows2[i][c] == ' ')
                     {
@@ -996,8 +989,7 @@ public class RunCodeButton : MonoBehaviour
                     //------------------------------------
                     if (rowIndentation == indentation + 2 * n && isInsideInit)
                     {
-                        //Debug.Log("hATA");
-                        //GameOver("Indentation hatas�: Komutun �n�ne init komutunun �n�ne koydu�unuzdan " + n + " fazla bo�luk koyarak yazman�z gerekiyor.");
+                        
 
                         string trimmedRow = rows2[i].Trim();
                         Debug.Log(trimmedRow);
@@ -1034,7 +1026,7 @@ public class RunCodeButton : MonoBehaviour
 
                                         Debug.Log(rightPart);
 
-                                        //aslında sol taraf _name veya __name gibi olabiliyor. bakılacak.
+                                        
                                         if (leftPartAfterSelfWord != rightPart)
                                         {
                                             Debug.Log("hata");
@@ -1090,7 +1082,7 @@ public class RunCodeButton : MonoBehaviour
                             else
                             {
                                 string methodPart = trimmedRow.Substring(3).Trim();
-                                //bu kısım metodlaştırılıp soruya göre çağrılabilir.
+                                
                                 if (methodPart.Substring(0, 9) != "set_color" && methodPart.Substring(0, 9) != "set_shape")
                                 {
                                     Debug.Log("hata");
@@ -1210,12 +1202,12 @@ public class RunCodeButton : MonoBehaviour
 
         if (!String.IsNullOrEmpty(inputText1))
         {
-            //List<Instruction> instructions = new List<Instruction>();
+            
             int instructionLevel;
 
             string lastInstructionType = null;
 
-            //bool isImportRow = true;
+           
             bool isFirstRow = true;
             bool isClassInstanceRow = false;
             int indentation = 0;
@@ -1223,10 +1215,10 @@ public class RunCodeButton : MonoBehaviour
 
             int conditionId = -1;
             int lastIndentation = 0;
-            //Ba�ka class varsa buras� kullan�lacak. Yoksa baz� k�s�mlar� kullan�lmayacak.
+            
             for (int i = 0; i < rows1.Length; i++)
             {
-                //ayr�ca null kontrol� de gerekebilir.
+               
                 if (String.IsNullOrEmpty(rows1[i]))
                     continue;
 
@@ -1237,7 +1229,7 @@ public class RunCodeButton : MonoBehaviour
                     
                 
 
-                    //birden fazla import sat�r� istenmedi�i i�in bir tane olacak �ekilde ayarland�. 
+                    
                     if (codePageCount == 2 && isFirstRow)
                     {
                         int c = 0;
@@ -1302,7 +1294,7 @@ public class RunCodeButton : MonoBehaviour
                         isFirstRow = false;
                         isClassInstanceRow = true;
                     }
-                    //buraya eklenebilir.
+                    
                     else if (codePageCount == 2 && isClassInstanceRow)
                     {
 
@@ -1549,7 +1541,7 @@ public class RunCodeButton : MonoBehaviour
                                             string[] ifParts = booleanPart.Split('.');
                                             string parameterPart = null;
 
-                                            //if (ifParts.Length == 2 || ifParts.Length == 3)
+                                            
                                             if (ifParts.Length == 3)
                                             {
 
@@ -1764,7 +1756,7 @@ public class RunCodeButton : MonoBehaviour
 
                                 else
                                 {
-                                    //burada san�r�m trim kullanmak gerekiyor ve sonras�nda kelimenin i�inde bo�luk var m� diye bakmak gerekiyor
+                                    
                                     string var = trimmedRow.Substring(3, trimmedRow.IndexOf("in") - 3).Trim();
                                     Debug.Log("var = " + var);
                                     //
@@ -2821,22 +2813,7 @@ public class RunCodeButton : MonoBehaviour
                                     instruction.Run();
                                 }
                             }
-                            else if (((Elif)instruction).secondMethod == "contains")
-                            {
-                                //burada direkt parameterPart diye yazilabilir mi??
-                                if (((Elif)instruction).secondMethodParameter == "apple")
-                                {
-
-                                }
-                                else if (((Elif)instruction).secondMethodParameter == "banana")
-                                {
-
-                                }
-                                else if (((Elif)instruction).secondMethodParameter == "kiwi")
-                                {
-
-                                }
-                            }
+                            
                         }
                         //HEPSINE CONTAINS EKLENECEK.
                         else if (((Elif)instruction).firstMethod == "down_tile")
@@ -3935,10 +3912,7 @@ public class RunCodeButton : MonoBehaviour
         {
             Debug.Log("level " + instruction.level);
 
-            //if (instruction.GetType() == typeof(Condition))
-            //{
-
-            //}
+            
 
             if (i == instruction.level)
             {
@@ -3954,13 +3928,13 @@ public class RunCodeButton : MonoBehaviour
                 if (instructionList[instructionList.Count - 1].GetType().IsSubclassOf(typeof(HolderInstruction)))
                 {
                     Debug.Log("holderxxxx");
-                    //burada son listin sonundaki instruction�n listi al�n�yor
+                    
                     instructionList = ((HolderInstruction)instructionList[instructionList.Count - 1]).instructions;
                     Debug.Log(instructionList.Count);
-                    //instruction = instructionList[instructionList.Count - 1];
+                    
 
                 }
-                //}
+                
                 else
                 {
                     Debug.Log("hata???");
@@ -3988,7 +3962,7 @@ public class RunCodeButton : MonoBehaviour
         }
         else
         {
-            Debug.Log("mm");
+            
 
             Regex regex = new Regex(@"^[a-zA-Z0-9_]*$");
             Match match = regex.Match(var);
@@ -4006,7 +3980,7 @@ public class RunCodeButton : MonoBehaviour
                 return false;
             }
         }
-        Debug.Log("yyy");
+        
         return true;
     }
 

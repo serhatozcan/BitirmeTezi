@@ -65,24 +65,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/Cat 1-Introduction to Coding/Subject1Level6.unity
     guid: 68812f6c8d47ed34b9da46625380e8ad
-  - enabled: 1
-    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level1.unity
-    guid: bf55fb5eda1b6344b8a3772955f1b5a9
-  - enabled: 1
-    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level2.unity
-    guid: 2dd481b113623b64ab48af387d634626
-  - enabled: 1
-    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level3.unity
-    guid: acb976a23b7bbb64eb7787d461b50e80
-  - enabled: 1
-    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level4.unity
-    guid: f2fd123eb84e18e489082695ab7119d6
-  - enabled: 1
-    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level5.unity
-    guid: 7a9fdf4120db6334baab7ff5d3c4863e
-  - enabled: 1
-    path: Assets/Scenes/Menu/Cat 2-For Lopp/Subject2Level6.unity
-    guid: 5d0265f406df5f543b634c90f35701b3
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Menu/Cat 3-If Else/Subject3Level1.unity
     guid: 69861351cbc52f549b03bb2f0b79837e
@@ -137,4 +137,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu/Cat 5-Nested Statements/Subject5Level6.unity
     guid: 374b8c0d005c273479e5551d0a22401e
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Loop/Subject2Level1.unity
+    guid: a308e1cfd5b3b2c498259697dcc2b239
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Loop/Subject2Level2.unity
+    guid: 23bcf875e049f634ab51063d709802aa
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Loop/Subject2Level3.unity
+    guid: 2c25a7bf24f1ce94b8cb31fb1d4bd3cc
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Loop/Subject2Level4.unity
+    guid: 8d25ee3ad4e746e469e30c2622abcea1
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Loop/Subject2Level5.unity
+    guid: f3ef49c16fdffbb4ba73b609d5211250
+  - enabled: 1
+    path: Assets/Scenes/Menu/Cat 2-For Loop/Subject2Level6.unity
+    guid: 842d59205485d0f4fa367f3e3e749dd5
   m_configObjects: {}
