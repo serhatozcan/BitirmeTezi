@@ -1481,8 +1481,11 @@ public class RunCodeButton : MonoBehaviour
                             Debug.Log("lastindentation"+lastIndentation);
                             if (rowIndentation != lastIndentation + n)
                             {
-                                GameOver("Indentation hatası: Komutun başında bıraktığınız boşluk miktarını kontrol etmeniz gerekiyor.");
+                                Debug.Log(lastIndentation);
                                 Debug.Log("indentation hatası2");
+                                Debug.Log(lastIndentation);
+                                GameOver("Indentation hatası: Komutun başında bıraktığınız boşluk miktarını kontrol etmeniz gerekiyor.");
+                                
                             }
                         }
 
@@ -1630,6 +1633,8 @@ public class RunCodeButton : MonoBehaviour
                                                         secondMethod = "is_ground";
                                                         If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
                                                         AddInstruction(ifInstruction);
+                                                        lastInstructionType = "holder";
+                                                        lastIndentation = rowIndentation;
                                                     }
 
                                                 }
@@ -1651,6 +1656,8 @@ public class RunCodeButton : MonoBehaviour
                                                         secondMethod = "is_water";
                                                         If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
                                                         AddInstruction(ifInstruction);
+                                                        lastInstructionType = "holder";
+                                                        lastIndentation = rowIndentation;
                                                     }
 
                                                 }
@@ -1672,6 +1679,8 @@ public class RunCodeButton : MonoBehaviour
                                                         secondMethod = "is_obstacle";
                                                         If ifInstruction = new If(characterMovement, firstMethod, secondMethod, null, isThereNotOperator, instructionLevel);
                                                         AddInstruction(ifInstruction);
+                                                        lastInstructionType = "holder";
+                                                        lastIndentation = rowIndentation;
                                                     }
 
                                                 }
@@ -1703,6 +1712,8 @@ public class RunCodeButton : MonoBehaviour
                                                             secondMethod = "contains";
                                                             If ifInstruction = new If(characterMovement, firstMethod, secondMethod, parameterPart, isThereNotOperator, instructionLevel);
                                                             AddInstruction(ifInstruction);
+                                                            lastInstructionType = "holder";
+                                                            lastIndentation = rowIndentation;
                                                         }
                                                     }
 
@@ -2411,7 +2422,7 @@ public class RunCodeButton : MonoBehaviour
                                                         Swim swim_right = new Swim(characterMovement, "right", instructionLevel);
                                                         Debug.Log("mr level " + instructionLevel);
                                                         AddInstruction(swim_right);
-                                                        lastInstructionType = "nonholder";
+                                                        lastInstructionType = "not_holder";
                                                         lastIndentation = rowIndentation;
                                                     }
                                                     else
@@ -2438,7 +2449,7 @@ public class RunCodeButton : MonoBehaviour
                                                     {
                                                         Def_SetColor setColor = new Def_SetColor(characterColorAndShapeChanger, methodParameter, instructionLevel);
                                                         AddInstruction(setColor);
-                                                        lastInstructionType = "nonholder";
+                                                        lastInstructionType = "not_holder";
                                                         lastIndentation = rowIndentation;
                                                     }
                                                     else
@@ -2465,7 +2476,7 @@ public class RunCodeButton : MonoBehaviour
                                                     {
                                                         Def_SetShape setShape = new Def_SetShape(characterColorAndShapeChanger, methodParameter, instructionLevel);
                                                         AddInstruction(setShape);
-                                                        lastInstructionType = "nonholder";
+                                                        lastInstructionType = "not_holder";
                                                         lastIndentation = rowIndentation;
                                                     }
                                                     else

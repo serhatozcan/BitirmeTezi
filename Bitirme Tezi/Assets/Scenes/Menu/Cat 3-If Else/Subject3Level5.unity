@@ -3025,10 +3025,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "If else yap\u0131s\u0131 i\xE7inde karakterin sol taraf\u0131ndaki blokta
-    engel yoksa move metoduyla karakteri sol blo\u011Fa g\xF6t\xFCr\xFCn. Daha sonra
-    karakterin \xFCst taraf\u0131ndaki blok karaysa move metoduyla karakteri \xFCst
-    blo\u011Fa g\xF6t\xFCr\xFCn. "
+  m_text: "If yap\u0131lar\u0131n\u0131 kullanarak karakterin sol taraf\u0131ndaki
+    blokta engel yoksa move metoduyla karakteri sol blo\u011Fa g\xF6t\xFCr\xFCn.
+    Daha sonra karakterin \xFCst taraf\u0131ndaki blok karaysa move metoduyla karakteri
+    \xFCst blo\u011Fa g\xF6t\xFCr\xFCn. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
